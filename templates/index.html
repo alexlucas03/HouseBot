@@ -9,15 +9,14 @@
 </head>    
 <body>
     <header>"Hello!"</header>
-    
-    <div class="dishes-container">
-        <!-- Loop through the dishes and display the date of each dish -->
-        {% for dish in dishes %}
-            <div class="dish-item">
-                <p>Date: {{ dish.date }}</p>
-            </div>
-        {% endfor %}
-    </div>
+    <span>
+        <h1>Dishes:</h1>
+        <ul id="dishes">
+            {% for dish in dishes %}
+                <li>Date: {{ dish.date }}</li>
+            {% endfor %}
+        </ul>
+    </span>
     
     <script src="static/js/script.js"></script>
 </body>
