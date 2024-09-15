@@ -5,8 +5,6 @@ from twilio.rest import Client
 from twilio.twiml.voice_response import VoiceResponse, Gather, Pause
 from callee import Callee
 import io
-from ably import AblyRealtime
-import asyncio
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -17,9 +15,6 @@ active_user = None
 database = {
     'alex': {'password': '12', 'num': '2066987256'},
 }
-
-ably_client = AblyRealtime('LHdIAA.QQSKMw:Xp_PCWf9v7fwdQFm8w3Z1kxP7YHnyj3DBEZ1-6k1YNo')
-channel = ably_client.channels.get('call-updates')
 
 callees = []
 to_call = []
