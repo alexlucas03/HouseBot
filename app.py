@@ -12,7 +12,7 @@ endDate = "2024-12-08"
 start_date_obj = datetime.datetime.strptime(startDate, "%Y-%m-%d")
 end_date_obj = datetime.datetime.strptime(endDate, "%Y-%m-%d")
 
-delta = datetime.timedelta(days=1)
+delta = datetime.timedelta(days=0.5)
 current_date = start_date_obj
 
 while current_date <= end_date_obj:
