@@ -1,4 +1,8 @@
+#bug fix comment
+#in order index, only if calling exists. else make it len(callees)
+
 from flask import Flask, render_template, request, redirect, url_for
+from flask_socketio import SocketIO, emit
 import pandas as pd
 import time
 from twilio.rest import Client
@@ -8,6 +12,7 @@ import io
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
+socketio = SocketIO(app)
 account_sid = 'AC597bdd2caf2d68637b0010e1dd3e415c'
 auth_token = 'b86c0a388dafcd964c5a57568b41c7e8'
 client = Client(account_sid, auth_token)
@@ -333,7 +338,7 @@ def issue():
     return '', 200
 
 def updates():
-    data = {
+    socketio.emit('update', {
         'to_call': [callee.name for callee in to_call],
         'calling': [callee.name for callee in calling],
         'called': [callee.name for callee in called],
@@ -343,6 +348,8 @@ def updates():
         'tags': tags,
         'prim_num': prim_num,
         'sec_num': sec_num,
-    }
-    
-    channel.publish('update', data)
+    })
+
+
+if __name__ == "__main__":
+    socketio.run(app, port=8000, debug=True)
