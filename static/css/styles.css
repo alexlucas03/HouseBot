@@ -1,0 +1,230 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Header styles */
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+/* Style for the buttons */
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px 0;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Updated form styles with focus highlight */
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    margin-bottom: 20px;
+    background-color: #ffffff; /* Softer background */
+    padding: 20px; /* Consistent padding */
+    border: 2px solid #ccc; /* Increased border width for better highlighting */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: none; /* Soft shadow */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+/* Highlight the form border when any input within the form is focused */
+form:focus-within {
+    border-color: #007BFF; /* Highlight color */
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* More prominent shadow */
+}
+
+/* Form container height related to input fields */
+:root {
+    --input-height: 40px; /* Height of the number input field */
+}
+
+.formCont {
+    height: calc(var(--input-height) * 2); /* Twice the height of the input field */
+}
+
+/* Input fields and other form elements */
+input[type="file"]::file-selector-button,
+input[type="number"],
+input[type="text"],
+select {
+    width: 100%;
+    height: var(--input-height); /* Set height for consistency */
+    padding: 10px;
+    font-size: 16px;
+    border: none; /* Light border */
+    border-radius: 4px;
+    margin: auto;
+    box-sizing: border-box; /* Ensures padding is included in width */
+    transition: border-color 0.3s ease;
+    display: flex;
+    align-items: center; /* Center content vertically */
+}
+
+textarea {
+    resize: vertical; /* Allows vertical resizing */
+    height: auto; /* Allow textarea to expand vertically */
+    min-height: calc(var(--input-height) * 2); /* Minimum height */
+}
+
+/* Remove focus highlight from inputs to avoid double highlighting */
+input[type="file"]::file-selector-button:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+    border-color: #ccc; /* Same as default to remove highlight */
+    box-shadow: none; /* Remove box shadow */
+    outline: none; /* Remove the outline */
+}
+
+/* Style for the lists */
+ul {
+    list-style-type: none;
+    margin-bottom: 20px;
+}
+
+ul li {
+    padding: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+ul li:nth-child(odd) {
+    background-color: #f1f1f1;
+}
+
+/* Specific styles for the sections */
+h1 + ul {
+    margin-top: -10px;
+}
+
+/* Flexbox layout for the columns */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.left, .middle, .right {
+    padding: 15px;
+    height: 100%;
+}
+
+.left {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    width: 50%;
+}
+
+.left span {
+    display: table-cell;
+    text-align: center;
+}
+
+.right {
+    width: 50%;
+}
+
+/* Flexbox layout for subcolumns */
+.subcolumn {
+    width: 48%;
+    float: left;
+    margin-right: 4%;
+}
+
+.subcolumn:last-child {
+    margin-right: 0;
+}
+
+@media (max-width: 800px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .left, .middle, .right {
+        width: 100%;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+        padding: 15px;
+    }
+
+    textarea {
+        padding: 15px;
+    }
+
+    form {
+        padding: 20px;
+    }
+}
+
+/* Tag list styling */
+.tagList {
+    width: 100%;
+}
+
+/* Header container styles */
+.header-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px;
+}
+
+.header-container h1 {
+    margin-right: 10px;
+}
+
+.header-container button {
+    margin-left: 10px;
+}
+
+/* Additional styling for buttons within forms */
+form button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #28a745; /* Consistent button color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #218838;
+}
