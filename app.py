@@ -17,7 +17,7 @@ current_date = start_date_obj
 
 while current_date <= end_date_obj:
         # Create a new Dish object with the current date as an attribute
-        dish = Dish(date=current_date.strftime("%Y-%m-%d"))
+        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", time="time")
         dishes.append(dish)
         current_date += delta
 
