@@ -2,71 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>AutoCall</title>
+    <title>Dish Bot</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
-    <script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
 </head>    
 <body>
-    <div>
-        <span>
-            <h1>Active User: <span id="userDisplay">{{ active_user }}</span></h1>
-            <button id="logoutButton">Log Out</button>
-        </span>
-    </div>
-    <div>
-        <div class="row">
-            <div class="left">
-                <span>
-                    <h1>To Call:</h1>
-                    <ul id="toCallList"></ul>
-                </span>
-                <span>
-                    <h1>Calling:</h1>
-                    <ul id="callingList"></ul>
-                </span>
-                <span>
-                    <h1>Called:</h1>
-                    <ul id="calledList"></ul>
-                </span>
-                <span>
-                    <h1>Accepted:</h1>
-                    <ul id="acceptedList"></ul>
-                </span>
-            </div>
-            <div class="right">
-                <h1>Issue: <span id="issueDisplay"></span></h1>
-                <form id="issueForm" class="formCont">
-                    <input type="text" id="issue" name="issue"></input>
-                </form>
-                <div class="row">
-                    <div class="subcolumn">
-                        <h1>Populate: <span id="fileDisplay"></span></h1>
-                        <form id="uploadForm" enctype="multipart/form-data" class="formCont">
-                            <input type="file" name="upload" accept="text/csv" />
-                        </form>
-                        <h1>Filter: <span id="tagDisplay"></span></h1>
-                        <form id="filterForm" class="formCont">
-                            <select id="tagList" name="tagList" class="tagList">cvx </select>
-                        </form>
-                    </div>
-                    <div class="subcolumn">
-                        <h1>Primary: <span id="primDisplay"></span></h1>
-                        <form id="primForm" class="formCont">
-                            <input type="number" id="num"/>
-                        </form>
-                        <h1>Secondary: <span id="secDisplay"></span></h1>
-                        <form id="secForm" class="formCont">
-                            <input type="number" id="secNum"/>
-                        </form>
-                    </div>
-                </div>
-                <button id="startCalls">Begin Calls</button>
-                <button id="terminateCalls">Terminate Calls</button>
-            </div>
-        </div>
-    </div>
+    <header>"Hello!"</header>
     <script src="static/js/script.js"></script>
 </body>
 </html>
