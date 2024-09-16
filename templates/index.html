@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
     <style>
+        .month-column {
+            display: inline-block;
+            width: 30%;
+            vertical-align: top;
+            margin-right: 20px;
+        }
         .month-column ul {
             list-style-type: none;
             padding: 0;
@@ -14,73 +20,24 @@
         .month-column h2 {
             text-align: center;
         }
-
-        #dish-columns {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
-        .month-column {
-            flex: 1;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div>
-        <label for="user-name">Enter your name:</label>
-        <input type="text" id="user-name" placeholder="Your Name">
-    </div>
-    <h1>Dishes:</h1>
-    <div id="dish-columns">
-        {% for month, dishes_in_month in grouped_dishes.items() %}
-            <div class="month-column">
-                <h2>{{ month }}</h2>
-                <ul>
-                    {% for dish in dishes_in_month %}
-                        <li>
-                            Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner }}
-                            <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endfor %}
-    </div>
-
-    <script src="static/js/script.js"></script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dish Bot</title>
-    <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
-    <style>
-        .month-column ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .month-column h2 {
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
             text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
         }
-
-        #dish-columns {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-evenly;
-        }
-        .month-column {
-            flex: 1;
-            margin: 10px;
-            min-width: 200px; /* Adjust this value as needed */
-            max-width: 300px; /* Adjust this value as needed */
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
-</head>
+</head>    
 <body>
     <h1>Dishes:</h1>
     <div id="dish-columns">
@@ -95,6 +52,9 @@
             </div>
         {% endfor %}
     </div>
+    
+    <!-- Button to download the spreadsheet -->
+    <a href="{{ url_for('download_spreadsheet') }}" class="button">Download Spreadsheet</a>
 
     <script src="static/js/script.js"></script>
 </body>
