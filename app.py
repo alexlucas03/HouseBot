@@ -19,10 +19,13 @@ delta = datetime.timedelta(days=1)
 current_date = start_date_obj
 
 while current_date <= end_date_obj:
-    dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[typeIndex])
-    dishes.append(dish)
-    
-    typeIndex = (typeIndex + 1) % 3
+    day_of_week = current_date.strftime("%A")
+
+    if day_of_week != "Saturday":
+        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[typeIndex])
+        dishes.append(dish)
+        
+        typeIndex = (typeIndex + 1) % 3
     
     current_date += delta
 
