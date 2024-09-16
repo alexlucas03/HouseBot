@@ -48,9 +48,11 @@ for dish in dishes:
 
 @app.route('/')
 def index():
-    today_lunch
-    today_dinner
-    today_x1
+    today_lunch = None
+    today_dinner = None
+    today_x1 = None
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
+
     for dish in dishes:
         if dish.date == today:
             if dish.type == "lunch":
@@ -59,7 +61,10 @@ def index():
                 today_dinner = dish
             elif dish.type == "x1":
                 today_x1 = dish
-    message = f"Lunch: {today_lunch.owner} \n Dinner: {today_dinner.owner} \n x1: {today_x1.owner}"
+
+    message = f"Lunch: {today_lunch.owner if today_lunch else 'None'} \n" \
+              f"Dinner: {today_dinner.owner if today_dinner else 'None'} \n" \
+              f"x1: {today_x1.owner if today_x1 else 'None'}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
