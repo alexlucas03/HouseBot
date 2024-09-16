@@ -11,15 +11,25 @@ startDate = "2024-09-15"
 endDate = "2024-12-08"
 start_date_obj = datetime.datetime.strptime(startDate, "%Y-%m-%d")
 end_date_obj = datetime.datetime.strptime(endDate, "%Y-%m-%d")
+lunch = True
+dinner = False
 
 delta = datetime.timedelta(days=0.5)
 current_date = start_date_obj
 
 while current_date <= end_date_obj:
-        # Create a new Dish object with the current date as an attribute
-        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", time="time")
-        dishes.append(dish)
-        current_date += delta
+        if lunch:
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", time="lunch")
+            dishes.append(dish)
+            current_date += delta
+            lunch = False
+            dinner = True
+        elif dinner:
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", time="dinner")
+            dishes.append(dish)
+            current_date += delta
+            lunch = True
+            dinner = False
 
 @app.route('/')
 def index():
