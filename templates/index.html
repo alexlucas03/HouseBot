@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
     <style>
-        
         .month-column ul {
             list-style-type: none;
             padding: 0;
@@ -15,8 +14,20 @@
         .month-column h2 {
             text-align: center;
         }
+
+        #dish-columns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .month-column {
+            flex: 1;
+            margin: 10px;
+            min-width: 200px; /* Adjust this value as needed */
+            max-width: 300px; /* Adjust this value as needed */
+        }
     </style>
-</head>    
+</head>
 <body>
     <h1>Dishes:</h1>
     <div id="dish-columns">
@@ -31,7 +42,55 @@
             </div>
         {% endfor %}
     </div>
-    
+
+    <script src="static/js/script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish Bot</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+    <style>
+        .month-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .month-column h2 {
+            text-align: center;
+        }
+
+        #dish-columns {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .month-column {
+            flex: 1;
+            margin: 10px;
+            min-width: 200px; /* Adjust this value as needed */
+            max-width: 300px; /* Adjust this value as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>Dishes:</h1>
+    <div id="dish-columns">
+        {% for month, dishes_in_month in grouped_dishes.items() %}
+            <div class="month-column">
+                <h2>{{ month }}</h2>
+                <ul>
+                    {% for dish in dishes_in_month %}
+                        <li>Date: {{ dish.date }}, Type: {{ dish.type }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
     <script src="static/js/script.js"></script>
 </body>
 </html>
