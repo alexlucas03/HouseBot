@@ -290,7 +290,7 @@ qtconsole @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_
 QtPy @ file:///Users/ec2-user/ci_py311/qtpy_1678322936834/work
 queuelib==1.5.0
 regex @ file:///Users/ec2-user/ci_py311/regex_1678394018661/work
-requests==2.32.3
+requests @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_fa2zrx4csg/croot/requests_1690400223595/work
 requests-file @ file:///Users/ktietz/demo/mc3/conda-bld/requests-file_1629455781986/work
 requests-toolbelt @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_d4z1wb6cpk/croot/requests-toolbelt_1690874009769/work
 responses @ file:///tmp/build/80754af9/responses_1619800270522/work
