@@ -20,6 +20,7 @@ type_index = 0
 
 delta = datetime.timedelta(days=1)
 current_date = start_date
+today = datetime.today().strftime('%Y-%m-%d')
 
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
@@ -47,11 +48,24 @@ for dish in dishes:
 
 @app.route('/')
 def index():
+    today_lunch
+    today_dinner
+    today_x1
+    for dish in dishes:
+        if dish.date == today:
+            if dish.type == "lunch":
+                today_lunch = dish
+            elif dish.type == "dinner":
+                today_dinner = dish
+            elif dish.type == "x1":
+                today_x1 = dish
+    message = f"Lunch: {today_lunch.owner} \n Dinner: {today_dinner.owner} \n x1: {today_x1.owner}"
+
     url = "https://api.groupme.com/v3/bots/post"
 
     # Data to send in the POST request
     data = {
-        "text": "Your message here",
+        "text": message,
         "bot_id": "c9ed078f3de7c89547308a050a"
     }  
     # Send the POST request
