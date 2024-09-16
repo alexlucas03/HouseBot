@@ -1,11 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template
 import datetime
 from dish import Dish
+import groupyapi
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-active_user = None
 
+# Initial Data Setup
 dishes = []
 startDate = "2024-09-15"
 endDate = "2024-12-08"
@@ -20,28 +21,43 @@ current_date = start_date_obj
 
 while current_date <= end_date_obj:
     day_of_week = current_date.strftime("%A")
-
+    
     if day_of_week != "Saturday":
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[typeIndex])
         dishes.append(dish)
-        
         typeIndex = (typeIndex + 1) % 3
-    
+
     current_date += delta
+
 
 @app.route('/')
 def index():
-    return render_template('index.html',
-                           dishes=dishes)
+    return render_template('index.html', dishes=dishes)
 
 
-def get_day_of_week(date):
-    """Gets the day of the week for a given date string."""
+# Function to get today's dishes
+def get_todays_dishes():
+    today_str = datetime.datetime.now().strftime("%Y-%m-%d")
+    today_dishes = [dish for dish in dishes if dish.date == today_str]
+    return today_dishes
 
-    # Get the day of the week as a string
-    day_of_week = date.strftime("%A")
 
-    return day_of_week
+# GroupMe bot integration to send today's dishes
+@app.route('/send-todays-dishes')
+def send_todays_dishes():
+    today_dishes = get_todays_dishes()
+
+    if not today_dishes:
+        message = "No dishes scheduled for today."
+    else:
+        message = "Today's dishes:\n" + "\n".join([f"{dish.type} on {dish.date}" for dish in today_dishes])
+
+    # Send the message to GroupMe using groupyapi (assuming the bot setup is done)
+    bot = groupyapi.Bot(bot_id="c9ed078f3de7c89547308a050a")
+    bot.post(message)
+
+    return f"Sent: {message}"
+
 
 if __name__ == '__main__':
     app.run(debug=True)
