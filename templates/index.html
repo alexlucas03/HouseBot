@@ -6,16 +6,36 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
+    <style>
+        .month-column {
+            display: inline-block;
+            width: 30%;
+            vertical-align: top;
+            margin-right: 20px;
+        }
+        .month-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .month-column h2 {
+            text-align: center;
+        }
+    </style>
 </head>    
 <body>
-    <span>
-        <h1>Dishes:</h1>
-        <ul id="dishes">
-            {% for dish in dishes %}
-                <li>Date: {{ dish.date }}, Type: {{ dish.type }}</li>
-            {% endfor %}
-        </ul>
-    </span>
+    <h1>Dishes:</h1>
+    <div id="dish-columns">
+        {% for month, dishes_in_month in grouped_dishes.items() %}
+            <div class="month-column">
+                <h2>{{ month }}</h2>
+                <ul>
+                    {% for dish in dishes_in_month %}
+                        <li>Date: {{ dish.date }}, Type: {{ dish.type }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
     
     <script src="static/js/script.js"></script>
 </body>
