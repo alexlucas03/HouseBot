@@ -27,6 +27,10 @@
     </style>
 </head>
 <body>
+    <div>
+        <label for="user-name">Enter your name:</label>
+        <input type="text" id="user-name" placeholder="Your Name">
+    </div>
     <h1>Dishes:</h1>
     <div id="dish-columns">
         {% for month, dishes_in_month in grouped_dishes.items() %}
@@ -34,7 +38,10 @@
                 <h2>{{ month }}</h2>
                 <ul>
                     {% for dish in dishes_in_month %}
-                        <li>Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner }}</li>
+                        <li>
+                            Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner }}
+                            <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>

@@ -4,6 +4,7 @@ from collections import defaultdict
 from dish import Dish
 import requests
 import json
+import jsonify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -81,11 +82,19 @@ def index():
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
 
-# Function to get today's dishes
-def get_todays_dishes():
-    today_str = datetime.datetime.now().strftime("%Y-%m-%d")
-    today_dishes = [dish for dish in dishes if dish.date == today_str]
-    return today_dishes
+@app.route('/change-owner', methods=['POST'])
+def change_owner():
+    data = request.get_json()
+    dish_date = data.get('date')
+    dish_type = data.get('type')
+    new_owner = data.get('owner')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    # Find the dish that matches the date and type
+    for dish in dishes:
+        if dish.date == dish_date and dish.type == dish_type:
+            dish.owner = new_owner
+            break
+    else:
+        return jsonify({'success': False, 'message': 'Dish not found'}), 404
+
+    return jsonify({'success': True})
