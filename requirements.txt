@@ -357,7 +357,7 @@ tzdata @ file:///croot/python-tzdata_1690578112552/work
 uc-micro-py @ file:///Users/ec2-user/ci_py311/uc-micro-py_1678394873457/work
 ujson @ file:///Users/ec2-user/ci_py311/ujson_1678325349324/work
 Unidecode @ file:///tmp/build/80754af9/unidecode_1614712377438/work
-urllib3 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_1968zekhce/croot/urllib3_1686163172153/work
+urllib3==2.2.3
 virtualenv==20.26.3
 w3lib @ file:///Users/ktietz/demo/mc3/conda-bld/w3lib_1629359764703/work
 watchdog @ file:///Users/ec2-user/ci_py311/watchdog_1678395046770/work
