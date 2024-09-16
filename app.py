@@ -25,8 +25,8 @@ while current_date <= end_date_obj:
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[typeIndex])
         dishes.append(dish)
         typeIndex = (typeIndex + 1) % 3
-
-    current_date += delta
+        if typeIndex == 0:
+            current_date += delta
 
 
 @app.route('/')
