@@ -13,23 +13,33 @@ start_date_obj = datetime.datetime.strptime(startDate, "%Y-%m-%d")
 end_date_obj = datetime.datetime.strptime(endDate, "%Y-%m-%d")
 lunch = True
 dinner = False
+x1 = False
 
-delta = datetime.timedelta(days=0.5)
+delta = datetime.timedelta(days=1/3)
 current_date = start_date_obj
 
 while current_date <= end_date_obj:
         if lunch:
-            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", time="lunch")
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="", type="lunch")
             dishes.append(dish)
             current_date += delta
             lunch = False
             dinner = True
+            x1 = False
         elif dinner:
-            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", time="dinner")
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="", type="dinner")
             dishes.append(dish)
             current_date += delta
             lunch = True
             dinner = False
+            x1 = True
+        elif x1:
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="", type="x1")
+            dishes.append(dish)
+            current_date += delta
+            lunch = True
+            dinner = False
+            x1 = False
 
 @app.route('/')
 def index():

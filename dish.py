@@ -1,12 +1,12 @@
 class Dish:
-    def __init__(self, date, time, owner):
+    def __init__(self, date, type, owner):
         self.date = date
-        self.time = time
+        self.type = type
         self.owner = owner
 
     def to_dict(self):
         return {
             'date': self.date,
-            'time': self.time,
+            'type': self.type,
             'owner': self.owner
         }
