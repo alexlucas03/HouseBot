@@ -23,9 +23,9 @@ while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
     
     if day_of_week != "Saturday":
-        if day_of_week == "Sunday":
+        if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
-            
+
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[type_index])
         dishes.append(dish)
         
