@@ -20,21 +20,21 @@ current_date = start_date_obj
 
 while current_date <= end_date_obj:
         if lunch:
-            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="", type="lunch")
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type="lunch")
             dishes.append(dish)
             current_date += delta
             lunch = False
             dinner = True
             x1 = False
         elif dinner:
-            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="", type="dinner")
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type="dinner")
             dishes.append(dish)
             current_date += delta
             lunch = True
             dinner = False
             x1 = True
         elif x1:
-            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="", type="x1")
+            dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type="x1")
             dishes.append(dish)
             current_date += delta
             lunch = True
