@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import datetime
 from dish import Dish
-import groupyapi
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -40,24 +39,6 @@ def get_todays_dishes():
     today_str = datetime.datetime.now().strftime("%Y-%m-%d")
     today_dishes = [dish for dish in dishes if dish.date == today_str]
     return today_dishes
-
-
-# GroupMe bot integration to send today's dishes
-@app.route('/send-todays-dishes')
-def send_todays_dishes():
-    today_dishes = get_todays_dishes()
-
-    if not today_dishes:
-        message = "No dishes scheduled for today."
-    else:
-        message = "Today's dishes:\n" + "\n".join([f"{dish.type} on {dish.date}" for dish in today_dishes])
-
-    # Send the message to GroupMe using groupyapi (assuming the bot setup is done)
-    bot = groupyapi.Bot(bot_id="c9ed078f3de7c89547308a050a")
-    bot.post(message)
-
-    return f"Sent: {message}"
-
 
 if __name__ == '__main__':
     app.run(debug=True)
