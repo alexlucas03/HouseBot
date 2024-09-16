@@ -51,7 +51,7 @@ def index():
     today_lunch = None
     today_dinner = None
     today_x1 = None
-    today = datetime.datetime.today().strftime('%Y-%m-%d')
+    today = datetime.date.today().strftime('%Y-%m-%d')
 
     for dish in dishes:
         if dish.date == today:
