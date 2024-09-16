@@ -34,7 +34,7 @@
                 <h2>{{ month }}</h2>
                 <ul>
                     {% for dish in dishes_in_month %}
-                        <li>Date: {{ dish.date }}, Type: {{ dish.type }}</li>
+                        <li>Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner }}</li>
                     {% endfor %}
                 </ul>
             </div>
