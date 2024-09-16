@@ -7,6 +7,7 @@ blinker==1.8.2
 certifi==2024.8.30
 chardet==3.0.4
 click==8.1.7
+DateTime==5.5
 Flask==3.0.3
 frozenlist==1.4.1
 GroupyAPI==0.10.3
@@ -27,3 +28,4 @@ tzdata==2024.1
 urllib3==1.24.3
 Werkzeug==3.0.4
 yarl==1.11.1
+zope.interface==7.0.3
