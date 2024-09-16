@@ -31,7 +31,7 @@ while current_date <= end_date:
         
         type_index = (type_index + 1) % len(types)
 
-    if types[type_index] != 'x1':
+    else:
         current_date += delta
 
 # Group dishes by month
