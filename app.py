@@ -1,8 +1,9 @@
 from flask import Flask, render_template
 import datetime
 from dish import Dish
-import groupyapi
+from groupy.client import Client
 
+client = Client.from_token("JkI3aAERgvJtCe9ePajw9YkNZu6KFwrpNgL628YZ")
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 
@@ -53,8 +54,7 @@ def send_todays_dishes():
         message = "Today's dishes:\n" + "\n".join([f"{dish.type} on {dish.date}" for dish in today_dishes])
 
     # Send the message to GroupMe using groupyapi (assuming the bot setup is done)
-    bot = groupyapi.Bot(bot_id="c9ed078f3de7c89547308a050a")
-    bot.post(message)
+    message = dishes.post(text=message)
 
     return f"Sent: {message}"
 
