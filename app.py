@@ -24,9 +24,11 @@ while current_date <= end_date_obj:
     if day_of_week != "Saturday":
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[typeIndex])
         dishes.append(dish)
-        typeIndex = (typeIndex + 1) % 3
+        typeIndex = (typeIndex + 1) % len(types)
         if typeIndex == 0:
             current_date += delta
+    else:
+        current_date += delta
 
 
 @app.route('/')
