@@ -2,6 +2,8 @@ from flask import Flask, render_template
 import datetime
 from collections import defaultdict
 from dish import Dish
+import requests
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -45,6 +47,19 @@ for dish in dishes:
 
 @app.route('/')
 def index():
+    url = "https://api.groupme.com/v3/bots/post"
+
+    # Data to send in the POST request
+    data = {
+        "text": "Your message here",
+        "bot_id": "c9ed078f3de7c89547308a050a"
+    }  
+    # Send the POST request
+    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+
+    # Print the response
+    print(response.text)
+
     return render_template('index.html', grouped_dishes=grouped_dishes)
 
 # Function to get today's dishes
