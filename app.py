@@ -5,9 +5,6 @@ from dish import Dish
 import requests
 import json
 import jsonify
-import pandas as pd
-import io
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -87,7 +84,7 @@ def index():
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
-    data = requests.get_json()
+    data = request.get_json()
     dish_date = data.get('date')
     dish_type = data.get('type')
     new_owner = data.get('owner')
@@ -101,24 +98,3 @@ def change_owner():
         return jsonify({'success': False, 'message': 'Dish not found'}), 404
 
     return jsonify({'success': True})
-
-@app.route('/download-spreadsheet')
-def download_spreadsheet():
-    # Create a DataFrame
-    df = pd.DataFrame([{
-        'Date': dish.date,
-        'Type': dish.type,
-        'Owner': dish.owner
-    } for dish in dishes])
-    
-    # Save the DataFrame to a BytesIO object
-    output = io.BytesIO()
-    with pd.ExcelWriter(output, engine='openpyxl') as writer:
-        df.to_excel(writer, index=False, sheet_name='Dishes')
-    
-    output.seek(0)
-    
-    return send_file(output, as_attachment=True, download_name='dishes.xlsx', mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
-if __name__ == '__main__':
-    app.run(debug=True)
