@@ -20,7 +20,7 @@ type_index = 0
 
 delta = datetime.timedelta(days=1)
 current_date = start_date
-today = datetime.today().strftime('%Y-%m-%d')
+today = datetime.date.today().strftime('%Y-%m-%d')
 
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
