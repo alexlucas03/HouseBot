@@ -67,9 +67,14 @@ def index():
             elif dish.type == "x1":
                 today_x1 = dish
 
-    message = f"Lunch: @{today_lunch.owner if today_lunch else 'None'} \n" \
-              f"Dinner: @{today_dinner.owner if today_dinner else 'None'} \n" \
-              f"x1: @{today_x1.owner if today_x1 else 'None'}"
+    # Mention formatting
+    lunch_owner = f"@{today_lunch.owner}" if today_lunch else 'None'
+    dinner_owner = f"@{today_dinner.owner}" if today_dinner else 'None'
+    x1_owner = f"@{today_x1.owner}" if today_x1 else 'None'
+
+    message = f"Lunch: {lunch_owner} \n" \
+              f"Dinner: {dinner_owner} \n" \
+              f"x1: {x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
