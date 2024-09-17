@@ -86,7 +86,7 @@ def index():
             {
             "type": "mentions",
             "user_ids": [f"{lunch_owner}"],
-            "loci": [7, len(lunch_owner)]
+            "loci": [7]
             }
         ]
     }  
