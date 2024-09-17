@@ -1,14 +1,25 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 import datetime
 from collections import defaultdict
 from dish import Dish
 import requests
 import json
-import jsonify
-from persistentArray import PersistentArray
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///owners.db'
+db = SQLAlchemy(app)
+
+class Owner(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.String(10), nullable=False)
+    dish_type = db.Column(db.String(10), nullable=False)
+    owner_name = db.Column(db.String(100))
+
+# Create the database tables
+with app.app_context():
+    db.create_all()
 
 # Initial Data Setup
 dishes = []
@@ -23,8 +34,6 @@ type_index = 0
 delta = datetime.timedelta(days=1)
 current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
-duration = (end_date - start_date).days
-ownersArray = PersistentArray(duration * 3)
 i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
@@ -33,7 +42,9 @@ while current_date <= end_date:
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
 
-        owner = ownersArray.get_array()[i]  # Get the owner from the ownersArray
+        # Fetch the owner from the database
+        owner_record = Owner.query.filter_by(date=current_date.strftime("%Y-%m-%d"), dish_type=types[type_index]).first()
+        owner = owner_record.owner_name if owner_record else None
         
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, type=types[type_index])
         dishes.append(dish)
@@ -88,22 +99,25 @@ def index():
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
 
-@app.route('/change-owner', methods=['POST', 'GET'])
+@app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()  # Get the JSON data from the request
     dish_date = data.get('date')
     dish_type = data.get('type')
     new_owner = data.get('owner')
 
-    # Find the dish that matches the date and type
-    for index, dish in enumerate(dishes):
-        if dish.date == dish_date and dish.type == dish_type:
-            dish.owner = new_owner  # Update the owner
-            
-            # Update the ownersArray
-            ownersArray.update_array(index, new_owner)
-            break
+    # Find the dish in the database and update the owner
+    owner_record = Owner.query.filter_by(date=dish_date, dish_type=dish_type).first()
+
+    if owner_record:
+        owner_record.owner_name = new_owner
     else:
-        return jsonify({'success': False, 'message': 'Dish not found'}), 404
+        owner_record = Owner(date=dish_date, dish_type=dish_type, owner_name=new_owner)
+        db.session.add(owner_record)
+
+    db.session.commit()
 
     return jsonify({'success': True})
+
+if __name__ == '__main__':
+    app.run(debug=True)
