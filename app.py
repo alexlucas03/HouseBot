@@ -67,9 +67,9 @@ def index():
             elif dish.type == "x1":
                 today_x1 = dish
 
-    message = f"Lunch: {today_lunch.owner if today_lunch else 'None'} \n" \
-              f"Dinner: {today_dinner.owner if today_dinner else 'None'} \n" \
-              f"x1: {today_x1.owner if today_x1 else 'None'}"
+    message = f"Lunch: @{today_lunch.owner if today_lunch else 'None'} \n" \
+              f"Dinner: @{today_dinner.owner if today_dinner else 'None'} \n" \
+              f"x1: @{today_x1.owner if today_x1 else 'None'}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
