@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import datetime
 from collections import defaultdict
 from dish import Dish
@@ -90,7 +90,7 @@ def index():
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
-    data = requests.get_json()  # Get the JSON data from the request
+    data = request.get_json()  # Get the JSON data from the request
     dish_date = data.get('date')
     dish_type = data.get('type')
     new_owner = data.get('owner')
