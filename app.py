@@ -68,28 +68,43 @@ def index():
                 today_x1 = dish
 
     # Mention formatting
-    lunch_owner = f"@{today_lunch.owner}" if today_lunch else 'None'
-    dinner_owner = f"@{today_dinner.owner}" if today_dinner else 'None'
-    x1_owner = f"@{today_x1.owner}" if today_x1 else 'None'
+    lunch_owner = today_lunch.owner if today_lunch else 'None'
+    dinner_owner = today_dinner.owner if today_dinner else 'None'
+    x1_owner = today_x1.owner if today_x1 else 'None'
 
-    message = f"Lunch: @{lunch_owner} \n" \
-              f"Dinner: @{dinner_owner} \n" \
-              f"x1: @{x1_owner}"
+    message = (f"Lunch: @{lunch_owner} \n"
+               f"Dinner: @{dinner_owner} \n"
+               f"x1: @{x1_owner}")
+
+    # Determine loci
+    text_positions = {
+        lunch_owner: (message.index(f"@{lunch_owner}"), len(f"@{lunch_owner}")),
+        dinner_owner: (message.index(f"@{dinner_owner}"), len(f"@{dinner_owner}")),
+        x1_owner: (message.index(f"@{x1_owner}"), len(f"@{x1_owner}")),
+    }
+    
+    # Calculate loci positions
+    loci = []
+    user_ids = []
+    for owner in [lunch_owner, dinner_owner, x1_owner]:
+        if owner != 'None':
+            start, length = text_positions[owner]
+            loci.append((start, start + length))
+            user_ids.append(owner)  # Use actual GroupMe user IDs
 
     url = "https://api.groupme.com/v3/bots/post"
-
-    # Data to send in the POST request
     data = {
         "text": message,
         "bot_id": "c9ed078f3de7c89547308a050a",
         "attachments": [
             {
-            "type": "mentions",
-            "user_ids": [lunch_owner],
-            "loci": [7, 7 + len(lunch_owner)]
+                "type": "mentions",
+                "user_ids": user_ids,
+                "loci": [loc for sublist in loci for loc in sublist]  # Flattening loci list
             }
         ]
-    }  
+    }
+
     # Send the POST request
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
@@ -97,6 +112,7 @@ def index():
     print(response.text)
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
+
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
