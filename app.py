@@ -81,7 +81,13 @@ def index():
     # Data to send in the POST request
     data = {
         "text": message,
-        "bot_id": "c9ed078f3de7c89547308a050a"
+        "bot_id": "c9ed078f3de7c89547308a050a",
+        "attachments": [
+            {
+            "type": "mentions",
+            "user_ids": "62552734",
+            }
+        ]
     }  
     # Send the POST request
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
