@@ -3,23 +3,21 @@ import os
 
 class PersistentArray:
     def __init__(self, num):
-        if not self.array:  # If the loaded array is empty or invalid
-            self.array = [None] * self.num  # Initialize a default array
-            self.save_array()  # Save it to the file
         self.file_path = "ownersArray/ownersArray.json"
-        self.array = self.load_array()
         self.num = num
+        self.array = self.load_array()  # Ensure that self.array is initialized
 
+    # Load the array from the JSON file (or create a new one if it doesn't exist)
     def load_array(self):
         if os.path.exists(self.file_path):
             with open(self.file_path, 'r') as file:
                 file_content = file.read()
                 if file_content:  # Check if the file is not empty
-                    return json.loads(file_content)
+                    return json.loads(file_content)  # Load the array from the file
                 else:
-                    return [None] * self.num  # If file is empty, return default array
+                    return [None] * self.num  # Return default array if the file is empty
         else:
-            return [None] * self.num  # Return default array if file doesn't exist
+            return [None] * self.num  # Return default array if the file doesn't exist
 
     # Save the array to the JSON file
     def save_array(self):
@@ -36,11 +34,10 @@ class PersistentArray:
 
     # Add an item to the array
     def add_to_array(self, value, index):
-        if 0 <= index < len(self.array):
-            self.array[index] = value  # Replace the value at the given index
+        if index < len(self.array):
+            self.array[index] = value
         else:
-            # If the index is out of bounds, you can choose to append the value instead
-            self.array.append(value)
+            self.array.append(value)  # If the index is out of bounds, append the value
         self.save_array()
 
     # Get the current array
