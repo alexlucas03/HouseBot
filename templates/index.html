@@ -10,6 +10,7 @@
         .month-column ul {
             list-style-type: none;
             padding: 0;
+            text-align: right;
         }
         .month-column h2 {
             text-align: center;
@@ -39,12 +40,12 @@
                 <ul>
                     {% set last_date = None %}  <!-- Initialize last_date to None -->
                     {% for dish in dishes_in_month %}
+                        <!-- Display the date only if it's different from the last one -->
+                        {% if dish.date != last_date %}
+                            <li><strong>Date: {{ dish.date }}</strong></li>
+                            {% set last_date = dish.date %}  <!-- Update last_date to current dish's date -->
+                        {% endif %}
                         <li>
-                            <!-- Display the date only if it's different from the last one -->
-                            {% if dish.date != last_date %}
-                                Date: {{ dish.date }},
-                                {% set last_date = dish.date %}  <!-- Update last_date to current dish's date -->
-                            {% endif %}
                             Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
                             {% if not dish.owner %}
                                 <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
