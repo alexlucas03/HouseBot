@@ -8,7 +8,7 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@hostname/database'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///owners.db'
 db = SQLAlchemy(app)
 
 class Owner(db.Model):
