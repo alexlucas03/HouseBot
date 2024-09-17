@@ -39,8 +39,10 @@
                 <ul>
                     {% for dish in dishes_in_month %}
                         <li>
-                            Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner }}
-                            <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
+                            Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
+                            {% if not dish.owner %}
+                                <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
+                            {% endif %}
                         </li>
                     {% endfor %}
                 </ul>
