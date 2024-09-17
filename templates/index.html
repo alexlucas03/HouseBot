@@ -34,19 +34,24 @@
     </div>
     <h1>Dishes:</h1>
     <div id="dish-columns">
-        {% for month, dishes_in_month in grouped_dishes.items() %}
+        {% for month, days in grouped_dishes.items() %}
             <div class="month-column">
                 <h2>{{ month }}</h2>
-                <ul>
-                    {% for dish in dishes_in_month %}
-                        <li>
-                            Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
-                            {% if not dish.owner %}
-                                <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
+                {% for day, dishes_in_day in days.items() %}
+                    <div class="day-section">
+                        <h3>Date: {{ day }}</h3>
+                        <ul>
+                            {% for dish in dishes_in_day %}
+                                <li>
+                                    Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
+                                    {% if not dish.owner %}
+                                        <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
             </div>
         {% endfor %}
     </div>

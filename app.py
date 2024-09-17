@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'mysecret'
 
 # Initial Data Setup
 dishes = []
-start_date_str = "2024-09-24"
+start_date_str = "2024-09-17"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -47,9 +47,11 @@ while current_date <= end_date:
 
 # Group dishes by month
 grouped_dishes = defaultdict(list)
+
 for dish in dishes:
     month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
-    grouped_dishes[month].append(dish)
+    day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
+    grouped_dishes[month][day].append(dish)
 
 @app.route('/')
 def index():
