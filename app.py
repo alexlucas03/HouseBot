@@ -5,7 +5,6 @@ from dish import Dish
 import requests
 import json
 import jsonify
-from persistentArray import PersistentArray
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -24,7 +23,7 @@ delta = datetime.timedelta(days=1)
 current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
-ownersArray = PersistentArray(duration * 3)
+ownersArray = [None] * duration * 3
 i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
@@ -33,7 +32,7 @@ while current_date <= end_date:
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
 
-        owner = ownersArray.get_array()[i]  # Get the owner from the ownersArray
+        owner = ownersArray[i]  # Get the owner from the ownersArray
         
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, type=types[type_index])
         dishes.append(dish)
@@ -88,7 +87,7 @@ def index():
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
 
-@app.route('/change-owner', methods=['POST', 'GET'])
+@app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()  # Get the JSON data from the request
     dish_date = data.get('date')
@@ -101,9 +100,7 @@ def change_owner():
             dish.owner = new_owner  # Update the owner
             
             # Update the ownersArray
-            ownersArray.update_array(index, new_owner)
-            break
-    else:
-        return jsonify({'success': False, 'message': 'Dish not found'}), 404
+            ownersArray[index] = new_owner
+            return jsonify({'success': True})
 
-    return jsonify({'success': True})
+    return jsonify({'success': False, 'message': 'Dish not found'}), 404
