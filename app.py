@@ -22,7 +22,9 @@ type_index = 0
 delta = datetime.timedelta(days=1)
 current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
-
+duration = (end_date - start_date).days
+schedule = [None] * duration
+i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
     
@@ -30,8 +32,9 @@ while current_date <= end_date:
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
 
-        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner="x", type=types[type_index])
+        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=schedule[i], type=types[type_index])
         dishes.append(dish)
+        i += 1
         
         if types[type_index] == 'x1':
             current_date += delta
