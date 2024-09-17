@@ -72,9 +72,7 @@ def index():
     dinner_owner = f"{today_dinner.owner}" if today_dinner else 'None'
     x1_owner = f"{today_x1.owner}" if today_x1 else 'None'
 
-    message = f"Lunch: @{lunch_owner} \n" \
-              f"Dinner: @{dinner_owner} \n" \
-              f"x1: @{x1_owner}"
+    message = f"Lunch: @{lunch_owner}\nDinner: @{dinner_owner}\nx1: @{x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
@@ -88,8 +86,8 @@ def index():
             "user_ids": [f"{lunch_owner}", f"{dinner_owner}", f"{x1_owner}"],
             "loci": [
                 [7, 7 + len(lunch_owner)],
-                [16 + len(lunch_owner), 16 + len(lunch_owner) + len(dinner_owner)],
-                [22 + len(lunch_owner) + len(dinner_owner), 22 + len(lunch_owner) + len(dinner_owner) + len(x1_owner)]
+                [17 + len(lunch_owner), 17 + len(lunch_owner) + len(dinner_owner)],
+                [23 + len(lunch_owner) + len(dinner_owner), 23 + len(lunch_owner) + len(dinner_owner) + len(x1_owner)]
             ]
             }
         ]

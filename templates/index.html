@@ -29,7 +29,7 @@
 </head>
 <body>
     <div>
-        <label for="user-name">Enter your name:</label>
+        <label for="user-name">Enter your User ID:</label>
         <input type="text" id="user-name" placeholder="Your Name">
     </div>
     <h1>Dishes:</h1>
@@ -42,7 +42,7 @@
                         <li>
                             Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
                             {% if not dish.owner %}
-                                <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
+                                <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
                             {% endif %}
                         </li>
                     {% endfor %}
