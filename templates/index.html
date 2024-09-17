@@ -38,12 +38,12 @@
             <div class="month-column">
                 <h2>{{ month }}</h2>
                 <ul>
-                    {% set last_date = None %}  <!-- Initialize last_date to None -->
+                    {% set last_date = None %}
                     {% for dish in dishes_in_month %}
-                        <!-- Display the date only if it's different from the last one -->
                         {% if dish.date != last_date %}
+                            <!-- Only display the date if it's different from the last one -->
                             <li><strong>Date: {{ dish.date }}</strong></li>
-                            {% set last_date = dish.date %}  <!-- Update last_date to current dish's date -->
+                            {% set last_date = dish.date %}
                         {% endif %}
                         <li>
                             Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
