@@ -67,47 +67,29 @@ def index():
             elif dish.type == "x1":
                 today_x1 = dish
 
-    # Replace placeholders with actual user IDs
-    lunch_owner_id = "actual_lunch_owner_id" if today_lunch else None
-    dinner_owner_id = "actual_dinner_owner_id" if today_dinner else None
-    x1_owner_id = "actual_x1_owner_id" if today_x1 else None
+    # Mention formatting
+    lunch_owner = f"@{today_lunch.owner}" if today_lunch else 'None'
+    dinner_owner = f"@{today_dinner.owner}" if today_dinner else 'None'
+    x1_owner = f"@{today_x1.owner}" if today_x1 else 'None'
 
-    # Construct the message
-    message = (
-        f"Lunch: @{today_lunch.owner if today_lunch else 'None'} \n"
-        f"Dinner: @{today_dinner.owner if today_dinner else 'None'} \n"
-        f"x1: @{today_x1.owner if today_x1 else 'None'}"
-    )
-
-    # Calculate positions
-    user_ids = []
-    loci = []
-
-    for owner_id, placeholder in zip(
-        [lunch_owner_id, dinner_owner_id, x1_owner_id],
-        ["@"+(today_lunch.owner if today_lunch else 'None'), 
-         "@"+(today_dinner.owner if today_dinner else 'None'), 
-         "@"+(today_x1.owner if today_x1 else 'None')]
-    ):
-        if owner_id:
-            start_idx = message.find(placeholder)
-            end_idx = start_idx + len(placeholder)
-            user_ids.append(owner_id)
-            loci.append([start_idx, end_idx])
+    message = f"Lunch: @{lunch_owner} \n" \
+              f"Dinner: @{dinner_owner} \n" \
+              f"x1: @{x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
+
+    # Data to send in the POST request
     data = {
         "text": message,
         "bot_id": "c9ed078f3de7c89547308a050a",
         "attachments": [
             {
-                "type": "mentions",
-                "user_ids": user_ids,
-                "loci": [loc for sublist in loci for loc in sublist]  # Flattening loci list
+            "type": "mentions",
+            "user_ids": [lunch_owner],
+            "loci": [7, 6 + len(lunch_owner)]
             }
         ]
-    }
-
+    }  
     # Send the POST request
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
