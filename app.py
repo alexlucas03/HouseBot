@@ -68,9 +68,9 @@ def index():
                 today_x1 = dish
 
     # Mention formatting
-    lunch_owner = f"@{today_lunch.owner}" if today_lunch else 'None'
-    dinner_owner = f"@{today_dinner.owner}" if today_dinner else 'None'
-    x1_owner = f"@{today_x1.owner}" if today_x1 else 'None'
+    lunch_owner = f"{today_lunch.owner}" if today_lunch else 'None'
+    dinner_owner = f"{today_dinner.owner}" if today_dinner else 'None'
+    x1_owner = f"{today_x1.owner}" if today_x1 else 'None'
 
     message = f"Lunch: @{lunch_owner} \n" \
               f"Dinner: @{dinner_owner} \n" \
