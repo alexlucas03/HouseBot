@@ -23,7 +23,7 @@ delta = datetime.timedelta(days=1)
 current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
-schedule = [None] * duration
+schedule = [None] * duration * 3
 i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
