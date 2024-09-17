@@ -46,8 +46,7 @@ while current_date <= end_date:
         current_date += delta
 
 # Group dishes by month
-grouped_dishes = defaultdict(list)
-
+grouped_dishes = defaultdict(lambda: defaultdict(list))
 for dish in dishes:
     month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
     day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
