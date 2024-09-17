@@ -5,6 +5,7 @@ from dish import Dish
 import requests
 import json
 import jsonify
+from persistentArray import PersistentArray
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -23,7 +24,7 @@ delta = datetime.timedelta(days=1)
 current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
-schedule = [None] * duration * 3
+ownersArray = PersistentArray(duration * 3)
 i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
@@ -32,7 +33,9 @@ while current_date <= end_date:
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
 
-        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=schedule[i], type=types[type_index])
+        owner = ownersArray.get_array()[i]  # Get the owner from the ownersArray
+        
+        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, type=types[type_index])
         dishes.append(dish)
         i += 1
         
@@ -93,14 +96,14 @@ def change_owner():
     new_owner = data.get('owner')
 
     # Find the dish that matches the date and type
-    for dish in dishes:
+    for index, dish in enumerate(dishes):
         if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner  # Update the owner
+            
+            # Update the ownersArray
+            ownersArray.update_array(index, new_owner)
             break
     else:
         return jsonify({'success': False, 'message': 'Dish not found'}), 404
 
     return jsonify({'success': True})
-
-if __name__ == '__main__':
-    app.run(debug=True)
