@@ -34,23 +34,22 @@
     </div>
     <h1>Dishes:</h1>
     <div id="dish-columns">
-        {% with previous_date = None %}
-          {% for month, dishes_in_month in grouped_dishes.items() %}
-            {% for dish in dishes_in_month %}
-              <li>
-                {% if dish.date != previous_date %}
-                  <b>Date: {{ dish.date }}</b><br>
-                {% endif %}
-                Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
-                {% if not dish.owner %}
-                  <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
-                {% endif %}
-                {% set previous_date = dish.date %}
-              </li>
-            {% endfor %}
-          {% endfor %}
-        {% endwith %}
-      </div>
+        {% for month, dishes_in_month in grouped_dishes.items() %}
+            <div class="month-column">
+                <h2>{{ month }}</h2>
+                <ul>
+                    {% for dish in dishes_in_month %}
+                        <li>
+                            Date: {{ dish.date }}, Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
+                            {% if not dish.owner %}
+                                <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
 
     <script>
         function changeOwner(dishDate, dishType) {
