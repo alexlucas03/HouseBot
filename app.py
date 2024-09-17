@@ -10,8 +10,8 @@ app.config['SECRET_KEY'] = 'mysecret'
 
 # Initial Data Setup
 dishes = []
-start_date_str = "2024-09-15"
-end_date_str = "2024-12-08"
+start_date_str = "2024-09-24"
+end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
@@ -85,9 +85,11 @@ def index():
         "attachments": [
             {
             "type": "mentions",
-            "user_ids": [f"{lunch_owner}"],
+            "user_ids": [f"{lunch_owner}", f"{dinner_owner}", f"{x1_owner}"],
             "loci": [
                 [7, 7 + len(lunch_owner)],
+                [16 + len(lunch_owner), 16 + len(lunch_owner) + len(dinner_owner)],
+                [22 + len(lunch_owner) + len(dinner_owner), 22 + len(lunch_owner) + len(dinner_owner) + len(x1_owner)]
             ]
             }
         ]
