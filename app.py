@@ -87,7 +87,7 @@ def index():
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
-    data = requests.get_json()
+    data = requests.get_json()  # Get the JSON data from the request
     dish_date = data.get('date')
     dish_type = data.get('type')
     new_owner = data.get('owner')
@@ -95,7 +95,7 @@ def change_owner():
     # Find the dish that matches the date and type
     for dish in dishes:
         if dish.date == dish_date and dish.type == dish_type:
-            dish.owner = new_owner
+            dish.owner = new_owner  # Update the owner
             break
     else:
         return jsonify({'success': False, 'message': 'Dish not found'}), 404
