@@ -85,8 +85,8 @@ def index():
         "attachments": [
             {
             "type": "mentions",
-            "user_ids": [lunch_owner],
-            "loci": [7, 6 + len(lunch_owner)]
+            "user_ids": lunch_owner,
+            "loci": [7, len(lunch_owner)]
             }
         ]
     }  
