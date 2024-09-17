@@ -3,17 +3,23 @@ import os
 
 class PersistentArray:
     def __init__(self, num):
+        if not self.array:  # If the loaded array is empty or invalid
+            self.array = [None] * self.num  # Initialize a default array
+            self.save_array()  # Save it to the file
         self.file_path = "ownersArray/ownersArray.json"
         self.array = self.load_array()
         self.num = num
 
-    # Load the array from the JSON file (or create a new one if it doesn't exist)
     def load_array(self):
         if os.path.exists(self.file_path):
             with open(self.file_path, 'r') as file:
-                return json.load(file)
+                file_content = file.read()
+                if file_content:  # Check if the file is not empty
+                    return json.loads(file_content)
+                else:
+                    return [None] * self.num  # If file is empty, return default array
         else:
-            return [None] * self.num  # Default empty array if no file exists
+            return [None] * self.num  # Return default array if file doesn't exist
 
     # Save the array to the JSON file
     def save_array(self):
