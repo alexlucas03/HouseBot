@@ -72,9 +72,9 @@ def index():
     dinner_owner = f"@{today_dinner.owner}" if today_dinner else 'None'
     x1_owner = f"@{today_x1.owner}" if today_x1 else 'None'
 
-    message = f"Lunch: {lunch_owner} \n" \
-              f"Dinner: {dinner_owner} \n" \
-              f"x1: {x1_owner}"
+    message = f"Lunch: @{lunch_owner} \n" \
+              f"Dinner: @{dinner_owner} \n" \
+              f"x1: @{x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
@@ -85,11 +85,8 @@ def index():
         "attachments": [
             {
             "type": "mentions",
-            "user_ids": [
-                lunch_owner,
-                dinner_owner,
-                x1_owner,
-            ]
+            "user_ids": [lunch_owner],
+            "loci": [7, 9]
             }
         ]
     }  
