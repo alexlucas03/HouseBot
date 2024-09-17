@@ -38,15 +38,11 @@
             <div class="month-column">
                 <h2>{{ month }}</h2>
                 <ul>
-                    {% set last_date = None %}
                     {% for dish in dishes_in_month %}
-                        {% if dish.date != last_date %}
-                            <!-- Only display the date if it's different from the last one -->
-                            <li><strong>Date: {{ dish.date }}</strong></li>
-                            {% set last_date = dish.date %}
+                        {% if loop.first %}
+                            <li>**Date:** {{ dish.date }}</li>
                         {% endif %}
-                        <li>
-                            Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
+                        <li>Type: {{ dish.type }}, Owner: {{ dish.owner or 'None' }}
                             {% if not dish.owner %}
                                 <button onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Change Owner</button>
                             {% endif %}
