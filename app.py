@@ -67,30 +67,33 @@ def index():
             elif dish.type == "x1":
                 today_x1 = dish
 
-    # Mention formatting
-    lunch_owner = today_lunch.owner if today_lunch else 'None'
-    dinner_owner = today_dinner.owner if today_dinner else 'None'
-    x1_owner = today_x1.owner if today_x1 else 'None'
+    # Replace placeholders with actual user IDs
+    lunch_owner_id = "actual_lunch_owner_id" if today_lunch else None
+    dinner_owner_id = "actual_dinner_owner_id" if today_dinner else None
+    x1_owner_id = "actual_x1_owner_id" if today_x1 else None
 
-    message = (f"Lunch: @{lunch_owner} \n"
-               f"Dinner: @{dinner_owner} \n"
-               f"x1: @{x1_owner}")
+    # Construct the message
+    message = (
+        f"Lunch: @{today_lunch.owner if today_lunch else 'None'} \n"
+        f"Dinner: @{today_dinner.owner if today_dinner else 'None'} \n"
+        f"x1: @{today_x1.owner if today_x1 else 'None'}"
+    )
 
-    # Determine loci
-    text_positions = {
-        lunch_owner: (message.index(f"@{lunch_owner}"), len(f"@{lunch_owner}")),
-        dinner_owner: (message.index(f"@{dinner_owner}"), len(f"@{dinner_owner}")),
-        x1_owner: (message.index(f"@{x1_owner}"), len(f"@{x1_owner}")),
-    }
-    
-    # Calculate loci positions
-    loci = []
+    # Calculate positions
     user_ids = []
-    for owner in [lunch_owner, dinner_owner, x1_owner]:
-        if owner != 'None':
-            start, length = text_positions[owner]
-            loci.append((start, start + length))
-            user_ids.append(owner)  # Use actual GroupMe user IDs
+    loci = []
+
+    for owner_id, placeholder in zip(
+        [lunch_owner_id, dinner_owner_id, x1_owner_id],
+        ["@"+(today_lunch.owner if today_lunch else 'None'), 
+         "@"+(today_dinner.owner if today_dinner else 'None'), 
+         "@"+(today_x1.owner if today_x1 else 'None')]
+    ):
+        if owner_id:
+            start_idx = message.find(placeholder)
+            end_idx = start_idx + len(placeholder)
+            user_ids.append(owner_id)
+            loci.append([start_idx, end_idx])
 
     url = "https://api.groupme.com/v3/bots/post"
     data = {
@@ -112,7 +115,6 @@ def index():
     print(response.text)
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
-
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
