@@ -88,7 +88,7 @@ def index():
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
 
-@app.route('/change-owner', methods=['POST'])
+@app.route('/change-owner', methods=['POST', 'GET'])
 def change_owner():
     data = request.get_json()  # Get the JSON data from the request
     dish_date = data.get('date')
