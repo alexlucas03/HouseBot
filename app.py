@@ -74,48 +74,26 @@ def index():
 
     message = f"Lunch: @{lunch_owner} \n" \
               f"Dinner: @{dinner_owner} \n" \
-              f"x1: @{x1_owner}\n\n" \
-              f"@all"
+              f"x1: @{x1_owner}"
 
-    # Fetch all group members' user IDs for the @all mention
-    group_id = '103355116'
-    token = 'JkI3aAERgvJtCe9ePajw9YkNZu6KFwrpNgL628YZ'
-    url_members = f'https://api.groupme.com/v3/groups/{group_id}?token={token}'
-    
-    # Fetch group members
-    response = requests.get(url_members)
-    members = response.json()['response']['members']
-    user_ids = [member['user_id'] for member in members]
-    loci = []
-
-    # Calculate the positions of the mentions
-    if today_lunch:
-        loci.append([7, len(lunch_owner) + 1])
-    if today_dinner:
-        loci.append([16 + len(lunch_owner), len(dinner_owner) + 1])
-    if today_x1:
-        loci.append([26 + len(lunch_owner) + len(dinner_owner), len(x1_owner) + 1])
-    
-    # Append @all mention at the end of the message
-    all_loci = [[len(message) - 4, 4]]
-    all_user_ids = user_ids  # All user IDs for the @all mention
-    loci.extend(all_loci)
+    url = "https://api.groupme.com/v3/bots/post"
 
     # Data to send in the POST request
-    url_message = "https://api.groupme.com/v3/bots/post"
     data = {
         "text": message,
         "bot_id": "c9ed078f3de7c89547308a050a",
         "attachments": [
             {
-                "type": "mentions",
-                "user_ids": [*user_ids],
-                "loci": loci
+            "type": "mentions",
+            "user_ids": [f"{lunch_owner}"],
+            "loci": [
+                [7, 7 + len(lunch_owner)],
+            ]
             }
         ]
     }  
     # Send the POST request
-    response = requests.post(url_message, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
     # Print the response
     print(response.text)
