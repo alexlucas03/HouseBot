@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 import datetime
 from collections import defaultdict
 from dish import Dish
 import requests
 import json
-import jsonify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -101,6 +100,7 @@ def change_owner():
             
             # Update the ownersArray
             ownersArray[index] = new_owner
-            return jsonify({'success': True})
+            return jsonify({'success': True})  # Correct use of jsonify
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
+
