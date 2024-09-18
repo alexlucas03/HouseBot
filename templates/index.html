@@ -67,7 +67,7 @@
                             {% for dish in dishes_in_day %}
                                 <li>
                                     <span class="dish-type">{{ dish.type }}</span>
-                                    {% if not dish.owner and not dish.owner == "x" %}
+                                    {% if not dish.owner %}
                                         <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
                                     {% endif %}
                                 </li>
