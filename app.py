@@ -80,7 +80,7 @@ def index():
 
     # Construct message and send to GroupMe (as before)
 
-    return render_template('index.html', grouped_dishes=grouped_dishes)
+    return render_template('index.html', grouped_dishes=grouped_dishes, user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

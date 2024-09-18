@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-    <h1>Dishes:</h1>
+    <h1>Dish Picks: {{ user }}</h1>
     <div id="dish-columns">
         {% for month, days in grouped_dishes.items() %}
             <div class="month-column">
@@ -79,20 +79,11 @@
 
     <script>
         function changeOwner(dishDate, dishType) {
-            // Get the value from the input field
-            const userName = document.getElementById('user-name').value;
-
-            // Ensure the user has entered a name
-            if (!userName) {
-                alert("Please enter your name before changing the owner.");
-                return;
-            }
-
             // Prepare the data to be sent to the server
             const data = {
                 date: dishDate,
                 type: dishType,
-                owner: userName
+                owner: user
             };
 
             // Send an AJAX request to update the owner
