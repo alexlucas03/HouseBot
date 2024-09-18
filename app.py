@@ -68,30 +68,14 @@ def index():
             elif dish.type == "x1":
                 today_x1 = dish
 
-    # Handle owners, showing 'Not Assigned' if None
-    lunch_owner = f"{today_lunch.owner}" if today_lunch and today_lunch.owner else 'Not Assigned'
-    dinner_owner = f"{today_dinner.owner}" if today_dinner and today_dinner.owner else 'Not Assigned'
-    x1_owner = f"{today_x1.owner}" if today_x1 and today_x1.owner else 'Not Assigned'
+    # Mention formatting
+    lunch_owner = f"{today_lunch.owner}" if today_lunch else 'Not Assigned'
+    dinner_owner = f"{today_dinner.owner}" if today_dinner else 'Not Assigned'
+    x1_owner = f"{today_x1.owner}" if today_x1 else 'Not Assigned'
 
-    # Formulate the message with user mentions
     message = f"Lunch: @{lunch_owner}\nDinner: @{dinner_owner}\nx1: @{x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
-
-    # Filter out 'Not Assigned' values from mentions
-    user_ids = [f"{owner}" for owner in [today_lunch.owner, today_dinner.owner, today_x1.owner] if owner]
-
-    # Calculate loci only for valid mentions
-    loci = []
-    start = 7  # Starting position after 'Lunch: @'
-    if today_lunch and today_lunch.owner:
-        loci.append([start, start + len(lunch_owner)])
-        start += len(lunch_owner) + 10  # Move past the next part of the message
-    if today_dinner and today_dinner.owner:
-        loci.append([start, start + len(dinner_owner)])
-        start += len(dinner_owner) + 9
-    if today_x1 and today_x1.owner:
-        loci.append([start, start + len(x1_owner)])
 
     # Data to send in the POST request
     data = {
@@ -99,13 +83,16 @@ def index():
         "bot_id": "c9ed078f3de7c89547308a050a",
         "attachments": [
             {
-                "type": "mentions",
-                "user_ids": user_ids,
-                "loci": loci
+            "type": "mentions",
+            "user_ids": [f"{lunch_owner}", f"{dinner_owner}", f"{x1_owner}"],
+            "loci": [
+                [7, 7 + len(lunch_owner)],
+                [17 + len(lunch_owner), 17 + len(lunch_owner) + len(dinner_owner)],
+                [23 + len(lunch_owner) + len(dinner_owner), 23 + len(lunch_owner) + len(dinner_owner) + len(x1_owner)]
+            ]
             }
         ]
-    }
-
+    }  
     # Send the POST request
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
