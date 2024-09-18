@@ -70,7 +70,7 @@
                                     {% if not dish.owner %}
                                         <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
                                     {% else %}
-                                        <span class="dish-owner">Type: {{ dish.owner }}</span>
+                                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
                                     {% endif %}
                                 </li>
                             {% endfor %}
