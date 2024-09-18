@@ -54,7 +54,7 @@ for dish in dishes:
 
 for month, days in grouped_dishes.items():
     for day, day_dishes in days.items():
-        while len(day_dishes) < 4:
+        while len(day_dishes) <= 4:
             day_dishes.append(Dish(date="", owner="x", type=""))
 
 @app.route('/')
