@@ -76,6 +76,8 @@ def index():
     # Construct message
     message = f"Lunch: @{lunch_owner}\nDinner: @{dinner_owner}\nx1: @{x1_owner}"
 
+    url = "https://api.groupme.com/v3/bots/post"
+
     # Calculate loci (starting position and length of each mention)
     loci = []
     if lunch_owner != 'Not Assigned':
