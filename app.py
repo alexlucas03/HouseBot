@@ -109,3 +109,9 @@ def change_owner():
             return jsonify({'success': True})  # Correct use of jsonify
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)  # Remove the user from the session
+    return redirect(url_for('login'))  # Redirect to the login page
+
