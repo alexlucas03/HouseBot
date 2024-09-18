@@ -78,15 +78,16 @@
     </div>    
 
     <script>
+        // Pass the user variable from Flask to JavaScript
+        const user = "{{ user }}";
+        
         function changeOwner(dishDate, dishType) {
-            // Prepare the data to be sent to the server
             const data = {
                 date: dishDate,
                 type: dishType,
                 owner: user
             };
-
-            // Send an AJAX request to update the owner
+    
             fetch('/change-owner', {
                 method: 'POST',
                 headers: {
@@ -97,7 +98,6 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Reload the page to reflect the updated owner
                     location.reload();
                 } else {
                     alert(data.message);
@@ -106,5 +106,6 @@
             .catch(error => console.error('Error:', error));
         }
     </script>
+    
 </body>
 </html>
