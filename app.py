@@ -82,25 +82,27 @@ def index():
     dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
     x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    # Get user IDs from owner names
     lunch_userid = owner_to_userid.get(lunch_owner, None)
     dinner_userid = owner_to_userid.get(dinner_owner, None)
     x1_userid = owner_to_userid.get(x1_owner, None)
 
-    # Construct messages
     lunch_message = f"Lunch: @{lunch_owner}"
     dinner_message = f"Dinner: @{dinner_owner}"
     x1_message = f"x1: @{x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
-    # Calculate loci and send message for lunch
-    if lunch_owner != 'Not Assigned' and lunch_userid:
+    # Calculate loci (starting position and length of each mention)
+    lunch_loci = []
+    dinner_loci = []
+    x1_loci = []
+
+    if lunch_owner != 'Not Assigned':
         lunch_mention_start = 7
-        lunch_loci = [[lunch_mention_start, lunch_mention_start + len(lunch_owner)]]
+        lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
         data = {
             "text": lunch_message,
-            "bot_id": "YOUR_BOT_ID",
+            "bot_id": "c9ed078f3de7c89547308a050a",
             "attachments": [
                 {
                     "type": "mentions",
@@ -112,17 +114,17 @@ def index():
     else:
         data = {
             "text": lunch_message,
-            "bot_id": "YOUR_BOT_ID",
+            "bot_id": "c9ed078f3de7c89547308a050a",
         }
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-    # Repeat for dinner
-    if dinner_owner != 'Not Assigned' and dinner_userid:
+    if dinner_owner != 'Not Assigned':
+
         dinner_mention_start = 8
-        dinner_loci = [[dinner_mention_start, dinner_mention_start + len(dinner_owner)]]
+        dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
         data = {
             "text": dinner_message,
-            "bot_id": "YOUR_BOT_ID",
+            "bot_id": "c9ed078f3de7c89547308a050a",
             "attachments": [
                 {
                     "type": "mentions",
@@ -134,17 +136,17 @@ def index():
     else:
         data = {
             "text": dinner_message,
-            "bot_id": "YOUR_BOT_ID",
+            "bot_id": "c9ed078f3de7c89547308a050a",
         }
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-    # Repeat for x1
-    if x1_owner != 'Not Assigned' and x1_userid:
+    if x1_owner != 'Not Assigned':
+
         x1_mention_start = 4
-        x1_loci = [[x1_mention_start, x1_mention_start + len(x1_owner)]]
+        x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
         data = {
             "text": x1_message,
-            "bot_id": "YOUR_BOT_ID",
+            "bot_id": "c9ed078f3de7c89547308a050a",
             "attachments": [
                 {
                     "type": "mentions",
@@ -156,7 +158,7 @@ def index():
     else:
         data = {
             "text": x1_message,
-            "bot_id": "YOUR_BOT_ID",
+            "bot_id": "c9ed078f3de7c89547308a050a",
         }
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
