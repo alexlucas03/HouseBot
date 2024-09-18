@@ -68,24 +68,27 @@ def index():
             elif dish.type == "x1":
                 today_x1 = dish
 
-    # Mention formatting
-    lunch_owner = today_lunch.owner if today_lunch else 'Not Assigned'
-    dinner_owner = today_dinner.owner if today_dinner else 'Not Assigned'
-    x1_owner = today_x1.owner if today_x1 else 'Not Assigned'
+    # Mention formatting with fallback for None
+    lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
+    dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
+    x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     # Construct message
     message = f"Lunch: @{lunch_owner}\nDinner: @{dinner_owner}\nx1: @{x1_owner}"
 
     # Calculate loci (starting position and length of each mention)
-    lunch_mention_start = message.find(f"@{lunch_owner}")
-    dinner_mention_start = message.find(f"@{dinner_owner}")
-    x1_mention_start = message.find(f"@{x1_owner}")
+    loci = []
+    if lunch_owner != 'Not Assigned':
+        lunch_mention_start = message.find(f"@{lunch_owner}")
+        loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner) + 1])
 
-    loci = [
-        [lunch_mention_start, lunch_mention_start + len(lunch_owner) + 1],
-        [dinner_mention_start, dinner_mention_start + len(dinner_owner) + 1],
-        [x1_mention_start, x1_mention_start + len(x1_owner) + 1]
-    ]
+    if dinner_owner != 'Not Assigned':
+        dinner_mention_start = message.find(f"@{dinner_owner}")
+        loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner) + 1])
+
+    if x1_owner != 'Not Assigned':
+        x1_mention_start = message.find(f"@{x1_owner}")
+        loci.append([x1_mention_start, x1_mention_start + len(x1_owner) + 1])
 
     # Data to send in the POST request
     data = {
@@ -94,7 +97,7 @@ def index():
         "attachments": [
             {
                 "type": "mentions",
-                "user_ids": [lunch_owner, dinner_owner, x1_owner],
+                "user_ids": [owner for owner in [lunch_owner, dinner_owner, x1_owner] if owner != 'Not Assigned'],
                 "loci": loci
             }
         ]
