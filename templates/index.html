@@ -52,6 +52,9 @@
 </head>
 <body>
     <h1>Dish Picks: {{ user }}</h1>
+    <form action="/logout" method="POST" style="text-align: center;">
+        <button type="submit">Logout</button>
+    </form>
     <div id="dish-columns">
         {% for month, days in grouped_dishes.items() %}
             <div class="month-column">
