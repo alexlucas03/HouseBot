@@ -8,9 +8,8 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 
-# Initial Data Setup
 dishes = []
-start_date_str = "2024-09-17"
+start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -35,7 +34,7 @@ while current_date <= end_date:
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
 
-        owner = ownersArray[i]  # Get the owner from the ownersArray
+        owner = ownersArray[i]
         
         dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, type=types[type_index])
         dishes.append(dish)
@@ -49,7 +48,6 @@ while current_date <= end_date:
     else:
         current_date += delta
 
-# Group dishes by month
 grouped_dishes = defaultdict(lambda: defaultdict(list))
 for dish in dishes:
     month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
@@ -64,135 +62,131 @@ def index():
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
 
-    today_lunch = None
-    today_dinner = None
-    today_x1 = None
+    # Check if today is within the start and end date constraints
+    if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
+        today_lunch = None
+        today_dinner = None
+        today_x1 = None
 
-    for dish in dishes:
-        if dish.date == today:
-            if dish.type == "lunch":
-                today_lunch = dish
-            elif dish.type == "dinner":
-                today_dinner = dish
-            elif dish.type == "x1":
-                today_x1 = dish
+        for dish in dishes:
+            if dish.date == today:
+                if dish.type == "lunch":
+                    today_lunch = dish
+                elif dish.type == "dinner":
+                    today_dinner = dish
+                elif dish.type == "x1":
+                    today_x1 = dish
 
-    # Mention formatting with fallback for None
-    lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
-    dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
-    x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
+        lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
+        dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
+        x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    lunch_userid = owner_to_userid.get(lunch_owner, None)
-    dinner_userid = owner_to_userid.get(dinner_owner, None)
-    x1_userid = owner_to_userid.get(x1_owner, None)
+        lunch_userid = owner_to_userid.get(lunch_owner, None)
+        dinner_userid = owner_to_userid.get(dinner_owner, None)
+        x1_userid = owner_to_userid.get(x1_owner, None)
 
-    lunch_message = f"Lunch: @{lunch_owner}"
-    dinner_message = f"Dinner: @{dinner_owner}"
-    x1_message = f"x1: @{x1_owner}"
+        lunch_message = f"Lunch: @{lunch_owner}"
+        dinner_message = f"Dinner: @{dinner_owner}"
+        x1_message = f"x1: @{x1_owner}"
 
-    url = "https://api.groupme.com/v3/bots/post"
+        url = "https://api.groupme.com/v3/bots/post"
 
-    # Calculate loci (starting position and length of each mention)
-    lunch_loci = []
-    dinner_loci = []
-    x1_loci = []
+        lunch_loci = []
+        dinner_loci = []
+        x1_loci = []
 
-    if lunch_owner != 'Not Assigned':
-        lunch_mention_start = 7
-        lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
-        data = {
-            "text": lunch_message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-            "attachments": [
-                {
-                    "type": "mentions",
-                    "user_ids": [lunch_userid],
-                    "loci": lunch_loci
-                }
-            ]
-        }
-    else:
-        data = {
-            "text": lunch_message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-        }
-    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+        if lunch_owner != 'Not Assigned':
+            lunch_mention_start = 7
+            lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
+            data = {
+                "text": lunch_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+                "attachments": [
+                    {
+                        "type": "mentions",
+                        "user_ids": [lunch_userid],
+                        "loci": lunch_loci
+                    }
+                ]
+            }
+        else:
+            data = {
+                "text": lunch_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+            }
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-    if dinner_owner != 'Not Assigned':
+        if dinner_owner != 'Not Assigned':
+            dinner_mention_start = 8
+            dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
+            data = {
+                "text": dinner_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+                "attachments": [
+                    {
+                        "type": "mentions",
+                        "user_ids": [dinner_userid],
+                        "loci": dinner_loci
+                    }
+                ]
+            }
+        else:
+            data = {
+                "text": dinner_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+            }
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-        dinner_mention_start = 8
-        dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
-        data = {
-            "text": dinner_message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-            "attachments": [
-                {
-                    "type": "mentions",
-                    "user_ids": [dinner_userid],
-                    "loci": dinner_loci
-                }
-            ]
-        }
-    else:
-        data = {
-            "text": dinner_message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-        }
-    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-
-    if x1_owner != 'Not Assigned':
-
-        x1_mention_start = 4
-        x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
-        data = {
-            "text": x1_message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-            "attachments": [
-                {
-                    "type": "mentions",
-                    "user_ids": [x1_userid],
-                    "loci": x1_loci
-                }
-            ]
-        }
-    else:
-        data = {
-            "text": x1_message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-        }
-    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+        if x1_owner != 'Not Assigned':
+            x1_mention_start = 4
+            x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
+            data = {
+                "text": x1_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+                "attachments": [
+                    {
+                        "type": "mentions",
+                        "user_ids": [x1_userid],
+                        "loci": x1_loci
+                    }
+                ]
+            }
+        else:
+            data = {
+                "text": x1_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+            }
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        session['user'] = username  # Store the username in session
+        session['user'] = username
         return redirect(url_for('index'))
     return render_template('login.html')
 
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
-    data = request.get_json()  # Get the JSON data from the request
+    data = request.get_json()
     dish_date = data.get('date')
     dish_type = data.get('type')
     new_owner = data.get('owner')
 
-    # Find the dish that matches the date and type
     for index, dish in enumerate(dishes):
         if dish.date == dish_date and dish.type == dish_type:
-            dish.owner = new_owner  # Update the owner
-            
-            # Update the ownersArray
+            dish.owner = new_owner
             ownersArray[index] = new_owner
-            return jsonify({'success': True})  # Correct use of jsonify
+            return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
 
 @app.route('/logout', methods=['POST'])
 def logout():
-    session.pop('user', None)  # Remove the user from the session
-    return redirect(url_for('login'))  # Redirect to the login page
+    session.pop('user', None)
+    return redirect(url_for('login'))
 
