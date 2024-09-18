@@ -52,11 +52,6 @@ for dish in dishes:
     day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
     grouped_dishes[month][day].append(dish)
 
-for month, days in grouped_dishes.items():
-    for day, day_dishes in days.items():
-        while len(day_dishes) < 4:
-            day_dishes.append(Dish(date="", owner="", type=""))
-
 @app.route('/')
 def index():
     today_lunch = None
