@@ -81,8 +81,8 @@ def index():
     # Calculate loci (starting position and length of each mention)
     loci = []
     if lunch_owner != 'Not Assigned':
-        lunch_mention_start = message.find(f"@{lunch_owner}")
-        loci.append([lunch_mention_start - len(lunch_owner), lunch_mention_start])
+        lunch_mention_start = 7
+        loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
 
     if dinner_owner != 'Not Assigned':
         dinner_mention_start = message.find(f"@{dinner_owner}")
