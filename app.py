@@ -92,5 +92,20 @@ def login():
 
 # Add other routes (change-owner, etc.)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/change-owner', methods=['POST'])
+def change_owner():
+    data = request.get_json()  # Get the JSON data from the request
+    dish_date = data.get('date')
+    dish_type = data.get('type')
+    new_owner = data.get('owner')
+
+    # Find the dish that matches the date and type
+    for index, dish in enumerate(dishes):
+        if dish.date == dish_date and dish.type == dish_type:
+            dish.owner = new_owner  # Update the owner
+            
+            # Update the ownersArray
+            ownersArray[index] = new_owner
+            return jsonify({'success': True})  # Correct use of jsonify
+
+    return jsonify({'success': False, 'message': 'Dish not found'}), 404
