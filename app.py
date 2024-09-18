@@ -69,13 +69,23 @@ def index():
                 today_x1 = dish
 
     # Mention formatting
-    lunch_owner = f"{today_lunch.owner}" if today_lunch else 'Not Assigned'
-    dinner_owner = f"{today_dinner.owner}" if today_dinner else 'Not Assigned'
-    x1_owner = f"{today_x1.owner}" if today_x1 else 'Not Assigned'
+    lunch_owner = today_lunch.owner if today_lunch else 'Not Assigned'
+    dinner_owner = today_dinner.owner if today_dinner else 'Not Assigned'
+    x1_owner = today_x1.owner if today_x1 else 'Not Assigned'
 
+    # Construct message
     message = f"Lunch: @{lunch_owner}\nDinner: @{dinner_owner}\nx1: @{x1_owner}"
 
-    url = "https://api.groupme.com/v3/bots/post"
+    # Calculate loci (starting position and length of each mention)
+    lunch_mention_start = message.find(f"@{lunch_owner}")
+    dinner_mention_start = message.find(f"@{dinner_owner}")
+    x1_mention_start = message.find(f"@{x1_owner}")
+
+    loci = [
+        [lunch_mention_start, lunch_mention_start + len(lunch_owner) + 1],
+        [dinner_mention_start, dinner_mention_start + len(dinner_owner) + 1],
+        [x1_mention_start, x1_mention_start + len(x1_owner) + 1]
+    ]
 
     # Data to send in the POST request
     data = {
@@ -83,16 +93,12 @@ def index():
         "bot_id": "c9ed078f3de7c89547308a050a",
         "attachments": [
             {
-            "type": "mentions",
-            "user_ids": [f"{lunch_owner}", f"{dinner_owner}", f"{x1_owner}"],
-            "loci": [
-                [7, 7 + len(lunch_owner)],
-                [17 + len(lunch_owner), 17 + len(lunch_owner) + len(dinner_owner)],
-                [23 + len(lunch_owner) + len(dinner_owner), 23 + len(lunch_owner) + len(dinner_owner) + len(x1_owner)]
-            ]
+                "type": "mentions",
+                "user_ids": [lunch_owner, dinner_owner, x1_owner],
+                "loci": loci
             }
         ]
-    }  
+    }
     # Send the POST request
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
