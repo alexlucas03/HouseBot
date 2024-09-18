@@ -74,41 +74,70 @@ def index():
     x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     # Construct message
-    message = f"Lunch: @{lunch_owner}\nDinner: @{dinner_owner}\nx1: @{x1_owner}"
+    lunch_message = f"Lunch: @{lunch_owner}"
+    dinner_message = f"Dinner: @{dinner_owner}"
+    x1_message = f"x1: @{x1_owner}"
 
     url = "https://api.groupme.com/v3/bots/post"
 
     # Calculate loci (starting position and length of each mention)
-    loci = []
+    lunch_loci = []
+    dinner_loci = []
+    x1_loci = []
     if lunch_owner != 'Not Assigned':
         lunch_mention_start = 7
-        loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
+        lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
 
     if dinner_owner != 'Not Assigned':
-        dinner_mention_start = message.find(f"@{dinner_owner}")
-        loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner) + 1])
+        dinner_mention_start = 8
+        dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
 
     if x1_owner != 'Not Assigned':
-        x1_mention_start = message.find(f"@{x1_owner}")
-        loci.append([x1_mention_start, x1_mention_start + len(x1_owner) + 1])
+        x1_mention_start = 4
+        x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
 
     # Data to send in the POST request
     data = {
-        "text": message,
+        "text": lunch_message,
         "bot_id": "c9ed078f3de7c89547308a050a",
         "attachments": [
             {
                 "type": "mentions",
-                "user_ids": [owner for owner in [lunch_owner, dinner_owner, x1_owner] if owner != 'Not Assigned'],
-                "loci": loci
+                "user_ids": [lunch_owner] if lunch_owner != 'Not Assigned' else [],
+                "loci": lunch_loci
             }
         ]
     }
     # Send the POST request
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-    # Print the response
-    print(response.text)
+    data = {
+        "text": dinner_message,
+        "bot_id": "c9ed078f3de7c89547308a050a",
+        "attachments": [
+            {
+                "type": "mentions",
+                "user_ids": [dinner_owner] if dinner_owner != 'Not Assigned' else [],
+                "loci": dinner_loci
+            }
+        ]
+    }
+    # Send the POST request
+    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+
+    data = {
+        "text": x1_message,
+        "bot_id": "c9ed078f3de7c89547308a050a",
+        "attachments": [
+            {
+                "type": "mentions",
+                "user_ids": [x1_owner] if x1_owner != 'Not Assigned' else [],
+                "loci": x1_loci
+            }
+        ]
+    }
+    # Send the POST request
+    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
     return render_template('index.html', grouped_dishes=grouped_dishes)
 
