@@ -205,7 +205,7 @@ def index():
                 "bot_id": "c9ed078f3de7c89547308a050a",
             }
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-
+    recalculate_points()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 
@@ -229,7 +229,6 @@ def change_owner():
         if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner
             ownersArray[index] = new_owner
-            recalculate_points()
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
@@ -247,7 +246,7 @@ def recalculate_points():
             index = pick_order.index(dish.owner)
             if dish.weekday == 'Sunday' and dish.type == 'dinner':
                 points_order[index] -= 3
-            elif dish.type == 'dinner' or dish.type == 'lunch':
+            elif dish.weekday != 'Sunday' and dish.type == 'dinner' or dish.type == 'lunch':
                 points_order[index] -= 2
             elif dish.type == 'x1':
                 points_order[index] -= 1
