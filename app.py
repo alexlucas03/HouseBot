@@ -206,6 +206,16 @@ def index():
             }
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
+        for dish in dishes:
+            if dish.owner:
+                index = pick_order.index(dish.owner)
+                if dish.date.strftime('%A') == 'Sunday' and dish.type == 'dinner':
+                    points_order[index] += 3
+                elif dish.type == 'dinner' or dish.type == 'lunch':
+                    points_order[index] += 2
+                elif dish.type == 'x1':
+                    points_order[index] += 1
+
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 
@@ -230,16 +240,6 @@ def change_owner():
             dish.owner = new_owner
             ownersArray[index] = new_owner
             return jsonify({'success': True})
-        
-    for dish in dishes:
-            if dish.owner:
-                index = pick_order.index(dish.owner)
-                if dish.date.strftime('%A') == 'Sunday' and dish.type == 'dinner':
-                    points_order[index] -= 3
-                elif dish.type == 'dinner' or dish.type == 'lunch':
-                    points_order[index] -= 2
-                elif dish.type == 'x1':
-                    points_order[index] -= 1
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
 
