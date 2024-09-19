@@ -51,8 +51,9 @@
     </style>
 </head>
 <body>
-    <h1>Dish Picks: {{ user }}</h1>
-    <form action="/logout" method="POST" style="text-align: center;">
+    <h2>Dish Picks: {{ user }}</h2>
+    <h2>Points Left: {{ pointsLeft }}</h2>
+    <form action="/logout" method="POST">
         <button type="submit">Logout</button>
     </form>
     <div id="dish-columns">
@@ -68,6 +69,8 @@
                                     <span class="dish-type">Type: {{ dish.type }}</span>
                                     {% if not dish.owner %}
                                         <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
+                                    {% else if dish.owner == user %}
+                                        <button class="claim-button" onclick="unclaim('{{ dish.date }}', '{{ dish.type }}')">Unclaim</button>
                                     {% else %}
                                         <span class="dish-owner">Owner: {{ dish.owner }}</span>
                                     {% endif %}
@@ -89,6 +92,31 @@
                 date: dishDate,
                 type: dishType,
                 owner: user
+            };
+    
+            fetch('/change-owner', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        function unclaim(dishDate, dishType) {
+            const data = {
+                date: dishDate,
+                type: dishType,
+                owner: null // Set owner to None (or null in JavaScript)
             };
     
             fetch('/change-owner', {

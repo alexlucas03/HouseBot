@@ -175,12 +175,12 @@ def change_owner():
     data = request.get_json()
     dish_date = data.get('date')
     dish_type = data.get('type')
-    new_owner = data.get('owner')
+    new_owner = data.get('owner')  # Can be a user or None
 
     for index, dish in enumerate(dishes):
         if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner
-            ownersArray[index] = new_owner
+            ownersArray[index] = new_owner  # Update the ownersArray as well
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
