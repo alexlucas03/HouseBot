@@ -1,3 +1,12 @@
+# for dish in dishes
+# if dish.owner
+# if dish.weekday == sunday and dish.type == dinner
+# point[pick_order.index(dish.owner)] - 3
+# elif dish.type == dinner or dish.type == lunch
+# point[pick_order.index(dish.owner)] - 2
+# elif dish.type == x1
+# point[pick_order.index(dish.owner)] - 1
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import datetime
 from collections import defaultdict
@@ -196,6 +205,15 @@ def index():
                 "bot_id": "c9ed078f3de7c89547308a050a",
             }
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+
+        for dish in dishes:
+            if dish.owner:
+                if dish.weekday == 'Sunday' and dish.type == 'dinner':
+                    points_order[pick_order.index(dish.owner)] - 3
+                elif dish.type == 'dinner' or dish.type == 'lunch':
+                    points_order[pick_order.index(dish.owner)] - 2
+                elif dish.type == 'x1':
+                    points_order[pick_order.index(dish.owner)] - 1
 
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
