@@ -1,12 +1,3 @@
-# for dish in dishes
-# if dish.owner
-# if dish.weekday == sunday and dish.type == dinner
-# point[pick_order.index(dish.owner)] - 3
-# elif dish.type == dinner or dish.type == lunch
-# point[pick_order.index(dish.owner)] - 2
-# elif dish.type == x1
-# point[pick_order.index(dish.owner)] - 1
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import datetime
 from collections import defaultdict
