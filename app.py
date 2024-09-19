@@ -1,6 +1,3 @@
-# owner class
-# truncate points, while sum of all points is less than total points, start from end of list of owners and add 1 point to each owner
-
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import datetime
 from collections import defaultdict
@@ -105,7 +102,6 @@ def index():
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
 
-    # Check if today is within the start and end date constraints
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
@@ -218,12 +214,12 @@ def change_owner():
     data = request.get_json()
     dish_date = data.get('date')
     dish_type = data.get('type')
-    new_owner = data.get('owner')  # Can be a user or None
+    new_owner = data.get('owner')
 
     for index, dish in enumerate(dishes):
         if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner
-            ownersArray[index] = new_owner  # Update the ownersArray as well
+            ownersArray[index] = new_owner
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
@@ -232,4 +228,3 @@ def change_owner():
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
-

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
     <style>
-        /* Ensure the layout of month columns is good */
         #dish-columns {
             display: flex;
             flex-wrap: wrap;
@@ -16,7 +15,7 @@
 
         .month-column {
             flex: 1;
-            min-width: 200px; /* Ensures columns don't get too narrow */
+            min-width: 200px;
             margin: 10px;
         }
 
@@ -55,7 +54,7 @@
 </head>
 <body>
     <h2>Dish Picks: {{ user }}</h2>
-    <h2>Points Left: {{ points_order[pick_order.index(user)] }}</h2>
+    <h2>Points Needed: {{ points_order[pick_order.index(user)] }}</h2>
     <form action="/logout" method="POST">
         <button type="submit">Logout</button>
     </form>
@@ -65,7 +64,7 @@
                 <h2>{{ month }}</h2>
                 {% for day, dishes_in_day in days.items() %}
                     <div class="day-section">
-                        <h3>Date: {{ day }}</h3>
+                        <h3>Date: {{ day }}, {{ dishes_in_day[0].weekday }}</h3>
                         <ul>
                             {% for dish in dishes_in_day %}
                                 <li>
@@ -87,7 +86,6 @@
     </div>    
 
     <script>
-        // Pass the user variable from Flask to JavaScript
         const user = "{{ user }}";
         
         function changeOwner(dishDate, dishType) {
@@ -119,7 +117,7 @@
             const data = {
                 date: dishDate,
                 type: dishType,
-                owner: null // Set owner to None (or null in JavaScript)
+                owner: null
             };
     
             fetch('/change-owner', {
