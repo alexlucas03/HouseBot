@@ -229,7 +229,7 @@ def change_owner():
         if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner
             ownersArray[index] = new_owner
-            recalculate_points
+            recalculate_points()
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
