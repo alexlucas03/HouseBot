@@ -7,24 +7,49 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/min/dropzone.min.js"></script>
     <style>
-        img {
+        html, body {
+            margin: 0;
+            padding: 0;
             height: 100%;
-            width: auto; /* Maintain aspect ratio */
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        img {
+            height: 100vh; /* 100% of the viewport height */
+            width: 100%;
+            object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+        }
+
+        form {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="content">
         <h1>Login to Dish Bot</h1>
         <form action="/login" method="POST">
             <label for="name">Enter your name:</label>
             <input type="text" id="name" name="username" placeholder="Your Name" required>
             <button type="submit">Login</button>
         </form>
-        <div>
-            <img src="static/images/plate.jpg" alt="Plate">
-        </div>
+    </div>
+    <div>
+        <img src="static/images/plate.jpg" alt="Plate">
     </div>
 </body>
 </html>
