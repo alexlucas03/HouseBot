@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 
 dishes = []
+total_points = 0
 start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
@@ -23,7 +24,29 @@ today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
 ownersArray = [None] * duration * 3
 owner_to_userid = {
-    'alex': '104094443',
+    'ted': '86703628',
+    'dominic': '104427870',
+    'truman': '106396551',
+    'dimov': '104722123',
+    'david': '68279200',
+    'mat': '107719028',
+    'christian': '93350644',
+    'diego': '118125359',
+    'az': '105887162',
+    'leif': '89734509',
+    'john': '71913836',
+    'tony': '115601455',
+    'arohan': '115802749',
+    'stanley': '65365057',
+    'eyen': '115945245',
+    'brandon': '117008618',
+    'jo': '125330287',
+    'jase': '123732691',
+    'sam': '119855908',
+    'tanner': '125114421',
+    'noah': '107162478',
+    'aidan': '23716109',
+    'kim': '123717364',
 }
 
 i = 0
@@ -50,10 +73,15 @@ while current_date <= end_date:
 
 grouped_dishes = defaultdict(lambda: defaultdict(list))
 for dish in dishes:
+    if dish.type == 'dinner' or dish.type == 'lunch':
+        total_points += 2
+    elif dish.type == 'x1':
+        total_points += 1
     month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
     day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
     grouped_dishes[month][day].append(dish)
 
+points = total_points / len(owner_to_userid)
 @app.route('/')
 def index():
     if 'user' not in session:
@@ -158,7 +186,7 @@ def index():
             }
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-    return render_template('index.html', grouped_dishes=grouped_dishes, user=user)
+    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points=points)
 
 
 @app.route('/login', methods=['GET', 'POST'])
