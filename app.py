@@ -176,6 +176,8 @@ def index():
     x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     recalculate_points()
+    if points_order[pick_order.index(new_owner)] <= 0:
+                logout()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 
@@ -200,8 +202,6 @@ def change_owner():
         if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner
             ownersArray[index] = new_owner
-            if points_order[pick_order.index(new_owner)] <= 0:
-                logout()
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
