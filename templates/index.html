@@ -70,7 +70,14 @@
     <div class="container">
         <div class="column1">
             <h2>Dish Picks: {{ user }}</h2>
-            <h2>Points Needed: {{ points_order[pick_order.index(user)] }}</h2>
+            <h2>
+                Points Needed: 
+                {% if user in point_order %}
+                  {{ points_order[pick_order.index(user)] }}
+                {% else %}
+                  You must be admin!
+                {% endif %}
+              </h2>
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
