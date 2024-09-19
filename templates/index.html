@@ -103,11 +103,11 @@
                 <h2>{{ month }}</h2>
                 {% for day, dishes_in_day in days.items() %}
                     <div class="day-section">
-                        <h3>Date: {{ day }}, {{ dishes_in_day[0].weekday }}</h3>
+                        <h3>{{ day }}, {{ dishes_in_day[0].weekday }}</h3>
                         <ul>
                             {% for dish in dishes_in_day %}
                                 <li>
-                                    <span class="dish-type">Type: {{ dish.type }}</span>
+                                    <span class="dish-type">{{ dish.type }}</span>
                                     {% if not dish.owner %}
                                         <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
                                     {% elif dish.owner == user %}
