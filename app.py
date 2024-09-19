@@ -176,7 +176,7 @@ def index():
     x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     recalculate_points()
-    if points_order[pick_order.index(new_owner)] <= 0:
+    if points_order[pick_order.index(user)] <= 0:
                 logout()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
