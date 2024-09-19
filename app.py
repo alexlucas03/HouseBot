@@ -1,44 +1,19 @@
+# owner class
+# truncate points, while sum of all points is less than total points, start from end of list of owners and add 1 point to each owner
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import datetime
 from collections import defaultdict
+from dish import Dish
 import requests
 import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 
-# Define the Person class
-class Person:
-    def __init__(self, name, user_id, points=0):
-        self.name = name
-        self.user_id = user_id
-        self.points = points
-
-    def to_dict(self):
-        return {
-            'name': self.name,
-            'user_id': self.user_id,
-            'points': self.points
-        }
-
-# Define the Dish class
-class Dish:
-    def __init__(self, date, owner, dish_type):
-        self.date = date
-        self.owner = owner  # This should be a Person object
-        self.dish_type = dish_type
-
-    def to_dict(self):
-        return {
-            'date': self.date,
-            'type': self.dish_type,
-            'owner': self.owner.to_dict() if self.owner else None
-        }
-
-# Initialize data
 dishes = []
 total_points = 0
-start_date_str = "2024-09-19"
+start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -51,70 +26,66 @@ current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
 ownersArray = [None] * duration * 3
-
-# Define the owners with Person objects
-owners = {
-    'ted': Person(name='ted', user_id='86703628', points=0),
-    'dominic': Person(name='dominic', user_id='104427870', points=0),
-    'truman': Person(name='truman', user_id='106396551', points=0),
-    'dimov': Person(name='dimov', user_id='104722123', points=0),
-    'david': Person(name='david', user_id='68279200', points=0),
-    'mat': Person(name='mat', user_id='107719028', points=0),
-    'christian': Person(name='christian', user_id='93350644', points=0),
-    'diego': Person(name='diego', user_id='118125359', points=0),
-    'az': Person(name='az', user_id='105887162', points=0),
-    'leif': Person(name='leif', user_id='89734509', points=0),
-    'john': Person(name='john', user_id='71913836', points=0),
-    'tony': Person(name='tony', user_id='115601455', points=0),
-    'arohan': Person(name='arohan', user_id='115802749', points=0),
-    'stanley': Person(name='stanley', user_id='65365057', points=0),
-    'eyen': Person(name='eyen', user_id='115945245', points=0),
-    'brandon': Person(name='brandon', user_id='117008618', points=0),
-    'jo': Person(name='jo', user_id='125330287', points=0),
-    'jase': Person(name='jase', user_id='123732691', points=0),
-    'sam': Person(name='sam', user_id='119855908', points=0),
-    'tanner': Person(name='tanner', user_id='125114421', points=0),
-    'noah': Person(name='noah', user_id='107162478', points=0),
-    'aidan': Person(name='aidan', user_id='23716109', points=0),
-    'kim': Person(name='kim', user_id='123717364', points=0),
+owner_to_userid = {
+    'ted': '86703628',
+    'dominic': '104427870',
+    'truman': '106396551',
+    'dimov': '104722123',
+    'david': '68279200',
+    'mat': '107719028',
+    'christian': '93350644',
+    'diego': '118125359',
+    'az': '105887162',
+    'leif': '89734509',
+    'john': '71913836',
+    'tony': '115601455',
+    'arohan': '115802749',
+    'stanley': '65365057',
+    'eyen': '115945245',
+    'brandon': '117008618',
+    'jo': '125330287',
+    'jase': '123732691',
+    'sam': '119855908',
+    'tanner': '125114421',
+    'noah': '107162478',
+    'aidan': '23716109',
+    'kim': '123717364',
 }
 
 i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
-
+    
     if day_of_week != "Saturday":
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
             total_points += 1
 
-        owner_name = ownersArray[i]
-        owner = owners.get(owner_name, None)
-
-        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, dish_type=types[type_index])
+        owner = ownersArray[i]
+        
+        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, type=types[type_index])
         dishes.append(dish)
         i += 1
-
+        
         if types[type_index] == 'x1':
             current_date += delta
-
+        
         type_index = (type_index + 1) % len(types)
-
+ 
     else:
         current_date += delta
 
 grouped_dishes = defaultdict(lambda: defaultdict(list))
 for dish in dishes:
-    if dish.dish_type == 'dinner' or dish.dish_type == 'lunch':
+    if dish.type == 'dinner' or dish.type == 'lunch':
         total_points += 2
-    elif dish.dish_type == 'x1':
+    elif dish.type == 'x1':
         total_points += 1
     month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
     day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
     grouped_dishes[month][day].append(dish)
 
-points = total_points / len(owners)
-
+points = total_points / len(owner_to_userid)
 @app.route('/')
 def index():
     if 'user' not in session:
@@ -123,6 +94,7 @@ def index():
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
 
+    # Check if today is within the start and end date constraints
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
@@ -130,48 +102,96 @@ def index():
 
         for dish in dishes:
             if dish.date == today:
-                if dish.dish_type == "lunch":
+                if dish.type == "lunch":
                     today_lunch = dish
-                elif dish.dish_type == "dinner":
+                elif dish.type == "dinner":
                     today_dinner = dish
-                elif dish.dish_type == "x1":
+                elif dish.type == "x1":
                     today_x1 = dish
 
         lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-        lunch_message = f"Lunch: @{lunch_owner.name if lunch_owner != 'Not Assigned' else 'Not Assigned'}"
-        dinner_message = f"Dinner: @{dinner_owner.name if dinner_owner != 'Not Assigned' else 'Not Assigned'}"
-        x1_message = f"x1: @{x1_owner.name if x1_owner != 'Not Assigned' else 'Not Assigned'}"
+        lunch_userid = owner_to_userid.get(lunch_owner, None)
+        dinner_userid = owner_to_userid.get(dinner_owner, None)
+        x1_userid = owner_to_userid.get(x1_owner, None)
+
+        lunch_message = f"Lunch: @{lunch_owner}"
+        dinner_message = f"Dinner: @{dinner_owner}"
+        x1_message = f"x1: @{x1_owner}"
 
         url = "https://api.groupme.com/v3/bots/post"
 
-        def send_message(message, user_id=None):
+        lunch_loci = []
+        dinner_loci = []
+        x1_loci = []
+
+        if lunch_owner != 'Not Assigned':
+            lunch_mention_start = 7
+            lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
             data = {
-                "text": message,
-                "bot_id": "c9ed078f3de7c89547308a050a"
+                "text": lunch_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+                "attachments": [
+                    {
+                        "type": "mentions",
+                        "user_ids": [lunch_userid],
+                        "loci": lunch_loci
+                    }
+                ]
             }
-            if user_id:
-                data["attachments"] = [{
-                    "type": "mentions",
-                    "user_ids": [user_id],
-                    "loci": [[7, 7 + len(lunch_owner.name)]] if message == lunch_message else
-                            [[8, 8 + len(dinner_owner.name)]] if message == dinner_message else
-                            [[4, 4 + len(x1_owner.name)]]
-                }]
-            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-            return response
+        else:
+            data = {
+                "text": lunch_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+            }
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-        lunch_user_id = lunch_owner.user_id if lunch_owner != 'Not Assigned' else None
-        dinner_user_id = dinner_owner.user_id if dinner_owner != 'Not Assigned' else None
-        x1_user_id = x1_owner.user_id if x1_owner != 'Not Assigned' else None
+        if dinner_owner != 'Not Assigned':
+            dinner_mention_start = 8
+            dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
+            data = {
+                "text": dinner_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+                "attachments": [
+                    {
+                        "type": "mentions",
+                        "user_ids": [dinner_userid],
+                        "loci": dinner_loci
+                    }
+                ]
+            }
+        else:
+            data = {
+                "text": dinner_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+            }
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-        send_message(lunch_message, lunch_user_id)
-        send_message(dinner_message, dinner_user_id)
-        send_message(x1_message, x1_user_id)
+        if x1_owner != 'Not Assigned':
+            x1_mention_start = 4
+            x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
+            data = {
+                "text": x1_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+                "attachments": [
+                    {
+                        "type": "mentions",
+                        "user_ids": [x1_userid],
+                        "loci": x1_loci
+                    }
+                ]
+            }
+        else:
+            data = {
+                "text": x1_message,
+                "bot_id": "c9ed078f3de7c89547308a050a",
+            }
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points=points)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -181,18 +201,18 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html')
 
+
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()
     dish_date = data.get('date')
     dish_type = data.get('type')
-    new_owner_name = data.get('owner')
+    new_owner = data.get('owner')  # Can be a user or None
 
     for index, dish in enumerate(dishes):
-        if dish.date == dish_date and dish.dish_type == dish_type:
-            new_owner = owners.get(new_owner_name, None)
+        if dish.date == dish_date and dish.type == dish_type:
             dish.owner = new_owner
-            ownersArray[index] = new_owner_name
+            ownersArray[index] = new_owner  # Update the ownersArray as well
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
@@ -202,5 +222,3 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
