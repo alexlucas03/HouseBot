@@ -1,5 +1,13 @@
+# for dish in dishes
+# if dish.owner
+# if dish.weekday == sunday and dish.type == dinner
+# point[pick_order.index(dish.owner)] - 3
+# elif dish.type == dinner or dish.type == lunch
+# point[pick_order.index(dish.owner)] - 2
+# elif dish.type == x1
+# point[pick_order.index(dish.owner)] - 1
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from flask_apscheduler import APScheduler
 import datetime
 from collections import defaultdict
 from dish import Dish
@@ -8,12 +16,10 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-scheduler = APScheduler()
-scheduler.init_app(app)
 
 dishes = []
 total_points = 0
-start_date_str = "2024-09-19"
+start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -107,12 +113,6 @@ def index():
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
 
-    
-    recalculate_points()
-    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
-
-@scheduler.task('cron', hour=10, minute=0)
-def send_messages():
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
@@ -207,6 +207,9 @@ def send_messages():
                 "bot_id": "c9ed078f3de7c89547308a050a",
             }
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+    recalculate_points()
+    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
