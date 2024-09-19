@@ -96,6 +96,66 @@ while(summed_points < total_points):
     summed_points += 1
     count += 1
 
+@app.route('/send-groupme-messages', methods=['POST'])
+def send_groupme_messages():
+    user = session.get('user')
+    if not user or user != 'admin':
+        return jsonify({'success': False, 'message': 'Unauthorized access'}), 403
+
+    today = datetime.date.today().strftime('%Y-%m-%d')
+    today_lunch = None
+    today_dinner = None
+    today_x1 = None
+
+    for dish in dishes:
+        if dish.date == today:
+            if dish.type == "lunch":
+                today_lunch = dish
+            elif dish.type == "dinner":
+                today_dinner = dish
+            elif dish.type == "x1":
+                today_x1 = dish
+
+    lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
+    dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
+    x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
+
+    lunch_userid = owner_to_userid.get(lunch_owner, None)
+    dinner_userid = owner_to_userid.get(dinner_owner, None)
+    x1_userid = owner_to_userid.get(x1_owner, None)
+
+    url = "https://api.groupme.com/v3/bots/post"
+
+    def send_message(message, owner, owner_userid, owner_loci_start, owner_loci_end):
+        data = {
+            "text": message,
+            "bot_id": "c9ed078f3de7c89547308a050a",
+        }
+        if owner != 'Not Assigned':
+            data["attachments"] = [
+                {
+                    "type": "mentions",
+                    "user_ids": [owner_userid],
+                    "loci": [[owner_loci_start, owner_loci_end]]
+                }
+            ]
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+        return response
+
+    # Send lunch message
+    lunch_message = f"Lunch: @{lunch_owner}"
+    send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
+
+    # Send dinner message
+    dinner_message = f"Dinner: @{dinner_owner}"
+    send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
+
+    # Send x1 message
+    x1_message = f"x1: @{x1_owner}"
+    send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
+
+    return jsonify({'success': True, 'message': 'Messages sent successfully'})
+
 @app.route('/')
 def index():
     if 'user' not in session:
@@ -117,86 +177,6 @@ def index():
                 elif dish.type == "x1":
                     today_x1 = dish
 
-        lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
-        dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
-        x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
-
-        lunch_userid = owner_to_userid.get(lunch_owner, None)
-        dinner_userid = owner_to_userid.get(dinner_owner, None)
-        x1_userid = owner_to_userid.get(x1_owner, None)
-        if user == 'admin':
-            lunch_message = f"Lunch: @{lunch_owner}"
-            dinner_message = f"Dinner: @{dinner_owner}"
-            x1_message = f"x1: @{x1_owner}"
-
-            url = "https://api.groupme.com/v3/bots/post"
-
-            lunch_loci = []
-            dinner_loci = []
-            x1_loci = []
-
-            if lunch_owner != 'Not Assigned':
-                lunch_mention_start = 7
-                lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
-                data = {
-                    "text": lunch_message,
-                    "bot_id": "c9ed078f3de7c89547308a050a",
-                    "attachments": [
-                        {
-                            "type": "mentions",
-                            "user_ids": [lunch_userid],
-                            "loci": lunch_loci
-                        }
-                    ]
-                }
-            else:
-                data = {
-                    "text": lunch_message,
-                    "bot_id": "c9ed078f3de7c89547308a050a",
-                }
-            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-
-            if dinner_owner != 'Not Assigned':
-                dinner_mention_start = 8
-                dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
-                data = {
-                    "text": dinner_message,
-                    "bot_id": "c9ed078f3de7c89547308a050a",
-                    "attachments": [
-                        {
-                            "type": "mentions",
-                            "user_ids": [dinner_userid],
-                            "loci": dinner_loci
-                        }
-                    ]
-                }
-            else:
-                data = {
-                    "text": dinner_message,
-                    "bot_id": "c9ed078f3de7c89547308a050a",
-                }
-            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-
-            if x1_owner != 'Not Assigned':
-                x1_mention_start = 4
-                x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
-                data = {
-                    "text": x1_message,
-                    "bot_id": "c9ed078f3de7c89547308a050a",
-                    "attachments": [
-                        {
-                            "type": "mentions",
-                            "user_ids": [x1_userid],
-                            "loci": x1_loci
-                        }
-                    ]
-                }
-            else:
-                data = {
-                    "text": x1_message,
-                    "bot_id": "c9ed078f3de7c89547308a050a",
-                }
-            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
     recalculate_points()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 

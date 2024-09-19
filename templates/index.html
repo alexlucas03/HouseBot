@@ -84,10 +84,16 @@
                 {% else %}
                   You must be admin!
                 {% endif %}
-              </h2>
+            </h2>
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
+    
+            {% if user == 'admin' %}
+            <form action="/send-messages" method="POST">
+                <button type="submit">Send Messages</button>
+            </form>
+            {% endif %}
         </div>
         <div class="column2">
             <p>Click "claim" to pick dishes to exactly meet your points needed</p>
@@ -98,6 +104,7 @@
             <p>You can only pick Sunday dinner once</p>
         </div>
     </div>
+    
     <div id="dish-columns">
         {% for month, days in grouped_dishes.items() %}
             <div class="month-column">
