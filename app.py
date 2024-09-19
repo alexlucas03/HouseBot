@@ -56,6 +56,7 @@ owner_to_userid = {
     'noah': '107162478',
     'aidan': '23716109',
     'kim': '123717364',
+    'admin': '1'
 }
 
 pick_order = ['ted', 'dominic', 'truman', 'dimov', 'david', 'mat', 'christian', 'diego', 'az', 'leif', 'john', 'tony', 'arohan', 'stanley', 'eyen', 'brandon', 'jo', 'jase', 'sam', 'tanner', 'noah', 'aidan', 'kim']
