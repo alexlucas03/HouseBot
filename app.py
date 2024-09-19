@@ -19,7 +19,7 @@ app.config['SECRET_KEY'] = 'mysecret'
 
 dishes = []
 total_points = 0
-start_date_str = "2024-09-24"
+start_date_str = "2024-09-19"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
@@ -112,7 +112,6 @@ def index():
 
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
-
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
@@ -134,79 +133,79 @@ def index():
         lunch_userid = owner_to_userid.get(lunch_owner, None)
         dinner_userid = owner_to_userid.get(dinner_owner, None)
         x1_userid = owner_to_userid.get(x1_owner, None)
+        if user == 'admin':
+            lunch_message = f"Lunch: @{lunch_owner}"
+            dinner_message = f"Dinner: @{dinner_owner}"
+            x1_message = f"x1: @{x1_owner}"
 
-        lunch_message = f"Lunch: @{lunch_owner}"
-        dinner_message = f"Dinner: @{dinner_owner}"
-        x1_message = f"x1: @{x1_owner}"
+            url = "https://api.groupme.com/v3/bots/post"
 
-        url = "https://api.groupme.com/v3/bots/post"
+            lunch_loci = []
+            dinner_loci = []
+            x1_loci = []
 
-        lunch_loci = []
-        dinner_loci = []
-        x1_loci = []
+            if lunch_owner != 'Not Assigned':
+                lunch_mention_start = 7
+                lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
+                data = {
+                    "text": lunch_message,
+                    "bot_id": "c9ed078f3de7c89547308a050a",
+                    "attachments": [
+                        {
+                            "type": "mentions",
+                            "user_ids": [lunch_userid],
+                            "loci": lunch_loci
+                        }
+                    ]
+                }
+            else:
+                data = {
+                    "text": lunch_message,
+                    "bot_id": "c9ed078f3de7c89547308a050a",
+                }
+            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-        if lunch_owner != 'Not Assigned':
-            lunch_mention_start = 7
-            lunch_loci.append([lunch_mention_start, lunch_mention_start + len(lunch_owner)])
-            data = {
-                "text": lunch_message,
-                "bot_id": "c9ed078f3de7c89547308a050a",
-                "attachments": [
-                    {
-                        "type": "mentions",
-                        "user_ids": [lunch_userid],
-                        "loci": lunch_loci
-                    }
-                ]
-            }
-        else:
-            data = {
-                "text": lunch_message,
-                "bot_id": "c9ed078f3de7c89547308a050a",
-            }
-        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+            if dinner_owner != 'Not Assigned':
+                dinner_mention_start = 8
+                dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
+                data = {
+                    "text": dinner_message,
+                    "bot_id": "c9ed078f3de7c89547308a050a",
+                    "attachments": [
+                        {
+                            "type": "mentions",
+                            "user_ids": [dinner_userid],
+                            "loci": dinner_loci
+                        }
+                    ]
+                }
+            else:
+                data = {
+                    "text": dinner_message,
+                    "bot_id": "c9ed078f3de7c89547308a050a",
+                }
+            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-        if dinner_owner != 'Not Assigned':
-            dinner_mention_start = 8
-            dinner_loci.append([dinner_mention_start, dinner_mention_start + len(dinner_owner)])
-            data = {
-                "text": dinner_message,
-                "bot_id": "c9ed078f3de7c89547308a050a",
-                "attachments": [
-                    {
-                        "type": "mentions",
-                        "user_ids": [dinner_userid],
-                        "loci": dinner_loci
-                    }
-                ]
-            }
-        else:
-            data = {
-                "text": dinner_message,
-                "bot_id": "c9ed078f3de7c89547308a050a",
-            }
-        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-
-        if x1_owner != 'Not Assigned':
-            x1_mention_start = 4
-            x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
-            data = {
-                "text": x1_message,
-                "bot_id": "c9ed078f3de7c89547308a050a",
-                "attachments": [
-                    {
-                        "type": "mentions",
-                        "user_ids": [x1_userid],
-                        "loci": x1_loci
-                    }
-                ]
-            }
-        else:
-            data = {
-                "text": x1_message,
-                "bot_id": "c9ed078f3de7c89547308a050a",
-            }
-        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+            if x1_owner != 'Not Assigned':
+                x1_mention_start = 4
+                x1_loci.append([x1_mention_start, x1_mention_start + len(x1_owner)])
+                data = {
+                    "text": x1_message,
+                    "bot_id": "c9ed078f3de7c89547308a050a",
+                    "attachments": [
+                        {
+                            "type": "mentions",
+                            "user_ids": [x1_userid],
+                            "loci": x1_loci
+                        }
+                    ]
+                }
+            else:
+                data = {
+                    "text": x1_message,
+                    "bot_id": "c9ed078f3de7c89547308a050a",
+                }
+            response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
     recalculate_points()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
