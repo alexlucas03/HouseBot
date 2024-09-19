@@ -1,3 +1,6 @@
+# owner class
+# truncate points, while sum of all points is less than total points, start from end of list of owners and add 1 point to each owner
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import datetime
 from collections import defaultdict
@@ -56,6 +59,7 @@ while current_date <= end_date:
     if day_of_week != "Saturday":
         if day_of_week == "Sunday" and type_index == 0:
             type_index = 1
+            total_points += 1
 
         owner = ownersArray[i]
         
