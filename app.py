@@ -208,13 +208,15 @@ def index():
 
         for dish in dishes:
             if dish.owner:
+                print("if dish.owner:")
                 index = pick_order.index(dish.owner)
                 if dish.date.strftime('%A') == 'Sunday' and dish.type == 'dinner':
-                    points_order[index] += 3
+                    points_order[index] -= 3
                 elif dish.type == 'dinner' or dish.type == 'lunch':
-                    points_order[index] += 2
+                    points_order[index] -= 2
                 elif dish.type == 'x1':
-                    points_order[index] += 1
+                    points_order[index] -= 1
+        print(points_order)
 
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
