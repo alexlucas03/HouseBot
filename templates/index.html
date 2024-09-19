@@ -63,23 +63,30 @@
             <div class="month-column">
                 <h2>{{ month }}</h2>
                 {% for day, dishes_in_day in days.items() %}
-                    <div class="day-section">
-                        <h3>Date: {{ day }}, {{ dishes_in_day[0].weekday }}</h3>
+                <div class="day-section">
+                    <div class="instructions">
+                        <p>Instructions for claiming dishes:</p>
                         <ul>
-                            {% for dish in dishes_in_day %}
-                                <li>
-                                    <span class="dish-type">Type: {{ dish.type }}</span>
-                                    {% if not dish.owner %}
-                                        <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
-                                    {% elif dish.owner == user %}
-                                        <button class="claim-button" onclick="unclaim('{{ dish.date }}', '{{ dish.type }}')">Unclaim</button>
-                                    {% else %}
-                                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
+                            <li>Click "Claim" to take ownership of a dish.</li>
+                            <li>Click "Unclaim" to release your claim on a dish.</li>
                         </ul>
                     </div>
+                    <h3>Date: {{ day }}, {{ dishes_in_day[0].weekday }}</h3>
+                    <ul>
+                        {% for dish in dishes_in_day %}
+                            <li>
+                                <span class="dish-type">Type: {{ dish.type }}</span>
+                                {% if not dish.owner %}
+                                    <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
+                                {% elif dish.owner == user %}
+                                    <button class="claim-button" onclick="unclaim('{{ dish.date }}', '{{ dish.type }}')">Unclaim</button>
+                                {% else %}
+                                    <span class="dish-owner">Owner: {{ dish.owner }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endfor %}
             </div>
         {% endfor %}
