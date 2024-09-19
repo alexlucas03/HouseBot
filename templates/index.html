@@ -65,9 +65,7 @@
                 <h2>{{ month }}</h2>
                 {% for day, dishes_in_day in days.items() %}
                     <div class="day-section">
-                        {% set date_str = month + ' ' + day %}
-                        {% set date_obj = datetime.datetime.strptime(date_str, '%B %d') %}
-                        <h3>Date: {{ day }}, {{ date_obj.strftime('%A') }}</h3>
+                        <h3>Date: {{ day }}, {{ day.strftime("%A") }}</h3>
                         <ul>
                             {% for dish in dishes_in_day %}
                                 <li>
