@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
-from flask_apscheduler import APScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 from collections import defaultdict
 from dish import Dish
@@ -99,6 +99,10 @@ while(summed_points < total_points):
     summed_points += 1
     count += 1
 
+scheduler = BackgroundScheduler()
+job = scheduler.add_job(send_messages, 'interval', minutes=1)
+scheduler.start()
+
 @app.route('/')
 def index():
     if 'user' not in session:
@@ -111,7 +115,6 @@ def index():
     recalculate_points()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
-@scheduler.task('cron', hour=10, minute=0)
 def send_messages():
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
