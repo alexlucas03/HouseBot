@@ -97,10 +97,6 @@ while(summed_points < total_points):
     summed_points += 1
     count += 1
 
-scheduler = BackgroundScheduler()
-job = scheduler.add_job(send_messages, 'interval', minutes=1)
-scheduler.start()
-
 @app.route('/')
 def index():
     if 'user' not in session:
@@ -252,3 +248,7 @@ def recalculate_points():
                 points_order[index] -= 2
             elif dish.type == 'x1':
                 points_order[index] -= 1
+
+scheduler = BackgroundScheduler()
+job = scheduler.add_job(send_messages, 'interval', minutes=1)
+scheduler.start()
