@@ -95,6 +95,7 @@ for dish in dishes:
 
 points = total_points / len(owner_to_userid)
 points_order = [int(points)] * len(pick_order)
+original_points = points_order.copy()
 summed_points = int(points) * len(pick_order)
 
 count = 0
@@ -241,6 +242,7 @@ def logout():
 def recalculate_points():
     global total_points, points_order
 
+    points_order = original_points
     for dish in dishes:
         if dish.owner:
             index = pick_order.index(dish.owner)
