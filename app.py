@@ -94,6 +94,7 @@ summed_points = int(points) * len(pick_order)
 count = 0
 while(summed_points < total_points):
     points_order[len(points_order) - 1 - count] += 1
+    summed_points += 1
     count += 1
 
 @app.route('/')
@@ -200,7 +201,7 @@ def index():
             }
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
 
-    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points=points)
+    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 
 @app.route('/login', methods=['GET', 'POST'])
