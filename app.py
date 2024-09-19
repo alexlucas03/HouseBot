@@ -142,6 +142,7 @@ def index():
 
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
+    
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
@@ -155,31 +156,17 @@ def index():
                     today_dinner = dish
                 elif dish.type == "x1":
                     today_x1 = dish
-        user = session.get('user')
-
-    today = datetime.date.today().strftime('%Y-%m-%d')
-    today_lunch = None
-    today_dinner = None
-    today_x1 = None
-
-    for dish in dishes:
-        if dish.date == today:
-            if dish.type == "lunch":
-                today_lunch = dish
-            elif dish.type == "dinner":
-                today_dinner = dish
-            elif dish.type == "x1":
-                today_x1 = dish
-
-    lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
-    dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
-    x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
+        
+        lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
+        dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
+        x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     recalculate_points()
-    if user != 'admin' and points_order[pick_order.index(user)] <= 1:
-        logout()
-    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
+    if user in pick_order and points_order[pick_order.index(user)] <= 0:
+        logout()
+
+    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
