@@ -62,7 +62,7 @@ while current_date <= end_date:
 
         owner = ownersArray[i]
         
-        dish = Dish(date=current_date.strftime("%Y-%m-%d"), owner=owner, type=types[type_index])
+        dish = Dish(date=current_date, owner=owner, type=types[type_index])
         dishes.append(dish)
         i += 1
         
