@@ -248,7 +248,7 @@ def recalculate_points():
     for dish in dishes:
         if dish.owner:
             index = pick_order.index(dish.owner)
-            if dish.date.strftime('%A') == 'Sunday' and dish.type == 'dinner':
+            if dish.weekday == 'Sunday' and dish.type == 'dinner':
                 points_order[index] -= 3
             elif dish.type == 'dinner' or dish.type == 'lunch':
                 points_order[index] -= 2
