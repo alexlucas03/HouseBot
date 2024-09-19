@@ -96,7 +96,7 @@ while(summed_points < total_points):
     summed_points += 1
     count += 1
 
-@app.route('/send-groupme-messages', methods=['POST'])
+@app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
     user = session.get('user')
     if not user or user != 'admin':

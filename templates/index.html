@@ -71,6 +71,10 @@
         .column2 {
             text-align: right;
         }
+
+        .msg-button {
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -90,7 +94,7 @@
             </form>
     
             {% if user == 'admin' %}
-            <form action="/send-messages" method="POST">
+            <form class="msg-button" action="/send-messages" method="POST">
                 <button type="submit">Send Messages</button>
             </form>
             {% endif %}
