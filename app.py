@@ -52,6 +52,8 @@ owner_to_userid = {
     'kim': '123717364',
 }
 
+pick_order = ['ted', 'dominic', 'truman', 'dimov', 'david', 'mat', 'christian', 'diego', 'az', 'leif', 'john', 'tony', 'arohan', 'stanley', 'eyen', 'brandon', 'jo', 'jase', 'sam', 'tanner', 'noah', 'aidan', 'kim']
+
 i = 0
 while current_date <= end_date:
     day_of_week = current_date.strftime("%A")
@@ -86,6 +88,14 @@ for dish in dishes:
     grouped_dishes[month][day].append(dish)
 
 points = total_points / len(owner_to_userid)
+points_order = [int(points)] * len(pick_order)
+summed_points = int(points) * len(pick_order)
+
+count = 0
+while(summed_points < total_points):
+    points_order[len(points_order) - 1 - count] += 1
+    count += 1
+
 @app.route('/')
 def index():
     if 'user' not in session:
