@@ -98,32 +98,6 @@ while(summed_points < total_points):
 
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
-    user = session.get('user')
-    if not user or user != 'admin':
-        return jsonify({'success': False, 'message': 'Unauthorized access'}), 403
-
-    today = datetime.date.today().strftime('%Y-%m-%d')
-    today_lunch = None
-    today_dinner = None
-    today_x1 = None
-
-    for dish in dishes:
-        if dish.date == today:
-            if dish.type == "lunch":
-                today_lunch = dish
-            elif dish.type == "dinner":
-                today_dinner = dish
-            elif dish.type == "x1":
-                today_x1 = dish
-
-    lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
-    dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
-    x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
-
-    lunch_userid = owner_to_userid.get(lunch_owner, None)
-    dinner_userid = owner_to_userid.get(dinner_owner, None)
-    x1_userid = owner_to_userid.get(x1_owner, None)
-
     url = "https://api.groupme.com/v3/bots/post"
 
     def send_message(message, owner, owner_userid, owner_loci_start, owner_loci_end):
@@ -176,6 +150,29 @@ def index():
                     today_dinner = dish
                 elif dish.type == "x1":
                     today_x1 = dish
+        user = session.get('user')
+
+    today = datetime.date.today().strftime('%Y-%m-%d')
+    today_lunch = None
+    today_dinner = None
+    today_x1 = None
+
+    for dish in dishes:
+        if dish.date == today:
+            if dish.type == "lunch":
+                today_lunch = dish
+            elif dish.type == "dinner":
+                today_dinner = dish
+            elif dish.type == "x1":
+                today_x1 = dish
+
+    lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
+    dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
+    x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
+
+    lunch_userid = owner_to_userid.get(lunch_owner, None)
+    dinner_userid = owner_to_userid.get(dinner_owner, None)
+    x1_userid = owner_to_userid.get(x1_owner, None)
 
     recalculate_points()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
