@@ -50,43 +50,56 @@
         .day-section {
             height: 150px;
         }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .column {
+            flex: 1;
+            margin: 0 10px;
+        }
     </style>
 </head>
 <body>
-    <h2>Dish Picks: {{ user }}</h2>
-    <h2>Points Needed: {{ points_order[pick_order.index(user)] }}</h2>
-    <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
-    </form>
+    <div class="container">
+        <div class="column">
+            <h2>Dish Picks: {{ user }}</h2>
+            <h2>Points Needed: {{ points_order[pick_order.index(user)] }}</h2>
+            <form action="/logout" method="POST">
+                <button type="submit">Logout</button>
+            </form>
+        </div>
+        <div class="column">
+            <p>instruction</p>
+            <p>instruction</p>
+            <p>instruction</p>
+            <p>instruction</p>
+        </div>
+    </div>
     <div id="dish-columns">
         {% for month, days in grouped_dishes.items() %}
             <div class="month-column">
                 <h2>{{ month }}</h2>
                 {% for day, dishes_in_day in days.items() %}
-                <div class="day-section">
-                    <div class="instructions">
-                        <p>Instructions for claiming dishes:</p>
+                    <div class="day-section">
+                        <h3>Date: {{ day }}, {{ dishes_in_day[0].weekday }}</h3>
                         <ul>
-                            <li>Click "Claim" to take ownership of a dish.</li>
-                            <li>Click "Unclaim" to release your claim on a dish.</li>
+                            {% for dish in dishes_in_day %}
+                                <li>
+                                    <span class="dish-type">Type: {{ dish.type }}</span>
+                                    {% if not dish.owner %}
+                                        <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
+                                    {% elif dish.owner == user %}
+                                        <button class="claim-button" onclick="unclaim('{{ dish.date }}', '{{ dish.type }}')">Unclaim</button>
+                                    {% else %}
+                                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
-                    <h3>Date: {{ day }}, {{ dishes_in_day[0].weekday }}</h3>
-                    <ul>
-                        {% for dish in dishes_in_day %}
-                            <li>
-                                <span class="dish-type">Type: {{ dish.type }}</span>
-                                {% if not dish.owner %}
-                                    <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
-                                {% elif dish.owner == user %}
-                                    <button class="claim-button" onclick="unclaim('{{ dish.date }}', '{{ dish.type }}')">Unclaim</button>
-                                {% else %}
-                                    <span class="dish-owner">Owner: {{ dish.owner }}</span>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
                 {% endfor %}
             </div>
         {% endfor %}
