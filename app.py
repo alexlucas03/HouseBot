@@ -163,7 +163,7 @@ def index():
 
     recalculate_points()
 
-    if user in pick_order and points_order[pick_order.index(user)] <= 0:
+    if user in pick_order and points_order[pick_order.index(user)] <= 1:
         logout()
 
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
