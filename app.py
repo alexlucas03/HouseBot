@@ -216,7 +216,8 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         session['user'] = username
-        return redirect(url_for('index'))
+        if pick_order.contains(username) or username == 'admin':
+            return redirect(url_for('index'))
     return render_template('login.html')
 
 
