@@ -56,26 +56,31 @@
             margin-bottom: 20px;
         }
 
-        .column {
+        .column1 .column2 {
             flex: 1;
             margin: 0 10px;
+        }
+
+        .column2 {
+            text-align: right;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="column">
+        <div class="column1">
             <h2>Dish Picks: {{ user }}</h2>
             <h2>Points Needed: {{ points_order[pick_order.index(user)] }}</h2>
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
         </div>
-        <div class="column">
-            <p>instruction</p>
-            <p>instruction</p>
-            <p>instruction</p>
-            <p>instruction</p>
+        <div class="column2">
+            <p>Pick points dishes to exactly meet your points needed</p>
+            <p>Lunch/dinner is worth 2 points each</p>
+            <p>x1 is worth 1 point</p>
+            <p>Sunday dinner is worth 3 points</p>
+            <p>You can only pick Sunday dinner once</p>
         </div>
     </div>
     <div id="dish-columns">
