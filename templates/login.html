@@ -13,6 +13,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
 
         body {
@@ -26,13 +27,18 @@
             justify-content: center;
             height: 100%;
             text-align: center;
+            position: relative; /* Make the content relative so it sits above the image */
+            z-index: 1; /* Ensures the content is in front of the image */
         }
 
         img {
+            position: absolute;
+            top: 0;
+            left: 0;
             height: 100vh;
             width: 100%;
             object-fit: cover;
-            z-index: -1
+            z-index: -1; /* Moves the image behind the content */
         }
 
         form {
@@ -49,8 +55,6 @@
             <button type="submit">Login</button>
         </form>
     </div>
-    <div>
-        <img src="static/images/plate.jpg" alt="Plate">
-    </div>
+    <img src="static/images/plate.jpg" alt="Plate">
 </body>
 </html>
