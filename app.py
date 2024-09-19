@@ -103,20 +103,19 @@ def index():
         return redirect(url_for('login'))
 
     user = session['user']
-    today = datetime.date.today().strftime('%Y-%m-%d')
-
     
     recalculate_points()
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 def send_messages():
+    today = datetime.date.today().strftime('%Y-%m-%d')
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
         today_x1 = None
 
         for dish in dishes:
-            if dish.date == today:
+            if dish.date.strftime('%Y-%m-%d') == today:
                 if dish.type == "lunch":
                     today_lunch = dish
                 elif dish.type == "dinner":
