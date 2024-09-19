@@ -242,9 +242,6 @@ def logout():
 def recalculate_points():
     global total_points, points_order
 
-    total_points = 0
-    points_order = [0] * len(pick_order)
-
     for dish in dishes:
         if dish.owner:
             index = pick_order.index(dish.owner)
