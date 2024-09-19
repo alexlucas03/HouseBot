@@ -8,8 +8,6 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-scheduler = APScheduler()
-scheduler.init_app(app)
 
 dishes = []
 total_points = 0
