@@ -201,7 +201,7 @@ def change_owner():
             dish.owner = new_owner
             ownersArray[index] = new_owner
             if points_order[pick_order.index(new_owner)] <= 0:
-                return redirect(url_for('login'))
+                logout()
             return jsonify({'success': True})
 
     return jsonify({'success': False, 'message': 'Dish not found'}), 404
