@@ -72,7 +72,7 @@
             <h2>Dish Picks: {{ user }}</h2>
             <h2>
                 Points Needed: 
-                {% if user in point_order %}
+                {% if user in pick_order %}
                   {{ points_order[pick_order.index(user)] }}
                 {% else %}
                   You must be admin!
