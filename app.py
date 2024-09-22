@@ -69,6 +69,13 @@ ownersArray[55] = 'david'
 ownersArray[72] = 'david'
 ownersArray[106] = 'david'
 
+ownersArray[44] = 'mat'
+ownersArray[63] = 'mat'
+ownersArray[114] = 'mat'
+ownersArray[131] = 'mat'
+ownersArray[131] = 'mat'
+ownersArray[148] = 'mat'
+
 owner_to_userid = {
     'ted': '86703628',
     'dominic': '104427870',
@@ -208,10 +215,6 @@ def index():
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     recalculate_points()
-
-    if user in pick_order and points_order[pick_order.index(user)] <= 1:
-        logout()
-
     return render_template('index.html', grouped_dishes=grouped_dishes, user=user, points_order=points_order, pick_order=pick_order)
 
 @app.route('/login', methods=['GET', 'POST'])
