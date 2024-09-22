@@ -23,6 +23,15 @@ current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
 ownersArray = [None] * duration * 3
+ownersArray[0] = 'ted'
+ownersArray[1] = 'ted'
+ownersArray[4] = 'ted'
+ownersArray[12] = 'ted'
+ownersArray[13] = 'ted'
+ownersArray[14] = 'ted'
+ownersArray[15] = 'ted'
+
+
 owner_to_userid = {
     'ted': '86703628',
     'dominic': '104427870',
