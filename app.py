@@ -58,8 +58,9 @@ ownersArray[42] = 'dimov'
 ownersArray[47] = 'dimov'
 ownersArray[53] = 'dimov'
 ownersArray[59] = 'dimov'
-ownersArray[92] = 'dimov'
+ownersArray[64] = 'dimov'
 ownersArray[98] = 'dimov'
+ownersArray[104] = 'dimov'
 
 owner_to_userid = {
     'ted': '86703628',
