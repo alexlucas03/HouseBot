@@ -39,6 +39,14 @@ ownersArray[35] = 'dominic'
 ownersArray[48] = 'dominic'
 ownersArray[52] = 'dominic'
 
+ownersArray[7] = 'truman'
+ownersArray[10] = 'truman'
+ownersArray[24] = 'truman'
+ownersArray[27] = 'truman'
+ownersArray[41] = 'truman'
+ownersArray[58] = 'truman'
+ownersArray[61] = 'truman'
+
 owner_to_userid = {
     'ted': '86703628',
     'dominic': '104427870',
