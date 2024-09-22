@@ -47,6 +47,21 @@ ownersArray[41] = 'truman'
 ownersArray[58] = 'truman'
 ownersArray[61] = 'truman'
 
+ownersArray[2] = 'dimov'
+ownersArray[5] = 'dimov'
+ownersArray[8] = 'dimov'
+ownersArray[19] = 'dimov'
+ownersArray[25] = 'dimov'
+ownersArray[30] = 'dimov'
+ownersArray[33] = 'dimov'
+ownersArray[36] = 'dimov'
+ownersArray[41] = 'dimov'
+ownersArray[47] = 'dimov'
+ownersArray[53] = 'dimov'
+ownersArray[58] = 'dimov'
+ownersArray[92] = 'dimov'
+ownersArray[98] = 'dimov'
+
 owner_to_userid = {
     'ted': '86703628',
     'dominic': '104427870',
