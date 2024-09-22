@@ -62,6 +62,13 @@ ownersArray[64] = 'dimov'
 ownersArray[98] = 'dimov'
 ownersArray[104] = 'dimov'
 
+ownersArray[29] = 'david'
+ownersArray[38] = 'david'
+ownersArray[46] = 'david'
+ownersArray[55] = 'david'
+ownersArray[72] = 'david'
+ownersArray[106] = 'david'
+
 owner_to_userid = {
     'ted': '86703628',
     'dominic': '104427870',
