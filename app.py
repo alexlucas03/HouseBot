@@ -115,7 +115,7 @@ ownersArray[141] = 'leif'
 ownersArray[145] = 'john'
 
 ownersArray[162] = 'john'
-ownersArray[182] = 'john'
+ownersArray[165] = 'john'
 
 owner_to_userid = {
     'ted': '86703628',
