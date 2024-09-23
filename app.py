@@ -29,6 +29,7 @@ ownersArray[2] = 'dimov'
 ownersArray[3] = 'az'
 ownersArray[4] = 'ted'
 ownersArray[5] = 'dimov'
+ownersArray[6] = 'john'
 ownersArray[7] = 'truman'
 ownersArray[8] = 'dimov'
 ownersArray[10] = 'truman'
@@ -97,11 +98,13 @@ ownersArray[88] = 'az'
 ownersArray[90] = 'leif'
 
 ownersArray[94] = 'diego'
+ownersArray[97] = 'john'
 ownersArray[98] = 'dimov'
 ownersArray[104] = 'dimov'
 ownersArray[106] = 'david'
 ownersArray[107] = 'leif'
 ownersArray[110] = 'leif'
+ownersArray[111] = 'john'
 ownersArray[113] = 'leif'
 ownersArray[114] = 'mat'
 ownersArray[121] = 'leif'
@@ -109,6 +112,10 @@ ownersArray[131] = 'mat'
 ownersArray[138] = 'leif'
 ownersArray[144] = 'leif'
 ownersArray[141] = 'leif'
+ownersArray[145] = 'john'
+
+ownersArray[162] = 'john'
+ownersArray[182] = 'john'
 
 owner_to_userid = {
     'ted': '86703628',
@@ -121,7 +128,7 @@ owner_to_userid = {
     'diego': '118125359',
     'az': '105887162',
     'leif': '89734509',
-    'john': '71913836',
+    'john': '104094443', #aussie user id
     'tony': '115601455',
     'arohan': '115802749',
     'stanley': '65365057',
