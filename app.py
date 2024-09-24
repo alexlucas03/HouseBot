@@ -23,6 +23,8 @@ current_date = start_date
 today = datetime.date.today().strftime('%Y-%m-%d')
 duration = (end_date - start_date).days
 ownersArray = [None] * duration * 3
+
+#September
 ownersArray[0] = 'ted'
 ownersArray[1] = 'ted'
 ownersArray[2] = 'dimov'
@@ -40,6 +42,7 @@ ownersArray[14] = 'ted'
 ownersArray[15] = 'ted'
 ownersArray[16] = 'christian'
 
+#October
 ownersArray[17] = 'dominic'
 ownersArray[18] = 'dominic'
 ownersArray[19] = 'dimov'
@@ -97,13 +100,17 @@ ownersArray[77] = 'diego'
 ownersArray[78] = 'arohan'
 ownersArray[79] = 'leif'
 ownersArray[80] = 'christian'
+ownersArray[81] = 'stanley'
 ownersArray[82] = 'arohan'
 ownersArray[85] = 'tony'
 ownersArray[87] = 'leif'
 ownersArray[88] = 'az'
 ownersArray[90] = 'leif'
 
+#November
 ownersArray[94] = 'diego'
+ownersArray[95] = 'stanley'
+ownersArray[96] = 'stanley'
 ownersArray[97] = 'john'
 ownersArray[98] = 'dimov'
 ownersArray[102] = 'tony'
@@ -114,6 +121,7 @@ ownersArray[110] = 'leif'
 ownersArray[111] = 'john'
 ownersArray[113] = 'leif'
 ownersArray[114] = 'mat'
+ownersArray[115] = 'stanley'
 ownersArray[116] = 'arohan'
 ownersArray[119] = 'tony'
 ownersArray[121] = 'leif'
@@ -124,12 +132,20 @@ ownersArray[138] = 'leif'
 ownersArray[144] = 'leif'
 ownersArray[141] = 'leif'
 ownersArray[145] = 'john'
+ownersArray[148] = 'stanley'
+ownersArray[149] = 'stanley'
 ownersArray[150] = 'arohan'
 ownersArray[153] = 'tony'
-
 ownersArray[162] = 'john'
+
+#December
 ownersArray[165] = 'john'
+ownersArray[166] = 'stanley'
 ownersArray[167] = 'arohan'
+ownersArray[169] = 'stanley'
+ownersArray[172] = 'stanley'
+ownersArray[175] = 'stanley'
+ownersArray[198] = 'stanley'
 
 owner_to_userid = {
     'ted': '86703628',
