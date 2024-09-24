@@ -1,3 +1,9 @@
+#todo:
+#gcal
+#oop
+#auto send msgs
+#db integration
+
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 import datetime
 from collections import defaultdict
