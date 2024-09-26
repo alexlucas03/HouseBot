@@ -16,7 +16,7 @@ import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+pg8000://default:mk2aS9URHwOf@ep-falling-fire-a4ke12jz.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://default:mk2aS9URHwOf@ep-falling-fire-a4ke12jz.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
