@@ -128,7 +128,6 @@ def login():
 def change_owner():
     data = request.get_json()
     dish_date = data.get('date')
-    dish_date = datetime.datetime.strptime(dish_date, "%Y-%m-%d")
     dish_type = data.get('type')
 
     current_user = session.get('user', None)
