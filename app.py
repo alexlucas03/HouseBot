@@ -228,6 +228,6 @@ def send_groupme_messages():
 def parse_dish_string(dish_str):
     if "lunch" in dish_str or "dinner" in dish_str or "x1" in dish_str:
         date_str, dish_type = dish_str.strip("{}").split(",")
-        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
+        date = datetime.datetime.strp(date_str, "%Y-%m-%d")
         return Dish(date=date, type=dish_type)
     return None
