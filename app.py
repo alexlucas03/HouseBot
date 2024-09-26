@@ -168,7 +168,6 @@ def create_people_objects():
     people_objects.sort(key=lambda person: person.pickOrder)
     return {"people": [person.to_dict() for person in people_objects]}
 
-
 class PeopleModel(db.Model):
     __tablename__ = 'people'
     userid = db.Column(db.Integer, primary_key=True)
@@ -218,5 +217,9 @@ def send_groupme_messages():
     return redirect(url_for('index'))
 
 def parse_dish_string(dish_str):
-    date, type = dish_str.strip("{}").split(",")
-    return Dish(date=date, type=type)
+    try:
+        date, type = dish_str.strip("{}").split(",")
+        return Dish(date=date, type=type)
+    except ValueError:
+        date = dish_str.strip("{}")
+        return Dish(date=date, type="")
