@@ -132,30 +132,32 @@ def change_owner():
 
     current_user = session.get('user', None)
     person = PeopleModel.query.filter_by(name=current_user).first()
-    new_dish = f"{dish_date},{dish_type}"
-    array_builder = "{"
 
-    # Parse existing dishes
+    # New dish to add
+    new_dish = f"{dish_date},{dish_type}"
+
+    # Check if person.dishes is not empty
     parsed_dishes = []
     if person.dishes:
-        for dish_str in person.dishes:
-            parsed_dish = parse_dish_string(dish_str)
-            if parsed_dish:
-                parsed_dishes.append(parsed_dish)
+        # Assuming `person.dishes` is stored as a serialized string, e.g., '{dish1,dish2}'
+        # Clean up the string and split it into individual dishes
+        parsed_dishes = person.dishes.strip('{}').split(', ')
 
-    # Add new dish and existing dishes to the string
-    for dish in parsed_dishes:
-        array_builder += f"{{{dish.date},{dish.type}}}, "
-    array_builder += f"{{{new_dish}}}"
-    array_builder += "}"
+    # Avoid duplicates
+    if new_dish not in parsed_dishes:
+        parsed_dishes.append(new_dish)
 
-    # Update database
+    # Rebuild the dishes array
+    array_builder = '{' + ', '.join(parsed_dishes) + '}'
+
+    # Update the database
     db.session.execute(
         text(f"UPDATE people SET dishes = '{array_builder}' WHERE name = '{person.name}'")
     )
     db.session.commit()
 
     return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
+
 
 @app.route('/logout', methods=['POST'])
 def logout():
