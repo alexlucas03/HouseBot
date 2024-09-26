@@ -71,12 +71,13 @@ def index():
     
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         for person in people_objects:
-            for dish in person.dishes:
-                dish_month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
-                dish_day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
-                for specific_dish in grouped_dishes[dish_month][dish_day]:
-                    if specific_dish.type == dish.type:
-                        specific_dish.owner == person.name
+            if person.dishes:
+                for dish in person.dishes:
+                    dish_month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
+                    dish_day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
+                    for specific_dish in grouped_dishes[dish_month][dish_day]:
+                        if specific_dish.type == dish.type:
+                            specific_dish.owner == person.name
 
         today_lunch = None
         today_dinner = None
