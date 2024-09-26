@@ -84,7 +84,8 @@ def index():
 
                     for specific_dish in specific_dishes:
                         if specific_dish.type == dish.type:
-                            specific_dish.owner = person.name
+                            original_dish = next(d for d in dishes if d == specific_dish)
+                            original_dish.owner = person.name
     
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
