@@ -12,6 +12,7 @@ from dish import Dish
 from person import Person
 import requests
 import json
+import psycopg2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
