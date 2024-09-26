@@ -219,6 +219,7 @@ def send_groupme_messages():
 def parse_dish_string(dish_str):
     try:
         date, type = dish_str.strip("{}").split(",")
+        date = datetime.strptime(date, "%Y-%m-%d")
         return Dish(date=date, type=type)
     except ValueError:
         date = dish_str.strip("{}")
