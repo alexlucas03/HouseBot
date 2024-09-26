@@ -96,6 +96,7 @@ def index():
                     today_dinner = dish
                 elif dish.type == "x1":
                     today_x1 = dish
+
         
         lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
@@ -158,7 +159,8 @@ def create_people_objects():
     people_rows = PeopleModel.query.all()
     people_objects = []
     for row in people_rows:
-        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=row.dishes)
+        dishes = [parse_dish_string(dish_str) for dish_str in row.dishes] if row.dishes else []
+        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
         people_objects.append(person_obj)
 
     people_objects.sort(key=lambda person: person.pickOrder)
@@ -211,3 +213,7 @@ def send_groupme_messages():
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
     return redirect(url_for('index'))
+
+def parse_dish_string(dish_str):
+    date, type = dish_str.strip("{}").split(",")
+    return Dish(date=date, type=type)
