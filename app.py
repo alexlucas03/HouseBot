@@ -6,6 +6,7 @@
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import ARRAY
 import datetime
 from collections import defaultdict
 from dish import Dish
@@ -151,7 +152,7 @@ class PeopleModel(db.Model):
     userid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     totalpoints = db.Column(db.Integer)
-    dishes = db.Column(db.Array)
+    dishes = db.Column(ARRAY(db.String))
 
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
