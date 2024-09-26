@@ -160,7 +160,7 @@ def create_people_objects():
     people_objects = []
     for row in people_rows:
         dishes = []
-        if row.dishes and 'lunch' in row.dishes[0] or 'dinner' in row.dishes[0] or 'x1' in row.dishes[0]:
+        if row.dishes and 'lunch' in row.dishes or 'dinner' in row.dishes or 'x1' in row.dishes:
             dishes = [parse_dish_string(dish_str) for dish_str in row.dishes]
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
         people_objects.append(person_obj)
