@@ -9,7 +9,7 @@ class Person:
 
     def to_dict(self):
         return {
-            'name': self.date,
+            'name': self.name,
             'userID': self.userID,
             'pickOrder': self.pickOrder,
             'pointsNeeded': self.pointsNeeded,

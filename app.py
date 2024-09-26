@@ -139,7 +139,7 @@ def logout():
 def create_people_objects():
     global people_objects
     people_rows = PeopleModel.query.all()
-
+    people_objects = []
     for row in people_rows:
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=row.dishes)
         people_objects.append(person_obj)
@@ -159,9 +159,9 @@ def send_groupme_messages():
     lunch = PeopleModel.query.filter_by(name=lunch_owner).first()
     lunch_userid = lunch.userID
     dinner = PeopleModel.query.filter_by(name=dinner_owner).first()
-    dinner_userid = lunch.userID
+    dinner_userid = dinner.userID
     x1 = PeopleModel.query.filter_by(name=x1_owner).first()
-    x1_userid = lunch.userID
+    x1_userid = x1.userID
     
     url = "https://api.groupme.com/v3/bots/post"
 
