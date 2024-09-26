@@ -20,9 +20,10 @@ class Person:
         self.pointsNeeded = self.totalPoints
         if self.dishes:
             for dish in self.dishes:
-                if dish.weekday == 'Sunday' and dish.type == 'dinner':
-                    self.pointsNeeded -= 3
-                elif dish.weekday != 'Sunday' and dish.type == 'dinner' or dish.type == 'lunch':
-                    self.pointsNeeded -= 2
-                elif dish.type == 'x1':
-                    self.pointsNeeded -= 1
+                if dish:
+                    if dish.weekday == 'Sunday' and dish.type == 'dinner':
+                        self.pointsNeeded -= 3
+                    elif dish.weekday != 'Sunday' and dish.type == 'dinner' or dish.type == 'lunch':
+                        self.pointsNeeded -= 2
+                    elif dish.type == 'x1':
+                        self.pointsNeeded -= 1
