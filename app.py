@@ -133,6 +133,7 @@ def change_owner():
     current_user = session.get('user', None)
     person = PeopleModel.query.filter_by(name=current_user).first()
     new_dish = f"{dish_date},{dish_type}"
+    array_builder = ""
 
     # Parse existing dishes
     parsed_dishes = []
