@@ -133,24 +133,10 @@ def change_owner():
     current_user = session.get('user', None)
     person = PeopleModel.query.filter_by(name=current_user).first()
     new_dish = f"{dish_date},{dish_type}"
-    array_builder = ""
 
-    # Parse existing dishes
-    parsed_dishes = []
-    if person.dishes:
-        for dish_str in person.dishes:
-            parsed_dish = parse_dish_string(dish_str)
-            if parsed_dish:
-                parsed_dishes.append(parsed_dish)
-
-    # Add new dish and existing dishes to the string
-    for dish in parsed_dishes:
-        array_builder += f"{{{dish.date},{dish.type}}}, "
-    array_builder += f"{{{new_dish}}}"
-
-    # Update database
     db.session.execute(
-        text(f"UPDATE people SET dishes = '{array_builder}' WHERE name = '{person.name}'")
+        text(f"UPDATE people SET dishes = dishes || '{{{new_dish}}}' WHERE name = '{person.name}'")
+
     )
     db.session.commit()
 
