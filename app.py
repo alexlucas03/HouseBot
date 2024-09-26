@@ -83,7 +83,7 @@ def index():
                         dish_day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
                         for specific_dish in grouped_dishes[dish_month][dish_day]:
                             if specific_dish.type == dish.type:
-                                specific_dish.owner == person.name
+                                specific_dish.owner = person.name
 
         today_lunch = None
         today_dinner = None
