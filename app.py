@@ -65,7 +65,7 @@ for dish in dishes:
 
 @app.route('/')
 def index():
-    global lunch_owner, dinner_owner, x1_owner, people_objects
+    global lunch_owner, dinner_owner, x1_owner, people_objects, grouped_dishes
 
     if 'user' not in session:
         return redirect(url_for('login'))
@@ -73,18 +73,19 @@ def index():
     create_people_objects()
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
+
+    for person in people_objects:
+        if person.dishes:
+            for dish in person.dishes:
+                dish_month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
+                dish_day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
+                specific_dishes = grouped_dishes[dish_month][dish_day]
+
+                for specific_dish in specific_dishes:
+                    if specific_dish.type == dish.type:
+                        specific_dish.owner = person.name
     
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
-        for person in people_objects:
-            if person.dishes:
-                for dish in person.dishes:
-                    if dish:
-                        dish_month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
-                        dish_day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
-                        for specific_dish in grouped_dishes[dish_month][dish_day]:
-                            if specific_dish.type == dish.type:
-                                specific_dish.owner = person.name
-
         today_lunch = None
         today_dinner = None
         today_x1 = None
