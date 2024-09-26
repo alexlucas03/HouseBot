@@ -5,10 +5,12 @@ class Dish:
         self.weekday = date.strftime("%A")
         self.date = date.strftime("%Y-%m-%d")
         self.type = type
+        self.owner = None
 
     def to_dict(self):
         return {
             'date': self.date,
             'type': self.type,
-            'weekday': self.weekday
+            'weekday': self.weekday,
+            'owner': self.owner
         }
