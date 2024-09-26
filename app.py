@@ -12,11 +12,10 @@ from dish import Dish
 from person import Person
 import requests
 import json
-import psycopg2
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://default:************@ep-falling-fire-a4ke12jz.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://default:************@ep-falling-fire-a4ke12jz.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
