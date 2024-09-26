@@ -160,7 +160,7 @@ def create_people_objects():
     people_objects = []
     for row in people_rows:
         dishes = []
-        if row.dishes:
+        if row.dishes and row.dishes != '':
             dishes = [parse_dish_string(dish_str) for dish_str in row.dishes]
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
         people_objects.append(person_obj)
@@ -217,12 +217,6 @@ def send_groupme_messages():
     return redirect(url_for('index'))
 
 def parse_dish_string(dish_str):
-    try:
-        date_str, dish_type = dish_str.strip("{}").split(",")
-        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-    except ValueError:
-        date_str = dish_str.strip("{}")
-        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-        dish_type = ""
-    
+    date_str, dish_type = dish_str.strip("{}").split(",")
+    date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
     return Dish(date=date, type=dish_type)
