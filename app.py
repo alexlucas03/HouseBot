@@ -7,6 +7,7 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
+from sqlalchemy import text
 import datetime
 from collections import defaultdict
 from dish import Dish
@@ -105,13 +106,18 @@ def index():
 def login():
     if request.method == 'POST':
         username = request.form['username']
-        person = PeopleModel.query.filter_by(name=username).first()
-        if person or username == 'admin':
+        if username == 'admin':
             session['user'] = username
             return redirect(url_for('index'))
         else:
-            return render_template('login.html', error="User not found")    
+            person = PeopleModel.query.filter_by(name=username).first()
+            if person:
+                session['user'] = username
+                return redirect(url_for('index'))
+            else:
+                return render_template('login.html', error="User not found")
     return render_template('login.html')
+
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
@@ -124,7 +130,7 @@ def change_owner():
     new_dish = f"{dish_date},{dish_type}"
 
     db.session.execute(
-        "UPDATE people SET dishes = array_append(dishes, :new_dish) WHERE userid = :user_id",
+        text("UPDATE people SET dishes = array_append(dishes, :new_dish) WHERE userid = :user_id"),
         {"new_dish": new_dish, "user_id": person.userid}
     )
     db.session.commit()
