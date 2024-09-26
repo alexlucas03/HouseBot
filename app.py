@@ -124,7 +124,6 @@ def login():
                 return render_template('login.html', error="User not found")
     return render_template('login.html')
 
-#SET dishes = '{dish1, dish2}'
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()
@@ -137,10 +136,10 @@ def change_owner():
     array_builder = "{"
     if person.dishes:
         for dish in person.dishes:
-            array_builder += f"{dish}"
-            array_builder += ", "
-    array_builder += f"{new_dish}"
+            array_builder += f"{{{dish.date},{dish.type}}}, "
+    array_builder += f"{{{new_dish}}}"
     array_builder += "}"
+
 
     db.session.execute(
         text(f"UPDATE people SET dishes = '{array_builder}' WHERE name = '{person.name}'")
