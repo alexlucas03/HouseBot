@@ -1,11 +1,11 @@
 class Person:
-    def __init__(self, name, userID, pickOrder, totalPoints):
+    def __init__(self, name, userID, pickOrder, totalPoints, dishes):
         self.name = name
         self.userID = userID
         self.pickOrder = pickOrder
         self.totalPoints = totalPoints
         self.pointsNeeded = totalPoints
-        self.dishes = []
+        self.dishes = dishes
 
     def to_dict(self):
         return {
