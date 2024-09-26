@@ -134,20 +134,15 @@ def change_owner():
     current_user = session.get('user', None)
     person = PeopleModel.query.filter_by(name=current_user).first()
     new_dish = f"{dish_date},{dish_type}"
-    dishes_list = []
-
+    array_builder = "{"
     if person.dishes:
         for dish in person.dishes:
             if dish:
-                try:
-                    date_str, dish_type = dish.strip("{}").split(",")
-                    date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-                    dishes_list.append(f"{{{date_str},{dish_type}}}")
-                except ValueError as e:
-                    print(f"Error parsing dish: {dish}. Error: {e}")
-    
-    dishes_list.append(f"{{{new_dish}}}")
-    array_builder = "{" + ", ".join(dishes_list) + "}"
+                dish = datetime.datetime.strptime(dish, "%Y-%m-%d")
+                array_builder += f"{{{dish.date},{dish.type}}}, "
+    array_builder += f"{{{new_dish}}}"
+    array_builder += "}"
+
 
     db.session.execute(
         text(f"UPDATE people SET dishes = '{array_builder}' WHERE name = '{person.name}'")
@@ -155,7 +150,6 @@ def change_owner():
     db.session.commit()
 
     return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
-
 
 @app.route('/logout', methods=['POST'])
 def logout():
