@@ -3,6 +3,10 @@
 #oop
 #auto send msgs
 #db integration
+#UPDATE people 
+#SET dishes = '{dish1, dish2}'
+#WHERE name = 'jo';
+
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
@@ -118,7 +122,7 @@ def login():
                 return render_template('login.html', error="User not found")
     return render_template('login.html')
 
-
+#SET dishes = '{dish1, dish2}'
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()
@@ -128,10 +132,15 @@ def change_owner():
     current_user = session.get('user', None)
     person = PeopleModel.query.filter_by(name=current_user).first()
     new_dish = f"{dish_date},{dish_type}"
+    array_builder = "{"
+    for dish in person.dishes:
+        array_builder += f"{dish}"
+        array_builder += ", "
+    array_builder += f"{new_dish}"
+    array_builder += "}"
 
     db.session.execute(
-        text("UPDATE people SET dishes = array_append(dishes, :new_dish) WHERE userid = :user_id"),
-        {"new_dish": new_dish, "user_id": person.userid}
+        text(f"UPDATE people SET dishes = '{array_builder}' WHERE name = '{person.name}'")
     )
     db.session.commit()
 
