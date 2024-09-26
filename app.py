@@ -133,9 +133,10 @@ def change_owner():
     person = PeopleModel.query.filter_by(name=current_user).first()
     new_dish = f"{dish_date},{dish_type}"
     array_builder = "{"
-    for dish in person.dishes:
-        array_builder += f"{dish}"
-        array_builder += ", "
+    if person.dishes:
+        for dish in person.dishes:
+            array_builder += f"{dish}"
+            array_builder += ", "
     array_builder += f"{new_dish}"
     array_builder += "}"
 
