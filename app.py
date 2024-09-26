@@ -159,13 +159,15 @@ def create_people_objects():
     people_rows = PeopleModel.query.all()
     people_objects = []
     for row in people_rows:
+        dishes = []
         if row.dishes:
-            dishes = [parse_dish_string(dish_str) for dish_str in row.dishes] if row.dishes else []
+            dishes = [parse_dish_string(dish_str) for dish_str in row.dishes]
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
         people_objects.append(person_obj)
 
     people_objects.sort(key=lambda person: person.pickOrder)
     return {"people": [person.to_dict() for person in people_objects]}
+
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
