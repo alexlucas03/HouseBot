@@ -84,8 +84,7 @@ def index():
 
                     for specific_dish in specific_dishes:
                         if specific_dish.type == dish.type:
-                            original_dish = next(d for d in dishes if d == specific_dish)
-                            original_dish.owner = person.name
+                            specific_dish.owner = person.name
     
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
@@ -178,12 +177,19 @@ class PeopleModel(db.Model):
 
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
-    lunch = PeopleModel.query.filter_by(name=lunch_owner).first()
-    lunch_userid = lunch.userID
-    dinner = PeopleModel.query.filter_by(name=dinner_owner).first()
-    dinner_userid = dinner.userID
-    x1 = PeopleModel.query.filter_by(name=x1_owner).first()
-    x1_userid = x1.userID
+    lunch_userid = None
+    for person in people_objects:
+        if person.name == lunch_owner:
+            lunch_userid = person.userID
+    dinner_userid = None
+    for person in people_objects:
+        if person.name == dinner_owner:
+            dinner_userid = person.userID
+    x1_userid = None
+    for person in people_objects:
+        if person.name == x1_owner:
+            x1_userid = person.userID
+
     
     url = "https://api.groupme.com/v3/bots/post"
 
