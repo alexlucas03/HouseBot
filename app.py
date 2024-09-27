@@ -57,15 +57,9 @@ while current_date <= end_date:
     else:
         current_date += delta
 
-grouped_dishes = defaultdict(lambda: defaultdict(list))
-for dish in dishes:
-    month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
-    day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
-    grouped_dishes[month][day].append(dish)
-
 @app.route('/')
 def index():
-    global lunch_owner, dinner_owner, x1_owner, people_objects, grouped_dishes
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes
 
     if 'user' not in session:
         return redirect(url_for('login'))
@@ -78,13 +72,15 @@ def index():
         if person.dishes:
             for dish in person.dishes:
                 if dish:
-                    dish_month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
-                    dish_day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
-                    specific_dishes = grouped_dishes[dish_month][dish_day]
-
-                    for specific_dish in specific_dishes:
-                        if specific_dish.type == dish.type:
-                            specific_dish.owner = person.name
+                    for item in dishes:
+                        if item == dish:
+                            item.owner = person.name
+    
+    grouped_dishes = defaultdict(lambda: defaultdict(list))
+    for dish in dishes:
+        month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
+        day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
+        grouped_dishes[month][day].append(dish)
     
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
