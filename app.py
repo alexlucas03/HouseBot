@@ -133,20 +133,20 @@ def change_owner():
     for item in people_objects:
         if current_user == item.name:
             person = item
+
     new_dishsql = f"{dish_date},{dish_type}"
     new_dish = parse_dish_string(new_dishsql)
 
-    if person.dishes and new_dish not in person.dishes:
+    # Check if the dish already exists for the person
+    if new_dish not in person.dishes:
         db.session.execute(
             text(f"UPDATE people SET dishes = dishes || '{{{new_dishsql}}}' WHERE name = '{person.name}'")
         )
+        db.session.commit()
+        return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
     else:
-        db.session.execute(
-            text(f"UPDATE people SET dishes = '{{{new_dishsql}}}' WHERE name = '{person.name}'")
-        )
-    db.session.commit()
+        return jsonify({'success': False, 'message': 'Dish already assigned'}), 400
 
-    return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
 
 @app.route('/logout', methods=['POST'])
 def logout():
