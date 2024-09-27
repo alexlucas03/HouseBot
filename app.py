@@ -132,7 +132,7 @@ def change_owner():
     person = PeopleModel.query.filter_by(name=current_user).first()
     new_dish = f"{dish_date},{dish_type}"
 
-    if person.dishes:
+    if person.dishes and new_dish not in person.dishes:
         db.session.execute(
             text(f"UPDATE people SET dishes = dishes || '{{{new_dish}}}' WHERE name = '{person.name}'")
         )
