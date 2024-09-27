@@ -129,16 +129,20 @@ def change_owner():
     dish_type = data.get('type')
 
     current_user = session.get('user', None)
-    person = PeopleModel.query.filter_by(name=current_user).first()
-    new_dish = f"{dish_date},{dish_type}"
+    person = None
+    for item in people_objects:
+        if current_user == item.name:
+            person = item
+    new_dishsql = f"{dish_date},{dish_type}"
+    new_dish = Dish(date=dish_date, type=dish_type)
 
     if person.dishes and new_dish not in person.dishes:
         db.session.execute(
-            text(f"UPDATE people SET dishes = dishes || '{{{new_dish}}}' WHERE name = '{person.name}'")
+            text(f"UPDATE people SET dishes = dishes || '{{{new_dishsql}}}' WHERE name = '{person.name}'")
         )
     else:
         db.session.execute(
-            text(f"UPDATE people SET dishes = '{{{new_dish}}}' WHERE name = '{person.name}'")
+            text(f"UPDATE people SET dishes = '{{{new_dishsql}}}' WHERE name = '{person.name}'")
         )
     db.session.commit()
 
