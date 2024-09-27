@@ -62,6 +62,9 @@ def initdish():
     
         else:
             current_date += delta
+    
+    return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
+
 
 @app.route('/')
 def index():
