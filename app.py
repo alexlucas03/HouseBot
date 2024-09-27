@@ -85,12 +85,6 @@ def index():
                         if item == dish:
                             item.owner = person.name
     
-    grouped_dishes = defaultdict(lambda: defaultdict(list))
-    for dish in dishes:
-        month = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%B")
-        day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
-        grouped_dishes[month][day].append(dish)
-    
     today = datetime.date.today().strftime('%Y-%m-%d')
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
