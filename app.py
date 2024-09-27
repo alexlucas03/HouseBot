@@ -48,8 +48,8 @@ def initdish():
             if day_of_week == "Sunday" and type_index == 0:
                 type_index = 1
             db.session.execute(
-                text(f"INSERT INTO dishes (year, month, day, weekday, id, owner, type) "
-                    f"VALUES ({current_date.year}, '{current_date.strftime('%B')}', {current_date.day}, "
+                text(f"INSERT INTO {current_date.strftime('%B')} (year, day, weekday, id, owner, type) "
+                    f"VALUES ({current_date.year}, {current_date.day}, "
                     f"'{day_of_week}', {i}, null, '{types[type_index]}')")
             )
             db.session.commit()
