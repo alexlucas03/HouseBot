@@ -79,7 +79,12 @@
                   You must be admin!
                 {% endif %}
             </h2>
-            <h2>{% people_objects %}</h2>
+            <h2>People Objects:</h2>
+            <ul>
+                {% for person in people_objects %}
+                    <li>{{ person.name }} - Points: {{ person.totalPoints }}</li>
+                {% endfor %}
+            </ul>
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
