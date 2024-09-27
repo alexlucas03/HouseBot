@@ -32,30 +32,34 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
-types = ['lunch', 'dinner', 'x1']
-type_index = 0
+@app.route('/initdish', methods=['POST'])
+def initdish():
+    types = ['lunch', 'dinner', 'x1']
+    type_index = 0
+    i = 0
 
-delta = datetime.timedelta(days=1)
-current_date = start_date
-today = datetime.date.today().strftime('%Y-%m-%d')
+    delta = datetime.timedelta(days=1)
+    current_date = start_date
 
-while current_date <= end_date:
-    day_of_week = current_date.strftime("%A")
+    while current_date <= end_date:
+        day_of_week = current_date.strftime("%A")
+        
+        if day_of_week != "Saturday":
+            if day_of_week == "Sunday" and type_index == 0:
+                type_index = 1
+            db.session.execute(
+                text(f"insert into dishes values ({datetime.datetime.strptime(current_date, "%Y-%m-%d").strftime("%Y")}, {datetime.datetime.strptime(current_date, "%Y-%m-%d").strftime("%B")}, {datetime.datetime.strptime(current_date, "%Y-%m-%d").strftime("%d")}, {day_of_week}, {i}, null, {types[type_index]})")
+            )
+            db.session.commit()
+            i += 1
+            
+            if types[type_index] == 'x1':
+                current_date += delta
+            
+            type_index = (type_index + 1) % len(types)
     
-    if day_of_week != "Saturday":
-        if day_of_week == "Sunday" and type_index == 0:
-            type_index = 1
-        
-        dish = Dish(date=current_date, type=types[type_index])
-        dishes.append(dish)
-        
-        if types[type_index] == 'x1':
+        else:
             current_date += delta
-        
-        type_index = (type_index + 1) % len(types)
- 
-    else:
-        current_date += delta
 
 @app.route('/')
 def index():
@@ -82,6 +86,7 @@ def index():
         day = datetime.datetime.strptime(dish.date, "%Y-%m-%d").strftime("%d")
         grouped_dishes[month][day].append(dish)
     
+    today = datetime.date.today().strftime('%Y-%m-%d')
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
         today_lunch = None
         today_dinner = None
