@@ -32,7 +32,7 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
-@app.route('/initdish', methods=['POST'])
+@app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
     types = ['lunch', 'dinner', 'x1']
     type_index = 0
