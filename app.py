@@ -134,7 +134,7 @@ def change_owner():
         if current_user == item.name:
             person = item
     new_dishsql = f"{dish_date},{dish_type}"
-    new_dish = Dish(date=dish_date, type=dish_type)
+    new_dish = parse_dish_string(new_dishsql)
 
     if person.dishes and new_dish not in person.dishes:
         db.session.execute(
