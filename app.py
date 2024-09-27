@@ -189,7 +189,6 @@ def send_groupme_messages():
     for person in people_objects:
         if person.name == x1_owner:
             x1_userid = person.userID
-
     
     url = "https://api.groupme.com/v3/bots/post"
 
