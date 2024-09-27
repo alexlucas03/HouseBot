@@ -54,8 +54,7 @@
             justify-content: space-between;
             margin-bottom: 20px;
         }
-
-        .column1 .column2 {
+        .column1, .column2 {
             flex: 1;
             margin: 0 10px;
         }
@@ -101,7 +100,7 @@
             <p>Lunch/dinner is worth 2 points each</p>
             <p>x1 is worth 1 point</p>
             <p>Sunday dinner is worth 3 points</p>
-            <p>TODO: calenar event adds, db integration, objects over arrays</p>
+            <p>TODO: calendar event adds, db integration, objects over arrays</p>
         </div>
     </div>
     
@@ -139,6 +138,7 @@
             const data = {
                 date: dishDate,
                 type: dishType,
+                owner: user  // Set the owner to the current user
             };
     
             fetch('/change-owner', {
@@ -151,7 +151,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload();
+                    // Instead of reloading the whole page, update the button
+                    document.querySelector(`[onclick="changeOwner('${dishDate}', '${dishType}')"]`).outerHTML = 
+                        `<button class="claim-button" onclick="unclaim('${dishDate}', '${dishType}')">Unclaim</button>`;
                 } else {
                     alert(data.message);
                 }
@@ -163,7 +165,7 @@
             const data = {
                 date: dishDate,
                 type: dishType,
-                owner: null
+                owner: null  // Set owner to null when unclaiming
             };
     
             fetch('/change-owner', {
@@ -176,7 +178,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    location.reload();
+                    // Instead of reloading, update the button to "Claim"
+                    document.querySelector(`[onclick="unclaim('${dishDate}', '${dishType}')"]`).outerHTML = 
+                        `<button class="claim-button" onclick="changeOwner('${dishDate}', '${dishType}')">Claim</button>`;
                 } else {
                     alert(data.message);
                 }
