@@ -65,6 +65,9 @@
         .msg-button {
             margin-top: 5px;
         }
+        .day-section {
+            height: 150px;
+        }
     </style>
 </head>
 <body>
@@ -79,12 +82,6 @@
                   You must be admin!
                 {% endif %}
             </h2>
-            <h2>People Objects:</h2>
-            <ul>
-                {% for person in people_objects %}
-                    <li>{{ person.name }} - Points: {{ person.totalPoints }}</li>
-                {% endfor %}
-            </ul>
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
@@ -126,7 +123,7 @@
                     
                     <li>
                         <span class="dish-type">{{ dish.type }}</span>
-                        {% if not dish.owner %}
+                        {% if not dish.owner and user != 'admin' %}
                             <button class="claim-button" onclick="changeOwner('september', '{{ dish.id }}')">Claim</button>
                         {% elif dish.owner == user %}
                             <button class="claim-button" onclick="unclaim('september', '{{ dish.id }}')">Unclaim</button>
