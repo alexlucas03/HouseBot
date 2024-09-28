@@ -48,7 +48,7 @@ def index():
     if today.strftime("%A") == 'Saturday':
         today += timedelta(days=1)
 
-    if start_date <= today <= end_date:
+    if start_date.date() <= today <= end_date.date():
         today_lunch = None
         today_dinner = None
         today_x1 = None
