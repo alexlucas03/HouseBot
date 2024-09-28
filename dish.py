@@ -9,6 +9,7 @@ class Dish:
         self.type = type
         self.owner = owner
         self.id = id
+        self.day = day
 
     def to_dict(self):
         return {
