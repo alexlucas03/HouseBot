@@ -206,7 +206,7 @@ class SeptemberModel(db.Model):
     __tablename__ = 'september'
     year = db.Column(db.String)
     day = db.Column(db.String)
-    id = db.Column(db.String)
+    id = db.Column(db.String, primary_key=True)
     owner = db.Column(db.String)
     type = db.Column(db.String)
     
@@ -214,7 +214,7 @@ class OctoberModel(db.Model):
     __tablename__ = 'october'
     year = db.Column(db.String)
     day = db.Column(db.String)
-    id = db.Column(db.String)
+    id = db.Column(db.String, primary_key=True)
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
@@ -222,7 +222,7 @@ class NovemberModel(db.Model):
     __tablename__ = 'november'
     year = db.Column(db.String)
     day = db.Column(db.String)
-    id = db.Column(db.String)
+    id = db.Column(db.String, primary_key=True)
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
@@ -230,7 +230,7 @@ class DecemberModel(db.Model):
     __tablename__ = 'december'
     year = db.Column(db.String)
     day = db.Column(db.String)
-    id = db.Column(db.String)
+    id = db.Column(db.String, primary_key=True)
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
