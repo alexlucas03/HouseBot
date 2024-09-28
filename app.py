@@ -44,6 +44,8 @@ def index():
 
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
+    if today.date_obj.strftime("%A") == 'Saturday':
+        today.date_obj += timedelta(days=1)
     
     today = datetime.date.today().strftime('%Y-%m-%d')
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
