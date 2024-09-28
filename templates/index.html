@@ -115,9 +115,9 @@
                 <li>
                     <span class="dish-type">{{ dish.type }}</span>
                     {% if not dish.owner %}
-                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                        <button class="claim-button" onclick="changeOwner('september', '{{ dish.id }}')">Claim</button>
                     {% elif dish.owner == user %}
-                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                        <button class="claim-button" onclick="unclaim('september', '{{ dish.id }}')">Unclaim</button>
                     {% else %}
                         <span class="dish-owner">Owner: {{ dish.owner }}</span>
                     {% endif %}
@@ -130,9 +130,9 @@
                 <li>
                     <span class="dish-type">{{ dish.type }}</span>
                     {% if not dish.owner %}
-                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                        <button class="claim-button" onclick="changeOwner('october', '{{ dish.id }}')">Claim</button>
                     {% elif dish.owner == user %}
-                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                        <button class="claim-button" onclick="unclaim('october', '{{ dish.id }}')">Unclaim</button>
                     {% else %}
                         <span class="dish-owner">Owner: {{ dish.owner }}</span>
                     {% endif %}
@@ -145,9 +145,9 @@
                 <li>
                     <span class="dish-type">{{ dish.type }}</span>
                     {% if not dish.owner %}
-                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                        <button class="claim-button" onclick="changeOwner('november', '{{ dish.id }}')">Claim</button>
                     {% elif dish.owner == user %}
-                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                        <button class="claim-button" onclick="unclaim('november', '{{ dish.id }}')">Unclaim</button>
                     {% else %}
                         <span class="dish-owner">Owner: {{ dish.owner }}</span>
                     {% endif %}
@@ -160,9 +160,9 @@
                 <li>
                     <span class="dish-type">{{ dish.type }}</span>
                     {% if not dish.owner %}
-                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                        <button class="claim-button" onclick="changeOwner('december', '{{ dish.id }}')">Claim</button>
                     {% elif dish.owner == user %}
-                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                        <button class="claim-button" onclick="unclaim('december', '{{ dish.id }}')">Unclaim</button>
                     {% else %}
                         <span class="dish-owner">Owner: {{ dish.owner }}</span>
                     {% endif %}
