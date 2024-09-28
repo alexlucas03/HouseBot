@@ -72,7 +72,7 @@
             <h2>{{ user }}</h2>
             <h2>
                 Points Needed: 
-                {% person.name == 'admin' %}
+                {% if person.name == 'admin' %}
                     You must be admin!
                 {% else %}
                   {{ person.pointsNeeded }}                  
