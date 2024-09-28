@@ -3,10 +3,6 @@
 #oop
 #auto send msgs
 #db integration
-#UPDATE people 
-#SET dishes = '{dish1, dish2}'
-#WHERE name = 'jo';
-
 
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
@@ -207,13 +203,6 @@ def initdish():
             current_date += delta
     
     return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
-
-def parse_dish_string(dish_str):
-    if "lunch" in dish_str or "dinner" in dish_str or "x1" in dish_str:
-        date_str, dish_type = dish_str.strip("{}").split(",")
-        date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
-        return Dish(date=date, type=dish_type)
-    return None
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
