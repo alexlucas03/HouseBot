@@ -71,7 +71,8 @@ def index():
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    calculate_points(person)
+    if user != 'admin':
+        calculate_points(person)
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person)
 
 @app.route('/change-owner', methods=['POST'])
