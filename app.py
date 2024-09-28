@@ -43,12 +43,12 @@ def index():
     dishes = september_objects + october_objects + november_objects + december_objects
 
     user = session['user']
-    today = datetime.date.today().strftime('%Y-%m-%d')
-    if today.date_obj.strftime("%A") == 'Saturday':
-        today.date_obj += timedelta(days=1)
-    
-    today = datetime.date.today().strftime('%Y-%m-%d')
-    if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
+    today = datetime.date.today()
+
+    if today.strftime("%A") == 'Saturday':
+        today += timedelta(days=1)
+
+    if start_date <= today <= end_date:
         today_lunch = None
         today_dinner = None
         today_x1 = None
@@ -62,7 +62,6 @@ def index():
                 elif dish.type == "x1":
                     today_x1 = dish
 
-        
         lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
