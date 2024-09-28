@@ -249,7 +249,7 @@ def create_september_objects():
     for row in dish_rows:
         dish_obj = Dish(
             year=int(row.year),
-            month=int('09'),
+            month=9,
             day=int(row.day),
             type=row.type,
             owner=row.owner,
@@ -263,8 +263,8 @@ def create_october_objects():
     october_objects = []
     for row in dish_rows:
         dish_obj = Dish(
-            year=int('10'),
-            month='October',
+            year=int(row.year),
+            month=10,
             day=int(row.day),
             type=row.type,
             owner=row.owner,
@@ -279,7 +279,7 @@ def create_november_objects():
     for row in dish_rows:
         dish_obj = Dish(
             year=int(row.year),
-            month=int('11'),
+            month=11,
             day=int(row.day),
             type=row.type,
             owner=row.owner,
@@ -294,7 +294,7 @@ def create_december_objects():
     for row in dish_rows:
         dish_obj = Dish(
             year=int(row.year),
-            month=int('12'),
+            month=12,
             day=int(row.day),
             type=row.type,
             owner=row.owner,
