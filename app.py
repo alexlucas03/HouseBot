@@ -77,6 +77,8 @@ def change_owner():
     month = data.get('month')
     id = data.get('id')
     owner = data.get('owner')
+    if owner == None:
+        owner = 'null'
 
     db.session.execute(
         text(f"UPDATE {month} SET owner = '{owner}' WHERE id = '{id}'")
