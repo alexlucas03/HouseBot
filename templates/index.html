@@ -94,7 +94,6 @@
                 <button type="submit">Send Messages</button>
             </form>
 
-            <!-- Add the Init Dish button -->
             <form class="msg-button" action="/initdish" method="POST">
                 <button type="submit">Initialize Dishes</button>
             </form>
@@ -109,32 +108,67 @@
             <p>TODO: calendar event adds, db integration, objects over arrays</p>
         </div>
     </div>
-<--------FIX FIX FIX FIX FIX FIX
     <div id="dish-columns">
-        {% for month, days in grouped_dishes.items() %}
-            <div class="month-column">
-                <h2>{{ month }}</h2>
-                {% for day, dishes_in_day in days.items() %}
-                    <div class="day-section">
-                        <h3>{{ day }}, {{ dishes_in_day[0].weekday }}</h3>
-                        <ul>
-                            {% for dish in dishes_in_day %}
-                                <li>
-                                    <span class="dish-type">{{ dish.type }}</span>
-                                    {% if not dish.owner %}
-                                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
-                                    {% elif dish.owner == user %}
-                                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
-                                    {% else %}
-                                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endfor %}
+        <div class="september-column">
+            <h2>September</h2>
+            {% for dish in september_objects %}
+                <li>
+                    <span class="dish-type">{{ dish.type }}</span>
+                    {% if not dish.owner %}
+                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                    {% elif dish.owner == user %}
+                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                    {% else %}
+                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </div>
+        <div class="october-column">
+            <h2>September</h2>
+            {% for dish in october_objects %}
+                <li>
+                    <span class="dish-type">{{ dish.type }}</span>
+                    {% if not dish.owner %}
+                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                    {% elif dish.owner == user %}
+                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                    {% else %}
+                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </div>
+        <div class="november-column">
+            <h2>November</h2>
+            {% for dish in november_objects %}
+                <li>
+                    <span class="dish-type">{{ dish.type }}</span>
+                    {% if not dish.owner %}
+                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                    {% elif dish.owner == user %}
+                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                    {% else %}
+                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </div>
+        <div class="december-column">
+            <h2>December</h2>
+            {% for dish in december_objects %}
+                <li>
+                    <span class="dish-type">{{ dish.type }}</span>
+                    {% if not dish.owner %}
+                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
+                    {% elif dish.owner == user %}
+                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
+                    {% else %}
+                        <span class="dish-owner">Owner: {{ dish.owner }}</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </div>
     </div>    
 
     <script>
