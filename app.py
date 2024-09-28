@@ -77,14 +77,19 @@ def change_owner():
     month = data.get('month')
     id = data.get('id')
     owner = data.get('owner')
-    if owner == None:
-        owner = 'null'
+
+    if owner is None:
+        owner_value = 'NULL'
+    else:
+        owner_value = f"'{owner}'"
 
     db.session.execute(
-        text(f"UPDATE {month} SET owner = '{owner}' WHERE id = '{id}'")
+        text(f"UPDATE {month} SET owner = {owner_value} WHERE id = '{id}'")
     )
     db.session.commit()
-    return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
+    
+    return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
+
     
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
