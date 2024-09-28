@@ -263,7 +263,7 @@ def create_people_objects():
     return {"people": [person.to_dict() for person in people_objects]}
 
 def calculate_points(person):
-    points = person.totalpoints
+    points = person.totalPoints
     for dish in dishes:
         if person.name == dish.owner:
             if dish.weekday == 'Sunday' and dish.type == 'dinner':
