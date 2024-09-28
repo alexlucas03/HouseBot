@@ -72,10 +72,10 @@
             <h2>Dish Picks: {{ user }}</h2>
             <h2>
                 Points Needed: 
-                {% if user in pick_order %}
-                  {{ points_order[pick_order.index(user)] }}
+                {% person.name == 'admin' %}
+                    You must be admin!
                 {% else %}
-                  You must be admin!
+                  {{ person.pointsNeeded }}                  
                 {% endif %}
             </h2>
             <form action="/logout" method="POST">
@@ -106,12 +106,12 @@
         <!-- September Column -->
         <div class="month-column">
             <h2>September</h2>
-            {% for dish in september_objects %}       
+            {% for dish in september_objects %}
                 {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
                 <li>
-                    <span class="dish-type">{{ dish.type and user }}</span>
+                    <span class="dish-type">{{ dish.type }}</span>
                     {% if not dish.owner != 'admin' %}
                         <button class="claim-button" onclick="changeOwner('september', '{{ dish.id }}')">Claim</button>
                     {% elif dish.owner == user %}
@@ -126,7 +126,7 @@
         <!-- October Column -->
         <div class="month-column">
             <h2>October</h2>
-            {% for dish in october_objects %}       
+            {% for dish in october_objects %}
                 {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
@@ -146,7 +146,7 @@
         <!-- November Column -->
         <div class="month-column">
             <h2>November</h2>
-            {% for dish in november_objects %}       
+            {% for dish in november_objects %}
                 {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
@@ -166,7 +166,7 @@
         <!-- December Column -->
         <div class="month-column">
             <h2>December</h2>
-            {% for dish in december_objects %}       
+            {% for dish in december_objects %}
                 {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}

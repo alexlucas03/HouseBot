@@ -43,6 +43,11 @@ def index():
     dishes = september_objects + october_objects + november_objects + december_objects
 
     user = session['user']
+    person = None
+    for people in people_objects:
+        if people.name == user:
+            person = people
+
     today = datetime.date.today()
 
     if today.strftime("%A") == 'Saturday':
@@ -66,7 +71,8 @@ def index():
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, people_objects=people_objects)
+    calculate_points(person)
+    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person)
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
@@ -254,6 +260,18 @@ def create_people_objects():
 
     people_objects.sort(key=lambda person: person.pickOrder)
     return {"people": [person.to_dict() for person in people_objects]}
+
+def calculate_points(person):
+    points = person.totalpoints
+    for dish in dishes:
+        if person.name == dish.owner:
+            if dish.weekday == 'Sunday' and dish.type == 'dinner':
+                points -= 3
+            elif (dish.type == 'lunch' or dish.type == 'dinner') and dish.weekday != 'Sunday':
+                points -= 2
+            elif dish.type == 'x1':
+                points -= 1
+    person.pointsNeeded == points
 
 def create_september_objects():
     global september_objects
