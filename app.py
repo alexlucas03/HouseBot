@@ -197,7 +197,6 @@ class PeopleModel(db.Model):
     userid = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     totalpoints = db.Column(db.Integer)
-    dishes = db.Column(ARRAY(db.String))
 
 class SeptemberModel(db.Model):
     __tablename__ = 'september'
