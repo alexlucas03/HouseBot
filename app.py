@@ -247,7 +247,7 @@ def create_september_objects():
     dish_rows = SeptemberModel.query.all()
     september_objects = []
     for row in dish_rows:
-        dish_obj = Dish(year=row.year, month='September', day=row.day, type=row.type, owner=row.owner)
+        dish_obj = Dish(year=row.year, month='September', day=row.day, type=row.type, owner=row.owner, id=row.id)
         september_objects.append(dish_obj)
 
 def create_october_objects():
@@ -255,7 +255,7 @@ def create_october_objects():
     dish_rows = OctoberModel.query.all()
     october_objects = []
     for row in dish_rows:
-        dish_obj = Dish(year=row.year, month='October', day=row.day, type=row.type, owner=row.owner)
+        dish_obj = Dish(year=row.year, month='October', day=row.day, type=row.type, owner=row.owner, id=row.id)
         october_objects.append(dish_obj)
 
 def create_november_objects():
@@ -263,7 +263,7 @@ def create_november_objects():
     dish_rows = NovemberModel.query.all()
     november_objects = []
     for row in dish_rows:
-        dish_obj = Dish(year=row.year, month='November', day=row.day, type=row.type, owner=row.owner)
+        dish_obj = Dish(year=row.year, month='November', day=row.day, type=row.type, owner=row.owner, id=row.id)
         november_objects.append(dish_obj)
 
 def create_december_objects():
@@ -271,5 +271,5 @@ def create_december_objects():
     dish_rows = DecemberModel.query.all()
     december_objects = []
     for row in dish_rows:
-        dish_obj = Dish(year=row.year, month='December', day=row.day, type=row.type, owner=row.owner)
+        dish_obj = Dish(year=row.year, month='December', day=row.day, type=row.type, owner=row.owner, id=row.id)
         december_objects.append(dish_obj)

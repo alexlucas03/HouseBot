@@ -7,7 +7,7 @@ class Dish:
         self.date_str = self.date_obj.strftime("%Y-%m-%d")
         self.type = type
         self.owner = owner
-        self.id - id
+        self.id = id
 
     def to_dict(self):
         return {
