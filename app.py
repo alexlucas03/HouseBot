@@ -154,6 +154,23 @@ def logout():
 
 @app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
+    db.session.execute(
+        text("DELETE FROM september")
+    )
+    db.session.commit
+    db.session.execute(
+        text("DELETE FROM october")
+    )
+    db.session.commit
+    db.session.execute(
+        text("DELETE FROM november")
+    )
+    db.session.commit
+    db.session.execute(
+        text("DELETE FROM december")
+    )
+    db.session.commit
+    
     types = ['lunch', 'dinner', 'x1']
     type_index = 0
     i = 0
