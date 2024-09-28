@@ -79,7 +79,7 @@ def change_owner():
     owner = data.get('owner')
 
     db.session.execute(
-        text(f"UPDATE {month} SET owner = {owner} WHERE id = '{id}'")
+        text(f"UPDATE {month} SET owner = '{owner}' WHERE id = '{id}'")
     )
     db.session.commit()
     return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
