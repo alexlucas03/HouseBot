@@ -56,7 +56,7 @@ def index():
         today_x1 = None
 
         for dish in dishes:
-            if dish.date == today:
+            if dish.date_obj == today:
                 if dish.type == "lunch":
                     today_lunch = dish
                 elif dish.type == "dinner":
