@@ -112,7 +112,7 @@
                 {% endif %}
                 <li>
                     <span class="dish-type">{{ dish.type }}</span>
-                    {% if not dish.owner != 'admin' %}
+                    {% if not dish.owner and user != 'admin' %}
                         <button class="claim-button" onclick="changeOwner('september', '{{ dish.id }}')">Claim</button>
                     {% elif dish.owner == user %}
                         <button class="claim-button" onclick="unclaim('september', '{{ dish.id }}')">Unclaim</button>
