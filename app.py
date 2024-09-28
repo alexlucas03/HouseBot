@@ -272,6 +272,7 @@ def create_september_objects():
             id=row.id
         )
         september_objects.append(dish_obj)
+    september_objects.sort(key=lambda dish: dish.id)
 
 def create_october_objects():
     global october_objects
@@ -287,6 +288,7 @@ def create_october_objects():
             id=row.id
         )
         october_objects.append(dish_obj)
+    october_objects.sort(key=lambda dish: dish.id)
 
 def create_november_objects():
     global november_objects
@@ -302,6 +304,7 @@ def create_november_objects():
             id=row.id
         )
         november_objects.append(dish_obj)
+    november_objects.sort(key=lambda dish: dish.id)
 
 def create_december_objects():
     global december_objects
@@ -317,3 +320,4 @@ def create_december_objects():
             id=row.id
         )
         december_objects.append(dish_obj)
+    december_objects.sort(key=lambda dish: dish.id)
