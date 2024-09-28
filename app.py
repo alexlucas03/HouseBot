@@ -32,58 +32,22 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
-@app.route('/initdish', methods=['POST', 'GET'])
-def initdish():
-    types = ['lunch', 'dinner', 'x1']
-    type_index = 0
-    i = 0
-
-    delta = datetime.timedelta(days=1)
-    current_date = start_date
-
-    while current_date <= end_date:
-        day_of_week = current_date.strftime("%A")
-        
-        if day_of_week != "Saturday":
-            if day_of_week == "Sunday" and type_index == 0:
-                type_index = 1
-            db.session.execute(
-                text(f"INSERT INTO {current_date.strftime('%B')} (year, day, weekday, id, owner, type) "
-                    f"VALUES ({current_date.year}, {current_date.day}, "
-                    f"'{day_of_week}', {i}, null, '{types[type_index]}')")
-            )
-            db.session.commit()
-            i += 1
-            
-            if types[type_index] == 'x1':
-                current_date += delta
-            
-            type_index = (type_index + 1) % len(types)
-    
-        else:
-            current_date += delta
-    
-    return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
-
-
 @app.route('/')
 def index():
-    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
 
     if 'user' not in session:
         return redirect(url_for('login'))
     
     create_people_objects()
+    create_september_objects()
+    create_october_objects()
+    create_november_objects()
+    create_december_objects()
+    dishes = september_objects + october_objects + november_objects + december_objects
+
     user = session['user']
     today = datetime.date.today().strftime('%Y-%m-%d')
-
-    for person in people_objects:
-        if person.dishes:
-            for dish in person.dishes:
-                if dish:
-                    for item in dishes:
-                        if item == dish:
-                            item.owner = person.name
     
     today = datetime.date.today().strftime('%Y-%m-%d')
     if start_date.strftime('%Y-%m-%d') <= today <= end_date.strftime('%Y-%m-%d'):
@@ -108,77 +72,21 @@ def index():
         for person in people_objects:
             person.CalculatePoints()
 
-    return render_template('index.html', grouped_dishes=grouped_dishes, user=user, people_objects=people_objects)
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        if username == 'admin':
-            session['user'] = username
-            return redirect(url_for('index'))
-        else:
-            person = PeopleModel.query.filter_by(name=username).first()
-            if person:
-                session['user'] = username
-                return redirect(url_for('index'))
-            else:
-                return render_template('login.html', error="User not found")
-    return render_template('login.html')
+    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, people_objects=people_objects)
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()
-    dish_date = data.get('date')
-    dish_type = data.get('type')
+    month = data.get('month')
+    id = data.get('id')
+    owner = data.get('owner')
 
-    current_user = session.get('user', None)
-    person = None
-    for item in people_objects:
-        if current_user == item.name:
-            person = item
-
-    new_dishsql = f"{dish_date},{dish_type}"
-    new_dish = parse_dish_string(new_dishsql)
-
-    # Check if the dish already exists for the person
-    if new_dish not in person.dishes:
-        db.session.execute(
-            text(f"UPDATE people SET dishes = dishes || '{{{new_dishsql}}}' WHERE name = '{person.name}'")
-        )
-        db.session.commit()
-        return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
-    else:
-        return jsonify({'success': False, 'message': 'Dish already assigned'}), 400
-
-
-@app.route('/logout', methods=['POST'])
-def logout():
-    session.pop('user', None)
-    return redirect(url_for('login'))
-
-@app.route("/people_objects")
-def create_people_objects():
-    global people_objects
-    people_rows = PeopleModel.query.all()
-    people_objects = []
-    for row in people_rows:
-        dishes = []
-        if row.dishes:
-            dishes = [parse_dish_string(dish_str) for dish_str in row.dishes]
-        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
-        people_objects.append(person_obj)
-
-    people_objects.sort(key=lambda person: person.pickOrder)
-    return {"people": [person.to_dict() for person in people_objects]}
-
-class PeopleModel(db.Model):
-    __tablename__ = 'people'
-    userid = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    totalpoints = db.Column(db.Integer)
-    dishes = db.Column(ARRAY(db.String))
-
+    db.session.execute(
+        text(f"UPDATE {month} SET owner = {owner} WHERE id = '{id}'")
+    )
+    db.session.commit()
+    return jsonify({'success': True, 'message': 'Dish added successfully'}), 200
+    
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
     lunch_userid = None
@@ -226,9 +134,146 @@ def send_groupme_messages():
 
     return redirect(url_for('index'))
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        if username == 'admin':
+            session['user'] = username
+            return redirect(url_for('index'))
+        else:
+            person = PeopleModel.query.filter_by(name=username).first()
+            if person:
+                session['user'] = username
+                return redirect(url_for('index'))
+            else:
+                return render_template('login.html', error="User not found")
+    return render_template('login.html')
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
+@app.route('/initdish', methods=['POST', 'GET'])
+def initdish():
+    types = ['lunch', 'dinner', 'x1']
+    type_index = 0
+    i = 0
+
+    delta = datetime.timedelta(days=1)
+    current_date = start_date
+
+    while current_date <= end_date:
+        day_of_week = current_date.strftime("%A")
+        
+        if day_of_week != "Saturday":
+            if day_of_week == "Sunday" and type_index == 0:
+                type_index = 1
+            db.session.execute(
+                text(f"INSERT INTO {current_date.strftime('%B')} (year, day, weekday, id, owner, type) "
+                    f"VALUES ({current_date.year}, {current_date.day}, "
+                    f"'{day_of_week}', {i}, null, '{types[type_index]}')")
+            )
+            db.session.commit()
+            i += 1
+            
+            if types[type_index] == 'x1':
+                current_date += delta
+            
+            type_index = (type_index + 1) % len(types)
+    
+        else:
+            current_date += delta
+    
+    return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
+
 def parse_dish_string(dish_str):
     if "lunch" in dish_str or "dinner" in dish_str or "x1" in dish_str:
         date_str, dish_type = dish_str.strip("{}").split(",")
         date = datetime.datetime.strptime(date_str, "%Y-%m-%d")
         return Dish(date=date, type=dish_type)
     return None
+
+class PeopleModel(db.Model):
+    __tablename__ = 'people'
+    userid = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    totalpoints = db.Column(db.Integer)
+    dishes = db.Column(ARRAY(db.String))
+
+class SeptemberModel(db.Model):
+    __tablename__ = 'september'
+    year = db.Column(db.String)
+    day = db.Column(db.String)
+    id = db.Column(db.String)
+    owner = db.Column(db.String)
+    type = db.Column(db.String)
+    
+class OctoberModel(db.Model):
+    __tablename__ = 'october'
+    year = db.Column(db.String)
+    day = db.Column(db.String)
+    id = db.Column(db.String)
+    owner = db.Column(db.String)
+    type = db.Column(db.String)
+
+class NovemberModel(db.Model):
+    __tablename__ = 'november'
+    year = db.Column(db.String)
+    day = db.Column(db.String)
+    id = db.Column(db.String)
+    owner = db.Column(db.String)
+    type = db.Column(db.String)
+
+class DecemberModel(db.Model):
+    __tablename__ = 'december'
+    year = db.Column(db.String)
+    day = db.Column(db.String)
+    id = db.Column(db.String)
+    owner = db.Column(db.String)
+    type = db.Column(db.String)
+
+@app.route("/people_objects")
+def create_people_objects():
+    global people_objects
+    people_rows = PeopleModel.query.all()
+    people_objects = []
+    for row in people_rows:
+        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
+        people_objects.append(person_obj)
+
+    people_objects.sort(key=lambda person: person.pickOrder)
+    return {"people": [person.to_dict() for person in people_objects]}
+
+def create_september_objects():
+    global september_objects
+    dish_rows = SeptemberModel.query.all()
+    september_objects = []
+    for row in dish_rows:
+        dish_obj = Dish(year=row.year, month='September', day=row.day, type=row.type, owner=row.owner)
+        september_objects.append(dish_obj)
+
+def create_october_objects():
+    global october_objects
+    dish_rows = OctoberModel.query.all()
+    october_objects = []
+    for row in dish_rows:
+        dish_obj = Dish(year=row.year, month='October', day=row.day, type=row.type, owner=row.owner)
+        october_objects.append(dish_obj)
+
+def create_november_objects():
+    global november_objects
+    dish_rows = NovemberModel.query.all()
+    november_objects = []
+    for row in dish_rows:
+        dish_obj = Dish(year=row.year, month='November', day=row.day, type=row.type, owner=row.owner)
+        november_objects.append(dish_obj)
+
+def create_december_objects():
+    global december_objects
+    dish_rows = DecemberModel.query.all()
+    december_objects = []
+    for row in dish_rows:
+        dish_obj = Dish(year=row.year, month='December', day=row.day, type=row.type, owner=row.owner)
+        december_objects.append(dish_obj)

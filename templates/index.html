@@ -109,7 +109,7 @@
             <p>TODO: calendar event adds, db integration, objects over arrays</p>
         </div>
     </div>
-    
+<--------FIX FIX FIX FIX FIX FIX
     <div id="dish-columns">
         {% for month, days in grouped_dishes.items() %}
             <div class="month-column">
@@ -122,9 +122,9 @@
                                 <li>
                                     <span class="dish-type">{{ dish.type }}</span>
                                     {% if not dish.owner %}
-                                        <button class="claim-button" onclick="changeOwner('{{ dish.date }}', '{{ dish.type }}')">Claim</button>
+                                        <button class="claim-button" onclick="changeOwner('{{ dish.month }}', '{{ dish.id }}')">Claim</button>
                                     {% elif dish.owner == user %}
-                                        <button class="claim-button" onclick="unclaim('{{ dish.date }}', '{{ dish.type }}')">Unclaim</button>
+                                        <button class="claim-button" onclick="unclaim('{{ dish.month }}', '{{ dish.id }}')">Unclaim</button>
                                     {% else %}
                                         <span class="dish-owner">Owner: {{ dish.owner }}</span>
                                     {% endif %}
@@ -142,8 +142,9 @@
         
         function changeOwner(dishDate, dishType) {
             const data = {
-                date: dishDate,
-                type: dishType,
+                month: month,
+                id: id,
+                owner: user,
             };
     
             fetch('/change-owner', {
@@ -164,11 +165,11 @@
             .catch(error => console.error('Error:', error));
         }
 
-        function unclaim(dishDate, dishType) {
+        function unclaim(month, id) {
             const data = {
-                date: dishDate,
-                type: dishType,
-                owner: null
+                month: month,
+                type: id,
+                owner: null,
             };
     
             fetch('/change-owner', {
