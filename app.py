@@ -272,7 +272,7 @@ def calculate_points(person):
                 points -= 2
             elif dish.type == 'x1':
                 points -= 1
-    person.pointsNeeded == str(points)
+    person.pointsNeeded = str(points)
 
 def create_september_objects():
     global september_objects
