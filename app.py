@@ -170,7 +170,7 @@ def initdish():
         text("DELETE FROM december")
     )
     db.session.commit
-    
+
     types = ['lunch', 'dinner', 'x1']
     type_index = 0
     i = 0
@@ -185,9 +185,8 @@ def initdish():
             if day_of_week == "Sunday" and type_index == 0:
                 type_index = 1
             db.session.execute(
-                text(f"INSERT INTO {current_date.strftime('%B')} (year, day, weekday, id, owner, type) "
-                    f"VALUES ({current_date.year}, {current_date.day}, "
-                    f"'{day_of_week}', {i}, null, '{types[type_index]}')")
+                text(f"INSERT INTO {current_date.strftime('%B')} (year, day, id, owner, type) "
+                    f"VALUES ({current_date.year}, {current_date.day}, {i}, null, '{types[type_index]}')")
             )
             db.session.commit()
             i += 1
