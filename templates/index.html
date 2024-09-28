@@ -107,7 +107,7 @@
         <div class="month-column">
             <h2>September</h2>
             {% for dish in september_objects %}       
-                {% if dish.type == 'lunch' or (dish.weekday == 'sunday' and dish.type == 'dinner')  %}
+                {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
                 <li>
@@ -127,7 +127,7 @@
         <div class="month-column">
             <h2>October</h2>
             {% for dish in october_objects %}       
-                {% if dish.type == 'lunch' or (dish.weekday == 'sunday' and dish.type == 'dinner')  %}
+                {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
                 <li>
@@ -147,7 +147,7 @@
         <div class="month-column">
             <h2>November</h2>
             {% for dish in november_objects %}       
-                {% if dish.type == 'lunch' or (dish.weekday == 'sunday' and dish.type == 'dinner')  %}
+                {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
                 <li>
@@ -167,7 +167,7 @@
         <div class="month-column">
             <h2>December</h2>
             {% for dish in december_objects %}       
-                {% if dish.type == 'lunch' or (dish.weekday == 'sunday' and dish.type == 'dinner')  %}
+                {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
                     <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                 {% endif %}
                 <li>
