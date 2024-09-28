@@ -69,9 +69,6 @@ def index():
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-        for person in people_objects:
-            person.CalculatePoints()
-
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, people_objects=people_objects)
 
 @app.route('/change-owner', methods=['POST'])
@@ -240,7 +237,7 @@ def create_people_objects():
     people_rows = PeopleModel.query.all()
     people_objects = []
     for row in people_rows:
-        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints, dishes=dishes)
+        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints)
         people_objects.append(person_obj)
 
     people_objects.sort(key=lambda person: person.pickOrder)
