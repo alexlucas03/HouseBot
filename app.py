@@ -257,7 +257,7 @@ def create_people_objects():
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=row.pickorder, totalPoints=row.totalpoints)
         people_objects.append(person_obj)
 
-    people_objects.sort(key=lambda person: person.pickOrder)
+    people_objects.sort(key=lambda person: int(person.pickOrder))
     return {"people": [person.to_dict() for person in people_objects]}
 
 def calculate_points(person):
