@@ -37,8 +37,14 @@
             z-index: -1;
             opacity: 50%;
         }
-        form {
-            margin-bottom: 20px;
+        .dish-list {
+            margin-top: 20px;
+            padding: 0;
+            list-style-type: none; /* Remove bullet points */
+        }
+        .dish-list li {
+            margin: 5px 0; /* Space between dishes */
+            font-size: 1.2em; /* Slightly larger font for dishes */
         }
     </style>
 </head>
@@ -46,9 +52,12 @@
     <div class="content">
         <h1>{{ person.name }}</h1>
         <h2>My Dishes:</h2>
+        <ul class="dish-list">
             {% for dish in dishes %}
-                <p>{{ dish.weekday }}, {{ dish.day }}</p>
+                <li>{{ dish.weekday }}, {{ dish.day }}</li>
             {% endfor %}
+        </ul>
     </div>
+    <img src="static/images/plate.jpg" alt="Plate">
 </body>
 </html>
