@@ -37,6 +37,7 @@
             display: flex;
             justify-content: space-between;
             padding: 5px 0;
+            font-weight: normal;
         }
         .month-column li .dish-type {
             text-align: left;
@@ -80,12 +81,11 @@
                     <div style="display: flex;">
                         <div style="flex: 1; padding-right: 20px;">
                             <div><strong>To Pick</strong></div>
-
                             <ul>
                                 {% for person in people_objects %}
                                     {% if person.pointsNeeded != '0' %}
                                         <li>
-                                            <p>{{ person.name }}: {{ person.pointsNeeded }}</p>
+                                            {{ person.name }}: {{ person.pointsNeeded }}
                                         </li>
                                     {% endif %}
                                 {% endfor %}
