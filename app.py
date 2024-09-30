@@ -8,6 +8,9 @@ from dish import Dish
 from person import Person
 import requests
 import json
+from apscheduler.schedulers.background import BackgroundScheduler
+from pytz import timezone
+import pytz
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -21,6 +24,19 @@ start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
+
+def schedule_task():
+    scheduler = BackgroundScheduler()
+    pst = timezone('America/Los_Angeles')  # Pacific Time Zone
+    scheduler.add_job(send_messages, 'cron', hour=19, minute=45, timezone=pst)
+    scheduler.start()
+
+def send_messages():
+    with app.app_context():
+        print(f"Sending messages at {datetime.now()}")
+        send_groupme_messages()
+
+schedule_task()
 
 @app.route('/')
 def index():
