@@ -22,6 +22,13 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
+class AutoSend(db.Model):
+    __tablename__ = 'autosend'
+    id = db.Column(db.String, primary_key=True)
+    year = db.Column(db.String)
+    month = db.Column(db.String)
+    day = db.Column(db.String)
+
 def autosend(today):
     row = AutoSend.query.get(1)
     
@@ -222,13 +229,6 @@ def initdish():
             current_date += delta
     
     return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
-
-class AutoSend(db.Model):
-    __tablename__ = 'autosend'
-    id = db.Column(db.String, primary_key=True)
-    year = db.Column(db.String)
-    month = db.Column(db.String)
-    day = db.Column(db.String)
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
