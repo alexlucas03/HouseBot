@@ -22,23 +22,6 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
-def autosend(today):
-    row = AutoSend.query.get(1)
-    
-    last_sent_str = f"{row.year}-{row.month}-{row.day}"
-    last_sent_obj = datetime.datetime.strptime(last_sent_str, "%Y-%m-%d").date()
-
-    # Compare dates
-    if today != last_sent_obj:
-        send_groupme_messages()
-        row.day = today.strftime("%d")
-        row.month = today.strftime("%m")
-        row.year = today.strftime("%Y")
-        db.session.commit()
-
-autosend_today = datetime.date.today()
-autosend(autosend_today)
-
 @app.route('/')
 def index():
     global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
@@ -222,13 +205,6 @@ def initdish():
             current_date += delta
     
     return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
-
-class AutoSend(db.Model):
-    __tablename__ = 'autosend'
-    id = db.Column(db.String, primary_key=True)
-    year = db.Column(db.String)
-    month = db.Column(db.String)
-    day = db.Column(db.String)
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
