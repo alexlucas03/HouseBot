@@ -6,46 +6,6 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100%;
-            object-fit: cover;
-            z-index: -1;
-            opacity: 50%;
-        }
-        .dish-list {
-            margin-top: 20px;
-            padding: 0;
-            list-style-type: none; /* Remove bullet points */
-        }
-        .dish-list li {
-            margin: 5px 0; /* Space between dishes */
-            font-size: 1.2em; /* Slightly larger font for dishes */
-        }
     </style>
 </head>
 <body>
@@ -53,8 +13,8 @@
         <h1>{{ person.name }}</h1>
         <h2>My Dishes:</h2>
         <ul class="dish-list">
-            {% for dish in dishes %}
-                <li>{{ dish.weekday }}, {{ dish.day }}</li>
+            {% for dish in my_dishes %}
+                <li>{{ dish.date_str }}, {{ dish.type }}</li>
             {% endfor %}
         </ul>
     </div>

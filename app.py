@@ -83,7 +83,7 @@ def client():
     create_november_objects()
     create_december_objects()
     dishes = september_objects + october_objects + november_objects + december_objects
-
+    my_dishes = []
     user = session['user']
     person = None
     for people in people_objects:
@@ -91,10 +91,10 @@ def client():
             person = people
 
     for dish in dishes:
-        if dish.owner != person.name:
-            dishes.remove(dish)
+        if dish.owner == person.name:
+            my_dishes.append(dish)
 
-    return render_template('client.html', dishes=dishes, person=person)
+    return render_template('client.html', my_dishes=my_dishes, person=person)
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
