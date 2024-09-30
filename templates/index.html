@@ -80,11 +80,12 @@
                     <div style="display: flex;">
                         <div style="flex: 1; padding-right: 20px;">
                             <div><strong>To Pick</strong></div>
+
                             <ul>
                                 {% for person in people_objects %}
                                     {% if person.pointsNeeded != '0' %}
                                         <li>
-                                            {{ person.name }}: {{ person.pointsNeeded }}
+                                            <p>{{ person.name }}: {{ person.pointsNeeded }}</p>
                                         </li>
                                     {% endif %}
                                 {% endfor %}
