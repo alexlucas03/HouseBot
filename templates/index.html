@@ -75,39 +75,37 @@
 <body>
     <div class="container">
         <div class="column1">
-            <h2>
-                {% if user == 'admin' %}
-                    <div style="display: flex;">
-                        <div style="flex: 1; padding-right: 20px;">
-                            <div>To Pick</div>
-                            <ul>
-                                {% for person in people_objects %}
-                                    {% if person.pointsNeeded != '0' %}
-                                        <li>
-                                            {{ person.name }}: {{ person.pointsNeeded }}
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <div style="flex: 1;">
-                            <div>Picked</div>
-                            <ul>
-                                {% for person in people_objects %}
-                                    {% if person.pointsNeeded == '0' %}
-                                        <li class="transparent">
-                                            {{ person.name }}: {{ person.pointsNeeded }}
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
+            {% if user == 'admin' %}
+                <div style="display: flex;">
+                    <div style="flex: 1; padding-right: 20px;">
+                        <div><strong>To Pick</strong></div>
+                        <ul>
+                            {% for person in people_objects %}
+                                {% if person.pointsNeeded != '0' %}
+                                    <li>
+                                        {{ person.name }}: {{ person.pointsNeeded }}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
                     </div>
-                {% else %}
-                    <h2>{{ user }}</h2>
-                    <h2>Points Needed: {{ person.pointsNeeded }}</h2>
-                {% endif %}
-            </h2>
+                    <div style="flex: 1;">
+                        <div><strong>Picked</strong></div>
+                        <ul>
+                            {% for person in people_objects %}
+                                {% if person.pointsNeeded == '0' %}
+                                    <li class="transparent">
+                                        {{ person.name }}: {{ person.pointsNeeded }}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <h2>{{ user }}</h2>
+                <h2>Points Needed: {{ person.pointsNeeded }}</h2>
+            {% endif %}
     
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
