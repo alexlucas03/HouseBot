@@ -73,23 +73,26 @@
             <h2>
                 Points Needed: 
                 {% if user == 'admin' %}
-                    You must be admin!
+                    {% for person in people_objects %}
+                        <p>{{ person.name }}: {{ person.pointsNeeded }}</p>
+                    {% endfor %}
                 {% else %}
-                  {{ person.pointsNeeded }}                  
+                    {{ person.pointsNeeded }}
                 {% endif %}
             </h2>
+    
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
     
             {% if user == 'admin' %}
-            <form class="msg-button" action="/send-messages" method="POST">
-                <button type="submit">Send Messages</button>
-            </form>
-
-            <form class="msg-button" action="/initdish" method="POST">
-                <button type="submit">Initialize Dishes</button>
-            </form>
+                <form class="msg-button" action="/send-messages" method="POST">
+                    <button type="submit">Send Messages</button>
+                </form>
+    
+                <form class="msg-button" action="/initdish" method="POST">
+                    <button type="submit">Initialize Dishes</button>
+                </form>
             {% endif %}
         </div>
         <div class="column2">
@@ -101,6 +104,7 @@
             <p>TODO: calendar event adds, auto send msgs, auto process images</p>
         </div>
     </div>
+    
 
     <div id="dish-columns">
         <!-- September Column -->

@@ -67,7 +67,7 @@ def index():
 
     if user != 'admin':
         calculate_points(person)
-    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person)
+    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects)
 
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
