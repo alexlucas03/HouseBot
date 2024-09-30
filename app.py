@@ -28,7 +28,7 @@ end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 def schedule_task():
     scheduler = BackgroundScheduler()
     pst = timezone('America/Los_Angeles')  # Pacific Time Zone
-    scheduler.add_job(send_messages, 'cron', hour=19, minute=45, timezone=pst)
+    scheduler.add_job(send_messages, 'cron', hour=19, minute=47, timezone=pst)
     scheduler.start()
 
 def send_messages():
