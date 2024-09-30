@@ -72,6 +72,37 @@ def index():
             calculate_points(person)
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects)
 
+@app.route('/client')
+def client():
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
+
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
+    create_people_objects()
+    create_september_objects()
+    create_october_objects()
+    create_november_objects()
+    create_december_objects()
+    dishes = september_objects + october_objects + november_objects + december_objects
+
+    user = session['user']
+    person = None
+    for people in people_objects:
+        if people.name == user:
+            person = people
+
+    for dish in dishes:
+        if dish.owner != person.name:
+            dishes.remove(dish)
+    
+    if user != 'admin':
+        calculate_points(person)
+    else:
+        for person in people_objects:
+            calculate_points(person)
+    return render_template('client.html', dishes=dishes, person=person)
+
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()
@@ -145,12 +176,12 @@ def login():
         username = request.form['username']
         if username == 'admin':
             session['user'] = username
-            return redirect(url_for('index'))
+            return redirect(url_for('admin'))
         else:
             person = PeopleModel.query.filter_by(name=username).first()
             if person:
                 session['user'] = username
-                return redirect(url_for('index'))
+                return redirect(url_for('client'))
             else:
                 return render_template('login.html', error="User not found")
     return render_template('login.html')
