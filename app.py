@@ -44,8 +44,7 @@ def autosend(today):
         db.session.commit()
 
 autosend_today = datetime.date.today()
-with app.app_context():
-    autosend(autosend_today)
+autosend(autosend_today)
 
 @app.route('/')
 def index():
