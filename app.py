@@ -22,53 +22,6 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
-@app.route('/send-messages', methods=['POST'])
-def send_groupme_messages():
-    lunch_userid = None
-    for person in people_objects:
-        if person.name == lunch_owner:
-            lunch_userid = person.userID
-    dinner_userid = None
-    for person in people_objects:
-        if person.name == dinner_owner:
-            dinner_userid = person.userID
-    x1_userid = None
-    for person in people_objects:
-        if person.name == x1_owner:
-            x1_userid = person.userID
-    
-    url = "https://api.groupme.com/v3/bots/post"
-
-    def send_message(message, owner, owner_userid, owner_loci_start, owner_loci_end):
-        data = {
-            "text": message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-        }
-        if owner != 'Not Assigned':
-            data["attachments"] = [
-                {
-                    "type": "mentions",
-                    "user_ids": [owner_userid],
-                    "loci": [[owner_loci_start, owner_loci_end]]
-                }
-            ]
-        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-        return response
-
-    # Send lunch message
-    lunch_message = f"Lunch: @{lunch_owner}"
-    send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
-
-    # Send dinner message
-    dinner_message = f"Dinner: @{dinner_owner}"
-    send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
-
-    # Send x1 message
-    x1_message = f"x1: @{x1_owner}"
-    send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
-
-    return redirect(url_for('index'))
-
 class AutoSend(db.Model):
     __tablename__ = 'autosend'
     id = db.Column(db.String, primary_key=True)
@@ -159,6 +112,54 @@ def change_owner():
     db.session.commit()
     
     return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
+
+    
+@app.route('/send-messages', methods=['POST'])
+def send_groupme_messages():
+    lunch_userid = None
+    for person in people_objects:
+        if person.name == lunch_owner:
+            lunch_userid = person.userID
+    dinner_userid = None
+    for person in people_objects:
+        if person.name == dinner_owner:
+            dinner_userid = person.userID
+    x1_userid = None
+    for person in people_objects:
+        if person.name == x1_owner:
+            x1_userid = person.userID
+    
+    url = "https://api.groupme.com/v3/bots/post"
+
+    def send_message(message, owner, owner_userid, owner_loci_start, owner_loci_end):
+        data = {
+            "text": message,
+            "bot_id": "c9ed078f3de7c89547308a050a",
+        }
+        if owner != 'Not Assigned':
+            data["attachments"] = [
+                {
+                    "type": "mentions",
+                    "user_ids": [owner_userid],
+                    "loci": [[owner_loci_start, owner_loci_end]]
+                }
+            ]
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+        return response
+
+    # Send lunch message
+    lunch_message = f"Lunch: @{lunch_owner}"
+    send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
+
+    # Send dinner message
+    dinner_message = f"Dinner: @{dinner_owner}"
+    send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
+
+    # Send x1 message
+    x1_message = f"x1: @{x1_owner}"
+    send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
+
+    return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
