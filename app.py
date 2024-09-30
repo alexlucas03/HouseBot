@@ -74,8 +74,6 @@ def index():
 
 @app.route('/client')
 def client():
-    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
-
     if 'user' not in session:
         return redirect(url_for('login'))
     
@@ -95,12 +93,7 @@ def client():
     for dish in dishes:
         if dish.owner != person.name:
             dishes.remove(dish)
-    
-    if user != 'admin':
-        calculate_points(person)
-    else:
-        for person in people_objects:
-            calculate_points(person)
+
     return render_template('client.html', dishes=dishes, person=person)
 
 @app.route('/change-owner', methods=['POST'])
