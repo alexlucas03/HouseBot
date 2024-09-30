@@ -236,6 +236,29 @@
             })
             .catch(error => console.error('Error:', error));
         }
+
+        function sendMessages() {
+            document.querySelector('form[action="/send-messages"]').submit();
+        }
+
+        function scheduleDailyTask() {
+            const now = new Date();
+            const targetTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 19, 40, 0); // 10:00 AM every day
+
+            // If target time has already passed for today, schedule for tomorrow
+            if (now > targetTime) {
+                targetTime.setDate(targetTime.getDate() + 1);
+            }
+
+            const timeUntilTarget = targetTime.getTime() - now.getTime();
+
+            setTimeout(() => {
+                myFunction();
+                setInterval(sendMessages, 24 * 60 * 60 * 1000); // Repeat every 24 hours
+            }, timeUntilTarget);
+        }
+
+        scheduleDailyTask(); 
     </script>
     
 </body>
