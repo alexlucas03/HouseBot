@@ -156,7 +156,7 @@
                     {% elif dish.owner == user %}
                         <button class="claim-button" onclick="unclaim('{{ month|lower }}', '{{ dish.id }}')">Unclaim</button>
                     {% else %}
-                        <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
+                        <span class="dish-owner {% if not dish.owner or dish.owner == person.name %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
                     {% endif %}
                 </li>
             {% endfor %}
