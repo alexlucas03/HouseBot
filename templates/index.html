@@ -37,7 +37,6 @@
             display: flex;
             justify-content: space-between;
             padding: 5px 0;
-            font-weight: normal;
         }
         .month-column li .dish-type {
             text-align: left;
@@ -80,7 +79,7 @@
                 {% if user == 'admin' %}
                     <div style="display: flex;">
                         <div style="flex: 1; padding-right: 20px;">
-                            <div><strong>To Pick</strong></div>
+                            <div>To Pick</div>
                             <ul>
                                 {% for person in people_objects %}
                                     {% if person.pointsNeeded != '0' %}
@@ -92,7 +91,7 @@
                             </ul>
                         </div>
                         <div style="flex: 1;">
-                            <div><strong>Picked</strong></div>
+                            <div>Picked</div>
                             <ul>
                                 {% for person in people_objects %}
                                     {% if person.pointsNeeded == '0' %}
