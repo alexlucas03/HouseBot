@@ -30,7 +30,7 @@ class AutoSend(db.Model):
     day = db.Column(db.String)
 
 def autosend(today):
-    row = AutoSend.query.get('1')
+    row = AutoSend.query.get(1)
     
     last_sent_str = f"{row.year}-{row.month}-{row.day}"
     last_sent_obj = datetime.datetime.strptime(last_sent_str, "%Y-%m-%d").date()
