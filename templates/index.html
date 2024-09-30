@@ -84,7 +84,7 @@
                     <p>
                         <ul>
                             {% for person in people_objects %}
-                                <li class="{% if person.pointsNeeded == 0 %}transparent{% endif %}">
+                                <li class="{{ 'transparent' if person.pointsNeeded == 0 else '' }}">
                                     {{ person.name }}: {{ person.pointsNeeded }}
                                 </li>
                             {% else %}
