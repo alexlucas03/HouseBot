@@ -80,30 +80,47 @@
                 Points Needed: 
                 {% if user == 'admin' %}
                     <h2>Admin View:</h2>
-                    <p>
-                        <ul>
-                            {% for person in people_objects %}
-                                <li class="{{ 'transparent' if person.pointsNeeded == '0' else '' }}">
-                                    {{ person.name }}: {{ person.pointsNeeded }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </p>
+                    <div style="display: flex;">
+                        <div style="flex: 1; padding-right: 20px;">
+                            <h3>Visible Points</h3>
+                            <ul>
+                                {% for person in people_objects %}
+                                    {% if person.pointsNeeded != '0' %}
+                                        <li>
+                                            {{ person.name }}: {{ person.pointsNeeded }}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div style="flex: 1;">
+                            <h3>Transparent Points</h3>
+                            <ul>
+                                {% for person in people_objects %}
+                                    {% if person.pointsNeeded == '0' %}
+                                        <li class="transparent">
+                                            {{ person.name }}: {{ person.pointsNeeded }}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 {% else %}
                     <h2>{{ user }}</h2>
                     <h2>Points Needed: {{ person.pointsNeeded }}</h2>
                 {% endif %}
             </h2>
-
+    
             <form action="/logout" method="POST">
                 <button type="submit">Logout</button>
             </form>
-
+    
             {% if user == 'admin' %}
                 <form class="msg-button" action="/send-messages" method="POST">
                     <button type="submit">Send Messages</button>
                 </form>
-
+    
                 <form class="msg-button" action="/initdish" method="POST">
                     <button type="submit">Initialize Dishes</button>
                 </form>
@@ -117,10 +134,9 @@
             <p>Sunday dinner is worth 3 points</p>
             <p>TODO: calendar event adds, auto send msgs, auto process images</p>
         </div>
-    </div>
+    </div>    
 
     <div id="dish-columns">
-        <!-- Example for all months -->
         {% for month, dishes in [('September', september_objects), ('October', october_objects), ('November', november_objects), ('December', december_objects)] %}
         <div class="month-column">
             <h2>{{ month }}</h2>
