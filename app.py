@@ -67,6 +67,9 @@ def index():
 
     if user != 'admin':
         calculate_points(person)
+    else:
+        for person in people_objects:
+            calculate_points(person)
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects)
 
 @app.route('/change-owner', methods=['POST'])
@@ -250,7 +253,7 @@ def create_people_objects():
     people_rows = PeopleModel.query.all()
     people_objects = []
     for row in people_rows:
-        person_obj = Person(name=row.name, userID=row.userid, pickOrder=0, totalPoints=row.totalpoints)
+        person_obj = Person(name=row.name, userID=row.userid, pickOrder=row.pickorder, totalPoints=row.totalpoints)
         people_objects.append(person_obj)
 
     people_objects.sort(key=lambda person: person.pickOrder)
