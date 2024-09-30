@@ -64,7 +64,6 @@
         .msg-button {
             margin-top: 5px;
         }
-        /* Custom styles for transparency and highlighting */
         .transparent {
             opacity: 0.5;
         }
@@ -84,15 +83,9 @@
                     <p>
                         <ul>
                             {% for person in people_objects %}
-                                {% if person.pointsNeeded == 0 %}
-                                    <li class="transparent">
-                                        {{ person.name }}: {{ person.pointsNeeded }}
-                                    </li>
-                                {% else %}
-                                <li>
+                                <li class="{{ 'transparent' if person.pointsNeeded == '0' else '' }}">
                                     {{ person.name }}: {{ person.pointsNeeded }}
                                 </li>
-                                {% endif %}
                             {% endfor %}
                         </ul>
                     </p>
