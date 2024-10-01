@@ -21,6 +21,7 @@ start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
+test_today = datetime.date.today()
 
 @app.route('/')
 def index():
@@ -70,7 +71,7 @@ def index():
     else:
         for person in people_objects:
             calculate_points(person)
-    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects)
+    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
