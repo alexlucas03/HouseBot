@@ -199,7 +199,7 @@ def login():
                 return render_template('login.html', error="User not found")
     return render_template('login.html')
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session.pop('user', None)
     return redirect(url_for('login'))
