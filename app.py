@@ -29,12 +29,12 @@ def index():
     if 'user' not in session:
         return redirect(url_for('login'))
     
-    create_people_objects()
     create_september_objects()
     create_october_objects()
     create_november_objects()
     create_december_objects()
     dishes = september_objects + october_objects + november_objects + december_objects
+    create_people_objects()
 
     user = session['user']
     person = None
@@ -77,13 +77,13 @@ def client():
     if 'user' not in session:
         return redirect(url_for('login'))
     
-    create_people_objects()
     create_september_objects()
     create_october_objects()
     create_november_objects()
     create_december_objects()
     dishes = september_objects + october_objects + november_objects + december_objects
     my_dishes = []
+    create_people_objects()
     user = session['user']
     person = None
     for people in people_objects:
@@ -100,14 +100,14 @@ def admin():
     if 'user' not in session:
         return redirect(url_for('login'))
     
-    create_people_objects()
     create_september_objects()
     create_october_objects()
     create_november_objects()
     create_december_objects()
     dishes = september_objects + october_objects + november_objects + december_objects
+    create_people_objects()
 
-    return render_template('client.html', people_objects)
+    return render_template('admin.html', people_objects=people_objects)
 
 @app.route('/rules')
 def rules():
