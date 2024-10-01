@@ -106,11 +106,6 @@
                 <h2>{{ user }}</h2>
                 <h2>Points Needed: {{ person.pointsNeeded }}</h2>
             {% endif %}
-    
-            <form action="/logout" method="POST">
-                <button type="submit">Logout</button>
-            </form>
-    
             {% if user == 'admin' %}
                 <form class="msg-button" action="/send-messages" method="POST">
                     <button type="submit">Send Messages</button>

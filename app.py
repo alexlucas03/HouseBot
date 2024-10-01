@@ -96,6 +96,10 @@ def client():
 
     return render_template('client.html', my_dishes=my_dishes, person=person)
 
+@app.route('/rules')
+def rules():
+    return render_template('rules.html')
+
 @app.route('/change-owner', methods=['POST'])
 def change_owner():
     data = request.get_json()
