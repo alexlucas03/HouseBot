@@ -103,8 +103,9 @@
                     </div>
                 </div>
             {% else %}
-                <h2>{{ user }}</h2>
-                <h2>Points Needed: {{ person.pointsNeeded }}</h2>
+                {% if person.pointsNeeded != '0' %}
+                    <h2>Points Needed: {{ person.pointsNeeded }}</h2>
+                {% endif %}
             {% endif %}
             {% if user == 'admin' %}
                 <form class="msg-button" action="/send-messages" method="POST">
