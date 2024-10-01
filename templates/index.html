@@ -126,7 +126,13 @@
                 currentTime.getFullYear() !== testToday.getFullYear() || 
                 currentTime.getHours() !== testToday.getHours() || 
                 currentTime.getMinutes() !== testToday.getMinutes()) {
-                location.reload();
+                fetch('/send-messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({}),
+                })
             }
         }
 
