@@ -90,11 +90,24 @@ def client():
         if people.name == user:
             person = people
 
-    for dish in dishes:
-        if dish.owner == person.name:
-            my_dishes.append(dish)
+    for person in people_objects:
+            calculate_points(person)
 
     return render_template('client.html', my_dishes=my_dishes, person=person)
+
+@app.route('/admin')
+def admin():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    
+    create_people_objects()
+    create_september_objects()
+    create_october_objects()
+    create_november_objects()
+    create_december_objects()
+    dishes = september_objects + october_objects + november_objects + december_objects
+
+    return render_template('client.html', people_objects)
 
 @app.route('/rules')
 def rules():
@@ -118,7 +131,6 @@ def change_owner():
     db.session.commit()
     
     return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
-
     
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Client</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="icon" href="static/images/icon-plate.webp">
+    <style>
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Admin</h1>
+        <div style="display: flex;">
+            <div style="flex: 1; padding-right: 20px;">
+                <div><strong>To Pick</strong></div>
+                <ul>
+                    {% for person in people_objects %}
+                        {% if person.pointsNeeded != '0' %}
+                            <li>
+                                {{ person.name }}: {{ person.pointsNeeded }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div style="flex: 1;">
+                <div><strong>Picked</strong></div>
+                <ul>
+                    {% for person in people_objects %}
+                        {% if person.pointsNeeded == '0' %}
+                            <li class="transparent">
+                                {{ person.name }}: {{ person.pointsNeeded }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <form action="/">
+            <button type="submit">All Dishes</button>
+        </form>
+        <form action="/rules">
+            <button type="submit">Rules</button>
+        </form>        
+    </div>
+</body>
+</html>
