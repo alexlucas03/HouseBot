@@ -75,47 +75,18 @@
 <body>
     <div class="container">
         <div class="column1">
-            {% if user == 'admin' %}
-                <div style="display: flex;">
-                    <div style="flex: 1; padding-right: 20px;">
-                        <div><strong>To Pick</strong></div>
-                        <ul>
-                            {% for person in people_objects %}
-                                {% if person.pointsNeeded != '0' %}
-                                    <li>
-                                        {{ person.name }}: {{ person.pointsNeeded }}
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div style="flex: 1;">
-                        <div><strong>Picked</strong></div>
-                        <ul>
-                            {% for person in people_objects %}
-                                {% if person.pointsNeeded == '0' %}
-                                    <li class="transparent">
-                                        {{ person.name }}: {{ person.pointsNeeded }}
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% else %}
-                {% if person.pointsNeeded != '0' %}
-                    <h2>Points Needed: {{ person.pointsNeeded }}</h2>
-                {% endif %}
+            {% if person.pointsNeeded != '0' %}
+                <h2>Points Needed: {{ person.pointsNeeded }}</h2>
             {% endif %}
-            {% if user == 'admin' %}
-                <form class="msg-button" action="/send-messages" method="POST">
-                    <button type="submit">Send Messages</button>
-                </form>
-    
-                <form class="msg-button" action="/initdish" method="POST">
-                    <button type="submit">Initialize Dishes</button>
-                </form>
-            {% endif %}
+        {% endif %}
+        {% if user == 'admin' %}
+            <form class="msg-button" action="/send-messages" method="POST">
+                <button type="submit">Send Messages</button>
+            </form>
+
+            <form class="msg-button" action="/initdish" method="POST">
+                <button type="submit">Initialize Dishes</button>
+            </form>
         </div>
     </div>    
 
