@@ -107,6 +107,9 @@ def admin():
     dishes = september_objects + october_objects + november_objects + december_objects
     create_people_objects()
 
+    for person in people_objects:
+        calculate_points(person)
+
     return render_template('admin.html', people_objects=people_objects)
 
 @app.route('/rules')
