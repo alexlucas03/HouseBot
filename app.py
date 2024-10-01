@@ -90,8 +90,9 @@ def client():
         if people.name == user:
             person = people
 
-    for people in people_objects:
-            calculate_points(people)
+    for dish in dishes:
+        if dish.owner == person.name:
+            my_dishes.append(dish)
 
     return render_template('client.html', my_dishes=my_dishes, person=person)
 
