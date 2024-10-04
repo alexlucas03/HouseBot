@@ -15,13 +15,88 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://default:mk2aS9URH
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+class TodayModel(db.Model):
+    __tablename__ = 'autosend'
+    year = db.Column(db.String, primary_key=True)
+    month = db.Column(db.String)
+    day = db.Column(db.String)
+
+def create_today():
+    today_rows = TodayModel.query.all()
+    for row in today_rows:
+        created_today = datetime(int(row.year), int(row.month), int(row.day))
+    return created_today
+
+@app.route('/send-messages', methods=['POST'])
+def send_groupme_messages():
+    lunch_userid = None
+    for person in people_objects:
+        if person.name == lunch_owner:
+            lunch_userid = person.userID
+    dinner_userid = None
+    for person in people_objects:
+        if person.name == dinner_owner:
+            dinner_userid = person.userID
+    x1_userid = None
+    for person in people_objects:
+        if person.name == x1_owner:
+            x1_userid = person.userID
+    
+    url = "https://api.groupme.com/v3/bots/post"
+
+    def send_message(message, owner, owner_userid, owner_loci_start, owner_loci_end):
+        data = {
+            "text": message,
+            "bot_id": "c9ed078f3de7c89547308a050a",
+        }
+        if owner != 'Not Assigned':
+            data["attachments"] = [
+                {
+                    "type": "mentions",
+                    "user_ids": [owner_userid],
+                    "loci": [[owner_loci_start, owner_loci_end]]
+                }
+            ]
+        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+        return response
+
+    # Send lunch message
+    lunch_message = f"Lunch: @{lunch_owner}"
+    send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
+
+    # Send dinner message
+    dinner_message = f"Dinner: @{dinner_owner}"
+    send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
+
+    # Send x1 message
+    x1_message = f"x1: @{x1_owner}"
+    send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
+
+    return redirect(url_for('index'))
+
 dishes = []
 people_objects = []
 start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
-test_today = datetime.datetime.now() - timedelta(hours=7) #set to pst
+test_today = datetime.datetime.now() - timedelta(hours=7) # actual today
+created_today = create_today() - timedelta(hours=7) # today given by database
+
+if created_today != test_today:
+    send_groupme_messages()
+    db.session.execute(
+        text(f"UPDATE autosend SET year = {str(test_today.year)} WHERE id = '1'")
+    )
+    db.session.commit()
+    db.session.execute(
+        text(f"UPDATE autosend SET month = {str(test_today.month)} WHERE id = '1'")
+    )
+    db.session.commit()
+    db.session.execute(
+        text(f"UPDATE autosend SET day = {str(test_today.day)} WHERE id = '1'")
+    )
+    db.session.commit()
 
 @app.route('/')
 def index():
@@ -136,53 +211,6 @@ def change_owner():
     db.session.commit()
     
     return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
-    
-@app.route('/send-messages', methods=['POST'])
-def send_groupme_messages():
-    lunch_userid = None
-    for person in people_objects:
-        if person.name == lunch_owner:
-            lunch_userid = person.userID
-    dinner_userid = None
-    for person in people_objects:
-        if person.name == dinner_owner:
-            dinner_userid = person.userID
-    x1_userid = None
-    for person in people_objects:
-        if person.name == x1_owner:
-            x1_userid = person.userID
-    
-    url = "https://api.groupme.com/v3/bots/post"
-
-    def send_message(message, owner, owner_userid, owner_loci_start, owner_loci_end):
-        data = {
-            "text": message,
-            "bot_id": "c9ed078f3de7c89547308a050a",
-        }
-        if owner != 'Not Assigned':
-            data["attachments"] = [
-                {
-                    "type": "mentions",
-                    "user_ids": [owner_userid],
-                    "loci": [[owner_loci_start, owner_loci_end]]
-                }
-            ]
-        response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-        return response
-
-    # Send lunch message
-    lunch_message = f"Lunch: @{lunch_owner}"
-    send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
-
-    # Send dinner message
-    dinner_message = f"Dinner: @{dinner_owner}"
-    send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
-
-    # Send x1 message
-    x1_message = f"x1: @{x1_owner}"
-    send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
-
-    return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
