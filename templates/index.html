@@ -116,28 +116,6 @@
 
     <script>
         const user = "{{ user }}";
-        const testToday = new Date("{{ test_today }}");
-
-        function checkTimeChange() {
-            const currentTime = new Date();
-            // Reload if the current date is different from test_today's date
-            if (currentTime.getDate() !== testToday.getDate() || 
-                currentTime.getMonth() !== testToday.getMonth() || 
-                currentTime.getFullYear() !== testToday.getFullYear() || 
-                currentTime.getHours() !== testToday.getHours() || 
-                currentTime.getMinutes() !== testToday.getMinutes()) {
-                fetch('/send-messages', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({}),
-                })
-            }
-        }
-
-        // Check every minute (60000 ms)
-        setInterval(checkTimeChange, 60000);
 
         function changeOwner(month, id) {
             const data = {
