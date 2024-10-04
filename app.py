@@ -24,7 +24,7 @@ end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 
 @app.route('/')
 def index():
-    global people_objects, dishes, september_objects, october_objects, november_objects, december_objects
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
 
     if 'user' not in session:
         return redirect(url_for('login'))
@@ -42,7 +42,28 @@ def index():
         if people.name == user:
             person = people
 
-    setup_today()
+    today = datetime.date.today()
+
+    if today.strftime("%A") == 'Saturday':
+        today += timedelta(days=1)
+
+    if start_date.date() <= today <= end_date.date():
+        today_lunch = None
+        today_dinner = None
+        today_x1 = None
+
+        for dish in dishes:
+            if dish.date_obj == today:
+                if dish.type == "lunch":
+                    today_lunch = dish
+                elif dish.type == "dinner":
+                    today_dinner = dish
+                elif dish.type == "x1":
+                    today_x1 = dish
+
+        lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
+        dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
+        x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     if user != 'admin':
         calculate_points(person)
@@ -95,31 +116,6 @@ def admin():
 @app.route('/rules')
 def rules():
     return render_template('rules.html')
-
-def setup_today():
-    global lunch_owner, dinner_owner, x1_owner
-    today = datetime.date.today()
-
-    if today.strftime("%A") == 'Saturday':
-        today += timedelta(days=1)
-
-    if start_date.date() <= today <= end_date.date():
-        today_lunch = None
-        today_dinner = None
-        today_x1 = None
-
-        for dish in dishes:
-            if dish.date_obj == today:
-                if dish.type == "lunch":
-                    today_lunch = dish
-                elif dish.type == "dinner":
-                    today_dinner = dish
-                elif dish.type == "x1":
-                    today_x1 = dish
-
-        lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
-        dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
-        x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
@@ -401,7 +397,6 @@ test_today = datetime.datetime.now() - timedelta(hours=7) # actual today
 created_today = create_today() # today given by database
 
 if created_today != test_today:
-    setup_today()
     send_groupme_messages()
     db.session.execute(
         text(f"UPDATE autosend SET year = {str(test_today.year)} WHERE id = '1'")
