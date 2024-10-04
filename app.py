@@ -23,7 +23,9 @@ class TodayModel(db.Model):
 
 def create_today():
     with app.app_context():
-        created_today = TodayModel.query.first()
+        today_rows = TodayModel.query.all()
+        for row in today_rows:
+            created_today = datetime(int(row.year), int(row.month), int(row.day))
         return created_today - timedelta(hours=7)
 
 @app.route('/send-messages', methods=['POST'])
