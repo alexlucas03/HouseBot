@@ -117,7 +117,7 @@
     <script>
         const user = "{{ user }}";
         const testToday = new Date("{{ test_today }}");
-        testToday.setHours(testToday.getHours() - 420); // set to pst
+        testToday.setHours(testToday.getHours() - 7); // set to pst
 
         function checkTimeChange() {
             const currentTime = new Date();
