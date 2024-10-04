@@ -22,9 +22,10 @@ class TodayModel(db.Model):
     day = db.Column(db.String)
 
 def create_today():
-    with app.app_context():
-        created_today = TodayModel.query.first()
-        return created_today
+    today_rows = TodayModel.query.all()
+    for row in today_rows:
+        created_today = datetime(int(row.year), int(row.month), int(row.day))
+    return created_today
 
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
