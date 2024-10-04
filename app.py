@@ -21,7 +21,7 @@ start_date_str = "2024-09-24"
 end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
-test_today = datetime.datetime.now() - timedelta(hours=7) #set to pst
+test_today = datetime.datetime.now()
 
 @app.route('/')
 def index():
