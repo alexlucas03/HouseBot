@@ -24,7 +24,7 @@ class TodayModel(db.Model):
 def create_today():
     with app.app_context():
         created_today = TodayModel.query.first()
-        return created_today
+        return created_today - timedelta(hours=7)
 
 @app.route('/send-messages', methods=['POST'])
 def send_groupme_messages():
@@ -80,7 +80,7 @@ end_date_str = "2024-12-13"
 start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
 end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
 test_today = datetime.datetime.now() - timedelta(hours=7) # actual today
-created_today = create_today() - timedelta(hours=7) # today given by database
+created_today = create_today() # today given by database
 
 if created_today != test_today:
     send_groupme_messages()
