@@ -77,7 +77,11 @@ def login():
             session['user'] = username
             return redirect(url_for('admin'))
         else:
-            person = PeopleModel.query.filter_by(name=username).first()
+            person = None
+            for people in people_objects:
+                if people.name == user:
+                    person = people
+                    break
             if person:
                 session['user'] = username
                 return redirect(url_for('client'))
