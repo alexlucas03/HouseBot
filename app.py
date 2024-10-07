@@ -36,8 +36,6 @@ def init():
     for people in people_objects:
         if people.name == user:
             person = people
-    if not person and person != 'admin':
-        return render_template('login.html')
     today = datetime.date.today()
 
     if today.strftime("%A") == 'Saturday':
