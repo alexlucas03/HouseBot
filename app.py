@@ -36,6 +36,10 @@ def init():
     for people in people_objects:
         if people.name == user:
             person = people
+            break
+    if person is None:
+        raise ValueError("User not found")
+
     today = datetime.date.today()
 
     if today.strftime("%A") == 'Saturday':
@@ -182,7 +186,9 @@ def send_groupme_messages():
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session.pop('user', None)
+    session.clear()
     return redirect(url_for('login'))
+
 
 @app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
