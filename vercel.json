@@ -5,11 +5,5 @@
     ],
     "routes": [
         {"src": "/(.*)", "dest": "app.py"}
-    ],
-    "crons": [
-    {
-      "path": "/send-messages",
-      "schedule": "0 13 * * *"
-    }
-  ]
+    ]
 }
