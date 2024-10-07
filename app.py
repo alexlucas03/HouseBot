@@ -61,10 +61,10 @@ def init():
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
     if user != 'admin':
-        calculate_points(person)
+        person = calculate_points(person)
     else:
         for person in people_objects:
-            calculate_points(person)
+            person = calculate_points(person)
 
 @app.route('/')
 def index():
@@ -296,6 +296,7 @@ def calculate_points(person):
             elif dish.type == 'x1':
                 points -= 1
     person.pointsNeeded = str(points)
+    return person
 
 def create_september_objects():
     global september_objects
