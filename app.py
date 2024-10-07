@@ -74,7 +74,7 @@ def login():
     create_people_objects()
     session.clear()
     if request.method == 'POST':
-        username = request.form['username']
+        user = request.form['username']
         if username == 'admin':
             session['user'] = username
             return redirect(url_for('admin'))
