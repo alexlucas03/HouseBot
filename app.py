@@ -14,27 +14,26 @@ app.config['SECRET_KEY'] = 'mysecret'
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://default:mk2aS9URHwOf@ep-falling-fire-a4ke12jz.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-
-dishes = []
-people_objects = []
-start_date_str = "2024-09-24"
-end_date_str = "2024-12-13"
-start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
-end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
-test_today = datetime.datetime.now()
+def init():
+    global dishes, people_objects, month_models, test_today
+    dishes = []
+    people_objects = []
+    start_date = datetime.datetime(2024, 1, 1)
+    end_date = datetime.datetime(2024, 2, 1)
+    month_models = generate_month_models(start_date, end_date)
+    test_today = datetime.datetime.now()
 
 @app.route('/')
 def index():
-    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes
 
     if 'user' not in session:
         return redirect(url_for('login'))
+
+    # Generate dish objects for all months
+    create_all_dish_objects()
     
-    create_september_objects()
-    create_october_objects()
-    create_november_objects()
-    create_december_objects()
-    dishes = september_objects + october_objects + november_objects + december_objects
+    # Create people objects
     create_people_objects()
 
     user = session['user']
@@ -45,9 +44,11 @@ def index():
 
     today = datetime.date.today()
 
+    # Skip Saturday
     if today.strftime("%A") == 'Saturday':
         today += timedelta(days=1)
 
+    # Check if today is within the date range
     if start_date.date() <= today <= end_date.date():
         today_lunch = None
         today_dinner = None
@@ -66,12 +67,14 @@ def index():
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
+    # Calculate points for non-admin users
     if user != 'admin':
         calculate_points(person)
     else:
         for person in people_objects:
             calculate_points(person)
-    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
+    
+    return render_template('index.html', dishes=dishes, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
@@ -207,38 +210,25 @@ def logout():
 
 @app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
-    db.session.execute(
-        text("DELETE FROM september")
-    )
-    db.session.commit
-    db.session.execute(
-        text("DELETE FROM october")
-    )
-    db.session.commit
-    db.session.execute(
-        text("DELETE FROM november")
-    )
-    db.session.commit
-    db.session.execute(
-        text("DELETE FROM december")
-    )
-    db.session.commit
+    for month_name, model in month_models.items():
+        db.session.execute(text(f"DELETE FROM {month_name.lower()}"))
+        db.session.commit()
 
     types = ['lunch', 'dinner', 'x1']
     type_index = 0
     i = 0
-
     delta = datetime.timedelta(days=1)
     current_date = start_date
 
     while current_date <= end_date:
         day_of_week = current_date.strftime("%A")
-        
+        month_name = current_date.strftime('%B').lower()
+
         if day_of_week != "Saturday":
             if day_of_week == "Sunday" and type_index == 0:
                 type_index = 1
             db.session.execute(
-                text(f"INSERT INTO {current_date.strftime('%B')} (year, day, id, owner, type) "
+                text(f"INSERT INTO {month_name} (year, day, id, owner, type) "
                     f"VALUES ({current_date.year}, {current_date.day}, {i}, null, '{types[type_index]}')")
             )
             db.session.commit()
@@ -248,50 +238,58 @@ def initdish():
                 current_date += delta
             
             type_index = (type_index + 1) % len(types)
-    
         else:
             current_date += delta
     
     return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
 
-class PeopleModel(db.Model):
-    __tablename__ = 'people'
-    userid = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    pickorder = db.Column(db.String)
-    totalpoints = db.Column(db.Integer)
+#Model Structures
+def create_month_model(month_name):
+    return type(
+        f"{month_name.capitalize()}Model",
+        (db.Model,),
+        {
+            "__tablename__": month_name.lower(),
+            "year": Column(String),
+            "day": Column(String),
+            "id": Column(String, primary_key=True),
+            "owner": Column(String),
+            "type": Column(String),
+        }
+    )
 
-class SeptemberModel(db.Model):
-    __tablename__ = 'september'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
-    
-class OctoberModel(db.Model):
-    __tablename__ = 'october'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
+def generate_month_models(start_date, end_date):
+    current_date = start_date
+    models = {}
+    while current_date <= end_date:
+        month_name = current_date.strftime('%B')
+        if month_name not in models:
+            models[month_name] = create_month_model(month_name)
+        current_date += datetime.timedelta(days=1)
+    return models
 
-class NovemberModel(db.Model):
-    __tablename__ = 'november'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
+def create_dish_objects(month_name):
+    model = month_models[month_name]
+    dish_rows = model.query.all()
+    dish_objects = []
+    for row in dish_rows:
+        dish_obj = Dish(
+            year=int(row.year),
+            month=datetime.datetime.strptime(month_name, '%B').month,
+            day=int(row.day),
+            type=row.type,
+            owner=row.owner,
+            id=row.id
+        )
+        dish_objects.append(dish_obj)
+    dish_objects.sort(key=lambda dish: int(dish.id))
+    return dish_objects
 
-class DecemberModel(db.Model):
-    __tablename__ = 'december'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
+def create_all_dish_objects():
+    global dishes
+    dishes = []
+    for month in month_models.keys():
+        dishes += create_dish_objects(month)
 
 @app.route("/people_objects")
 def create_people_objects():
@@ -317,66 +315,4 @@ def calculate_points(person):
                 points -= 1
     person.pointsNeeded = str(points)
 
-def create_september_objects():
-    global september_objects
-    dish_rows = SeptemberModel.query.all()
-    september_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=9,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        september_objects.append(dish_obj)
-    september_objects.sort(key=lambda dish: int(dish.id))
-
-def create_october_objects():
-    global october_objects
-    dish_rows = OctoberModel.query.all()
-    october_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=10,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        october_objects.append(dish_obj)
-    october_objects.sort(key=lambda dish: int(dish.id))
-
-def create_november_objects():
-    global november_objects
-    dish_rows = NovemberModel.query.all()
-    november_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=11,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        november_objects.append(dish_obj)
-    november_objects.sort(key=lambda dish: int(dish.id))
-
-def create_december_objects():
-    global december_objects
-    dish_rows = DecemberModel.query.all()
-    december_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=12,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        december_objects.append(dish_obj)
-    december_objects.sort(key=lambda dish: int(dish.id))
+init()
