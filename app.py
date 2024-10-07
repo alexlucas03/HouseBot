@@ -17,19 +17,13 @@ db = SQLAlchemy(app)
 
 dishes = []
 people_objects = []
-start_date_str = "2024-09-24"
-end_date_str = "2024-12-13"
-start_date = datetime.datetime.strptime(start_date_str, "%Y-%m-%d")
-end_date = datetime.datetime.strptime(end_date_str, "%Y-%m-%d")
-test_today = datetime.datetime.now()
 
-@app.route('/')
-def index():
-    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
+def init():
+    global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person
+    start_date = datetime.datetime(2024, 9, 24)
+    end_date = datetime.datetime(2024, 12, 13)
+    test_today = datetime.datetime.now()
 
-    if 'user' not in session:
-        return redirect(url_for('login'))
-    
     create_september_objects()
     create_october_objects()
     create_november_objects()
@@ -71,26 +65,22 @@ def index():
     else:
         for person in people_objects:
             calculate_points(person)
+
+@app.route('/')
+def index():
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
+
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    init()
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
     if 'user' not in session:
         return redirect(url_for('login'))
-    
-    create_september_objects()
-    create_october_objects()
-    create_november_objects()
-    create_december_objects()
-    dishes = september_objects + october_objects + november_objects + december_objects
+    init()
     my_dishes = []
-    create_people_objects()
-    user = session['user']
-    person = None
-    for people in people_objects:
-        if people.name == user:
-            person = people
-
     for dish in dishes:
         if dish.owner == person.name:
             my_dishes.append(dish)
@@ -101,17 +91,7 @@ def client():
 def admin():
     if 'user' not in session:
         return redirect(url_for('login'))
-    
-    create_september_objects()
-    create_october_objects()
-    create_november_objects()
-    create_december_objects()
-    dishes = september_objects + october_objects + november_objects + december_objects
-    create_people_objects()
-
-    for person in people_objects:
-        calculate_points(person)
-
+    init()
     return render_template('admin.html', people_objects=people_objects)
 
 @app.route('/rules')
@@ -380,3 +360,5 @@ def create_december_objects():
         )
         december_objects.append(dish_obj)
     december_objects.sort(key=lambda dish: int(dish.id))
+
+init()

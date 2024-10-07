@@ -1,0 +1,64 @@
+#dish-columns {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.month-column {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    border-right: 2px solid #ccc;
+    padding-right: 10px;
+}
+.month-column:last-child {
+    border-right: none;
+}
+.month-column h2 {
+    text-align: center;
+}
+.day-section h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.month-column ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.month-column li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.month-column li .dish-type {
+    text-align: left;
+    flex: 1;
+}
+.month-column li .claim-button {
+    margin-left: 10px;
+}
+.day-section {
+    height: 150px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.column1, .column2 {
+    flex: 1;
+    margin: 0 10px;
+}
+.column2 {
+    text-align: right;
+}
+.msg-button {
+    margin-top: 5px;
+}
+.transparent {
+    opacity: 0.5;
+}
+.highlight-owner {
+    color: red;
+    font-weight: bold;
+}
