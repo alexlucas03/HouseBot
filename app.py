@@ -63,8 +63,8 @@ def init():
     if user != 'admin':
         person = calculate_points(person)
     else:
-        for person in people_objects:
-            person = calculate_points(person)
+        for i, person in enumerate(people_objects):
+            people_objects[i] = calculate_points(person)
 
 @app.route('/')
 def index():
