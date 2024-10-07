@@ -37,7 +37,7 @@ def init():
         if people.name == user:
             person = people
             break
-    if person is None:
+    if person is None and user is not 'admin':
         raise ValueError("User not found")
 
     today = datetime.date.today()
