@@ -1,14 +1,13 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy import text, Column, String  # Add Column and String imports
+from sqlalchemy import text
 import datetime
 from datetime import timedelta
 from dish import Dish
 from person import Person
 import requests
 import json
-
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
