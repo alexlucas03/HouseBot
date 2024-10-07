@@ -36,7 +36,9 @@ def init():
     for people in people_objects:
         if people.name == user:
             person = people
-
+    if not person or person != 'admin':
+        return redirect(url_for('login'))
+    
     today = datetime.date.today()
 
     if today.strftime("%A") == 'Saturday':
