@@ -66,7 +66,23 @@ def init():
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        if username == 'admin':
+            session['user'] = username
+            return redirect(url_for('admin'))
+        else:
+            person = PeopleModel.query.filter_by(name=username).first()
+            if person:
+                session['user'] = username
+                return redirect(url_for('client'))
+            else:
+                return render_template('login.html', error="User not found")
+    return render_template('login.html')
+
+@app.route('/all')
 def index():
     global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
 
@@ -163,22 +179,6 @@ def send_groupme_messages():
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
     return redirect(url_for('admin'))
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        if username == 'admin':
-            session['user'] = username
-            return redirect(url_for('admin'))
-        else:
-            person = PeopleModel.query.filter_by(name=username).first()
-            if person:
-                session['user'] = username
-                return redirect(url_for('client'))
-            else:
-                return render_template('login.html', error="User not found")
-    return render_template('login.html')
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
