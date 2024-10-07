@@ -16,7 +16,7 @@
                 <div><strong>To Pick</strong></div>
                 <ul>
                     {% for person in people_objects %}
-                        {% if person.pointsNeeded != '0' %}
+                        {% if person.pointsNeeded|int > 0 %}
                             <li>
                                 {{ person.name }}: {{ person.pointsNeeded }}
                             </li>
@@ -28,7 +28,7 @@
                 <div><strong>Picked</strong></div>
                 <ul>
                     {% for person in people_objects %}
-                        {% if person.pointsNeeded == '0' %}
+                        {% if person.pointsNeeded|int == 0 %}
                             <li class="transparent">
                                 {{ person.name }}: {{ person.pointsNeeded }}
                             </li>
