@@ -13,15 +13,6 @@
             {% if person.pointsNeeded != '0' %}
                 <h2>Points Needed: {{ person.pointsNeeded }}</h2>
             {% endif %}
-        {% if user == 'admin' %}
-            <form class="msg-button" action="/send-messages" method="POST">
-                <button type="submit">Send Messages</button>
-            </form>
-
-            <form class="msg-button" action="/initdish" method="POST">
-                <button type="submit">Initialize Dishes</button>
-            </form>
-        {% endif %}
         </div>
     </div>    
 
