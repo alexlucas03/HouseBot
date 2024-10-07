@@ -36,9 +36,7 @@ def init():
     for people in people_objects:
         if people.name == user:
             person = people
-    if not person or person != 'admin':
-        return redirect(url_for('login'))
-    
+
     today = datetime.date.today()
 
     if today.strftime("%A") == 'Saturday':
@@ -84,7 +82,7 @@ def login():
                 return render_template('login.html', error="User not found")
     return render_template('login.html')
 
-@app.route('/all')
+@app.route('/')
 def index():
     global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
 
