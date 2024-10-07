@@ -71,6 +71,7 @@ def init():
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    create_people_objects()
     session.clear()
     if request.method == 'POST':
         username = request.form['username']
