@@ -74,14 +74,14 @@ def login():
     create_people_objects()
     session.clear()
     if request.method == 'POST':
-        user = request.form['username']
+        username= request.form['username']
         if username == 'admin':
             session['user'] = username
             return redirect(url_for('admin'))
         else:
             person = None
             for people in people_objects:
-                if people.name == user:
+                if people.name == username:
                     person = people
                     break
             if person:
