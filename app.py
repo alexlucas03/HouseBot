@@ -9,7 +9,6 @@ from person import Person
 import requests
 import json
 
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://default:mk2aS9URHwOf@ep-falling-fire-a4ke12jz.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
@@ -270,7 +269,13 @@ def generate_month_models(start_date, end_date):
     return models
 
 def create_dish_objects(month_name):
-    model = month_models[month_name]
+    if month_models[month_name]:
+        model = month_models[month_name]
+    else:
+        db.session.execute(
+                text(f"CREATE TABLE {month_name} (year varchar(255), day varchar(255), id varchar(255), owner varchar(255), type varchar(255)) ")
+            )
+        db.session.commit()
     dish_rows = model.query.all()
     dish_objects = []
     for row in dish_rows:
