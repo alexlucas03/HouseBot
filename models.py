@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from dish import Dish
 from person import Person
-from app import db
+
+db = SQLAlchemy()
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
