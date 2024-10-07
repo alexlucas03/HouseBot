@@ -71,6 +71,7 @@ def init():
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    session.clear()
     if request.method == 'POST':
         username = request.form['username']
         if username == 'admin':
@@ -94,14 +95,14 @@ def index():
     global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
 
     if 'user' not in session:
-        return redirect(url_for('login'))
+        return redirect('dish-bot.vercel.app')
     init()
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
     if 'user' not in session:
-        return redirect(url_for('login'))
+        return redirect('dish-bot.vercel.app')
     init()
     my_dishes = []
     for dish in dishes:
@@ -113,7 +114,7 @@ def client():
 @app.route('/admin')
 def admin():
     if 'user' not in session:
-        return redirect(url_for('login'))
+        return redirect('dish-bot.vercel.app')
     init()
     return render_template('admin.html', people_objects=people_objects)
 
@@ -190,9 +191,7 @@ def send_groupme_messages():
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
     session.pop('user', None)
-    session.clear()
     return redirect(url_for('login'))
-
 
 @app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
