@@ -19,7 +19,7 @@ dishes = []
 people_objects = []
 
 def init():
-    global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person, user
+    global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person, user, people_objects
     start_date = datetime.datetime(2024, 9, 24)
     end_date = datetime.datetime(2024, 12, 13)
     test_today = datetime.datetime.now()
