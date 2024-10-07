@@ -162,7 +162,7 @@ def send_groupme_messages():
     x1_message = f"x1: @{x1_owner}"
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
-    return redirect(url_for('index'))
+    return redirect(url_for('admin'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
