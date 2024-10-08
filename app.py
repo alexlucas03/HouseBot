@@ -112,7 +112,7 @@ def index():
 
     return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
 
-@app.route('/initquarter')
+@app.route('/initquarter', methods=['POST', 'GET'])
 def initquarter():
     if 'user' not in session:
         return redirect('/')
