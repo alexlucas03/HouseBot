@@ -36,6 +36,7 @@ def init(autosend):
     global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
     test_today = datetime.datetime.now()
 
+    dishes.clear()
     create_all_month_objects()
     for month in months:
         dishes += globals()[f"{month.lower()}_objects"]
