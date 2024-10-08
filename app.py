@@ -392,7 +392,7 @@ def lateplate_lunch():
     data["attachments"] = [
         {
             "type": "mentions",
-            "user_ids": [8655406],
+            "user_ids": ["8655406"],
             "loci": [[0, 1]]
         }
     ]
