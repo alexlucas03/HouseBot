@@ -43,18 +43,24 @@ def init(autosend):
     for month in months:
         globals()[month.lower() + "_objects"] = []
 
-        dishes.clear()
-        create_all_month_objects()
-        for month in months:
-            dishes += globals()[f"{month.lower()}_objects"]
-        create_people_objects()
-        person = None
-        if not autosend:
-            user = session['user']
-            for people in people_objects:
-                if people.name == user:
-                    person = people
-                    break
+    for month in months:
+        tablename = month.lower()  # e.g., 'september', 'october'
+        globals()[f'{month}Model'] = type(f'{month}Model', (BaseModel,), {
+            '__tablename__': tablename
+        })
+
+    dishes.clear()
+    create_all_month_objects()
+    for month in months:
+        dishes += globals()[f"{month.lower()}_objects"]
+    create_people_objects()
+    person = None
+    if not autosend:
+        user = session['user']
+        for people in people_objects:
+            if people.name == user:
+                person = people
+                break
 
     today = datetime.date.today()
 
@@ -303,12 +309,6 @@ class BaseModel(db.Model):
     id = db.Column(db.String, primary_key=True)
     owner = db.Column(db.String)
     type = db.Column(db.String)
-
-for month in months:
-    tablename = month.lower()  # e.g., 'september', 'october'
-    globals()[f'{month}Model'] = type(f'{month}Model', (BaseModel,), {
-        '__tablename__': tablename
-    })
 
 @app.route("/people_objects")
 def create_people_objects():
