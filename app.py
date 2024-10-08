@@ -8,6 +8,7 @@ from dish import Dish
 from person import Person
 import requests
 import json
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -307,9 +308,15 @@ def create_month_objects(month, model, global_objects):
         global_objects.append(dish_obj)
     global_objects.sort(key=lambda dish: int(dish.id))
 
+
 def create_all_month_objects():
     for month in months:
-        model = globals()[f"{month}Model"]
-        global_objects = globals()[f"{month.lower()}_objects"]
-        create_month_objects(month, model, global_objects)
+        model = globals()[f"{month}Model"]  # Dynamically access the model for the month (e.g., SeptemberModel)
+        global_objects = globals()[f"{month.lower()}_objects"]  # Dynamically access the global object list (e.g., september_objects)
+
+        # Convert month name to its corresponding month integer
+        month_int = time.strptime(month, "%B").tm_mon
+
+        # Pass the integer month to create_month_objects
+        create_month_objects(month_int, model, global_objects)
 
