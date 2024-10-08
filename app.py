@@ -30,13 +30,13 @@ def init():
     create_december_objects()
     dishes = september_objects + october_objects + november_objects + december_objects
     create_people_objects()
-
-    user = session['user']
     person = None
-    for people in people_objects:
-        if people.name == user:
-            person = people
-            break
+    if session['user']:
+        user = session['user']
+        for people in people_objects:
+            if people.name == user:
+                person = people
+                break
 
     today = datetime.date.today()
 
@@ -61,9 +61,9 @@ def init():
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    if user != 'admin':
+    if user != 'admin' and person:
         person = calculate_points(person)
-    else:
+    elif person:
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
@@ -363,4 +363,3 @@ def create_december_objects():
         )
         december_objects.append(dish_obj)
     december_objects.sort(key=lambda dish: int(dish.id))
-    
