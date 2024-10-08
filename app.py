@@ -371,6 +371,7 @@ def lateplate():
     url = "https://api.groupme.com/v3/bots/post"
     data = {
         "source_guid": "GUID",
+        "bot_id": "c9ed078f3de7c89547308a050a",
         "recipient_id": "104094443",
         "text": "Hello",
     }
