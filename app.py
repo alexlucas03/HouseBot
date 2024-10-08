@@ -243,37 +243,21 @@ class PeopleModel(db.Model):
     pickorder = db.Column(db.String)
     totalpoints = db.Column(db.Integer)
 
-class SeptemberModel(db.Model):
-    __tablename__ = 'september'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
-    
-class OctoberModel(db.Model):
-    __tablename__ = 'october'
+class BaseModel(db.Model):
+    __abstract__ = True
     year = db.Column(db.String)
     day = db.Column(db.String)
     id = db.Column(db.String, primary_key=True)
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
-class NovemberModel(db.Model):
-    __tablename__ = 'november'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
+months = ['September', 'October', 'November', 'December']
 
-class DecemberModel(db.Model):
-    __tablename__ = 'december'
-    year = db.Column(db.String)
-    day = db.Column(db.String)
-    id = db.Column(db.String, primary_key=True)
-    owner = db.Column(db.String)
-    type = db.Column(db.String)
+for month in months:
+    tablename = month.lower()  # e.g., 'september', 'october'
+    globals()[f'{month}Model'] = type(f'{month}Model', (BaseModel,), {
+        '__tablename__': tablename
+    })
 
 @app.route("/people_objects")
 def create_people_objects():
