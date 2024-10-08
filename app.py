@@ -283,67 +283,30 @@ def calculate_points(person):
                 points -= 1
     person.pointsNeeded = str(points)
     return person
-
-def create_september_objects():
-    global september_objects
-    dish_rows = SeptemberModel.query.all()
-    september_objects = []
+def create_month_objects(month, model, global_objects):
+    dish_rows = model.query.all()
+    global_objects.clear()  # Clear the existing objects, if any
     for row in dish_rows:
         dish_obj = Dish(
             year=int(row.year),
-            month=9,
+            month=month,
             day=int(row.day),
             type=row.type,
             owner=row.owner,
             id=row.id
         )
-        september_objects.append(dish_obj)
-    september_objects.sort(key=lambda dish: int(dish.id))
+        global_objects.append(dish_obj)
+    global_objects.sort(key=lambda dish: int(dish.id))
 
-def create_october_objects():
-    global october_objects
-    dish_rows = OctoberModel.query.all()
-    october_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=10,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        october_objects.append(dish_obj)
-    october_objects.sort(key=lambda dish: int(dish.id))
+def create_all_month_objects():
+    global september_objects, october_objects, november_objects, december_objects
 
-def create_november_objects():
-    global november_objects
-    dish_rows = NovemberModel.query.all()
-    november_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=11,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        november_objects.append(dish_obj)
-    november_objects.sort(key=lambda dish: int(dish.id))
+    month_data = [
+        (9, SeptemberModel, september_objects),
+        (10, OctoberModel, october_objects),
+        (11, NovemberModel, november_objects),
+        (12, DecemberModel, december_objects)
+    ]
 
-def create_december_objects():
-    global december_objects
-    dish_rows = DecemberModel.query.all()
-    december_objects = []
-    for row in dish_rows:
-        dish_obj = Dish(
-            year=int(row.year),
-            month=12,
-            day=int(row.day),
-            type=row.type,
-            owner=row.owner,
-            id=row.id
-        )
-        december_objects.append(dish_obj)
-    december_objects.sort(key=lambda dish: int(dish.id))
+    for month, model, global_objects in month_data:
+        create_month_objects(month, model, global_objects)
