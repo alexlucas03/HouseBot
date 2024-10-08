@@ -265,8 +265,6 @@ class BaseModel(db.Model):
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
-months = ['September', 'October', 'November', 'December']
-
 for month in months:
     tablename = month.lower()  # e.g., 'september', 'october'
     globals()[f'{month}Model'] = type(f'{month}Model', (BaseModel,), {
@@ -312,7 +310,6 @@ def create_month_objects(month, model, global_objects):
         )
         global_objects.append(dish_obj)
     global_objects.sort(key=lambda dish: int(dish.id))
-
 
 def create_all_month_objects():
     for month in months:
