@@ -111,7 +111,7 @@ def index():
     # Dynamically access month objects from globals()
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
 
-    return render_template('index.html', **month_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
+    return render_template('index.html', months, **month_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
