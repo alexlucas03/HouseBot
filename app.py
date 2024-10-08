@@ -367,8 +367,8 @@ def create_all_month_objects():
         # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
 
-@app.route('/send-direct-message', methods=['POST'])
-def send_direct_message():
+@app.route('/lateplate', methods=['POST'])
+def lateplate():
     data = {
         "source_guid": "GUID",
         "recipient_id": "104094443",
