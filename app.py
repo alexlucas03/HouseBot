@@ -321,7 +321,6 @@ class BaseModel(db.Model):
 def create_people_objects():
     global people_objects
     people_rows = PeopleModel.query.all()
-    return people_rows
     people_objects = []
     for row in people_rows:
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=row.pickorder, totalPoints=row.totalpoints)
