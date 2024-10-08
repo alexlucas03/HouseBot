@@ -19,8 +19,8 @@ db = SQLAlchemy(app)
 dishes = []
 people_objects = []
 months = []
-start_date = datetime.datetime(2024, 9, 24)
-end_date = datetime.datetime(2024, 12, 13)
+start_date = datetime.datetime(2024, 1, 1)
+end_date = datetime.datetime(2024, 2, 1)
 
 current_date = start_date
 while current_date <= end_date:
@@ -111,6 +111,14 @@ def index():
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
 
     return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
+
+@app.route('/initquarter')
+def index():
+    if 'user' not in session:
+        return redirect('/')
+    init(False)
+
+    return render_template('initquarter.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
 
 @app.route('/client')
 def client():
