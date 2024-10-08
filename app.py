@@ -377,8 +377,13 @@ class Dinner(db.Model):
 
 @app.route('/lateplate_lunch', methods=['GET'])
 def lateplate_lunch():
-    lunch_items = [lunch.item for lunch in Lunch.query.all()]
+    lunch_items = [lunch.name for lunch in Lunch.query.all()]
     lunch_message = "Lunch late plates: " + ", ".join(lunch_items)
+
+    db.session.execute(
+        text(f"DELETE FROM lunch")
+    )
+    db.session.commit
 
     url = "https://api.groupme.com/v3/bots/post"
     data = {
@@ -396,8 +401,13 @@ def lateplate_lunch():
     
 @app.route('/lateplate_dinner', methods=['GET'])
 def lateplate_dinner():
-    dinner_items = [dinner.item for dinner in Dinner.query.all()]
+    dinner_items = [dinner.name for dinner in Dinner.query.all()]
     dinner_message = "Dinner late plates: " + ", ".join(dinner_items)
+
+    db.session.execute(
+        text(f"DELETE FROM dinner")
+    )
+    db.session.commit
 
     url = "https://api.groupme.com/v3/bots/post"
     data = {
@@ -407,7 +417,7 @@ def lateplate_dinner():
         "text": dinner_message,
     }
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-    
+
     if response.status_code == 200 or response.status_code == 202:
         return Response("Message sent successfully", status=200)
     else:
@@ -430,15 +440,3 @@ def dinnerlp():
     )
     db.session.commit()
     return redirect(url_for('client')) 
-
-@app.route('/resetlp', methods=['GET'])
-def resetlp():
-    db.session.execute(
-        text(f"DELETE FROM lunch")
-    )
-    db.session.commit
-    db.session.execute(
-        text(f"DELETE FROM dinner")
-    )
-    db.session.commit()
-    return 1
