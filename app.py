@@ -140,8 +140,9 @@ def change_owner():
     
     return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
     
-@app.route('/send-messages', methods=['POST'])
+@app.route('/send-messages', methods=['POST', 'GET'])
 def send_groupme_messages():
+    init()
     lunch_userid = None
     for person in people_objects:
         if person.name == lunch_owner:
