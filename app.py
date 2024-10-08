@@ -383,7 +383,7 @@ def lateplate_lunch():
     db.session.execute(text("DELETE FROM lunch"))
     db.session.commit()
 
-    url = "https://api.groupme.com/v3/post"
+    url = "https://api.groupme.com/v3/bots/post"
     
     data = {
             "text": lunch_message,
