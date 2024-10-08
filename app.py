@@ -21,6 +21,7 @@ months = []
 start_date = datetime.datetime(2024, 9, 24)
 end_date = datetime.datetime(2024, 12, 13)
 
+current_date = start_date
 while current_date <= end_date:
     months.append(current_date.strftime("%B"))
     next_month = current_date.month % 12 + 1
