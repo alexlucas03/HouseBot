@@ -383,7 +383,7 @@ def lateplate_lunch():
     db.session.execute(
         text(f"DELETE FROM lunch")
     )
-    db.session.commit
+    db.session.commit()
 
     url = "https://api.groupme.com/v3/bots/post"
     data = {
@@ -407,7 +407,7 @@ def lateplate_dinner():
     db.session.execute(
         text(f"DELETE FROM dinner")
     )
-    db.session.commit
+    db.session.commit()
 
     url = "https://api.groupme.com/v3/bots/post"
     data = {
