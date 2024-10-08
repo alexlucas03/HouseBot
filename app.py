@@ -421,14 +421,11 @@ def lateplate_dinner():
 
     url = "https://api.groupme.com/v3/direct_messages"
     
-    # The user_id of the recipient
-    recipient_id = "104094443"
-
     # Construct the data payload for the direct message
     data = {
         "direct_message": {
             "source_guid": f"{str(uuid.uuid4())}",  # unique ID for the message
-            "recipient_id": recipient_id,  # User ID of the recipient
+            "recipient_id": "104094443",  # User ID of the recipient
             "text": dinner_message  # Message text
         }
     }
