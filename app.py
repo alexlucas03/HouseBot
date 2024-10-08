@@ -140,21 +140,15 @@ def change_owner():
     
     return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
     
-@app.route('/send-messages', methods=['POST', 'GET'])
+@app.route('/send-messages', methods=['GET'])
 def send_groupme_messages():
+    # Ensure global variables are initialized
     init()
-    lunch_userid = None
-    for person in people_objects:
-        if person.name == lunch_owner:
-            lunch_userid = person.userID
-    dinner_userid = None
-    for person in people_objects:
-        if person.name == dinner_owner:
-            dinner_userid = person.userID
-    x1_userid = None
-    for person in people_objects:
-        if person.name == x1_owner:
-            x1_userid = person.userID
+
+    # Find the lunch, dinner, and x1 owners
+    lunch_userid = next((person.userID for person in people_objects if person.name == lunch_owner), None)
+    dinner_userid = next((person.userID for person in people_objects if person.name == dinner_owner), None)
+    x1_userid = next((person.userID for person in people_objects if person.name == x1_owner), None)
     
     url = "https://api.groupme.com/v3/bots/post"
 
@@ -163,7 +157,7 @@ def send_groupme_messages():
             "text": message,
             "bot_id": "c9ed078f3de7c89547308a050a",
         }
-        if owner != 'Not Assigned':
+        if owner != 'Not Assigned' and owner_userid:
             data["attachments"] = [
                 {
                     "type": "mentions",
@@ -186,7 +180,7 @@ def send_groupme_messages():
     x1_message = f"x1: @{x1_owner}"
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
-    return redirect(url_for('admin'))
+    return jsonify({'success': True, 'message': 'Messages sent successfully'}), 200
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
