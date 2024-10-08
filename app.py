@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, Response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import text
@@ -375,4 +375,9 @@ def lateplate():
         "text": "Hello",
     }
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-    return response
+    
+    # Check the response status and return an appropriate Flask response
+    if response.status_code == 200:
+        return Response("Message sent successfully", status=200)
+    else:
+        return Response(f"Failed to send message: {response.content}", status=response.status_code)
