@@ -380,48 +380,72 @@ def lateplate_lunch():
     lunch_items = [lunch.name for lunch in Lunch.query.all()]
     lunch_message = "Lunch late plates: " + ", ".join(lunch_items)
 
-    db.session.execute(
-        text(f"DELETE FROM lunch")
-    )
+    db.session.execute(text("DELETE FROM lunch"))
     db.session.commit()
 
     url = "https://api.groupme.com/v3/direct_messages"
-    data = {
-        "source_guid": f"{str(uuid.uuid4())}",
-        "bot_id": "c9ed078f3de7c89547308a050a",
-        "recipient_id": "104094443",
-        "text": lunch_message,
-    }
-    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
     
+    # The user_id of the recipient
+    recipient_id = "104094443"
+
+    # Construct the data payload for the direct message
+    data = {
+        "direct_message": {
+            "source_guid": f"{str(uuid.uuid4())}",  # unique ID for the message
+            "recipient_id": recipient_id,  # User ID of the recipient
+            "text": lunch_message  # Message text
+        }
+    }
+
+    # Replace 'ACCESS_TOKEN' with your actual GroupMe access token
+    headers = {
+        "Content-Type": "application/json",
+        "X-Access-Token": "JkI3aAERgvJtCe9ePajw9YkNZu6KFwrpNgL628YZ"
+    }
+
+    # Send the direct message
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+
     if response.status_code == 200 or response.status_code == 202:
-        return Response("Message sent successfully", status=200)
+        return Response("Message sent successfully as DM", status=200)
     else:
-        return Response(f"Failed to send message: {response.content}", status=response.status_code)
+        return Response(f"Failed to send DM: {response.content}", status=response.status_code)
     
 @app.route('/lateplate_dinner', methods=['GET'])
 def lateplate_dinner():
     dinner_items = [dinner.name for dinner in Dinner.query.all()]
     dinner_message = "Dinner late plates: " + ", ".join(dinner_items)
 
-    db.session.execute(
-        text(f"DELETE FROM dinner")
-    )
+    db.session.execute(text("DELETE FROM dinner"))
     db.session.commit()
 
     url = "https://api.groupme.com/v3/direct_messages"
+    
+    # The user_id of the recipient
+    recipient_id = "104094443"
+
+    # Construct the data payload for the direct message
     data = {
-        "source_guid": f"{str(uuid.uuid4())}",
-        "bot_id": "c9ed078f3de7c89547308a050a",
-        "recipient_id": "104094443",
-        "text": dinner_message,
+        "direct_message": {
+            "source_guid": f"{str(uuid.uuid4())}",  # unique ID for the message
+            "recipient_id": recipient_id,  # User ID of the recipient
+            "text": dinner_message  # Message text
+        }
     }
-    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+
+    # Replace 'ACCESS_TOKEN' with your actual GroupMe access token
+    headers = {
+        "Content-Type": "application/json",
+        "X-Access-Token": "JkI3aAERgvJtCe9ePajw9YkNZu6KFwrpNgL628YZ"
+    }
+
+    # Send the direct message
+    response = requests.post(url, headers=headers, data=json.dumps(data))
 
     if response.status_code == 200 or response.status_code == 202:
-        return Response("Message sent successfully", status=200)
+        return Response("Message sent successfully as DM", status=200)
     else:
-        return Response(f"Failed to send message: {response.content}", status=response.status_code)
+        return Response(f"Failed to send DM: {response.content}", status=response.status_code)
     
 @app.route('/lunchlp', methods=['GET'])
 def lunchlp():
