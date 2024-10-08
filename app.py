@@ -19,8 +19,8 @@ db = SQLAlchemy(app)
 dishes = []
 people_objects = []
 months = []
-start_date = datetime.datetime(2024, 1, 1)
-end_date = datetime.datetime(2024, 2, 1)
+start_date = datetime.datetime(2024, 9, 24)
+end_date = datetime.datetime(2024, 12, 13)
 
 current_date = start_date
 while current_date <= end_date:
@@ -203,22 +203,11 @@ def logout():
 
 @app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
-    db.session.execute(
-        text("DELETE FROM september")
-    )
-    db.session.commit
-    db.session.execute(
-        text("DELETE FROM october")
-    )
-    db.session.commit
-    db.session.execute(
-        text("DELETE FROM november")
-    )
-    db.session.commit
-    db.session.execute(
-        text("DELETE FROM december")
-    )
-    db.session.commit
+    for month in months:
+        db.session.execute(
+            text(f"DELETE FROM {month.lower()}")
+        )
+        db.session.commit
 
     types = ['lunch', 'dinner', 'x1']
     type_index = 0
