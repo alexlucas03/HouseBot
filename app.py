@@ -18,7 +18,7 @@ db = SQLAlchemy(app)
 dishes = []
 people_objects = []
 
-def init():
+def init(autosend):
     global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
     start_date = datetime.datetime(2024, 9, 24)
     end_date = datetime.datetime(2024, 12, 13)
@@ -31,7 +31,7 @@ def init():
     dishes = september_objects + october_objects + november_objects + december_objects
     create_people_objects()
     person = None
-    if session['user']:
+    if autosend:
         user = session['user']
         for people in people_objects:
             if people.name == user:
@@ -95,14 +95,14 @@ def index():
 
     if 'user' not in session:
         return redirect('/')
-    init()
+    init(False)
     return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
     if 'user' not in session:
         return redirect('/')
-    init()
+    init(False)
     my_dishes = []
     for dish in dishes:
         if dish.owner == person.name:
@@ -114,7 +114,7 @@ def client():
 def admin():
     if 'user' not in session:
         return redirect('/')
-    init()
+    init(False)
     return render_template('admin.html', people_objects=people_objects)
 
 @app.route('/rules')
@@ -143,7 +143,7 @@ def change_owner():
 @app.route('/send-messages', methods=['GET'])
 def send_groupme_messages():
     # Ensure global variables are initialized
-    init()
+    init(True)
 
     # Find the lunch, dinner, and x1 owners
     lunch_userid = next((person.userID for person in people_objects if person.name == lunch_owner), None)
