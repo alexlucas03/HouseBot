@@ -21,7 +21,7 @@ people_objects = []
 months = []
 
 def init(autosend):
-    global start_date, end_date, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
+    global start_date, end_date, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person, months
 
     start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = '1'")).fetchone()
     end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = '2'")).fetchone()
