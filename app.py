@@ -367,19 +367,78 @@ def create_all_month_objects():
         # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
 
-@app.route('/lateplate', methods=['POST', 'GET'])
-def lateplate():
+class Lunch(db.Model):
+    __tablename__ = 'lunch'
+    name = db.Column(db.String, primary_key=True)
+
+class Dinner(db.Model):
+    __tablename__ = 'dinner'
+    name = db.Column(db.String, primary_key=True)
+
+@app.route('/lateplate_lunch', methods=['GET'])
+def lateplate_lunch():
+    lunch_items = [lunch.item for lunch in Lunch.query.all()]
+    lunch_message = "Lunch late plates: " + ", ".join(lunch_items)
+
     url = "https://api.groupme.com/v3/bots/post"
     data = {
         "source_guid": f"{str(uuid.uuid4())}",
         "bot_id": "c9ed078f3de7c89547308a050a",
         "recipient_id": "104094443",
-        "text": "Hello",
+        "text": lunch_message,
     }
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
     
-    # Check the response status and return an appropriate Flask response
-    if response.status_code == 200:
+    if response.status_code == 200 or response.status_code == 202:
         return Response("Message sent successfully", status=200)
     else:
         return Response(f"Failed to send message: {response.content}", status=response.status_code)
+    
+@app.route('/lateplate_dinner', methods=['GET'])
+def lateplate_dinner():
+    dinner_items = [dinner.item for dinner in Dinner.query.all()]
+    dinner_message = "Dinner late plates: " + ", ".join(dinner_items)
+
+    url = "https://api.groupme.com/v3/bots/post"
+    data = {
+        "source_guid": f"{str(uuid.uuid4())}",
+        "bot_id": "c9ed078f3de7c89547308a050a",
+        "recipient_id": "104094443",
+        "text": dinner_message,
+    }
+    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+    
+    if response.status_code == 200 or response.status_code == 202:
+        return Response("Message sent successfully", status=200)
+    else:
+        return Response(f"Failed to send message: {response.content}", status=response.status_code)
+    
+@app.route('/lunchlp', methods=['GET'])
+def lunchlp():
+    init(False)
+    db.session.execute(
+        text(f"INSERT INTO lunch VALUES ({person.name})")
+    )
+    db.session.commit
+    return redirect(url_for('client'))
+
+@app.route('/dinnerlp', methods=['GET'])
+def dinnerlp():
+    init(False)
+    db.session.execute(
+        text(f"INSERT INTO dinner VALUES ({person.name})")
+    )
+    db.session.commit
+    return redirect(url_for('client')) 
+
+@app.route('/resetlp', methods=['GET'])
+def resetlp():
+    db.session.execute(
+        text(f"DELETE FROM lunch")
+    )
+    db.session.commit
+    db.session.execute(
+        text(f"DELETE FROM dinner")
+    )
+    db.session.commit
+    return 1
