@@ -363,3 +363,4 @@ def create_december_objects():
         )
         december_objects.append(dish_obj)
     december_objects.sort(key=lambda dish: int(dish.id))
+    
