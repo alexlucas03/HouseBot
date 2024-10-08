@@ -184,6 +184,7 @@ def change_owner():
     
 @app.route('/send-messages', methods=['POST', 'GET'])
 def send_groupme_messages():
+    global url
     # Ensure global variables are initialized
     init(True)
 
@@ -365,3 +366,13 @@ def create_all_month_objects():
 
         # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
+
+@app.route('/send-direct-message', methods=['POST'])
+def send_direct_message():
+    data = {
+        "source_guid": "GUID",
+        "recipient_id": "104094443",
+        "text": "Hello",
+    }
+    response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
+    return response
