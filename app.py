@@ -320,7 +320,7 @@ class BaseModel(db.Model):
 @app.route("/people_objects")
 def create_people_objects():
     global people_objects
-    people_rows = PeopleModel.query.all()
+    people_rows = db.session.execute(text("SELECT * FROM people"))
     people_objects = []
     for row in people_rows:
         person_obj = Person(name=row.name, userID=row.userid, pickOrder=row.pickorder, totalPoints=row.totalpoints)
