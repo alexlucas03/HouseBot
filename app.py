@@ -304,7 +304,7 @@ def initdish():
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
-    userid = db.Column(db.Integer, primary_key=True)
+    userid = db.Column(db.String, primary_key=True)
     name = db.Column(db.String)
     pickorder = db.Column(db.String)
     totalpoints = db.Column(db.Integer)
