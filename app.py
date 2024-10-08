@@ -402,7 +402,7 @@ def lateplate_lunch():
     }
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
-    if response.status_code == 200:
+    if response.status_code == 200 or response.status_code == 202:
         return jsonify({"message": "Success"})
     else:
         return jsonify({"message": "Failed to send DM", "error": response.content.decode(), "status": response.status_code}), response.status_code
