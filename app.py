@@ -417,7 +417,7 @@ def lateplate_dinner():
 def lunchlp():
     init(False)
     db.session.execute(
-        text(f"INSERT INTO lunch VALUES ({person.name})")
+        text(f"INSERT INTO lunch VALUES ('{person.name}')")
     )
     db.session.commit
     return redirect(url_for('client'))
@@ -426,7 +426,7 @@ def lunchlp():
 def dinnerlp():
     init(False)
     db.session.execute(
-        text(f"INSERT INTO dinner VALUES ({person.name})")
+        text(f"INSERT INTO dinner VALUES ('{person.name}')")
     )
     db.session.commit
     return redirect(url_for('client')) 
