@@ -23,8 +23,8 @@ months = []
 def init(autosend):
     global start_date, end_date, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
 
-    start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
-    end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
+    start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = '1'")).fetchone()
+    end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = '2'")).fetchone()
 
     # Ensure that rows are found and assign to datetime objects
     start_year, start_month, start_day = start_date_row
