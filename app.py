@@ -44,10 +44,14 @@ def init(autosend):
         globals()[month.lower() + "_objects"] = []
 
     for month in months:
+        model_name = f'{month}Model'
         tablename = month.lower()  # e.g., 'september', 'october'
-        globals()[f'{month}Model'] = type(f'{month}Model', (BaseModel,), {
-            '__tablename__': tablename
-        })
+
+        # Check if the model already exists in globals
+        if model_name not in globals():
+            globals()[model_name] = type(model_name, (BaseModel,), {
+                '__tablename__': tablename
+            })
 
     dishes.clear()
     create_all_month_objects()
