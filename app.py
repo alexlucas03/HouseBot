@@ -118,7 +118,7 @@ def index():
         return redirect('/')
     init(False)
 
-    return render_template('initquarter.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
+    return render_template('initquarter.html')
 
 @app.route('/client')
 def client():
