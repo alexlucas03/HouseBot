@@ -397,7 +397,7 @@ def lateplate_lunch():
         }
     ]
     response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-    return response
+    return jsonify({"message": "Success"})
     
 @app.route('/lateplate_dinner', methods=['GET'])
 def lateplate_dinner():
