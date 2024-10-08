@@ -19,8 +19,8 @@ db = SQLAlchemy(app)
 dishes = []
 people_objects = []
 months = []
-start_date = datetime.datetime(2024, 9, 24)
-end_date = datetime.datetime(2024, 12, 13)
+start_date = datetime.datetime(2024, 1, 1)
+end_date = datetime.datetime(2024, 2, 1)
 
 current_date = start_date
 while current_date <= end_date:
