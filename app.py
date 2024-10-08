@@ -19,8 +19,25 @@ db = SQLAlchemy(app)
 dishes = []
 people_objects = []
 months = []
-start_date = datetime.datetime(2024, 1, 1)
-end_date = datetime.datetime(2024, 2, 1)
+def init_startend():
+    global start_date, end_date
+
+    # Query the database for start date (id = 1) and end date (id = 2)
+    start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
+    end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
+
+    # Ensure that rows are found and assign to datetime objects
+    if start_date_row and end_date_row:
+        start_year, start_month, start_day = start_date_row
+        end_year, end_month, end_day = end_date_row
+
+        # Define start_date and end_date using the retrieved values
+        start_date = datetime.datetime(start_year, start_month, start_day)
+        end_date = datetime.datetime(end_year, end_month, end_day)
+    else:
+        raise ValueError("Could not find start or end date in the 'startend' table")
+    
+init_startend()
 
 current_date = start_date
 while current_date <= end_date:
@@ -211,6 +228,38 @@ def logout():
 
 @app.route('/initdish', methods=['POST', 'GET'])
 def initdish():
+    start_year = str(request.form['start_year'])
+    start_month = str(request.form['start_month'])
+    start_day = str(request.form['start_day'])
+    end_year = str(request.form['end_year'])
+    end_month = str(request.form['end_month'])
+    end_day = str(request.form['end_day'])
+
+    db.session.execute(
+        text(f"UPDATE startend SET year = {start_year} WHERE id = '1'")
+    )
+    db.session.commit
+    db.session.execute(
+        text(f"UPDATE startend SET month = {start_month} WHERE id = '1'")
+    )
+    db.session.commit
+    db.session.execute(
+        text(f"UPDATE startend SET day = {start_day} WHERE id = '1'")
+    )
+    db.session.commit
+    db.session.execute(
+        text(f"UPDATE startend SET year = {end_year} WHERE id = '2'")
+    )
+    db.session.commit
+    db.session.execute(
+        text(f"UPDATE startend SET month = {end_month} WHERE id = '2'")
+    )
+    db.session.commit
+    db.session.execute(
+        text(f"UPDATE startend SET day = {end_day} WHERE id = '2'")
+    )
+    db.session.commit
+    init_startend()
     for month in months:
         db.session.execute(
             text(f"DELETE FROM {month.lower()}")
