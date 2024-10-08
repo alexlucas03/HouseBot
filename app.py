@@ -385,7 +385,7 @@ def lateplate_lunch():
     )
     db.session.commit()
 
-    url = "https://api.groupme.com/v3/bots/post"
+    url = "https://api.groupme.com/v3/direct_messages"
     data = {
         "source_guid": f"{str(uuid.uuid4())}",
         "bot_id": "c9ed078f3de7c89547308a050a",
@@ -409,7 +409,7 @@ def lateplate_dinner():
     )
     db.session.commit()
 
-    url = "https://api.groupme.com/v3/bots/post"
+    url = "https://api.groupme.com/v3/direct_messages"
     data = {
         "source_guid": f"{str(uuid.uuid4())}",
         "bot_id": "c9ed078f3de7c89547308a050a",
