@@ -61,9 +61,9 @@ def init(autosend):
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    if user != 'admin' and person:
+    if not autosend and user != 'admin':
         person = calculate_points(person)
-    elif person:
+    elif not autosend:
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
