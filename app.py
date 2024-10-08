@@ -154,7 +154,7 @@ def change_owner():
     
     return jsonify({'success': True, 'message': 'Dish owner updated successfully'}), 200
     
-@app.route('/send-messages', methods=['GET'])
+@app.route('/send-messages', methods=['POST', 'GET'])
 def send_groupme_messages():
     # Ensure global variables are initialized
     init(True)
