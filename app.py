@@ -405,7 +405,7 @@ def lateplate_lunch():
     if response.status_code == 200:
         return jsonify({"message": "Success"})
     else:
-        return jsonify({"message": "Fail"})
+        return jsonify({"message": "Failed to send DM", "error": response.content.decode(), "status": response.status_code}), response.status_code
     
 @app.route('/lateplate_dinner', methods=['GET'])
 def lateplate_dinner():
