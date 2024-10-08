@@ -367,7 +367,7 @@ def create_all_month_objects():
         # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
 
-@app.route('/lateplate', methods=['POST'])
+@app.route('/lateplate', methods=['POST', 'GET'])
 def lateplate():
     data = {
         "source_guid": "GUID",
