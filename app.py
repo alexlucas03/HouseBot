@@ -101,12 +101,16 @@ def login():
 
 @app.route('/all')
 def index():
-    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes, september_objects, october_objects, november_objects, december_objects
+    global lunch_owner, dinner_owner, x1_owner, people_objects, dishes
 
     if 'user' not in session:
         return redirect('/')
     init(False)
-    return render_template('index.html', september_objects=september_objects, october_objects=october_objects, november_objects=november_objects, december_objects=december_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
+    
+    # Dynamically access month objects from globals()
+    month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
+
+    return render_template('index.html', **month_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
 
 @app.route('/client')
 def client():
@@ -314,7 +318,6 @@ def create_all_month_objects():
     for month in months:
         model = globals()[f"{month}Model"]  # Dynamically access the model for the month (e.g., SeptemberModel)
         global_objects = globals()[f"{month.lower()}_objects"]  # Dynamically access the global object list (e.g., september_objects)
-        global_objects = []
         # Convert month name to its corresponding month integer
         month_int = time.strptime(month, "%B").tm_mon
 
