@@ -37,28 +37,15 @@
                 </ul>
             </div>
         </div>
-        <form action="/all">
-            <button type="submit">All Dishes</button>
-        </form>
-        <form action="/rules">
-            <button type="submit">Rules</button>
-        </form>
-        <form class="msg-button" action="/send-messages" method="POST">
-            <button type="submit">Send Messages</button>
-        </form>
-
-        <form class="msg-button" action="/initquarter" method="POST">
-            <button type="submit">Initialize Dishes</button>
-        </form>
-        <form action="/lateplate_lunch">
-            <button type="submit">Lunch Late Plate DM</button>
-        </form>
-        <form action="/lateplate_dinner">
-            <button type="submit">Dinner Late Plate DM</button>
-        </form>
-        <form action="/logout">
-            <button type="submit">Logout</button>
-        </form>
+        <form action="/action" method="POST">
+            <button name="action" value="all">All Dishes</button>
+            <button name="action" value="rules">Rules</button>
+            <button name="action" value="send_messages">Send Messages</button>
+            <button name="action" value="initquarter">Initialize Dishes</button>
+            <button name="action" value="lateplate_lunch">Lunch Late Plate DM</button>
+            <button name="action" value="lateplate_dinner">Dinner Late Plate DM</button>
+            <button name="action" value="logout">Logout</button>
+        </form>        
     </div>
 </body>
 </html>
