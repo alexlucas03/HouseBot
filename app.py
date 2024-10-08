@@ -31,8 +31,8 @@ def init(autosend):
     end_year, end_month, end_day = end_date_row
 
     # Define start_date and end_date using the retrieved values
-    start_date = datetime.datetime(start_year, start_month, start_day)
-    end_date = datetime.datetime(end_year, end_month, end_day)
+    start_date = datetime.datetime(int(start_year), int(start_month), int(start_day))
+    end_date = datetime.datetime(int(end_year), int(end_month), int(end_day))
     current_date = start_date
     while current_date <= end_date:
         months.append(current_date.strftime("%B"))
