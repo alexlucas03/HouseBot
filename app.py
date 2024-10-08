@@ -33,8 +33,7 @@ for month in months:
     globals()[month.lower() + "_objects"] = []
 
 def init(autosend):
-    global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
-    test_today = datetime.datetime.now()
+    global start_date, end_date, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
 
     dishes.clear()
     create_all_month_objects()
@@ -111,7 +110,7 @@ def index():
     # Dynamically access month objects from globals()
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
 
-    return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, test_today=test_today)
+    return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
 
 @app.route('/client')
 def client():
