@@ -386,7 +386,7 @@ def lateplate_lunch():
     url = "https://api.groupme.com/v3/direct_messages"
     
     # The user_id of the recipient
-    recipient_id = "104094443"
+    recipient_id = "1012481901"
 
     # Construct the data payload for the direct message
     data = {
