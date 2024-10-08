@@ -24,10 +24,7 @@ def init(autosend):
     end_date = datetime.datetime(2024, 12, 13)
     test_today = datetime.datetime.now()
 
-    create_september_objects()
-    create_october_objects()
-    create_november_objects()
-    create_december_objects()
+    create_all_month_objects()
     dishes = september_objects + october_objects + november_objects + december_objects
     create_people_objects()
     person = None
