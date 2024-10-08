@@ -21,21 +21,21 @@ people_objects = []
 months = []
 def init_startend():
     global start_date, end_date
+    with app.app_context():
+        # Query the database for start date (id = 1) and end date (id = 2)
+        start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
+        end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
 
-    # Query the database for start date (id = 1) and end date (id = 2)
-    start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
-    end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
+        # Ensure that rows are found and assign to datetime objects
+        if start_date_row and end_date_row:
+            start_year, start_month, start_day = start_date_row
+            end_year, end_month, end_day = end_date_row
 
-    # Ensure that rows are found and assign to datetime objects
-    if start_date_row and end_date_row:
-        start_year, start_month, start_day = start_date_row
-        end_year, end_month, end_day = end_date_row
-
-        # Define start_date and end_date using the retrieved values
-        start_date = datetime.datetime(start_year, start_month, start_day)
-        end_date = datetime.datetime(end_year, end_month, end_day)
-    else:
-        raise ValueError("Could not find start or end date in the 'startend' table")
+            # Define start_date and end_date using the retrieved values
+            start_date = datetime.datetime(start_year, start_month, start_day)
+            end_date = datetime.datetime(end_year, end_month, end_day)
+        else:
+            raise ValueError("Could not find start or end date in the 'startend' table")
     
 init_startend()
 
