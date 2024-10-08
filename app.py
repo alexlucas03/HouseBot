@@ -293,6 +293,7 @@ def calculate_points(person):
                 points -= 1
     person.pointsNeeded = str(points)
     return person
+
 def create_month_objects(month, model, global_objects):
     dish_rows = model.query.all()
     global_objects.clear()  # Clear the existing objects, if any
@@ -313,10 +314,9 @@ def create_all_month_objects():
     for month in months:
         model = globals()[f"{month}Model"]  # Dynamically access the model for the month (e.g., SeptemberModel)
         global_objects = globals()[f"{month.lower()}_objects"]  # Dynamically access the global object list (e.g., september_objects)
-
+        global_objects = []
         # Convert month name to its corresponding month integer
         month_int = time.strptime(month, "%B").tm_mon
 
         # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
-
