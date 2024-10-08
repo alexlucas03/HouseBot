@@ -263,7 +263,7 @@ def initdish():
     )
     db.session.commit
 
-    init()
+    init(False)
 
     for month in months:
         db.session.execute(
