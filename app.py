@@ -16,6 +16,31 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql+psycopg2://default:mk2aS9URH
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+dishes = []
+people_objects = []
+months = []
+# Query the database for start date (id = 1) and end date (id = 2)
+start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
+end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
+
+# Ensure that rows are found and assign to datetime objects
+start_year, start_month, start_day = start_date_row
+end_year, end_month, end_day = end_date_row
+
+# Define start_date and end_date using the retrieved values
+start_date = datetime.datetime(start_year, start_month, start_day)
+end_date = datetime.datetime(end_year, end_month, end_day)
+    
+current_date = start_date
+while current_date <= end_date:
+    months.append(current_date.strftime("%B"))
+    next_month = current_date.month % 12 + 1
+    year = current_date.year + (current_date.month // 12)
+    current_date = datetime.datetime(year, next_month, 1)
+
+for month in months:
+    globals()[month.lower() + "_objects"] = []
+
 def init(autosend):
     global start_date, end_date, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
 
@@ -226,7 +251,17 @@ def initdish():
         text(f"UPDATE startend SET day = {end_day} WHERE id = '2'")
     )
     db.session.commit
-    init_startend()
+    # Query the database for start date (id = 1) and end date (id = 2)
+    start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
+    end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
+
+    # Ensure that rows are found and assign to datetime objects
+    start_year, start_month, start_day = start_date_row
+    end_year, end_month, end_day = end_date_row
+
+    # Define start_date and end_date using the retrieved values
+    start_date = datetime.datetime(start_year, start_month, start_day)
+    end_date = datetime.datetime(end_year, end_month, end_day)
     for month in months:
         db.session.execute(
             text(f"DELETE FROM {month.lower()}")
@@ -333,35 +368,3 @@ def create_all_month_objects():
 
         # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
-
-dishes = []
-people_objects = []
-months = []
-def init_startend():
-    global start_date, end_date
-    # Query the database for start date (id = 1) and end date (id = 2)
-    start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
-    end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
-
-    # Ensure that rows are found and assign to datetime objects
-    if start_date_row and end_date_row:
-        start_year, start_month, start_day = start_date_row
-        end_year, end_month, end_day = end_date_row
-
-        # Define start_date and end_date using the retrieved values
-        start_date = datetime.datetime(start_year, start_month, start_day)
-        end_date = datetime.datetime(end_year, end_month, end_day)
-    else:
-        raise ValueError("Could not find start or end date in the 'startend' table")
-    
-init_startend()
-
-current_date = start_date
-while current_date <= end_date:
-    months.append(current_date.strftime("%B"))
-    next_month = current_date.month % 12 + 1
-    year = current_date.year + (current_date.month // 12)
-    current_date = datetime.datetime(year, next_month, 1)
-
-for month in months:
-    globals()[month.lower() + "_objects"] = []
