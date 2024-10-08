@@ -18,7 +18,6 @@ db = SQLAlchemy(app)
 
 dishes = []
 people_objects = []
-months = []
 # Query the database for start date (id = 1) and end date (id = 2)
 start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 1")).fetchone()
 end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = 2")).fetchone()
@@ -30,7 +29,8 @@ end_year, end_month, end_day = end_date_row
 # Define start_date and end_date using the retrieved values
 start_date = datetime.datetime(start_year, start_month, start_day)
 end_date = datetime.datetime(end_year, end_month, end_day)
-    
+
+months = []
 current_date = start_date
 while current_date <= end_date:
     months.append(current_date.strftime("%B"))
