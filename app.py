@@ -184,7 +184,6 @@ def change_owner():
     
 @app.route('/send-messages', methods=['POST', 'GET'])
 def send_groupme_messages():
-    global url
     # Ensure global variables are initialized
     init(True)
 
@@ -369,6 +368,7 @@ def create_all_month_objects():
 
 @app.route('/lateplate', methods=['POST', 'GET'])
 def lateplate():
+    url = "https://api.groupme.com/v3/bots/post"
     data = {
         "source_guid": "GUID",
         "recipient_id": "104094443",
