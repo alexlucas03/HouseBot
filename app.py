@@ -36,7 +36,8 @@ def init(autosend):
     test_today = datetime.datetime.now()
 
     create_all_month_objects()
-    dishes = september_objects + october_objects + november_objects + december_objects
+    for month in months:
+        dishes += globals()[f"{month.lower()}_objects"]
     create_people_objects()
     person = None
     if not autosend:
@@ -307,14 +308,8 @@ def create_month_objects(month, model, global_objects):
     global_objects.sort(key=lambda dish: int(dish.id))
 
 def create_all_month_objects():
-    global september_objects, october_objects, november_objects, december_objects
-
-    month_data = [
-        (9, SeptemberModel, september_objects),
-        (10, OctoberModel, october_objects),
-        (11, NovemberModel, november_objects),
-        (12, DecemberModel, december_objects)
-    ]
-
-    for month, model, global_objects in month_data:
+    for month in months:
+        model = globals()[f"{month}Model"]
+        global_objects = globals()[f"{month.lower()}_objects"]
         create_month_objects(month, model, global_objects)
+
