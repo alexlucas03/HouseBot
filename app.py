@@ -396,8 +396,16 @@ def lateplate_lunch():
             "loci": [[0, 1]]
         }
     ]
-    requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
-    return jsonify({"message": "Success"})
+    headers = {
+        "Content-Type": "application/json",
+        "X-Access-Token": "JkI3aAERgvJtCe9ePajw9YkNZu6KFwrpNgL628YZ"
+    }
+
+    response = requests.post(url, headers=headers, data=json.dumps(data))
+    if response.status_code == 200:
+        return jsonify({"message": "Success"})
+    else:
+        return jsonify({"message": "Fail"})
     
 @app.route('/lateplate_dinner', methods=['GET'])
 def lateplate_dinner():
