@@ -31,7 +31,7 @@ def init(autosend):
     dishes = september_objects + october_objects + november_objects + december_objects
     create_people_objects()
     person = None
-    if autosend:
+    if not autosend:
         user = session['user']
         for people in people_objects:
             if people.name == user:
