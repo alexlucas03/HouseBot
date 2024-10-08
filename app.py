@@ -9,6 +9,7 @@ from person import Person
 import requests
 import json
 import time
+import uuid
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -370,7 +371,7 @@ def create_all_month_objects():
 def lateplate():
     url = "https://api.groupme.com/v3/bots/post"
     data = {
-        "source_guid": "GUID",
+        "source_guid": f"{str(uuid.uuid4())}",
         "bot_id": "c9ed078f3de7c89547308a050a",
         "recipient_id": "104094443",
         "text": "Hello",
