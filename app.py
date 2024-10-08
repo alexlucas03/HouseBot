@@ -242,27 +242,27 @@ def initdish():
     db.session.execute(
         text(f"UPDATE startend SET year = {start_year} WHERE id = '1'")
     )
-    db.session.commit
+    db.session.commit()
     db.session.execute(
         text(f"UPDATE startend SET month = {start_month} WHERE id = '1'")
     )
-    db.session.commit
+    db.session.commit()
     db.session.execute(
         text(f"UPDATE startend SET day = {start_day} WHERE id = '1'")
     )
-    db.session.commit
+    db.session.commit()
     db.session.execute(
         text(f"UPDATE startend SET year = {end_year} WHERE id = '2'")
     )
-    db.session.commit
+    db.session.commit()
     db.session.execute(
         text(f"UPDATE startend SET month = {end_month} WHERE id = '2'")
     )
-    db.session.commit
+    db.session.commit()
     db.session.execute(
         text(f"UPDATE startend SET day = {end_day} WHERE id = '2'")
     )
-    db.session.commit
+    db.session.commit()
 
     init(False)
 
@@ -270,7 +270,7 @@ def initdish():
         db.session.execute(
             text(f"DELETE FROM {month.lower()}")
         )
-        db.session.commit
+        db.session.commit()
 
     types = ['lunch', 'dinner', 'x1']
     type_index = 0
@@ -419,7 +419,7 @@ def lunchlp():
     db.session.execute(
         text(f"INSERT INTO lunch VALUES ('{person.name}')")
     )
-    db.session.commit
+    db.session.commit()
     return redirect(url_for('client'))
 
 @app.route('/dinnerlp', methods=['GET'])
@@ -428,7 +428,7 @@ def dinnerlp():
     db.session.execute(
         text(f"INSERT INTO dinner VALUES ('{person.name}')")
     )
-    db.session.commit
+    db.session.commit()
     return redirect(url_for('client')) 
 
 @app.route('/resetlp', methods=['GET'])
@@ -440,5 +440,5 @@ def resetlp():
     db.session.execute(
         text(f"DELETE FROM dinner")
     )
-    db.session.commit
+    db.session.commit()
     return 1
