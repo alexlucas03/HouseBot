@@ -17,15 +17,21 @@ db = SQLAlchemy(app)
 
 dishes = []
 people_objects = []
-september_objects = []
-october_objects = []
-november_objects = []
-december_objects = []
+months = []
+start_date = datetime.datetime(2024, 9, 24)
+end_date = datetime.datetime(2024, 12, 13)
+
+while current_date <= end_date:
+    months.append(current_date.strftime("%B"))
+    next_month = current_date.month % 12 + 1
+    year = current_date.year + (current_date.month // 12)
+    current_date = datetime.datetime(year, next_month, 1)
+
+for month in months:
+    globals()[month.lower() + "_objects"] = []
 
 def init(autosend):
     global start_date, end_date, test_today, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person
-    start_date = datetime.datetime(2024, 9, 24)
-    end_date = datetime.datetime(2024, 12, 13)
     test_today = datetime.datetime.now()
 
     create_all_month_objects()
