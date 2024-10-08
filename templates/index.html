@@ -80,7 +80,11 @@
             {% endif %}
         </div>
     </div>    
-
+    <div>
+        {% for person in people_objects %}
+            <p>{{ person }}</p>
+        {% endfor %}
+    </div>
     <div id="dish-columns">
         {% for month in months %}
             <div class="month-column">
