@@ -128,7 +128,7 @@ def admin_login():
         password= request.form['password']
         if password == 'aussie':
             session['user'] = username
-            return redirect(url_for('/admin'))
+            return redirect(url_for('admin'))
     return render_template('admin-login.html')
 
 @app.route('/all')
