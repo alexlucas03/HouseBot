@@ -155,7 +155,7 @@ def client():
 @app.route('/admin')
 def admin():
     ip = request.remote_addr
-    if 'user' not in session or ip != "205.175.106.253":# or ip != "172.56.109.179":
+    if 'user' not in session or (ip != "205.175.106.253" and ip != "172.56.109.179"):
         return redirect('/')
     init(False)
     return render_template('admin.html', people_objects=people_objects)
