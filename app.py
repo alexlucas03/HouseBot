@@ -123,7 +123,6 @@ def login():
 @app.route('/all')
 def index():
     global lunch_owner, dinner_owner, x1_owner, people_objects, dishes
-    ip = request.remote_addr
     if 'user' not in session:
         return redirect('/')
     init(False)
@@ -155,7 +154,8 @@ def client():
 
 @app.route('/admin')
 def admin():
-    if 'user' not in session:
+    ip = request.remote_addr
+    if 'user' not in session or ip != "205.175.106.253":# or ip != "172.56.109.179":
         return redirect('/')
     init(False)
     return render_template('admin.html', people_objects=people_objects)
