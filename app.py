@@ -129,8 +129,7 @@ def index():
     
     # Dynamically access month objects from globals()
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
-    uuid = uuid.getnode()
-    return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, ip=ip)
+    return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
 
 @app.route('/initquarter', methods=['POST', 'GET'])
 def initquarter():
@@ -154,7 +153,6 @@ def client():
 
 @app.route('/admin')
 def admin():
-    ip = request.remote_addr
     if 'user' not in session:
         return redirect('/')
     init(False)
