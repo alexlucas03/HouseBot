@@ -440,17 +440,21 @@ def lateplate_dinner():
 @app.route('/lunchlp', methods=['GET'])
 def lunchlp():
     init(False)
-    db.session.execute(
-        text(f"INSERT INTO lunch VALUES ('{person.name}')")
-    )
-    db.session.commit()
+    lunch_rows = db.session.execute(text("SELECT * FROM lunch"))
+    if lunch_rows.contains(person.name):
+        db.session.execute(
+            text(f"INSERT INTO lunch VALUES ('{person.name}')")
+        )
+        db.session.commit()
     return redirect(url_for('client'))
 
 @app.route('/dinnerlp', methods=['GET'])
 def dinnerlp():
     init(False)
-    db.session.execute(
-        text(f"INSERT INTO dinner VALUES ('{person.name}')")
-    )
-    db.session.commit()
+    dinner_rows = db.session.execute(text("SELECT * FROM dinner"))
+    if dinner_rows.contains(person.name):
+        db.session.execute(
+            text(f"INSERT INTO dinner VALUES ('{person.name}')")
+        )
+        db.session.commit()
     return redirect(url_for('client')) 
