@@ -125,10 +125,12 @@ def login():
 def admin_login():
     session.clear()
     if request.method == 'POST':
-        password= request.form['password']
+        password = request.form.get('password')
         if password == 'aussie':
             session['user'] = username
             return redirect(url_for('admin'))
+        else:
+            return render_template('admin-login.html', error="Incorrect password")
     return render_template('admin-login.html')
 
 @app.route('/all')
