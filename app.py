@@ -107,7 +107,7 @@ def login():
         username= request.form['username']
         if username == 'admin':
             session['user'] = username
-            return redirect(url_for('admin-login'))
+            return redirect(url_for('admin_login'))
         else:
             person = None
             for people in people_objects:
