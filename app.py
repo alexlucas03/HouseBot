@@ -123,7 +123,7 @@ def login():
 @app.route('/all')
 def index():
     global lunch_owner, dinner_owner, x1_owner, people_objects, dishes
-
+    ip = request.remote_addr
     if 'user' not in session:
         return redirect('/')
     init(False)
@@ -131,7 +131,7 @@ def index():
     # Dynamically access month objects from globals()
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
 
-    return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
+    return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, ip=ip)
 
 @app.route('/initquarter', methods=['POST', 'GET'])
 def initquarter():
