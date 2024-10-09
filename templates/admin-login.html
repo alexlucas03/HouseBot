@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish Bot Login</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="icon" href="static/images/icon-plate.webp">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 50%;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Password</h1>
+        <form action="/" method="POST">
+            <label for="name">Enter your password:</label>
+            <input type="text" id="name" name="password" placeholder="Your Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <img src="static/images/plate.jpg" alt="Plate">
+</body>
+</html>

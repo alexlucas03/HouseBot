@@ -100,13 +100,14 @@ def init(autosend):
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    global username
     create_people_objects()
     session.clear()
     if request.method == 'POST':
         username= request.form['username']
         if username == 'admin':
             session['user'] = username
-            return redirect(url_for('admin'))
+            return redirect(url_for('admin-login'))
         else:
             person = None
             for people in people_objects:
@@ -118,6 +119,16 @@ def login():
                 return redirect(url_for('client'))
             else:
                 return render_template('login.html', error="User not found")
+    return render_template('login.html')
+
+@app.route('/admin-login', methods=['GET', 'POST'])
+def admin_login():
+    session.clear()
+    if request.method == 'POST':
+        password= request.form['password']
+        if password == 'aussie':
+            session['user'] = username
+            return redirect(url_for('admin-login'))
     return render_template('login.html')
 
 @app.route('/all')
