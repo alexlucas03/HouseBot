@@ -441,7 +441,7 @@ def lateplate_dinner():
 def lunchlp():
     init(False)
     lunch_rows = db.session.execute(text("SELECT * FROM lunch"))
-    if any(row['name'] == person.name for row in lunch_rows):
+    if any(row[0] == person.name for row in lunch_rows):
         db.session.execute(
             text(f"INSERT INTO lunch VALUES ('{person.name}')")
         )
@@ -452,7 +452,7 @@ def lunchlp():
 def dinnerlp():
     init(False)
     dinner_rows = db.session.execute(text("SELECT * FROM dinner")).fetchall()
-    if any(row['name'] == person.name for row in dinner_rows):
+    if any(row[0] == person.name for row in dinner_rows):
         db.session.execute(
             text(f"INSERT INTO dinner VALUES ('{person.name}')")
         )
