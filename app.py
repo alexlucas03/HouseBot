@@ -129,7 +129,7 @@ def index():
     
     # Dynamically access month objects from globals()
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
-
+    ip = request.remote_addr
     return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, ip=ip)
 
 @app.route('/initquarter', methods=['POST', 'GET'])
