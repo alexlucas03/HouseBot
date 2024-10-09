@@ -125,8 +125,8 @@ def login():
 def admin_login():
     session.clear()
     if request.method == 'POST':
-        password = request.form.get('password')
-        if password == 'aussie':
+        passw = request.form['passw']
+        if passw == 'aussie':
             session['user'] = username
             return redirect(url_for('admin'))
         else:
