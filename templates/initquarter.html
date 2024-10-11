@@ -83,31 +83,27 @@
         
         <div class="form-container">
             <h1>Initialize Quarter</h1>
-            <form action="/initdish" method="POST">
-                <div class="form-group">
-                    <label for="startYear">Start Year:</label>
-                    <input type="number" id="startYear" name="start_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="startMonth">Start Month:</label>
-                    <input type="number" id="startMonth" name="start_month" min="1" max="12" required>
-                </div>
-                <div class="form-group">
-                    <label for="startDay">Start Day:</label>
-                    <input type="number" id="startDay" name="start_day" min="1" max="31" required>
-                </div>
-                <div class="form-group">
-                    <label for="endYear">End Year:</label>
-                    <input type="number" id="endYear" name="end_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="endMonth">End Month:</label>
-                    <input type="number" id="endMonth" name="end_month" min="1" max="12" required>
-                </div>
-                <div class="form-group">
-                    <label for="endDay">End Day:</label>
-                    <input type="number" id="endDay" name="end_day" min="1" max="31" required>
-                </div>
+            <form action="/initpeople" method="POST">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>User ID</th>
+                    </tr>
+                    <tr>
+                        <td>
+                              <input type="text" 
+                                   placeholder="Enter value">
+                          </td>
+                        <td>23</td>
+                    </tr>
+                    <tr>
+                        <td>Gaurav</td>
+                        <td>
+                              <input type="text" 
+                                   placeholder="Enter value">
+                          </td>
+                    </tr>
+                </table>
                 <!-- Submit button added here -->
                 <button type="submit">Initialize Dishes</button>
             </form>
