@@ -100,7 +100,6 @@ def init(autosend):
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    global username
     create_people_objects()
     session.clear()
     if request.method == 'POST':
@@ -127,7 +126,7 @@ def admin_login():
     if request.method == 'POST':
         passw = request.form['passw']
         if passw == 'aussie':
-            session['user'] = username
+            session['user'] = 'admin'
             return redirect(url_for('admin'))
         else:
             return render_template('admin-login.html', error="Incorrect password")
