@@ -325,6 +325,7 @@ def initpeople():
     # Process the data and create or update people in your database
     for name, userid in zip(people_data, userids):
         # Create a new Person object or update an existing one
+        return jsonify({'success': True, 'message': f"{name}, {userid}, {i}"})
         db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
         db.session.commit()
         i += 1
