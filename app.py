@@ -317,7 +317,7 @@ def initpeople():
     init(True)
     if request.method == 'POST':
         # Get people data from the form
-        db.session.execute(f"DELETE FROM people2")
+        db.session.execute(text(f"DELETE FROM people2"))
         db.session.commit()
         people_data = request.form.getlist('name')
         userids = request.form.getlist('userid')
@@ -327,7 +327,7 @@ def initpeople():
         # Process the data and create or update people in your database
         for name, userid, i in zip(people_data, userids):
             # Create a new Person object or update an existing one
-            db.session.execute(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')")
+            db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
             db.session.commit()
 
         return jsonify({'success': True, 'message': 'People initialized successfully'})
