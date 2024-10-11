@@ -322,7 +322,6 @@ def initpeople():
     userids = request.form.getlist('userid')
     totalPoints = calculate_total_points()
     i = 0
-    #make a loop here that goes every day from start_date to end_date and adds 5 for every week day, 0 for saturday, and 4 for sunday
     # Process the data and create or update people in your database
     for name, userid in zip(people_data, userids):
         # Create a new Person object or update an existing one
@@ -409,6 +408,8 @@ class Dinner(db.Model):
 def lateplate_lunch():
     lunch_items = [lunch.name for lunch in Lunch.query.all()]
     lunch_message = "@g Lunch late plates: " + ", ".join(lunch_items)
+    if lunch_message == "@g Lunch late plates: ":
+        lunch_message = "@g No lunch late plates"
 
     db.session.execute(text("DELETE FROM lunch"))
     db.session.commit()
@@ -441,6 +442,8 @@ def lateplate_lunch():
 def lateplate_dinner():
     dinner_items = [dinner.name for dinner in Dinner.query.all()]
     dinner_message = "@g Dinner late plates: " + ", ".join(dinner_items)
+    if dinner_message == "@g Dinner late plates: ":
+        dinner_message = "@g No dinner late plates"
 
     db.session.execute(text("DELETE FROM dinner"))
     db.session.commit()
