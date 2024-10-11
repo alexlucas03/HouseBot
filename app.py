@@ -318,8 +318,8 @@ def initpeople():
     # Get people data from the form
     db.session.execute(text(f"DELETE FROM people2"))
     db.session.commit()
-    people_data = request.form.getlist('name')
-    userids = request.form.getlist('userid')
+    people_data = request.form.getlist('name[]')
+    userids = request.form.getlist('userid[]')
     totalPoints = calculate_total_points()
     i = 0
     # Process the data and create or update people in your database
