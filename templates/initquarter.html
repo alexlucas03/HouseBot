@@ -45,6 +45,20 @@
         button:hover {
             background-color: #0056b3; /* Darker blue on hover */
         }
+        .people-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .people-table th, .people-table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        .people-table th {
+            background-color: #f2f2f2;
+        }
+        .add-row-button {
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -76,7 +90,6 @@
                     <label for="endDay">End Day:</label>
                     <input type="number" id="endDay" name="end_day" min="1" max="31" required>
                 </div>
-                <!-- Submit button added here -->
                 <button type="submit">Initialize Dishes</button>
             </form>
         </div>
@@ -84,30 +97,38 @@
         <div class="form-container">
             <h1>Initialize People</h1>
             <form action="/initpeople" method="POST">
-                <table>
-                    <tr>
-                        <th>Name</th>
-                        <th>User ID</th>
-                    </tr>
-                    <tr>
-                        <td>
-                              <input type="text" 
-                                   placeholder="Enter value">
-                          </td>
-                        <td>23</td>
-                    </tr>
-                    <tr>
-                        <td>Gaurav</td>
-                        <td>
-                              <input type="text" 
-                                   placeholder="Enter value">
-                          </td>
-                    </tr>
+                <table class="people-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="people-table-body">
+                        <tr>
+                            <td><input type="text" name="name[]"></td>
+                            <td><input type="text" name="userid[]"></td>
+                        </tr>
+                    </tbody>
                 </table>
-                <!-- Submit button added here -->
+                <button type="button" class="add-row-button">Add Row</button>
                 <button type="submit">Initialize People</button>
             </form>
         </div>
     </div>
+
+    <script>
+        const addRowButton = document.querySelector('.add-row-button');
+        const peopleTableBody = document.getElementById('people-table-body');
+
+        addRowButton.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" name="name[]"></td>
+                <td><input type="text" name="userid[]"></td>
+            `;
+            peopleTableBody.appendChild(newRow);
+        });
+    </script>
 </body>
 </html>
