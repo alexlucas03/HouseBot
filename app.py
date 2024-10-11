@@ -315,22 +315,22 @@ def initdish():
 @app.route('/initpeople', methods=['POST', 'GET'])
 def initpeople():
     init(True)
-    if request.method == 'POST':
-        # Get people data from the form
-        db.session.execute(text(f"DELETE FROM people2"))
+    # Get people data from the form
+    db.session.execute(text(f"DELETE FROM people2"))
+    db.session.commit()
+    people_data = request.form.getlist('name')
+    userids = request.form.getlist('userid')
+    totalPoints = calculate_total_points()
+    i = 0
+    #make a loop here that goes every day from start_date to end_date and adds 5 for every week day, 0 for saturday, and 4 for sunday
+    # Process the data and create or update people in your database
+    for name, userid in zip(people_data, userids):
+        # Create a new Person object or update an existing one
+        db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
         db.session.commit()
-        people_data = request.form.getlist('name')
-        userids = request.form.getlist('userid')
-        totalPoints = calculate_total_points()
+        i += 1
 
-        #make a loop here that goes every day from start_date to end_date and adds 5 for every week day, 0 for saturday, and 4 for sunday
-        # Process the data and create or update people in your database
-        for name, userid, i in zip(people_data, userids):
-            # Create a new Person object or update an existing one
-            db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
-            db.session.commit()
-
-        return jsonify({'success': True, 'message': 'People initialized successfully'})
+    return jsonify({'success': True, 'message': 'People initialized successfully'})
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
