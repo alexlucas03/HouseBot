@@ -312,6 +312,26 @@ def initdish():
     
     return jsonify({'success': True, 'message': 'Dishes initialized successfully'})
 
+@app.route('/initpeople', methods=['POST', 'GET'])
+def initpeople():
+    init(True)
+    if request.method == 'POST':
+        # Get people data from the form
+        db.session.execute(f"DELETE FROM people2")
+        db.session.commit()
+        people_data = request.form.getlist('name')
+        userids = request.form.getlist('userid')
+        totalPoints = calculate_total_points()
+
+        #make a loop here that goes every day from start_date to end_date and adds 5 for every week day, 0 for saturday, and 4 for sunday
+        # Process the data and create or update people in your database
+        for name, userid, i in zip(people_data, userids):
+            # Create a new Person object or update an existing one
+            db.session.execute(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')")
+            db.session.commit()
+
+        return jsonify({'success': True, 'message': 'People initialized successfully'})
+
 class PeopleModel(db.Model):
     __tablename__ = 'people'
     userid = db.Column(db.String, primary_key=True)
@@ -470,3 +490,21 @@ def dinnerlp():
         )
         db.session.commit()
     return redirect(url_for('client'))
+
+def calculate_total_points():
+    total_points = 0
+    current_date = start_date
+
+    while current_date <= end_date:
+        day_of_week = current_date.strftime("%A")
+
+        if day_of_week == "Saturday":
+            total_points += 0
+        elif day_of_week == "Sunday":
+            total_points += 4
+        else:
+            total_points += 5
+
+        current_date += datetime.timedelta(days=1)
+
+    return total_points
