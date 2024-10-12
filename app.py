@@ -333,7 +333,7 @@ def initpeople():
     db.session.commit()
     remainder = totalPoints - (round1ppp * i)
     while remainder > 0:
-        db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp + 1}' WHERE pickorder = {i - 1}"))
+        db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp + 1}' WHERE pickorder = '{i - 1}'"))
         db.session.commit()
         i -= 1
         remainder -= 1
