@@ -328,8 +328,16 @@ def initpeople():
         db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
         db.session.commit()
         i += 1
-
-    return jsonify({'success': True, 'message': 'People initialized successfully'})
+    round1ppp = int(totalPoints / (i+1))
+    db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp}'"))
+    db.session.commit()
+    remainder = totalPoints - (round1ppp * i+1)
+    while remainder > 0:
+        db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp + 1}' WHERE pickorder = {i}"))
+        db.session.commit()
+        i -= 1
+        remainder -= 1
+    return jsonify({'success': True, 'message': f"{remainder}"})
 
 class PeopleModel(db.Model):
     __tablename__ = 'people'
