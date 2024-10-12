@@ -328,12 +328,12 @@ def initpeople():
         db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
         db.session.commit()
         i += 1
-    round1ppp = int(totalPoints / (i+1))
+    round1ppp = int(totalPoints / (i))
     db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp}'"))
     db.session.commit()
-    remainder = totalPoints - (round1ppp * i+1)
+    remainder = totalPoints - (round1ppp * i)
     while remainder > 0:
-        db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp + 1}' WHERE pickorder = {i}"))
+        db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp + 1}' WHERE pickorder = {i - 1}"))
         db.session.commit()
         i -= 1
         remainder -= 1
