@@ -222,8 +222,9 @@ def send_groupme_messages():
         return response
 
     # Send lunch message
-    lunch_message = f"Lunch: @{lunch_owner}"
-    send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
+    if datetime.date.today().strftime("%A") != "Saturday" and datetime.date.today().strftime("%A") != "Sunday":
+        lunch_message = f"Lunch: @{lunch_owner}"
+        send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
 
     # Send dinner message
     dinner_message = f"Dinner: @{dinner_owner}"
@@ -316,7 +317,7 @@ def initdish():
 def initpeople():
     init(True)
     # Get people data from the form
-    db.session.execute(text(f"DELETE FROM people2"))
+    db.session.execute(text(f"DELETE FROM people"))
     db.session.commit()
     people_data = request.form.getlist('name[]')
     userids = request.form.getlist('userid[]')
@@ -325,15 +326,15 @@ def initpeople():
     # Process the data and create or update people in your database
     for name, userid in zip(people_data, userids):
         # Create a new Person object or update an existing one
-        db.session.execute(text(f"INSERT INTO people2 VALUES ('{name}', '{userid}', '{i}', '0')"))
+        db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '{i}', '0')"))
         db.session.commit()
         i += 1
     round1ppp = int(totalPoints / (i))
-    db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp}'"))
+    db.session.execute(text(f"UPDATE people SET totalpoints = '{round1ppp}'"))
     db.session.commit()
     remainder = totalPoints - (round1ppp * i)
     while remainder > 0:
-        db.session.execute(text(f"UPDATE people2 SET totalpoints = '{round1ppp + 1}' WHERE pickorder = '{i - 1}'"))
+        db.session.execute(text(f"UPDATE people SET totalpoints = '{round1ppp + 1}' WHERE pickorder = '{i - 1}'"))
         db.session.commit()
         i -= 1
         remainder -= 1
