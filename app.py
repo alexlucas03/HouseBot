@@ -1,6 +1,5 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session, Response
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy import text
 import datetime
 from datetime import timedelta
@@ -9,7 +8,6 @@ from person import Person
 import requests
 import json
 import time
-import uuid
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'mysecret'
@@ -21,7 +19,7 @@ dishes = []
 people_objects = []
 months = []
 
-def init(autosend):
+def init(logged_in):
     global start_date, end_date, lunch_owner, dinner_owner, x1_owner, person, user, people_objects, dishes, person, months
 
     months.clear()
@@ -59,7 +57,7 @@ def init(autosend):
         dishes += globals()[f"{month.lower()}_objects"]
     create_people_objects()
     person = None
-    if not autosend:
+    if not logged_in:
         user = session['user']
         for people in people_objects:
             if people.name == user:
@@ -89,9 +87,9 @@ def init(autosend):
         dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
         x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
 
-    if not autosend and user != 'admin':
+    if not logged_in and user != 'admin':
         person = calculate_points(person)
-    elif not autosend:
+    elif not logged_in:
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
