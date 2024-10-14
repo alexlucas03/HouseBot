@@ -29,11 +29,9 @@ def init(autosend):
     start_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = '1'")).fetchone()
     end_date_row = db.session.execute(text("SELECT year, month, day FROM startend WHERE id = '2'")).fetchone()
 
-    # Ensure that rows are found and assign to datetime objects
     start_year, start_month, start_day = start_date_row
     end_year, end_month, end_day = end_date_row
 
-    # Define start_date and end_date using the retrieved values
     start_date = datetime.datetime(int(start_year), int(start_month), int(start_day))
     end_date = datetime.datetime(int(end_year), int(end_month), int(end_day))
     current_date = start_date
@@ -48,9 +46,8 @@ def init(autosend):
 
     for month in months:
         model_name = f'{month}Model'
-        tablename = month.lower()  # e.g., 'september', 'october'
+        tablename = month.lower()
 
-        # Check if the model already exists in globals
         if model_name not in globals():
             globals()[model_name] = type(model_name, (BaseModel,), {
                 '__tablename__': tablename
@@ -139,7 +136,6 @@ def index():
         return redirect('/')
     init(False)
     
-    # Dynamically access month objects from globals()
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
     return render_template('index.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
 
@@ -195,10 +191,8 @@ def change_owner():
     
 @app.route('/send-messages', methods=['POST', 'GET'])
 def send_groupme_messages():
-    # Ensure global variables are initialized
     init(True)
 
-    # Find the lunch, dinner, and x1 owners
     lunch_userid = next((person.userID for person in people_objects if person.name == lunch_owner), None)
     dinner_userid = next((person.userID for person in people_objects if person.name == dinner_owner), None)
     x1_userid = next((person.userID for person in people_objects if person.name == x1_owner), None)
@@ -221,16 +215,13 @@ def send_groupme_messages():
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
         return response
 
-    # Send lunch message
     if datetime.date.today().strftime("%A") != "Saturday" and datetime.date.today().strftime("%A") != "Sunday":
         lunch_message = f"Lunch: @{lunch_owner}"
         send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
 
-    # Send dinner message
     dinner_message = f"Dinner: @{dinner_owner}"
     send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
 
-    # Send x1 message
     x1_message = f"x1: @{x1_owner}"
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
@@ -316,16 +307,13 @@ def initdish():
 @app.route('/initpeople', methods=['POST', 'GET'])
 def initpeople():
     init(True)
-    # Get people data from the form
     db.session.execute(text(f"DELETE FROM people"))
     db.session.commit()
     people_data = request.form.getlist('name[]')
     userids = request.form.getlist('userid[]')
     totalPoints = calculate_total_points()
     i = 0
-    # Process the data and create or update people in your database
     for name, userid in zip(people_data, userids):
-        # Create a new Person object or update an existing one
         db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '{i}', '0')"))
         db.session.commit()
         i += 1
@@ -382,7 +370,7 @@ def calculate_points(person):
 
 def create_month_objects(month, model, global_objects):
     dish_rows = model.query.all()
-    global_objects.clear()  # Clear the existing objects, if any
+    global_objects.clear()
     for row in dish_rows:
         dish_obj = Dish(
             year=int(row.year),
@@ -397,12 +385,10 @@ def create_month_objects(month, model, global_objects):
 
 def create_all_month_objects():
     for month in months:
-        model = globals()[f"{month}Model"]  # Dynamically access the model for the month (e.g., SeptemberModel)
-        global_objects = globals()[f"{month.lower()}_objects"]  # Dynamically access the global object list (e.g., september_objects)
-        # Convert month name to its corresponding month integer
+        model = globals()[f"{month}Model"]
+        global_objects = globals()[f"{month.lower()}_objects"]
         month_int = time.strptime(month, "%B").tm_mon
 
-        # Pass the integer month to create_month_objects
         create_month_objects(month_int, model, global_objects)
 
 class Lunch(db.Model):
@@ -416,8 +402,9 @@ class Dinner(db.Model):
 @app.route('/lateplate_lunch', methods=['GET'])
 def lateplate_lunch():
     lunch_items = [lunch.name for lunch in Lunch.query.all()]
-    lunch_message = "@g Lunch late plates: " + ", ".join(lunch_items)
-    if lunch_message == "@g Lunch late plates: ":
+    if lunch_items:
+        lunch_message = "@g Lunch late plates: " + ", ".join(lunch_items)
+    else:
         lunch_message = "@g No lunch late plates"
 
     db.session.execute(text("DELETE FROM lunch"))
@@ -450,8 +437,9 @@ def lateplate_lunch():
 @app.route('/lateplate_dinner', methods=['GET'])
 def lateplate_dinner():
     dinner_items = [dinner.name for dinner in Dinner.query.all()]
-    dinner_message = "@g Dinner late plates: " + ", ".join(dinner_items)
-    if dinner_message == "@g Dinner late plates: ":
+    if dinner_items:
+        dinner_message = "@g Dinner late plates: " + ", ".join(dinner_items)
+    else:
         dinner_message = "@g No dinner late plates"
 
     db.session.execute(text("DELETE FROM dinner"))
