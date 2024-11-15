@@ -120,7 +120,7 @@ def admin_login():
     session.clear()
     if request.method == 'POST':
         passw = request.form['passw']
-        if passw == 'aussie':
+        if passw == 'alex':
             session['user'] = 'admin'
             return redirect(url_for('admin'))
         else:
