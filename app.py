@@ -341,6 +341,10 @@ class BaseModel(db.Model):
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
+@app.route("/laundry")
+def laundry():
+    return render_template('laundry.html')
+
 @app.route("/people_objects")
 def create_people_objects():
     global people_objects
