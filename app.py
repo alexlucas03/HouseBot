@@ -349,7 +349,7 @@ class LaundryModel(db.Model):
     rank = db.Column(db.String)
     id =db.Column(db.String, primary_key=True)
 
-@app.route("/laundry")
+@app.route("/laundry", methods=['POST', 'GET'])
 def laundry():
     global dryer1, washer, dryer2
     laundry_rows = db.session.execute(text("SELECT * FROM laundry"))
@@ -367,21 +367,21 @@ def laundry():
 
     return render_template('laundry.html', dryer1=dryer1, washer=washer, dryer2=dryer2)
 
-@app.route("/addtodryer1")
+@app.route("/addtodryer1", methods=['POST', 'GET'])
 def addtodryer1():
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namedryer1']
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     return redirect(url_for('laundry'))
 
-@app.route("/addtowasher")
+@app.route("/addtowasher", methods=['POST', 'GET'])
 def addtowasher():
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namewasher']
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     return redirect(url_for('laundry'))
 
-@app.route("/addtodryer2")
+@app.route("/addtodryer2", methods=['POST', 'GET'])
 def addtodryer2():
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namedryer2']
