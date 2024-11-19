@@ -5,6 +5,7 @@ import datetime
 from datetime import timedelta
 from dish import Dish
 from person import Person
+from laundry import Laundry
 import requests
 import json
 import time
@@ -341,9 +342,29 @@ class BaseModel(db.Model):
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
+class LaundryModel(db.Model):
+    __tablename__ = 'laundry'
+    name = db.Column(db.String)
+    appliance = db.Column(db.String)
+    rank = db.Column(db.String)
+    id =db.Column(db.String, primary_key=True)
+
 @app.route("/laundry")
 def laundry():
-    return render_template('laundry.html')
+    laundry_rows = db.session.execute(text("SELECT * FROM laundry"))
+    dryer1 = []
+    washer = []
+    dryer2 = []
+    for row in laundry_rows:
+        laundry_obj = Laundry(name=row.name, appliance=row.appliance, rank=row.rank)
+        if laundry_obj.appliance == 'dryer1':
+            dryer1.append(laundry_obj)
+        elif laundry_obj.appliance == 'washer':
+            washer.append(laundry_obj)
+        elif laundry_obj.appliance == 'dryer2':
+            dryer2.append(laundry_obj)
+
+    return render_template('laundry.html', dryer1=dryer1, washer=washer, dryer2=dryer2)
 
 @app.route("/people_objects")
 def create_people_objects():
