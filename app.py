@@ -351,6 +351,7 @@ class LaundryModel(db.Model):
 
 @app.route("/laundry")
 def laundry():
+    global dryer1, washer, dryer2
     laundry_rows = db.session.execute(text("SELECT * FROM laundry"))
     dryer1 = []
     washer = []
@@ -368,17 +369,23 @@ def laundry():
 
 @app.route("/addtodryer1")
 def addtodryer1():
-
+    id = len(dryer1) + len(washer) + len(dryer2)
+    name = request.form['namedryer1']
+    db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     return redirect(url_for('laundry'))
 
 @app.route("/addtowasher")
 def addtowasher():
-
+    id = len(dryer1) + len(washer) + len(dryer2)
+    name = request.form['namewasher']
+    db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     return redirect(url_for('laundry'))
 
 @app.route("/addtodryer2")
 def addtodryer2():
-
+    id = len(dryer1) + len(washer) + len(dryer2)
+    name = request.form['namedryer2']
+    db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     return redirect(url_for('laundry'))
 
 @app.route("/people_objects")
