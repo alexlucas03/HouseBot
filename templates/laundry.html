@@ -57,19 +57,19 @@
                 </tr>
                 <tr class="input-button-row">
                     <td>
-                        <form action="/addtodryer1" method="POST">
+                        <form action="/addtodryer1" method="POST" onsubmit="return validateForm()">
                             <input type="text" placeholder="Dryer 1" id="namedryer1">
                             <button type="submit" id="submitdryer1">Submit</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/addtowasher" method="POST">
+                        <form action="/addtowasher" method="POST" onsubmit="return validateForm()">
                             <input type="text" placeholder="Washer" id="namewasher">
                             <button type="submit" id="submitwasher">Submit</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/addtodryer2" method="POST">
+                        <form action="/addtodryer2" method="POST" onsubmit="return validateForm()">
                             <input type="text" placeholder="Dryer 2" id="namedryer2">
                             <button type="submit" id="submitdryer2">Submit</button>
                         </form>
@@ -78,5 +78,15 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function validateForm() {
+            var input = document.getElementById("namedryer1").value;
+            if (input == "") {
+                alert("Please enter a value for Dryer 1");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
