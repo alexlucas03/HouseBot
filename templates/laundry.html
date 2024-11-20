@@ -55,15 +55,25 @@
                     <td>P2</td>
                     <td>P3</td>
                 </tr>
-                <tr>
-                    <td><input type="text" placeholder="Dryer 1" id="namedryer1"></td>
-                    <td><input type="text" placeholder="Washer" id="namewasher"></td>
-                    <td><input type="text" placeholder="Dryer 2" id="namedryer2"></td>
-                </tr>
-                <tr>
-                    <td><button type="submit" id="submit1" action="/addtodryer1">Submit 1</button></td>
-                    <td><button type="submit" id="submit2" action="/addtowasher">Submit 2</button></td>
-                    <td><button type="submit" id="submit3" action="/addtodryer2">Submit 3</button></td>
+                <tr class="input-button-row">
+                    <td>
+                        <form action="/addtodryer1">
+                            <input type="text" placeholder="Dryer 1" id="namedryer1">
+                            <button type="submit" id="submitdryer1">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/addtowasher">
+                            <input type="text" placeholder="Washer" id="namewasher">
+                            <button type="submit" id="submitwasher">Submit</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/addtodryer2">
+                            <input type="text" placeholder="Dryer 2" id="namedryer2">
+                            <button type="submit" id="submitdryer2">Submit</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>
