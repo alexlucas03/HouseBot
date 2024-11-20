@@ -381,7 +381,7 @@ def addtodryer1():
     global dryer1, nextid, nextrank
     id = nextid
     name = request.form['namedryer1']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(nextrank)}', '{str(id)}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(nextrank)}', '{str(id)}'), '1'"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
@@ -390,7 +390,7 @@ def addtowasher():
     global washer, nextid, nextrank
     id = nextid
     name = request.form['namewasher']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(nextrank)}', '{str(id)}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(nextrank)}', '{str(id)}'), '1'"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
@@ -399,9 +399,45 @@ def addtodryer2():
     global dryer2, nextid, nextrank
     id = nextid
     name = request.form['namedryer2']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(nextrank)}', '{str(id)}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(nextrank)}', '{str(id)}'), '1'"))
     db.session.commit()
     return redirect(url_for('laundry'))
+
+@app.route('/deletecurrentdryer1')
+def deletecurrentdryer1():
+    global dryer1
+    minrank = min(dryer1)
+    minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
+    if minrank_obj.checksleft == '0':
+        db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
+    elif minrank_obj.checksleft == '1':
+        db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
+    db.session.commit()
+    return jsonify({"message": "Success"})
+
+@app.route('/deletecurrentwasher')
+def deletecurrentwasher():
+    global washer
+    minrank = min(washer)
+    minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
+    if minrank_obj.checksleft == '0':
+        db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
+    elif minrank_obj.checksleft == '1':
+        db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
+    db.session.commit()
+    return jsonify({"message": "Success"})
+
+@app.route('/deletecurrentdryer2')
+def deletecurrentdryer2():
+    global dryer2
+    minrank = min(dryer2)
+    minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
+    if minrank_obj.checksleft == '0':
+        db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
+    elif minrank_obj.checksleft == '1':
+        db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
+    db.session.commit()
+    return jsonify({"message": "Success"})
 
 @app.route('/people_objects')
 def create_people_objects():
