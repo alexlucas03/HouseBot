@@ -5,7 +5,6 @@ import datetime
 from datetime import timedelta
 from dish import Dish
 from person import Person
-from laundry import Laundry
 import requests
 import json
 import time
