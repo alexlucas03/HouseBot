@@ -366,8 +366,9 @@ def laundry():
             washer.append(laundry_obj)
         elif laundry_obj.appliance == 'dryer2':
             dryer2.append(laundry_obj)
-
-    return render_template('laundry.html', dryer1=dryer1, washer=washer, dryer2=dryer2)
+    max_length = max(len(dryer1), len(washer), len(dryer2))
+    
+    return render_template('laundry.html', dryer1=dryer1, washer=washer, dryer2=dryer2, max_length=max_length)
 
 @app.route('/addtodryer1', methods=['POST'])
 def addtodryer1():
