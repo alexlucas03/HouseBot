@@ -369,6 +369,7 @@ def laundry():
 
 @app.route('/addtodryer1', methods=['POST'])
 def addtodryer1():
+    global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namedryer1']
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
@@ -377,6 +378,7 @@ def addtodryer1():
 
 @app.route('/addtowasher', methods=['POST'])
 def addtowasher():
+    global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
     name = "request.form['namewasher']"
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
@@ -385,6 +387,7 @@ def addtowasher():
 
 @app.route('/addtodryer2', methods=['POST'])
 def addtodryer2():
+    global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namedryer2']
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
