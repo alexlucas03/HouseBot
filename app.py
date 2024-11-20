@@ -402,9 +402,9 @@ def deletecurrentdryer1():
     minrank = min(dryer1, key=lambda x: x.rank)
     minrank_obj = db.session.execute(text(f"SELECT * FROM laundry WHERE rank = :rank AND appliance = 'dryer1'"),{"rank": minrank.rank}).fetchone()
     if minrank_obj:
-        if minrank_obj['checksleft'] == '0':
+        if minrank_obj.checksleft == '0':
             db.session.execute(text(f"DELETE FROM laundry WHERE rank = :rank AND appliance = 'dryer1'"),{"rank": minrank.rank})
-        elif minrank_obj['checksleft'] == '1':
+        elif minrank_obj.checksleft == '1':
             db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = :rank AND appliance = 'dryer1'"),{"rank": minrank.rank})
         db.session.commit()
 
@@ -418,9 +418,9 @@ def deletecurrentwasher():
     minrank = min(washer, key=lambda x: x.rank)
     minrank_obj = db.session.execute(text(f"SELECT * FROM laundry WHERE rank = :rank AND appliance = 'washer'"),{"rank": minrank.rank}).fetchone()
     if minrank_obj:
-        if minrank_obj['checksleft'] == '0':
+        if minrank_obj.checksleft == '0':
             db.session.execute(text(f"DELETE FROM laundry WHERE rank = :rank AND appliance = 'washer'"),{"rank": minrank.rank})
-        elif minrank_obj['checksleft'] == '1':
+        elif minrank_obj.checksleft == '1':
             db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = :rank AND appliance = 'washer'"),{"rank": minrank.rank})
         db.session.commit()
         
@@ -434,9 +434,9 @@ def deletecurrentdryer2():
     minrank = min(dryer2, key=lambda x: x.rank)
     minrank_obj = db.session.execute(text(f"SELECT * FROM laundry WHERE rank = :rank AND appliance = 'dryer2'"),{"rank": minrank.rank}).fetchone()
     if minrank_obj:
-        if minrank_obj['checksleft'] == '0':
+        if minrank_obj.checksleft == '0':
             db.session.execute(text(f"DELETE FROM laundry WHERE rank = :rank AND appliance = 'dryer2'"),{"rank": minrank.rank})
-        elif minrank_obj['checksleft'] == '1':
+        elif minrank_obj.checksleft == '1':
             db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = :rank AND appliance = 'dryer2'"),{"rank": minrank.rank})
         db.session.commit()
 
