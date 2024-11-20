@@ -57,19 +57,19 @@
                 </tr>
                 <tr class="input-button-row">
                     <td>
-                        <form action="/addtodryer1" method="POST" onsubmit="return validateForm()">
+                        <form action="/addtodryer1" method="POST" onsubmit="return validateDryer1()">
                             <input type="text" placeholder="Dryer 1" id="namedryer1">
                             <button type="submit" id="submitdryer1">Submit</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/addtowasher" method="POST" onsubmit="return validateForm()">
+                        <form action="/addtowasher" method="POST" onsubmit="return validateWasher()">
                             <input type="text" placeholder="Washer" id="namewasher">
                             <button type="submit" id="submitwasher">Submit</button>
                         </form>
                     </td>
                     <td>
-                        <form action="/addtodryer2" method="POST" onsubmit="return validateForm()">
+                        <form action="/addtodryer2" method="POST" onsubmit="return validateDryer2()">
                             <input type="text" placeholder="Dryer 2" id="namedryer2">
                             <button type="submit" id="submitdryer2">Submit</button>
                         </form>
@@ -79,10 +79,26 @@
         </table>
     </div>
     <script>
-        function validateForm() {
+        function validateDryer1() {
             var input = document.getElementById("namedryer1").value;
             if (input == "") {
                 alert("Please enter a value for Dryer 1");
+                return false;
+            }
+            return true;
+        }
+        function validateWasher() {
+            var input = document.getElementById("namewasher").value;
+            if (input == "") {
+                alert("Please enter a value for Washer");
+                return false;
+            }
+            return true;
+        }
+        function validateDryer2() {
+            var input = document.getElementById("namedryer2").value;
+            if (input == "") {
+                alert("Please enter a value for Dryer 2");
                 return false;
             }
             return true;
