@@ -406,7 +406,7 @@ def addtodryer2():
 @app.route('/deletecurrentdryer1')
 def deletecurrentdryer1():
     global dryer1
-    minrank = min(dryer1)
+    minrank = min(dryer1, key=lambda x: x.rank)
     minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
     if minrank_obj.checksleft == '0':
         db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
@@ -418,7 +418,7 @@ def deletecurrentdryer1():
 @app.route('/deletecurrentwasher')
 def deletecurrentwasher():
     global washer
-    minrank = min(washer)
+    minrank = min(washer, key=lambda x: x.rank)
     minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
     if minrank_obj.checksleft == '0':
         db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
@@ -430,7 +430,7 @@ def deletecurrentwasher():
 @app.route('/deletecurrentdryer2')
 def deletecurrentdryer2():
     global dryer2
-    minrank = min(dryer2)
+    minrank = min(dryer2, key=lambda x: x.rank)
     minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
     if minrank_obj.checksleft == '0':
         db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
