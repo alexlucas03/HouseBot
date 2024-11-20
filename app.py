@@ -378,7 +378,7 @@ def addtodryer1():
 @app.route('/addtowasher', methods=['POST'])
 def addtowasher():
     id = len(dryer1) + len(washer) + len(dryer2)
-    name = request.form['namewasher']
+    name = "request.form['namewasher']"
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
