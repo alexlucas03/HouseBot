@@ -342,13 +342,6 @@ class BaseModel(db.Model):
     owner = db.Column(db.String)
     type = db.Column(db.String)
 
-class LaundryModel(db.Model):
-    __tablename__ = 'laundry'
-    name = db.Column(db.String)
-    appliance = db.Column(db.String)
-    rank = db.Column(db.String)
-    id =db.Column(db.String, primary_key=True)
-
 @app.route("/laundry", methods=['POST', 'GET'])
 def laundry():
     global dryer1, washer, dryer2, nextid, nextrank
@@ -359,7 +352,7 @@ def laundry():
     nextid = 0
     nextrank = 0
     for row in laundry_rows:
-        laundry_obj = Laundry(name=row.name, appliance=row.appliance, rank=row.rank)
+        laundry_obj = Laundry(name=row.name, appliance=row.appliance, rank=row.rank, checksleft=row.checksleft)
         nextid = max(nextid, int(row.id) + 1)
         nextrank = max(nextrank, int(row.rank) + 1)
         if laundry_obj.appliance == 'dryer1':
