@@ -400,37 +400,49 @@ def addtodryer2():
 def deletecurrentdryer1():
     global dryer1
     minrank = min(dryer1, key=lambda x: x.rank)
-    minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
-    if minrank_obj.checksleft == '0':
-        db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
-    elif minrank_obj.checksleft == '1':
-        db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = '{str(minrank)}' and appliance = 'dryer1'"))
-    db.session.commit()
-    return jsonify({"message": "Success"})
+    minrank_obj = db.session.execute(text(f"SELECT * FROM laundry WHERE rank = :rank AND appliance = 'dryer1'"),{"rank": minrank.rank}).fetchone()
+    if minrank_obj:
+        if minrank_obj['checksleft'] == '0':
+            db.session.execute(text(f"DELETE FROM laundry WHERE rank = :rank AND appliance = 'dryer1'"),{"rank": minrank.rank})
+        elif minrank_obj['checksleft'] == '1':
+            db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = :rank AND appliance = 'dryer1'"),{"rank": minrank.rank})
+        db.session.commit()
+
+        return jsonify({"message": "Success"})
+    else:
+        return jsonify({"message": "No matching dryer1 found"}), 404
 
 @app.route('/deletecurrentwasher')
 def deletecurrentwasher():
     global washer
     minrank = min(washer, key=lambda x: x.rank)
-    minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
-    if minrank_obj.checksleft == '0':
-        db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
-    elif minrank_obj.checksleft == '1':
-        db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = '{str(minrank)}' and appliance = 'washer'"))
-    db.session.commit()
-    return jsonify({"message": "Success"})
+    minrank_obj = db.session.execute(text(f"SELECT * FROM laundry WHERE rank = :rank AND appliance = 'washer'"),{"rank": minrank.rank}).fetchone()
+    if minrank_obj:
+        if minrank_obj['checksleft'] == '0':
+            db.session.execute(text(f"DELETE FROM laundry WHERE rank = :rank AND appliance = 'washer'"),{"rank": minrank.rank})
+        elif minrank_obj['checksleft'] == '1':
+            db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = :rank AND appliance = 'washer'"),{"rank": minrank.rank})
+        db.session.commit()
+        
+        return jsonify({"message": "Success"})
+    else:
+        return jsonify({"message": "No matching washer found"}), 404
 
 @app.route('/deletecurrentdryer2')
 def deletecurrentdryer2():
     global dryer2
     minrank = min(dryer2, key=lambda x: x.rank)
-    minrank_obj = db.session.execute(text(f"SELECT FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
-    if minrank_obj.checksleft == '0':
-        db.session.execute(text(f"DELETE FROM laundry WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
-    elif minrank_obj.checksleft == '1':
-        db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = '{str(minrank)}' and appliance = 'dryer2'"))
-    db.session.commit()
-    return jsonify({"message": "Success"})
+    minrank_obj = db.session.execute(text(f"SELECT * FROM laundry WHERE rank = :rank AND appliance = 'dryer2'"),{"rank": minrank.rank}).fetchone()
+    if minrank_obj:
+        if minrank_obj['checksleft'] == '0':
+            db.session.execute(text(f"DELETE FROM laundry WHERE rank = :rank AND appliance = 'dryer2'"),{"rank": minrank.rank})
+        elif minrank_obj['checksleft'] == '1':
+            db.session.execute(text(f"UPDATE laundry SET checksleft = '0' WHERE rank = :rank AND appliance = 'dryer2'"),{"rank": minrank.rank})
+        db.session.commit()
+
+        return jsonify({"message": "Success"})
+    else:
+        return jsonify({"message": "No matching dryer2 found"}), 404
 
 @app.route('/people_objects')
 def create_people_objects():
