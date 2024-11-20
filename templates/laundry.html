@@ -41,20 +41,22 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Row 2, Cell 1</td>
-                    <td>Row 2, Cell 2</td>
-                    <td>Row 2, Cell 3</td>
+                    <td>{{ dryer1[0].name if dryer1 else '' }}</td>
+                    <td>{{ washer[0].name if washer else '' }}</td>
+                    <td>{{ dryer2[0].name if dryer2 else '' }}</td>
                 </tr>
                 <tr class="heading">
                     <td></td>
                     <td>Line</td>
                     <td></td>
                 </tr>
+                {% for i in range(1, max(dryer1|length, washer|length, dryer2|length)) %}
                 <tr>
-                    <td>P1</td>
-                    <td>P2</td>
-                    <td>P3</td>
+                    <td>{{ dryer1[i].name if i < dryer1|length else '' }}</td>
+                    <td>{{ washer[i].name if i < washer|length else '' }}</td>
+                    <td>{{ dryer2[i].name if i < dryer2|length else '' }}</td>
                 </tr>
+                {% endfor %}
                 <tr class="input-button-row">
                     <td>
                         <form action="/addtodryer1" method="POST" onsubmit="return validateDryer1()">
