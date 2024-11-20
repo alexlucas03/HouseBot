@@ -359,7 +359,7 @@ def laundry():
     nextid = 0
     for row in laundry_rows:
         laundry_obj = Laundry(name=row.name, appliance=row.appliance, rank=row.rank)
-        nextid = max(nextid, row.id + 1)
+        nextid = max(nextid, int(row.id) + 1)
         if laundry_obj.appliance == 'dryer1':
             dryer1.append(laundry_obj)
         elif laundry_obj.appliance == 'washer':
