@@ -351,15 +351,17 @@ class LaundryModel(db.Model):
 
 @app.route("/laundry", methods=['POST', 'GET'])
 def laundry():
-    global dryer1, washer, dryer2, nextid
+    global dryer1, washer, dryer2, nextid, nextrank
     laundry_rows = db.session.execute(text("SELECT * FROM laundry"))
     dryer1 = []
     washer = []
     dryer2 = []
     nextid = 0
+    nextrank = 0
     for row in laundry_rows:
         laundry_obj = Laundry(name=row.name, appliance=row.appliance, rank=row.rank)
         nextid = max(nextid, int(row.id) + 1)
+        nextrank = max(nextrank, int(row.rank) + 1)
         if laundry_obj.appliance == 'dryer1':
             dryer1.append(laundry_obj)
         elif laundry_obj.appliance == 'washer':
@@ -376,28 +378,28 @@ def laundry():
 
 @app.route('/addtodryer1', methods=['POST'])
 def addtodryer1():
-    global dryer1, nextid
+    global dryer1, nextid, nextrank
     id = nextid
     name = request.form['namedryer1']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(len(dryer1))}', '{str(id)}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(nextrank)}', '{str(id)}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
 @app.route('/addtowasher', methods=['POST'])
 def addtowasher():
-    global washer, nextid
+    global washer, nextid, nextrank
     id = nextid
     name = request.form['namewasher']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(len(washer))}', '{str(id)}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(nextrank)}', '{str(id)}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
 @app.route('/addtodryer2', methods=['POST'])
 def addtodryer2():
-    global dryer2, nextid
+    global dryer2, nextid, nextrank
     id = nextid
     name = request.form['namedryer2']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(len(dryer2))}', '{str(id)}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(nextrank)}', '{str(id)}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
