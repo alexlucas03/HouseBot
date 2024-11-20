@@ -381,7 +381,7 @@ def addtodryer1():
     global dryer1, nextid, nextrank
     id = nextid
     name = request.form['namedryer1']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(nextrank)}', '{str(id)}'), '1'"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(nextrank)}', '{str(id)}', '1')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
@@ -390,7 +390,7 @@ def addtowasher():
     global washer, nextid, nextrank
     id = nextid
     name = request.form['namewasher']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(nextrank)}', '{str(id)}'), '1'"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(nextrank)}', '{str(id)}', '1')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
@@ -399,7 +399,7 @@ def addtodryer2():
     global dryer2, nextid, nextrank
     id = nextid
     name = request.form['namedryer2']
-    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(nextrank)}', '{str(id)}'), '1'"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(nextrank)}', '{str(id)}', '1')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
