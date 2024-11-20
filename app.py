@@ -372,7 +372,7 @@ def addtodryer1():
     global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namedryer1']
-    db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(len(dryer1))}', '{str(id)}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
@@ -381,7 +381,7 @@ def addtowasher():
     global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namewasher']
-    db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(len(washer))}', '{str(id)}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
@@ -390,7 +390,7 @@ def addtodryer2():
     global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
     name = request.form['namedryer2']
-    db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
+    db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(len(dryer2))}', '{str(id)}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
 
