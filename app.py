@@ -371,7 +371,7 @@ def laundry():
 def addtodryer1():
     global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
-    name = request.form['namedryer1']
+    name = 'namedryer1'
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
@@ -380,7 +380,7 @@ def addtodryer1():
 def addtowasher():
     global dryer1, washer, dryer2
     id = len(dryer1) + len(washer) + len(dryer2)
-    name = "request.form['namewasher']"
+    name = request.form['namewasher']
     db.session.execute(text(f"INSERT INTO people VALUES ('{name}', 'dryer1', '{len(dryer1)}', '{id}')"))
     db.session.commit()
     return redirect(url_for('laundry'))
