@@ -351,13 +351,15 @@ class LaundryModel(db.Model):
 
 @app.route("/laundry", methods=['POST', 'GET'])
 def laundry():
-    global dryer1, washer, dryer2
+    global dryer1, washer, dryer2, nextid
     laundry_rows = db.session.execute(text("SELECT * FROM laundry"))
     dryer1 = []
     washer = []
     dryer2 = []
+    nextid = 0
     for row in laundry_rows:
         laundry_obj = Laundry(name=row.name, appliance=row.appliance, rank=row.rank)
+        nextid = max(nextid, row.id + 1)
         if laundry_obj.appliance == 'dryer1':
             dryer1.append(laundry_obj)
         elif laundry_obj.appliance == 'washer':
@@ -365,12 +367,13 @@ def laundry():
         elif laundry_obj.appliance == 'dryer2':
             dryer2.append(laundry_obj)
 
+    
     return render_template('laundry.html', dryer1=dryer1, washer=washer, dryer2=dryer2)
 
 @app.route('/addtodryer1', methods=['POST'])
 def addtodryer1():
-    global dryer1, washer, dryer2
-    id = len(dryer1) + len(washer) + len(dryer2)
+    global dryer1, nextid
+    id = nextid
     name = request.form['namedryer1']
     db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer1', '{str(len(dryer1))}', '{str(id)}')"))
     db.session.commit()
@@ -378,8 +381,8 @@ def addtodryer1():
 
 @app.route('/addtowasher', methods=['POST'])
 def addtowasher():
-    global dryer1, washer, dryer2
-    id = len(dryer1) + len(washer) + len(dryer2)
+    global washer, nextid
+    id = nextid
     name = request.form['namewasher']
     db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'washer', '{str(len(washer))}', '{str(id)}')"))
     db.session.commit()
@@ -387,8 +390,8 @@ def addtowasher():
 
 @app.route('/addtodryer2', methods=['POST'])
 def addtodryer2():
-    global dryer1, washer, dryer2
-    id = len(dryer1) + len(washer) + len(dryer2)
+    global dryer2, nextid
+    id = nextid
     name = request.form['namedryer2']
     db.session.execute(text(f"INSERT INTO laundry VALUES ('{str(name)}', 'dryer2', '{str(len(dryer2))}', '{str(id)}')"))
     db.session.commit()
