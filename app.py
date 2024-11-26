@@ -100,7 +100,7 @@ def login():
     if request.method == 'POST':
         username= request.form['username']
         passw = request.form['password']
-        if passw == None:
+        if passw == "":
             person = None
             for people in people_objects:
                 if people.name == username:
