@@ -7,31 +7,28 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        html {
+        /* Ensure full height and remove default margin/padding */
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: Arial, sans-serif;
             background-color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
         }
 
+        /* Centering container using flexbox */
         .container {
             width: 100%;
+            max-width: 400px; /* Optional: set a max width for the form */
             height: 100%;
-            margin: auto;
-            display: block;
+            margin: 0 auto;
+            display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
-            border-radius: 5px;
-            overflow: hidden;
+            align-items: center;
+            text-align: center;
             background: #fff;
+            padding: 20px;
         }
 
         .container form {
@@ -42,23 +39,26 @@
         }
 
         .container img {
+            width: 40%;
             display: block;
             margin: 10px auto;
             padding: 10px;
         }
 
-        .container input, .container button {
+        /* Style for inputs and button */
+        .container input,
+        .container button {
             width: 80%;
             padding: 10px;
-            margin: 10px;
+            margin: 10px 0;
             font-size: 1rem;
             border-radius: 5px;
             transition: background 0.3s;
-            opacity: 1;
+            box-sizing: border-box; /* Include padding and border in the width */
         }
+
         .container input {
             border: 1px solid #ddd;
-            font-size: 1rem;
         }
 
         .container input:focus {
@@ -69,16 +69,14 @@
             background: #004c99;
             color: #fff;
             border: none;
+            cursor: pointer;
         }
 
         .container button:hover {
             background: #d2d2d2;
         }
 
-        .icon {
-            width: 40%;
-        }
-
+        /* Hide the password field by default */
         #password {
             display: none;
         }
@@ -86,7 +84,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="static/images/txicon.svg" class="icon" alt="Logo">
+        <img src="static/images/txicon.svg" alt="Logo">
         <form action="/" method="POST">
             <input type="text" id="name" name="username" placeholder="Name" required oninput="checkAdmin()">
             <input type="password" id="password" name="password" placeholder="Admin Password">
