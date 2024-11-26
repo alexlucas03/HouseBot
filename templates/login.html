@@ -53,7 +53,7 @@
             font-size: 1rem;
         }
 
-        .container input, .container div {
+        .container input {
             width: 80%;
             padding: 10px;
             margin: 10px;
@@ -90,7 +90,7 @@
             width: 40%;
         }
 
-        #passwordField {
+        #password {
             display: none;
         }
     </style>
@@ -100,11 +100,7 @@
         <img src="static/images/txicon.svg" class="icon" alt="Logo">
         <form action="/" method="POST">
             <input type="text" id="name" name="username" placeholder="Name" required oninput="checkAdmin()">
-            
-            <div id="passwordField">
-                <input type="password" id="password" name="password" placeholder="Admin Password">
-            </div>
-            
+            <input type="password" id="password" name="password" placeholder="Admin Password">
             <button type="submit">Sign In</button>
         </form>
     </div>
