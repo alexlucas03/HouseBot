@@ -26,24 +26,26 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 10%;
             background-color: #004c99;
             color: white;
-            text-align: left;
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 5vw; /* Font size is 5% of viewport width */
             z-index: 1000;
-            font-size: 50%;
         }
 
         /* Sidebar */
         .sidebar {
             position: fixed;
-            top: 10%; /* Adjust so it's below the top bar */
+            top: 60px; /* Adjust so it's below the top bar */
             left: 0;
-            width: 15%;
-            background-color: #fff;
-            height: 90%; /* Full height minus the top bar */
+            width: 200px;
+            background-color: #f4f4f4;
+            padding-top: 20px;
+            height: calc(100vh - 60px); /* Full height minus the top bar */
             display: flex;
             flex-direction: column;
+            gap: 10px;
         }
 
         /* Make each button in the sidebar stretch to fill the height */
@@ -55,24 +57,26 @@
 
         .sidebar button {
             width: 100%;
+            padding: 15px 0;
+            margin: 5px 0;
             background-color: #004c99;
             color: white;
             border: none;
-            border-radius: 0px;
-            font-size: 50%;
+            border-radius: 5px;
+            font-size: 4vw; /* Font size is 4% of viewport width */
             text-align: center;
             transition: background 0.3s;
             flex-grow: 1; /* Ensure each button grows to fill the available height */
         }
 
         .sidebar button:hover {
-            background-color: #d2d2d2;
+            background-color: #003366;
         }
 
         /* Main content area */
         .content {
-            margin-left: 15%; /* Space for sidebar */
-            margin-top: 10%px; /* Space for top bar */
+            margin-left: 220px; /* Space for sidebar */
+            margin-top: 60px; /* Space for top bar */
             padding: 20px;
             flex-grow: 1;
         }
