@@ -47,6 +47,7 @@
             padding: 10px;
         }
 
+        /* Shared styling for all inputs and buttons */
         .input-field, .container button {
             width: 80%;
             padding: 10px;
@@ -76,15 +77,7 @@
         }
 
         #password {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease, opacity 0.3s ease;
-        }
-
-        #password.show {
-            max-height: 50px;
-            opacity: 1;
+            display: none;
         }
     </style>
 </head>
