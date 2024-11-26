@@ -61,6 +61,7 @@
             border-radius: 5px;
             font-size: 1rem;
             opacity: 1;
+            transition: background 0.3s;
         }
 
         .container input:focus {
@@ -101,7 +102,7 @@
             <input type="text" id="name" name="username" placeholder="Name" required oninput="checkAdmin()">
             
             <div id="passwordField">
-                <input type="password" id="password" name="password" placeholder="Admin Password" required>
+                <input type="password" id="password" name="password" placeholder="Admin Password">
             </div>
             
             <button type="submit">Sign In</button>
