@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        html, body {
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -17,6 +17,7 @@
             justify-content: center;
             align-items: center;
             background-image: url('static/images/txletters.svg');
+            opacity: 40%;
             background-size: 100%;
             background-repeat: no-repeat;
             background-position: center;
@@ -103,7 +104,6 @@
         <div class="left-panel">
             <h2>House Wizard</h2>
             <form action="/" method="POST">
-                <label for="name">Name</label>
                 <input type="text" id="name" name="username" placeholder="Name" required>
                 <button type="submit">Sign In</button>
             </form>
