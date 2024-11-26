@@ -99,10 +99,8 @@ def login():
     session.clear()
     if request.method == 'POST':
         username= request.form['username']
-        if username == 'admin':
-            session['user'] = username
-            return redirect(url_for('admin_login'))
-        else:
+        passw = request.form['password']
+        if passw == None:
             person = None
             for people in people_objects:
                 if people.name == username:
@@ -113,19 +111,14 @@ def login():
                 return redirect(url_for('client'))
             else:
                 return render_template('login.html', error="User not found")
-    return render_template('login.html')
-
-@app.route('/admin-login', methods=['GET', 'POST'])
-def admin_login():
-    session.clear()
-    if request.method == 'POST':
-        passw = request.form['passw']
-        if passw == 'alex':
-            session['user'] = 'admin'
-            return redirect(url_for('admin'))
         else:
-            return render_template('admin-login.html', error="Incorrect password")
-    return render_template('admin-login.html')
+            if passw == 'alex':
+                session['user'] = 'admin'
+                return redirect(url_for('admin'))
+            else:
+                return render_template('login.html', error="Incorrect password")
+            
+    return render_template('login.html')
 
 @app.route('/all')
 def index():
