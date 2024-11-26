@@ -98,8 +98,8 @@ def login():
     create_people_objects()
     session.clear()
     if request.method == 'POST':
-        username= request.form['username']
-        passw = request.form['password']
+        username= request.form['username'].lower()
+        passw = request.form['password'].lower()
         if passw == "":
             person = None
             for people in people_objects:
