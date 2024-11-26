@@ -102,7 +102,12 @@
         function checkAdmin() {
             var username = document.getElementById("name").value;
             var passwordField = document.getElementById("password");
-            passwordField.style.display = (username.toLowerCase() === "admin") ? "block" : "none";
+            
+            if (username.toLowerCase() === "admin") {
+                passwordField.classList.add("show");
+            } else {
+                passwordField.classList.remove("show");
+            }
         }
     </script>
 </body>
