@@ -42,32 +42,35 @@
             width: 200px;
             background-color: #f4f4f4;
             padding-top: 20px;
-            padding-left: 10px;
             height: calc(100vh - 60px); /* Full height minus the top bar */
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
 
+        /* Make each button in the sidebar stretch to fill the height */
         .sidebar form {
             width: 100%;
+            flex-grow: 1;
+            display: flex;
         }
 
         .sidebar button {
             width: 100%;
-            height: 20%;
-            padding: 0px;
-            margin: 0px 0;
+            padding: 15px 0;
+            margin: 5px 0;
             background-color: #004c99;
             color: white;
             border: none;
-            border-radius: 0px;
+            border-radius: 5px;
             font-size: 1rem;
+            text-align: center;
             transition: background 0.3s;
+            flex-grow: 1; /* Ensure each button grows to fill the available height */
         }
 
         .sidebar button:hover {
-            background-color: #d2d2d2;
+            background-color: #003366;
         }
 
         /* Main content area */
@@ -104,7 +107,6 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5); /* Make picked people text less visible */
         }
-
     </style>
 </head>
 <body>
