@@ -36,6 +36,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
+            width: 30%;
         }
 
         .left-panel h2 {
@@ -95,6 +96,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            width: 30%;
         }
 
         .right-panel h2 {
@@ -123,21 +125,13 @@
         <div class="left-panel">
             <h2>Sign In</h2>
             <form action="/" method="POST">
-                <label for="name">Username</label>
+                <label for="name">Name</label>
                 <input type="text" id="name" name="username" placeholder="Username" required>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
                 <button type="submit">Sign In</button>
-                <div class="extras">
-                    <label><input type="checkbox"> Remember Me</label>
-                    <a href="#">Forgot Password?</a>
-                </div>
             </form>
         </div>
         <div class="right-panel">
-            <h2>Welcome to login</h2>
-            <p>Don’t have an account?</p>
-            <a href="#">Sign Up</a>
+            <img src="static/images/plate.jpg" alt="Plate">
         </div>
     </div>
 </body>
