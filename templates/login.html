@@ -105,7 +105,7 @@
             const targetTop = rect2.top - rect1.top;
 
             pw.style.left = `${rect1.left}px`;
-            pw.style.top = `${rect1.top}px`; // Position below the input field initially
+            pw.style.top = `${rect1.top + rect1.height + 10}px`; // Position below the input field initially
 
             // After setting initial position, animate it to the target position
             setTimeout(() => {
