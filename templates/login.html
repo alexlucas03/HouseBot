@@ -7,17 +7,6 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        :root {
-            --primary-color: #004c99;
-            --secondary-color: #d2d2d2;
-            --button-padding: 10px;
-            --button-radius: 5px;
-            --input-border: 1px solid #ddd;
-            --input-focus-border: #004c99;
-            --input-height: 40px; /* height of the input field */
-            --transition-duration: 0.3s;
-        }
-
         html {
             margin: 0;
             padding: 0;
@@ -60,51 +49,42 @@
 
         .input-field, .container button {
             width: 80%;
-            padding: var(--button-padding);
+            padding: 10px;
             margin: 10px;
             font-size: 1rem;
-            border-radius: var(--button-radius);
-            transition: background var(--transition-duration), transform var(--transition-duration) ease;
+            border-radius: 5px;
+            transition: background 0.3s;
             box-sizing: border-box;
         }
 
         .input-field {
-            border: var(--input-border);
-            height: var(--input-height);
+            border: 1px solid #ddd;
         }
 
         .input-field:focus {
-            border-color: var(--input-focus-border);
+            border-color: #004c99;
         }
 
         .container button {
-            background: var(--primary-color);
+            background: #004c99;
             color: #fff;
             border: none;
         }
 
         .container button:hover {
-            background: var(--secondary-color);
+            background: #d2d2d2;
         }
 
-        /* Initially hide the password field */
         #password {
             max-height: 0;
             opacity: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease, opacity var(--transition-duration) ease;
+            transition: max-height 0.5s ease, opacity 0.3s ease;
         }
 
-        /* Show the password field with a sliding effect */
         #password.show {
             max-height: 50px;
             opacity: 1;
-        }
-
-        /* Move the button down by the height of an input field + 10px when lowered */
-        .submission.lowered {
-            transition: transform var(--transition-duration);
-            transform: translateY(var(--input-height-plus-10)); /* move the button by input field height + 10px */
         }
     </style>
 </head>
@@ -114,38 +94,21 @@
         <form action="/" method="POST">
             <input type="text" id="name" name="username" class="input-field" placeholder="Name" required oninput="checkAdmin()">
             <input type="password" id="password" name="password" class="input-field" placeholder="Admin Password">
-            <button type="submit" id="submission" class="submission">Sign In</button>
+            <button type="submit">Sign In</button>
         </form>
     </div>
 
     <script>
-        // Wait until the page is fully loaded
-        document.addEventListener("DOMContentLoaded", function () {
-            var inputField = document.querySelector(".input-field");
-            var submitButton = document.querySelector("#submission");
+        function checkAdmin() {
+            var username = document.getElementById("name").value;
             var passwordField = document.getElementById("password");
             
-            // Calculate the height of an input field + 10px
-            var inputHeight = inputField.offsetHeight + 10;
-            
-            // Set the CSS variable for input height + 10
-            document.documentElement.style.setProperty('--input-height-plus-10', inputHeight + 'px');
-
-            // Check the username and show/hide the password field and move the button
-            function checkAdmin() {
-                var username = document.getElementById("name").value;
-                
-                if (username.toLowerCase() === "admin") {
-                    passwordField.classList.add("show");
-                    submitButton.classList.add("lowered");
-                } else {
-                    passwordField.classList.remove("show");
-                    submitButton.classList.remove("lowered");
-                }
+            if (username.toLowerCase() === "admin") {
+                passwordField.classList.add("show");
+            } else {
+                passwordField.classList.remove("show");
             }
-
-            document.getElementById("name").addEventListener("input", checkAdmin);
-        });
+        }
     </script>
 </body>
 </html>
