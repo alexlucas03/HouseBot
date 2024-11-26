@@ -112,8 +112,7 @@
                 pw.style.display = 'block'; // Make pw field visible
                 pw.style.transform = `translate(${targetLeft}px, ${targetTop}px)`; // Move it to element2's position
                 pw.style.opacity = 1; // Fade in the pw field
-                pw.style.transitionDuration = 0.3;
-            });
+            }, 0); // Make sure the changes apply after layout update
         }
 
         function checkAdmin() {
