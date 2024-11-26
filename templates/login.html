@@ -33,38 +33,31 @@
             border-radius: 5px;
             overflow: hidden;
             background: #fff;
-            opacity: 1;
         }
 
-        .left-panel, .right-panel {
-            width: 100%;
-            opacity: 1;
-        }
-
-        .left-panel {
+        .container {
             padding: 40px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: flex-start;
         }
 
-        .left-panel h2 {
+        .container h2 {
             font-size: 2rem;
             margin-bottom: 1.5rem;
         }
 
-        .left-panel form {
+        .container form {
             width: 100%;
         }
 
-        .left-panel label {
+        .container label {
             display: block;
             margin-bottom: 0.5rem;
             font-size: 1rem;
         }
 
-        .left-panel input {
+        .container input {
             width: 100%;
             padding: 10px;
             margin-bottom: 1rem;
@@ -74,7 +67,7 @@
             opacity: 1;
         }
 
-        .left-panel button {
+        .container button {
             width: 100%;
             padding: 10px;
             background:#0080FF;
@@ -87,37 +80,18 @@
             opacity: 1;
         }
 
-        .left-panel button:hover {
+        .container button:hover {
             background: #c0c0c0;
-        }
-
-        .left-panel .extras {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #888;
-        }
-
-        .right-panel img {
-            max-width: 100%;
-            max-height: 100%;
-            opacity: 1;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="left-panel">
-            <h2>House Wizard</h2>
-            <form action="/" method="POST">
-                <input type="text" id="name" name="username" placeholder="Name" required>
-                <button type="submit">Sign In</button>
-            </form>
-        </div>
-        <div class="right-panel">
-            <img src="static/images/plate.jpg" alt="">
-        </div>
+        <h2>House Wizard</h2>
+        <form action="/" method="POST">
+            <input type="text" id="name" name="username" placeholder="Name" required>
+            <button type="submit">Sign In</button>
+        </form>
     </div>
 </body>
 </html>
