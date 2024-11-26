@@ -82,12 +82,13 @@
 </head>
 <body>
     <div class="container">
-        <img src="static/images/txicon.svg" alt="Logo">
-        <form action="/" method="POST">
-            <input type="text" id="name" name="username" class="input-field" placeholder="Name" required oninput="checkAdmin()">
-            <input type="password" id="password" name="password" class="input-field" placeholder="Admin Password">
-            <button type="submit">Sign In</button>
-        </form>
+        <div class="form-top">  <img src="static/images/txicon.svg" alt="Logo">
+            <form action="/" method="POST">
+                <input type="text" id="name" name="username" class="input-field" placeholder="Name" required oninput="checkAdmin()">
+            </form>
+        </div>
+        <input type="password" id="password" name="password" class="input-field" placeholder="Admin Password">
+        <button type="submit">Sign In</button>
     </div>
 
     <script>
