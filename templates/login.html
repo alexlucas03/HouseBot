@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dish 1  Bot Login</title>
+    <title>House Wizard Login</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
@@ -71,7 +71,7 @@
             width: 80%;
             padding: 10px;
             margin: 10px;
-            background:#004c99;
+            background: #004c99;
             color: #fff;
             font-size: 1rem;
             border: none;
@@ -88,26 +88,35 @@
         .icon {
             width: 40%;
         }
+
+        #passwordField {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="static/images/txicon.svg" class="icon">
+        <img src="static/images/txicon.svg" class="icon" alt="Logo">
         <form action="/" method="POST">
-            <input type="text" id="name" name="username" placeholder="Name" required>
-            <input type="password" id="password" name="password" placeholder="Admin Password" required>
+            <input type="text" id="name" name="username" placeholder="Name" required oninput="checkAdmin()">
+            
+            <div id="passwordField">
+                <input type="password" id="password" name="password" placeholder="Admin Password" required>
+            </div>
+            
             <button type="submit">Sign In</button>
         </form>
     </div>
+
     <script>
         function checkAdmin() {
             var username = document.getElementById("name").value;
-            var adminForm = document.getElementById("password");
+            var passwordField = document.getElementById("passwordField");
 
             if (username.toLowerCase() === "admin") {
-                adminForm.style.display = "block";
+                passwordField.style.display = "block";
             } else {
-                adminForm.style.display = "none";
+                passwordField.style.display = "none";
             }
         }
     </script>
