@@ -92,13 +92,13 @@
 
     <script>
         function slidePW() {
-            const element1 = document.getElementById('name');
-            const element2 = document.getElementById('submission');
+            const name = document.getElementById('name');
+            const submission = document.getElementById('submission');
             const pw = document.getElementById('password');
 
             // Get the position of element1 and element2 relative to the viewport
-            const rect1 = element1.getBoundingClientRect();
-            const rect2 = element2.getBoundingClientRect();
+            const rect1 = name.getBoundingClientRect();
+            const rect2 = submission.getBoundingClientRect();
 
             // Calculate the position for the box to move to
             const targetLeft = rect2.left - rect1.left;
@@ -112,7 +112,7 @@
                 pw.style.display = 'block'; // Make pw field visible
                 pw.style.transform = `translate(${targetLeft}px, ${targetTop}px)`; // Move it to element2's position
                 pw.style.opacity = 1; // Fade in the pw field
-                pw.style.transitionDuration = 0.3;
+                pw.style.transitionDuration = 1;
             });
         }
 
