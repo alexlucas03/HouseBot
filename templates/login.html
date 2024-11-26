@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dish Bot Login</title>
+    <title>Dish 1  Bot Login</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
@@ -21,7 +21,7 @@
         .container {
             width: 60%;
             max-width: 900px;
-            height: 500px;
+            min-height: 500px;
             display: flex;
             box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
             border-radius: 10px;
@@ -29,36 +29,67 @@
             background: #fff;
         }
 
+        .left-panel, .right-panel {
+            width: 30%; /* Fixed width for both panels */
+        }
+
         .left-panel {
-            flex: 0 0 30%;
-            background: #fff;
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .left-panel img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
+            align-items: flex-start;
         }
 
         .left-panel h2 {
-            font-size: 1.5rem;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .left-panel form {
+            width: 100%;
+        }
+
+        .left-panel label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .left-panel input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .left-panel button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(45deg, #f857a6, #ff5858);
             color: #fff;
-            position: relative;
-            z-index: 1;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .left-panel button:hover {
+            background: linear-gradient(45deg, #ff5858, #f857a6);
+        }
+
+        .left-panel .extras {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #888;
         }
 
         .right-panel {
-            flex: 0 0 30%;
             background: linear-gradient(45deg, #f857a6, #ff5858);
             color: #fff;
             display: flex;
@@ -73,59 +104,38 @@
             margin-bottom: 1.5rem;
         }
 
-        .right-panel form {
-            width: 100%;
-            padding: 20px;
-        }
-
-        .right-panel label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+        .right-panel a {
+            text-decoration: none;
             color: #fff;
-        }
-
-        .right-panel input {
-            width: 90%;
-            padding: 10px;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
+            border: 1px solid #fff;
+            padding: 10px 20px;
             border-radius: 5px;
             font-size: 1rem;
-        }
-
-        .right-panel button {
-            padding: 10px;
-            background: #fff;
-            color: #f857a6;
-            font-size: 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             transition: background 0.3s, color 0.3s;
         }
 
-        .right-panel button:hover {
-            background: #f857a6;
-            color: #fff;
+        .right-panel a:hover {
+            background: #fff;
+            color: #f857a6;
+        }
+
+        .right-panel img {
+            max-width: 100%; /* Ensure the image fits within the panel */
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Left Panel with Image -->
         <div class="left-panel">
-            <img src="static/images/plate.jpg" alt="Plate">
-        </div>
-
-        <!-- Right Panel with Form -->
-        <div class="right-panel">
             <h2>Sign In</h2>
             <form action="/" method="POST">
-                <label for="name">Name</label>
+                <label for="name">Username</label>
                 <input type="text" id="name" name="username" placeholder="Username" required>
                 <button type="submit">Sign In</button>
             </form>
+        </div>
+        <div class="right-panel">
+            <img src="static/images/plate.jpg" alt="Dish Bot Image">
         </div>
     </div>
 </body>
