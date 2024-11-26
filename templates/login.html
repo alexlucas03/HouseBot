@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dish Bot Login</title>
+    <title>Dish 1  Bot Login</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
@@ -23,32 +23,31 @@
         }
 
         .container {
-            width: 60%;
-            height: 60%;
+            width: 80%; /* Increased width */
+            height: 80%; /* Increased height */
             margin: auto;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Changed to column for vertical layout */
             align-items: center;
+            justify-content: center;
             box-shadow: 0px 8px 20px rgba(82, 75, 75, 0.2);
             border-radius: 5px;
             overflow: hidden;
             background: #fff;
-        }
-
-        .container {
             padding: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
         }
 
         .container h2 {
             font-size: 2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center; /* Centered the heading */
         }
 
         .container form {
             width: 100%;
+            display: flex;
+            flex-direction: column; /* Changed to column for vertical layout */
+            align-items: center;
         }
 
         .container label {
@@ -58,7 +57,7 @@
         }
 
         .container input {
-            width: 100%;
+            width: 80%; /* Adjusted input width */
             padding: 10px;
             margin-bottom: 1rem;
             border: 1px solid #ddd;
@@ -68,7 +67,7 @@
         }
 
         .container button {
-            width: 100%;
+            width: 80%;
             padding: 10px;
             background:#0080FF;
             color: #fff;
