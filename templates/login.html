@@ -95,8 +95,21 @@
         <img src="static/images/txicon.svg" class="icon">
         <form action="/" method="POST">
             <input type="text" id="name" name="username" placeholder="Name" required>
+            <input type="password" id="password" name="password" placeholder="Admin Password" required>
             <button type="submit">Sign In</button>
         </form>
     </div>
+    <script>
+        function checkAdmin() {
+            var username = document.getElementById("name").value;
+            var adminForm = document.getElementById("password");
+
+            if (username.toLowerCase() === "admin") {
+                adminForm.style.display = "block";
+            } else {
+                adminForm.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html>
