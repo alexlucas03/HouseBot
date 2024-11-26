@@ -6,44 +6,106 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        html, body {
+        /* Base styles */
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+        
+        html, body {
             height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 1;
+            align-items: center;
+            background-color: #f4f4f9;
+            color: #333;
         }
-        img {
+
+        /* Full-page background image */
+        .background-image {
             position: absolute;
             top: 0;
             left: 0;
-            height: 100vh;
+            height: 100%;
             width: 100%;
             object-fit: cover;
+            opacity: 0.4;
             z-index: -1;
-            opacity: 50%;
         }
-        form {
+
+        /* Centered login container */
+        .login-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: block;
+            color: #666;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
             margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 20px;
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="content">
+    <div class="login-container">
         <h1>Login to Dish Bot</h1>
         <form action="/" method="POST">
             <label for="name">Enter your name:</label>
@@ -51,6 +113,6 @@
             <button type="submit">Login</button>
         </form>
     </div>
-    <img src="static/images/plate.jpg" alt="Plate">
+    <img src="static/images/plate.jpg" alt="Plate" class="background-image">
 </body>
 </html>
