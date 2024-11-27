@@ -125,7 +125,7 @@ def change_password():
         else:
             return render_template('dish_admin.html', error="Current password is incorrect.")
     
-    return render_template('dish_admin.html')
+    return redirect(url_for('dish_admin'))
 
 
 @app.route('/', methods=['GET', 'POST'])
