@@ -96,7 +96,7 @@ def init(logged_in):
 
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
-    if 'user' not in session:
+    if 'user' not in session or session[user]:
         return redirect('/')
 
     current = request.form['current'].lower()
@@ -169,7 +169,7 @@ def client():
 
 @app.route('/dish_admin')
 def dish_admin():
-    if 'user' not in session:
+    if 'user' not in session or session['user'] != 'admin':
         return redirect('/')
     init(False)
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
