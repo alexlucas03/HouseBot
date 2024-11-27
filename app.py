@@ -96,7 +96,7 @@ def init(logged_in):
 
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
-    if 'user' not in session or session[user]:
+    if 'user' not in session or session['user'] != 'admin':
         return redirect('/')
 
     current = request.form['current'].lower()
