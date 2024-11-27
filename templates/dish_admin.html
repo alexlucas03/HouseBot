@@ -39,6 +39,11 @@
             display: flex;
             flex-direction: column;
         }
+        .sidebar form, .subbar form {
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+        }
         .sidebar button, .subbar button {
             width: 100%;
             background-color: #004c99;
@@ -52,20 +57,27 @@
         .sidebar button:hover, .subbar button:hover {
             background-color: #d2d2d2;
         }
-        .body, .bigbody {
-            display: flex;
+        .body {
+            display: absolute;
+            justify-content: space-between;
+            margin-left: 30%;
+            margin-top: 10%;
+            padding: 5%;
             flex-grow: 1;
+        }
+        .bigbody {
+            display: absolute;
+            justify-content: space-between;
             margin-left: 15%;
             margin-top: 10%;
             padding: 5%;
-            flex-direction: column;
+            flex-grow: 1;
         }
         .body div, .bigbody div {
             flex: 1;
         }
         .body div ul, .bigbody div ul {
             list-style-type: none;
-            padding: 0;
         }
         .body div ul li, .bigbody div ul li {
             margin: 5px 0;
@@ -73,7 +85,13 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-        .initial, .manual, .picksbody, .rulesbody, .allbody, .initialbody {
+        .initial {
+            display: none;
+        }
+        .manual {
+            display: none;
+        }
+        .picksbody {
             display: none;
         }
         .subbar {
@@ -85,6 +103,15 @@
             height: 90%;
             display: flex;
             flex-direction: column;
+        }
+        .picksbody {
+            display: none;
+        }
+        .rulesbody {
+            display: none;
+        }
+        .allbody {
+            display: none;
         }
         #dish-columns {
             display: flex;
@@ -104,6 +131,10 @@
         .month-column h2 {
             text-align: center;
         }
+        .day-section h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
         .month-column ul {
             list-style-type: none;
             padding: 0;
@@ -114,19 +145,43 @@
             justify-content: space-between;
             padding: 5px 0;
         }
-        .dish-type {
+        .month-column li .dish-type {
             text-align: left;
             flex: 1;
         }
-        .claim-button {
+        .month-column li .claim-button {
             margin-left: 10px;
+        }
+        .day-section {
+            height: 150px;
+        }
+        .allbody .container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .column1, .column2 {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .column2 {
+            text-align: right;
+        }
+        .msg-button {
+            margin-top: 5px;
         }
         .highlight-owner {
             color: red;
             font-weight: bold;
         }
-        .form-container {
-            margin-bottom: 20px;
+        .initialbar {
+            display: none;
+        }
+        .manualbar {
+            display: none;
+        }
+        .initialbody {
+            display: none;
         }
     </style>
 </head>
@@ -134,17 +189,17 @@
     <div class="top-bar">Dish Admin</div>
 
     <div class="sidebar">
-        <button id="initial" onclick="checkInitial()">Initial</button>
-        <button id="rules" onclick="checkRules()">Rules</button>
-        <button onclick="checkAll()">All Dishes</button>
-        <button id="manual" onclick="checkManual()">Manual Controls</button>
-        <button>Logout</button>
+        <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
+        <button id="rules"type="submit" onclick="checkRules()">Rules</button>
+        <button type="submit" onclick="checkAll()">All Dishes</button>
+        <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
+        <button type="submit">Logout</button>
     </div>
 
     <div class="subbar">
         <div class="initialbar">
-            <button onclick="checkInitialize()">Initialize</button>
-            <button id="picks" onclick="checkPicks()">Picks</button>
+            <button type="submit" onclick="checkInitialize()">Initialize</button>
+            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
         </div>
         <div class="manualbar">
             <form action="/send-messages" method="POST">
@@ -169,7 +224,9 @@
                 <ul>
                     {% for person in people_objects %}
                         {% if person.pointsNeeded|int > 0 %}
-                            <li>{{ person.name }}: {{ person.pointsNeeded }}</li>
+                            <li>
+                                {{ person.name }}: {{ person.pointsNeeded }}
+                            </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -179,7 +236,9 @@
                 <ul>
                     {% for person in people_objects %}
                         {% if person.pointsNeeded|int == 0 %}
-                            <li class="transparent">{{ person.name }}: {{ person.pointsNeeded }}</li>
+                            <li class="transparent">
+                                {{ person.name }}: {{ person.pointsNeeded }}
+                            </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -219,7 +278,7 @@
             </div>
             
             <div class="form-container">
-                <h1>Initialize People</h1>
+                <h1>Initialize People - leave User ID empty for liveouts</h1>
                 <form action="/initpeople" method="POST">
                     <table class="people-table">
                         <thead>
@@ -293,71 +352,45 @@
     <script>
         function checkInitial() {
             var initialBar = document.querySelector(".initialbar");
-            var subbar = document.querySelector(".subbar");
-            var body = document.querySelector(".body");
-            var bigbody = document.querySelector(".bigbody");
-
-            subbar.style.display = "none";
-            body.style.display = "none";
-            bigbody.style.display = "none";
-
+            subbar.style.display = "none"
+            body.style.display = "none"
+            bigbody.style.display = "none"
             initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
         }
 
         function checkManual() {
             var manualBar = document.querySelector(".manualbar");
-            var subbar = document.querySelector(".subbar");
-            var body = document.querySelector(".body");
-            var bigbody = document.querySelector(".bigbody");
-
-            subbar.style.display = "none";
-            body.style.display = "none";
-            bigbody.style.display = "none";
-
+            subbar.style.display = "none"
+            body.style.display = "none"
+            bigbody.style.display = "none"
             manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
         function checkPicks() {
             var picksBody = document.querySelector(".picksbody");
-            var body = document.querySelector(".body");
-            var bigbody = document.querySelector(".bigbody");
-
-            body.style.display = "none";
-            bigbody.style.display = "none";
-
+            body.style.display = "none"
+            bigbody.style.display = "none"
             picksBody.style.display = (picksBody.style.display === "block") ? "none" : "block";
         }
 
         function checkInitialize() {
             var initialBody = document.querySelector(".initialbody");
-            var body = document.querySelector(".body");
-            var bigbody = document.querySelector(".bigbody");
-
-            body.style.display = "none";
-            bigbody.style.display = "none";
-
+            body.style.display = "none"
+            bigbody.style.display = "none"
             initialBody.style.display = (initialBody.style.display === "block") ? "none" : "block";
         }
 
         function checkRules() {
             var rulesBody = document.querySelector(".rulesbody");
-            var body = document.querySelector(".body");
-            var bigbody = document.querySelector(".bigbody");
-
-            body.style.display = "none";
-            bigbody.style.display = "none";
-
+            body.style.display = "none"
+            bigbody.style.display = "none"
             rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
         }
 
         function checkAll() {
             var allBody = document.querySelector(".allbody");
-            var body = document.querySelector(".body");
-            var bigbody = document.querySelector(".bigbody");
-
-            body.style.display = "none";
-            bigbody.style.display = "none";
-
+            body.style.display = "none"
+            bigbody.style.display = "none"
             allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
         }
 
@@ -375,5 +408,6 @@
 
         const user = "{{ user }}";
     </script>
+    <script src="static/js/script.js"></script>
 </body>
 </html>
