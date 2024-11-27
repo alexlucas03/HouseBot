@@ -306,7 +306,7 @@ def initpeople():
     i = 0
     for name, userid in zip(people_data, userids):
         if userid == "":
-            db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '999', '0', '0')"))
+            db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '0', '999', '0', '0')"))
         else:
             db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '{i}', '0', '1')"))
             i += 1
