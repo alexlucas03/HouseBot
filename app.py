@@ -5,6 +5,7 @@ import datetime
 from datetime import timedelta
 from dish import Dish
 from person import Person
+from admin import Admin
 import requests
 import json
 import time
@@ -112,11 +113,12 @@ def login():
             else:
                 return render_template('login.html', error="User not found")
         else:
-            if passw == 'alex':
-                session['user'] = 'admin'
-                return redirect(url_for('admin'))
-            else:
-                return render_template('login.html', error="Incorrect password")
+            admin_rows = db.session.execute(text("SELECT * FROM admins"))
+            for row in admin_rows:
+                if row.password == passw:
+                    session['user'] = 'admin'
+                    return redirect(url_for(f"{row.name}_admin"))
+            return render_template('login.html', error="Incorrect password")
             
     return render_template('login.html')
 
@@ -150,12 +152,12 @@ def client():
 
     return render_template('client.html', my_dishes=my_dishes, person=person)
 
-@app.route('/admin')
-def admin():
+@app.route('/dish_admin')
+def dish_admin():
     if 'user' not in session:
         return redirect('/')
     init(False)
-    return render_template('admin.html', people_objects=people_objects)
+    return render_template('dish_admin.html', people_objects=people_objects)
 
 @app.route('/rules')
 def rules():
