@@ -62,6 +62,7 @@
             justify-content: space-between;
             margin-left: 30%;
             margin-top: 10%;
+            padding: 5%;
             flex-grow: 1;
         }
         .bigbody {
@@ -382,10 +383,12 @@
             for (var i = 0; i < BodyChildren.length; i++) {
                 BodyChildren[i].style.display = "none";
             }
-
+            
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
-                bigBodyChildren[i].style.display = "none";
+                if (bigBodyChildren[i] !== rulesBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
             }
 
             var subBarChildren = subBar.children;
@@ -393,11 +396,7 @@
                 bigBodyChildren[i].style.display = "none";
             }
 
-            if (rulesBody.style.display === "none" || rulesBody.style.display === "") {
-                rulesBody.style.display = "block";
-            } else {
-                rulesBody.style.display = "none";
-            }
+            rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
         }
 
         function checkAll() {
