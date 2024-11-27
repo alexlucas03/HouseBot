@@ -198,7 +198,7 @@
             <form action="/lateplate_dinner">
                 <button type="submit">Send Dinner LPs</button>
             </form>
-            <button type="submit">Change Password</button>
+            <button type="submit" onclick="checkChange()">Change Password</button>
         </div>
     </div>
 
@@ -359,6 +359,28 @@
 
             initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
             subBar.style.display = initialBar.style.display
+        }
+
+        function checkChange() {
+            var changeBody = document.querySelector(".changebody");
+            var subBar = document.querySelector(".subbar");
+            var bigBody = document.querySelector(".bigbody");
+
+            subBar.style.display = "none";
+            
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== changeBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            var subBarChildren = subBar.children;
+            for (var i = 0; i < subBarChildren.length; i++) {
+                subBarChildren[i].style.display = "none";
+            }
+
+            changeBody.style.display = (changeBody.style.display === "block") ? "none" : "block";
         }
 
         function checkManual() {
