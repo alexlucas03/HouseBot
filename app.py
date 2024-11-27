@@ -94,9 +94,6 @@ def init(logged_in):
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
-from flask import render_template, request, redirect, session
-from sqlalchemy import text
-
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     if 'user' not in session or session['user'] != 'admin':
@@ -126,7 +123,6 @@ def change_password():
             return redirect(url_for('dish_admin'))
     
     return redirect(url_for('dish_admin'))
-
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
