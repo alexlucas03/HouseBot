@@ -180,31 +180,17 @@
     <div class="top-bar">Dish Admin</div>
 
     <div class="sidebar">
-        <form action="/">
-            <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
-        </form>
-        <form action="/">
-            <button id="rules"type="submit" onclick="checkRules()">Rules</button>
-        </form>
-        <form action="/">
-            <button type="submit" onclick="checkAll()">All Dishes</button>
-        </form>
-        <form action="/">
-            <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
-        </form>
-        <form action="/logout">
-            <button type="submit">Logout</button>
-        </form>
+        <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
+        <button id="rules"type="submit" onclick="checkRules()">Rules</button>
+        <button type="submit" onclick="checkAll()">All Dishes</button>
+        <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
+        <button type="submit">Logout</button>
     </div>
 
     <div class="subbar">
         <div class="initialbar">
-            <form action="/" method="POST">
-                <button type="submit" onclick="checkInitialize()">Initialize</button>
-            </form>
-            <form action="/">
-                <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
-            </form>
+            <button type="submit" onclick="checkInitialize()">Initialize</button>
+            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
         </div>
         <div class="manualbar">
             <form action="/send-messages" method="POST">
