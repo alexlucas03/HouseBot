@@ -305,9 +305,12 @@ def initpeople():
     totalPoints = calculate_total_points()
     i = 0
     for name, userid in zip(people_data, userids):
-        db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '{i}', '0')"))
+        if userid == "":
+            db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '999', '0', '0')"))
+        else:
+            db.session.execute(text(f"INSERT INTO people VALUES ('{name}', '{userid}', '{i}', '0', '1')"))
+            i += 1
         db.session.commit()
-        i += 1
     round1ppp = int(totalPoints / (i))
     db.session.execute(text(f"UPDATE people SET totalpoints = '{round1ppp}'"))
     db.session.commit()
