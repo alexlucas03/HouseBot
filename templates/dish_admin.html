@@ -6,20 +6,17 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        /* Basic Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             height: 100vh;
         }
-
         .top-bar {
             position: fixed;
             top: 0;
@@ -32,7 +29,6 @@
             z-index: 1000;
             height: 10%;
         }
-
         .sidebar {
             position: fixed;
             top: 10%;
@@ -43,13 +39,11 @@
             display: flex;
             flex-direction: column;
         }
-
         .sidebar form, .subbar form {
             width: 100%;
             flex-grow: 1;
             display: flex;
         }
-
         .sidebar button, .subbar button {
             width: 100%;
             background-color: #004c99;
@@ -60,11 +54,9 @@
             transition: background 0.3s;
             flex-grow: 1;
         }
-
         .sidebar button:hover, .subbar button:hover {
             background-color: #d2d2d2;
         }
-
         .body {
             display: absolute;
             justify-content: space-between;
@@ -73,7 +65,6 @@
             padding: 5%;
             flex-grow: 1;
         }
-
         .bigbody {
             display: absolute;
             justify-content: space-between;
@@ -82,35 +73,27 @@
             padding: 5%;
             flex-grow: 1;
         }
-
         .body div, .bigbody div {
             flex: 1;
         }
-
         .body div ul, .bigbody div ul {
             list-style-type: none;
         }
-
         .body div ul li, .bigbody div ul li {
             margin: 5px 0;
         }
-
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-
         .initial {
             display: none;
         }
-
         .manual {
             display: none;
         }
-
         .picksbody {
             display: none;
         }
-
         .subbar {
             position: fixed;
             top: 10%;
@@ -121,19 +104,15 @@
             display: flex;
             flex-direction: column;
         }
-
         .picksbody {
             display: none;
         }
-
         .rulesbody {
             display: none;
         }
-
         .allbody {
             display: none;
         }
-
         #dish-columns {
             display: flex;
             justify-content: space-evenly;
