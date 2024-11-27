@@ -157,7 +157,8 @@ def dish_admin():
     if 'user' not in session:
         return redirect('/')
     init(False)
-    return render_template('dish_admin.html', people_objects=people_objects)
+    month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
+    return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
 
 @app.route('/rules')
 def rules():
@@ -218,7 +219,7 @@ def send_groupme_messages():
     x1_message = f"x1: @{x1_owner}"
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
-    return jsonify({'success': True, 'message': 'Messages sent successfully'}), 200
+    return redirect(url_for('dish_admin'))
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
@@ -426,7 +427,7 @@ def lateplate_lunch():
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
     if response.status_code == 200 or response.status_code == 202:
-        return jsonify({"message": "Success"})
+        return redirect(url_for('dish_admin'))
     else:
         return jsonify({"message": "Failed to send DM", "error": response.content.decode(), "status": response.status_code}), response.status_code
     
@@ -461,7 +462,7 @@ def lateplate_dinner():
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
     if response.status_code == 200 or response.status_code == 202:
-        return jsonify({"message": "Success"})
+        return redirect(url_for('dish_admin'))
     else:
         return jsonify({"message": "Failed to send DM", "error": response.content.decode(), "status": response.status_code}), response.status_code
     

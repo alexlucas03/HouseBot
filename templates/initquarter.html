@@ -62,73 +62,10 @@
     </style>
 </head>
 <body>
-    <div class="form-wrapper">
-        <div class="form-container">
-            <h1>Initialize Dishes</h1>
-            <form action="/initdish" method="POST">
-                <div class="form-group">
-                    <label for="startYear">Start Year:</label>
-                    <input type="number" id="startYear" name="start_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="startMonth">Start Month:</label>
-                    <input type="number" id="startMonth" name="start_month" min="1" max="12" required>
-                </div>
-                <div class="form-group">
-                    <label for="startDay">Start Day:</label>
-                    <input type="number" id="startDay" name="start_day" min="1" max="31" required>
-                </div>
-                <div class="form-group">
-                    <label for="endYear">End Year:</label>
-                    <input type="number" id="endYear" name="end_year" required>
-                </div>
-                <div class="form-group">
-                    <label for="endMonth">End Month:</label>
-                    <input type="number" id="endMonth" name="end_month" min="1" max="12" required>
-                </div>
-                <div class="form-group">
-                    <label for="endDay">End Day:</label>
-                    <input type="number" id="endDay" name="end_day" min="1" max="31" required>
-                </div>
-                <button type="submit">Initialize Dishes</button>
-            </form>
-        </div>
-        
-        <div class="form-container">
-            <h1>Initialize People - leave User ID empty for liveouts</h1>
-            <form action="/initpeople" method="POST">
-                <table class="people-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>User ID</th>
-                        </tr>
-                    </thead>
-                    <tbody id="people-table-body">
-                        <tr>
-                            <td><input type="text" name="name[]"></td>
-                            <td><input type="text" name="userid[]"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button type="button" class="add-row-button">Add Row</button>
-                <button type="submit">Initialize People</button>
-            </form>
-        </div>
-    </div>
+    
 
     <script>
-        const addRowButton = document.querySelector('.add-row-button');
-        const peopleTableBody = document.getElementById('people-table-body');
-
-        addRowButton.addEventListener('click', () => {
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text" name="name[]"></td>
-                <td><input type="text" name="userid[]"></td>
-            `;
-            peopleTableBody.appendChild(newRow);
-        });
+        
     </script>
 </body>
 </html>

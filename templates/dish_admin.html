@@ -20,7 +20,6 @@
             height: 100vh;
         }
 
-        /* Top Bar */
         .top-bar {
             position: fixed;
             top: 0;
@@ -34,7 +33,6 @@
             height: 10%;
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 10%;
@@ -46,14 +44,13 @@
             flex-direction: column;
         }
 
-        /* Make each button in the sidebar stretch to fill the height */
-        .sidebar form {
+        .sidebar form, .subbar form {
             width: 100%;
             flex-grow: 1;
             display: flex;
         }
 
-        .sidebar button {
+        .sidebar button, .subbar button {
             width: 100%;
             background-color: #004c99;
             color: #fff;
@@ -64,12 +61,21 @@
             flex-grow: 1;
         }
 
-        .sidebar button:hover {
+        .sidebar button:hover, .subbar button:hover {
             background-color: #d2d2d2;
         }
 
         .body {
-            display: flex;
+            display: absolute;
+            justify-content: space-between;
+            margin-left: 30%;
+            margin-top: 10%;
+            padding: 5%;
+            flex-grow: 1;
+        }
+
+        .bigbody {
+            display: absolute;
             justify-content: space-between;
             margin-left: 15%;
             margin-top: 10%;
@@ -77,15 +83,15 @@
             flex-grow: 1;
         }
 
-        .body div {
+        .body div, .bigbody div {
             flex: 1;
         }
 
-        .body div ul {
+        .body div ul, .bigbody div ul {
             list-style-type: none;
         }
 
-        .body div ul li {
+        .body div ul li, .bigbody div ul li {
             margin: 5px 0;
         }
 
@@ -104,22 +110,105 @@
         .picksbody {
             display: none;
         }
+
+        .subbar {
+            position: fixed;
+            top: 10%;
+            left: 15%;
+            width: 15%;
+            background-color: #fff;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .picksbody {
+            display: none;
+        }
+
+        .rulesbody {
+            display: none;
+        }
+
+        .allbody {
+            display: none;
+        }
+
+        #dish-columns {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        .month-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            border-right: 2px solid #ccc;
+            padding-right: 10px;
+        }
+        .month-column:last-child {
+            border-right: none;
+        }
+        .month-column h2 {
+            text-align: center;
+        }
+        .day-section h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .month-column ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .month-column li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .month-column li .dish-type {
+            text-align: left;
+            flex: 1;
+        }
+        .month-column li .claim-button {
+            margin-left: 10px;
+        }
+        .day-section {
+            height: 150px;
+        }
+        .allbody .container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .column1, .column2 {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .column2 {
+            text-align: right;
+        }
+        .msg-button {
+            margin-top: 5px;
+        }
+        .highlight-owner {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-    <!-- Top Bar -->
-    <div class="top-bar">Admin</div>
+    <div class="top-bar">Dish Admin</div>
 
-    <!-- Sidebar -->
     <div class="sidebar">
         <form action="/">
             <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
         </form>
-        <form action="/rules">
-            <button type="submit">Rules</button>
+        <form action="/">
+            <button id="rules"type="submit" onclick="checkRules()">Rules</button>
         </form>
         <form action="/">
-            <button type="submit">All Dishes</button>
+            <button type="submit" onclick="checkAll()">All Dishes</button>
         </form>
         <form action="/">
             <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
@@ -131,7 +220,7 @@
 
     <div class="subbar">
         <div class="initialbar">
-            <form action="/initquarter" method="POST">
+            <form action="/" method="POST">
                 <button type="submit" onclick="checkInitialize()">Initialize</button>
             </form>
             <form action="/">
@@ -183,12 +272,107 @@
         </div>
 
         <div class="initialbody">
+            <div class="form-container">
+                <h1>Initialize Dishes</h1>
+                <form action="/initdish" method="POST">
+                    <div class="form-group">
+                        <label for="startYear">Start Year:</label>
+                        <input type="number" id="startYear" name="start_year" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startMonth">Start Month:</label>
+                        <input type="number" id="startMonth" name="start_month" min="1" max="12" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDay">Start Day:</label>
+                        <input type="number" id="startDay" name="start_day" min="1" max="31" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endYear">End Year:</label>
+                        <input type="number" id="endYear" name="end_year" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endMonth">End Month:</label>
+                        <input type="number" id="endMonth" name="end_month" min="1" max="12" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDay">End Day:</label>
+                        <input type="number" id="endDay" name="end_day" min="1" max="31" required>
+                    </div>
+                    <button type="submit">Initialize Dishes</button>
+                </form>
+            </div>
             
+            <div class="form-container">
+                <h1>Initialize People - leave User ID empty for liveouts</h1>
+                <form action="/initpeople" method="POST">
+                    <table class="people-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>User ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="people-table-body">
+                            <tr>
+                                <td><input type="text" name="name[]"></td>
+                                <td><input type="text" name="userid[]"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="add-row-button">Add Row</button>
+                    <button type="submit">Initialize People</button>
+                </form>
+            </div>
         </div>
     </div>
 
     <div class="bigbody">
+        <div class="rulesbody">
+            <p>Click "claim" to pick dishes to exactly meet your points needed</p>
+            <p>Click "unclaim" to undo a pick</p>
+            <p>Lunch is worth 2 points each</p>
+            <p>Food must be put away by 3:30pm, dishes must be done by 5pm</p>
+            <p>Dinner is worth 2 points each</p>
+            <p>Food must be put away by 8pm, dishes must be done by 5am</p>
+            <p>x1 is worth 1 point</p>
+            <p>Must be done by 5am</p>
+            <p>Sunday dinner is worth 3 points</p>
+            <p>Fridge clean must be done in addition to dishes, must be done by 5am Monday</p>
+        </div>
 
+        <div class="allbody">
+            <div class="container">
+                <div class="column1">
+                    {% if person.pointsNeeded != '0' %}
+                        <h2>Points Needed: {{ person.pointsNeeded }}</h2>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="dish-columns">
+                {% for month in months %}
+                    <div class="month-column">
+                        <h2>{{ month }}</h2>
+                        {% set dishes = month_objects[month.lower()] %}
+                        {% for dish in dishes %}
+                            {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
+                                <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
+                            {% endif %}
+                            <li>
+                                <span class="dish-type">{{ dish.type }}</span>
+                                {% if not dish.owner and user != 'admin' %}
+                                    <button class="claim-button" onclick="changeOwner('{{ month|lower }}', '{{ dish.id }}')">Claim</button>
+                                {% elif dish.owner == user %}
+                                    <button class="claim-button" onclick="unclaim('{{ month|lower }}', '{{ dish.id }}')">Unclaim</button>
+                                {% else %}
+                                    <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>    
+        </div>
     </div>
 
     <script>
@@ -211,6 +395,31 @@
             var clicked = document.getElementById("initialize").value;
             initialbody.style.display = (clicked == 1) ? "block" : "none";
         }
+
+        function checkRules() {
+            var clicked = document.getElementById("rules").value;
+            rulesbody.style.display = (clicked == 1) ? "block" : "none";
+        }
+
+        function checkAll() {
+            var clicked = document.getElementById("all").value;
+            allbody.style.display = (clicked == 1) ? "block" : "none";
+        }
+
+        const addRowButton = document.querySelector('.add-row-button');
+        const peopleTableBody = document.getElementById('people-table-body');
+
+        addRowButton.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" name="name[]"></td>
+                <td><input type="text" name="userid[]"></td>
+            `;
+            peopleTableBody.appendChild(newRow);
+        });
+
+        const user = "{{ user }}";
     </script>
+    <script src="static/js/script.js"></script>
 </body>
 </html>
