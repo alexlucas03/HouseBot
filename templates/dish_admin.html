@@ -345,8 +345,8 @@
                 }
             }
 
-            subBar.style.display = (subBar.style.display === "block") ? "none" : "block";
             initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
+            subBar.style.display = initialBar.style.display
         }
 
         function checkManual() {
@@ -361,8 +361,8 @@
                 }
             }
 
-            subBar.style.display = (subBar.style.display === "block") ? "none" : "block";
             manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
+            subBar.style.display = manualBar.style.display
         }
 
         function checkPicks() {
