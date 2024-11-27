@@ -351,37 +351,33 @@
 
     <script>
         function checkInitial() {
-            // Toggle the visibility of the initial bar
             var initialBar = document.querySelector(".initialbar");
+            subbar.style.display = "none"
             initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
         }
 
         function checkManual() {
-            // Toggle the visibility of the manual bar
             var manualBar = document.querySelector(".manualbar");
+            subbar.style.display = "none"
             manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
         function checkPicks() {
-            // Toggle the visibility of the picks body
             var picksBody = document.querySelector(".picksbody");
             picksBody.style.display = (picksBody.style.display === "block") ? "none" : "block";
         }
 
         function checkInitialize() {
-            // Toggle the visibility of the initial body
             var initialBody = document.querySelector(".initialbody");
             initialBody.style.display = (initialBody.style.display === "block") ? "none" : "block";
         }
 
         function checkRules() {
-            // Toggle the visibility of the rules body
             var rulesBody = document.querySelector(".rulesbody");
             rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
         }
 
         function checkAll() {
-            // Toggle the visibility of the all body
             var allBody = document.querySelector(".allbody");
             allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
         }
