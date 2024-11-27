@@ -174,6 +174,15 @@
             color: red;
             font-weight: bold;
         }
+        .initialbar {
+            display: none;
+        }
+        .manualbar {
+            display: none;
+        }
+        .initialbody {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -342,33 +351,39 @@
 
     <script>
         function checkInitial() {
-            var clicked = document.getElementById("initial").value;
-            initialbar.style.display = (clicked == 1) ? "block" : "none";
+            // Toggle the visibility of the initial bar
+            var initialBar = document.querySelector(".initialbar");
+            initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
         }
 
         function checkManual() {
-            var clicked = document.getElementById("manual").value;
-            manualbar.style.display = (clicked == 1) ? "block" : "none";
+            // Toggle the visibility of the manual bar
+            var manualBar = document.querySelector(".manualbar");
+            manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
         function checkPicks() {
-            var clicked = document.getElementById("picks").value;
-            picksbody.style.display = (clicked == 1) ? "block" : "none";
+            // Toggle the visibility of the picks body
+            var picksBody = document.querySelector(".picksbody");
+            picksBody.style.display = (picksBody.style.display === "block") ? "none" : "block";
         }
 
         function checkInitialize() {
-            var clicked = document.getElementById("initialize").value;
-            initialbody.style.display = (clicked == 1) ? "block" : "none";
+            // Toggle the visibility of the initial body
+            var initialBody = document.querySelector(".initialbody");
+            initialBody.style.display = (initialBody.style.display === "block") ? "none" : "block";
         }
 
         function checkRules() {
-            var clicked = document.getElementById("rules").value;
-            rulesbody.style.display = (clicked == 1) ? "block" : "none";
+            // Toggle the visibility of the rules body
+            var rulesBody = document.querySelector(".rulesbody");
+            rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
         }
 
         function checkAll() {
-            var clicked = document.getElementById("all").value;
-            allbody.style.display = (clicked == 1) ? "block" : "none";
+            // Toggle the visibility of the all body
+            var allBody = document.querySelector(".allbody");
+            allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
         }
 
         const addRowButton = document.querySelector('.add-row-button');
