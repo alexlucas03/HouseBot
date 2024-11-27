@@ -383,7 +383,7 @@
             for (var i = 0; i < BodyChildren.length; i++) {
                 BodyChildren[i].style.display = "none";
             }
-            
+
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 bigBodyChildren[i].style.display = "none";
@@ -394,7 +394,11 @@
                 bigBodyChildren[i].style.display = "none";
             }
 
-            rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
+            if (rulesBody.style.display === "none" || rulesBody.style.display === "") {
+                rulesBody.style.display = "block";
+            } else {
+                rulesBody.style.display = "none";
+            }
         }
 
         function checkAll() {
