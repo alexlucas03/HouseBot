@@ -401,6 +401,30 @@
 
         function checkAll() {
             var allBody = document.querySelector(".allbody");
+            var subBar = document.querySelector(".subbar");
+            var bigBody = document.querySelector(".bigbody");
+            var Body = document.querySelector(".body");
+
+            subBar.style.display = "none";
+            Body.style.display = "none";
+
+            var BodyChildren = Body.children;
+            for (var i = 0; i < BodyChildren.length; i++) {
+                BodyChildren[i].style.display = "none";
+            }
+            
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== allBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            var subBarChildren = subBar.children;
+            for (var i = 0; i < subBarChildren.length; i++) {
+                subBarChildren[i].style.display = "none";
+            }
+
             allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
         }
 
