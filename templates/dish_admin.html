@@ -68,17 +68,13 @@
             background-color: #d2d2d2;
         }
 
-        /* Main content area */
-        .content {
+        .body {
+            display: flex;
+            justify-content: space-between;
             margin-left: 15%;
             margin-top: 10%;
             padding: 5%;
             flex-grow: 1;
-        }
-
-        .body {
-            display: flex;
-            justify-content: space-between;
         }
 
         .body div {
@@ -96,36 +92,70 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
+
+        .initial {
+            display: none;
+        }
+
+        .manual {
+            display: none;
+        }
+
+        .picksbody {
+            display: none;
+        }
     </style>
 </head>
 <body>
-
     <!-- Top Bar -->
     <div class="top-bar">Admin</div>
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <form action="/all">
-            <button type="submit">All Dishes</button>
+        <form action="/">
+            <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
         </form>
         <form action="/rules">
             <button type="submit">Rules</button>
         </form>
-        <form action="/send-messages" method="POST">
-            <button type="submit">Send Messages</button>
+        <form action="/">
+            <button type="submit">All Dishes</button>
         </form>
-        <form action="/initquarter" method="POST">
-            <button type="submit">Initialize</button>
+        <form action="/">
+            <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
         </form>
         <form action="/logout">
             <button type="submit">Logout</button>
         </form>
     </div>
 
-    <!-- Main Content -->
-    <div class="content">
-        <div class="body">
-            <!-- To Pick Section -->
+    <div class="subbar">
+        <div class="initialbar">
+            <form action="/initquarter" method="POST">
+                <button type="submit" onclick="checkInitialize()">Initialize</button>
+            </form>
+            <form action="/">
+                <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+            </form>
+        </div>
+        <div class="manualbar">
+            <form action="/send-messages" method="POST">
+                <button type="submit">Send Today's Schedule</button>
+            </form>
+            <form action="/lateplate_lunch">
+                <button type="submit">Send Lunch LPs</button>
+            </form>
+            <form action="/lateplate_dinner">
+                <button type="submit">Send Dinner LPs</button>
+            </form>
+            <form action="/change_password">
+                <button type="submit">Change Password</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="picksbody">
             <div>
                 <div><strong>To Pick</strong></div>
                 <ul>
@@ -138,7 +168,6 @@
                     {% endfor %}
                 </ul>
             </div>
-            <!-- Picked Section -->
             <div>
                 <div><strong>Picked</strong></div>
                 <ul>
@@ -154,5 +183,30 @@
         </div>
     </div>
 
+    <div class="bigbody">
+
+    </div>
+
+    <script>
+        function checkInitial() {
+            var clicked = document.getElementById("initial").value;
+            initialbar.style.display = (clicked == 1) ? "block" : "none";
+        }
+
+        function checkManual() {
+            var clicked = document.getElementById("manual").value;
+            manualbar.style.display = (clicked == 1) ? "block" : "none";
+        }
+
+        function checkPicks() {
+            var clicked = document.getElementById("picks").value;
+            picksbody.style.display = (clicked == 1) ? "block" : "none";
+        }
+
+        function checkInitialize() {
+            var clicked = document.getElementById("initialize").value;
+            initialbar.style.display = (clicked == 1) ? "block" : "none";
+        }
+    </script>
 </body>
 </html>
