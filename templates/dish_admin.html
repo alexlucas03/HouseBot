@@ -219,31 +219,50 @@
         </div>
     </div>
 
-    <div class="body">
-        <div class="picksbody">
-            <div>
-                <div><strong>To Pick</strong></div>
-                <ul>
-                    {% for person in people_objects %}
-                        {% if person.pointsNeeded|int > 0 %}
-                            <li>
-                                {{ person.name }}: {{ person.pointsNeeded }}
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+    <div class="bigbody">
+        <div class="rulesbody">
+            <p>Click "claim" to pick dishes to exactly meet your points needed</p>
+            <p>Click "unclaim" to undo a pick</p>
+            <p>Lunch is worth 2 points each</p>
+            <p>Food must be put away by 3:30pm, dishes must be done by 5pm</p>
+            <p>Dinner is worth 2 points each</p>
+            <p>Food must be put away by 8pm, dishes must be done by 5am</p>
+            <p>x1 is worth 1 point</p>
+            <p>Must be done by 5am</p>
+            <p>Sunday dinner is worth 3 points</p>
+            <p>Fridge clean must be done in addition to dishes, must be done by 5am Monday</p>
+        </div>
+
+        <div class="allbody">
+            <div class="container">
+                <div class="column1">
+                    {% if person.pointsNeeded != '0' %}
+                        <h2>Points Needed: {{ person.pointsNeeded }}</h2>
+                    {% endif %}
+                </div>
             </div>
-            <div>
-                <div><strong>Picked</strong></div>
-                <ul>
-                    {% for person in people_objects %}
-                        {% if person.pointsNeeded|int == 0 %}
-                            <li class="transparent">
-                                {{ person.name }}: {{ person.pointsNeeded }}
+            <div id="dish-columns">
+                {% for month in months %}
+                    <div class="month-column">
+                        <h2>{{ month }}</h2>
+                        {% set dishes = month_objects[month.lower()] %}
+                        {% for dish in dishes %}
+                            {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
+                                <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
+                            {% endif %}
+                            <li>
+                                <span class="dish-type">{{ dish.type }}</span>
+                                {% if not dish.owner and user != 'admin' %}
+                                    <button class="claim-button" onclick="changeOwner('{{ month|lower }}', '{{ dish.id }}')">Claim</button>
+                                {% elif dish.owner == user %}
+                                    <button class="claim-button" onclick="unclaim('{{ month|lower }}', '{{ dish.id }}')">Unclaim</button>
+                                {% else %}
+                                    <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
+                                {% endif %}
                             </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
 
@@ -301,74 +320,109 @@
                 </form>
             </div>
         </div>
-    </div>
 
-    <div class="bigbody">
-        <div class="rulesbody">
-            <p>Click "claim" to pick dishes to exactly meet your points needed</p>
-            <p>Click "unclaim" to undo a pick</p>
-            <p>Lunch is worth 2 points each</p>
-            <p>Food must be put away by 3:30pm, dishes must be done by 5pm</p>
-            <p>Dinner is worth 2 points each</p>
-            <p>Food must be put away by 8pm, dishes must be done by 5am</p>
-            <p>x1 is worth 1 point</p>
-            <p>Must be done by 5am</p>
-            <p>Sunday dinner is worth 3 points</p>
-            <p>Fridge clean must be done in addition to dishes, must be done by 5am Monday</p>
-        </div>
-
-        <div class="allbody">
-            <div class="container">
-                <div class="column1">
-                    {% if person.pointsNeeded != '0' %}
-                        <h2>Points Needed: {{ person.pointsNeeded }}</h2>
-                    {% endif %}
-                </div>
-            </div>
-            <div id="dish-columns">
-                {% for month in months %}
-                    <div class="month-column">
-                        <h2>{{ month }}</h2>
-                        {% set dishes = month_objects[month.lower()] %}
-                        {% for dish in dishes %}
-                            {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
-                                <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
-                            {% endif %}
+        <div class="picksbody">
+            <div>
+                <div><strong>To Pick</strong></div>
+                <ul>
+                    {% for person in people_objects %}
+                        {% if person.pointsNeeded|int > 0 %}
                             <li>
-                                <span class="dish-type">{{ dish.type }}</span>
-                                {% if not dish.owner and user != 'admin' %}
-                                    <button class="claim-button" onclick="changeOwner('{{ month|lower }}', '{{ dish.id }}')">Claim</button>
-                                {% elif dish.owner == user %}
-                                    <button class="claim-button" onclick="unclaim('{{ month|lower }}', '{{ dish.id }}')">Unclaim</button>
-                                {% else %}
-                                    <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
-                                {% endif %}
+                                {{ person.name }}: {{ person.pointsNeeded }}
                             </li>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-            </div>    
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <div><strong>Picked</strong></div>
+                <ul>
+                    {% for person in people_objects %}
+                        {% if person.pointsNeeded|int == 0 %}
+                            <li class="transparent">
+                                {{ person.name }}: {{ person.pointsNeeded }}
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 
     <script>
         function checkInitial() {
             var initialBar = document.querySelector(".initialbar");
+            var subBar = document.querySelector(".subbar");
+            var bigBody = document.querySelector(".bigbody");
+
+            subBar.style.display = "block"
+            var subBarChildren = subBar.children;
+            for (var i = 0; i < subBarChildren.length; i++) {
+                if (subBarChildren[i] !== initialBar) {
+                    subBarChildren[i].style.display = "none";
+                }
+            }
+
             initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
         }
 
         function checkManual() {
             var manualBar = document.querySelector(".manualbar");
+            var subBar = document.querySelector(".subbar");
+            var bigBody = document.querySelector(".bigbody");
+
+            subBar.style.display = "block"
+            var subBarChildren = subBar.children;
+            for (var i = 0; i < subBarChildren.length; i++) {
+                if (subBarChildren[i] !== manualBar) {
+                    subBarChildren[i].style.display = "none";
+                }
+            }
+
             manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
         function checkPicks() {
             var picksBody = document.querySelector(".picksbody");
+            var subBar = document.querySelector(".subbar");
+            var bigBody = document.querySelector(".bigbody");
+
+            subBar.style.display = "none";
+            
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== picksBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            var subBarChildren = subBar.children;
+            for (var i = 0; i < subBarChildren.length; i++) {
+                subBarChildren[i].style.display = "none";
+            }
+
             picksBody.style.display = (picksBody.style.display === "block") ? "none" : "block";
         }
 
         function checkInitialize() {
             var initialBody = document.querySelector(".initialbody");
+            var subBar = document.querySelector(".subbar");
+            var bigBody = document.querySelector(".bigbody");
+
+            subBar.style.display = "none";
+            
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== initialBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            var subBarChildren = subBar.children;
+            for (var i = 0; i < subBarChildren.length; i++) {
+                subBarChildren[i].style.display = "none";
+            }
+
             initialBody.style.display = (initialBody.style.display === "block") ? "none" : "block";
         }
 
@@ -376,15 +430,8 @@
             var rulesBody = document.querySelector(".rulesbody");
             var subBar = document.querySelector(".subbar");
             var bigBody = document.querySelector(".bigbody");
-            var Body = document.querySelector(".body");
 
             subBar.style.display = "none";
-            Body.style.display = "none";
-
-            var BodyChildren = Body.children;
-            for (var i = 0; i < BodyChildren.length; i++) {
-                BodyChildren[i].style.display = "none";
-            }
             
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
@@ -405,15 +452,8 @@
             var allBody = document.querySelector(".allbody");
             var subBar = document.querySelector(".subbar");
             var bigBody = document.querySelector(".bigbody");
-            var Body = document.querySelector(".body");
 
             subBar.style.display = "none";
-            Body.style.display = "none";
-
-            var BodyChildren = Body.children;
-            for (var i = 0; i < BodyChildren.length; i++) {
-                BodyChildren[i].style.display = "none";
-            }
             
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
