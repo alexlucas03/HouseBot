@@ -198,13 +198,23 @@
             <form action="/lateplate_dinner">
                 <button type="submit">Send Dinner LPs</button>
             </form>
-            <form action="/change_password">
-                <button type="submit">Change Password</button>
-            </form>
+            <button type="submit">Change Password</button>
         </div>
     </div>
 
     <div class="bigbody">
+        <div class="changebody">
+            <form action="/change_password">
+                <label for="current">Current Password::</label>
+                <input type="text" id="current" name="current" required>
+                <label for="new">New Password:</label>
+                <input type="text" id="new" name="new" min="1" required>
+                <label for="confirm">Confirm New Password:</label>
+                <input type="text" id="confirm" name="confirm" required>
+                <button type="submit">Change Password</button>
+            </form>
+        </div>
+
         <div class="rulesbody">
             <p>Click "claim" to pick dishes to exactly meet your points needed</p>
             <p>Click "unclaim" to undo a pick</p>

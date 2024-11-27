@@ -94,6 +94,21 @@ def init(logged_in):
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
+@app.route('change_password', methods=['GET', 'POST'])
+def change_password():
+    if 'user' not in session:
+        return redirect('/')
+
+    current = request.form['current'].lower()
+    new = request.form['new'].lower()
+    confirm = request.form['confirm'].lower()
+    
+    if new == confirm and db.session.execute(text(f"SELECT password FROM admins where password = '{current}'")):
+        db.session.execute(text(f"UPDATE admins SET password = {new} WHERE password = '{current}'"))
+        db.session.commit()
+
+    return render_template('dish_admin.html')
+
 @app.route('/', methods=['GET', 'POST'])
 def login():
     create_people_objects()
