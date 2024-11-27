@@ -94,20 +94,39 @@ def init(logged_in):
         for i, person in enumerate(people_objects):
             people_objects[i] = calculate_points(person)
 
+from flask import render_template, request, redirect, session
+from sqlalchemy import text
+
 @app.route('/change_password', methods=['GET', 'POST'])
 def change_password():
     if 'user' not in session or session['user'] != 'admin':
         return redirect('/')
+    
+    if request.method == 'POST':
+        current = request.form.get('current')
+        new = request.form.get('new')
+        confirm = request.form.get('confirm')
+        
+        if new != confirm:
+            return render_template('dish_admin.html', error="New password and confirmation do not match.")
+        
+        result = db.session.execute(
+            text("SELECT password FROM admins WHERE username = :username"),
+            {'username': 'admin'}
+        ).fetchone()
 
-    current = request.form['current'].lower()
-    new = request.form['new'].lower()
-    confirm = request.form['confirm'].lower()
-
-    if new == confirm and db.session.execute(text(f"SELECT password FROM admins where password = '{current}'")):
-        db.session.execute(text(f"UPDATE admins SET password = {new} WHERE password = '{current}'"))
-        db.session.commit()
-
+        if result and result['password'] == current:
+            db.session.execute(
+                text("UPDATE admins SET password = :new_password WHERE username = :username"),
+                {'new_password': new, 'username': 'admin'}
+            )
+            db.session.commit()
+            return render_template('dish_admin.html', success="Password updated successfully.")
+        else:
+            return render_template('dish_admin.html', error="Current password is incorrect.")
+    
     return render_template('dish_admin.html')
+
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
