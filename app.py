@@ -108,7 +108,7 @@ def change_password():
         confirm = request.form.get('confirm')
         
         if new != confirm:
-            return render_template('dish_admin.html', error="New password and confirmation do not match.")
+            redirect(url_for('dish_admin'))
         
         result = db.session.execute(
             text("SELECT password FROM admins WHERE username = :username"),
@@ -121,9 +121,9 @@ def change_password():
                 {'new_password': new, 'username': 'admin'}
             )
             db.session.commit()
-            return render_template('dish_admin.html', success="Password updated successfully.")
+            return redirect(url_for('dish_admin'))
         else:
-            return render_template('dish_admin.html', error="Current password is incorrect.")
+            return redirect(url_for('dish_admin'))
     
     return redirect(url_for('dish_admin'))
 
