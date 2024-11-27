@@ -337,15 +337,15 @@
             var initialBar = document.querySelector(".initialbar");
             var subBar = document.querySelector(".subbar");
             var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "block"
             var subBarChildren = subBar.children;
+            
             for (var i = 0; i < subBarChildren.length; i++) {
                 if (subBarChildren[i] !== initialBar) {
                     subBarChildren[i].style.display = "none";
                 }
             }
 
+            subBar.style.display = (subBar.style.display === "block") ? "none" : "block";
             initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
         }
 
@@ -353,15 +353,15 @@
             var manualBar = document.querySelector(".manualbar");
             var subBar = document.querySelector(".subbar");
             var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "block"
             var subBarChildren = subBar.children;
+
             for (var i = 0; i < subBarChildren.length; i++) {
                 if (subBarChildren[i] !== manualBar) {
                     subBarChildren[i].style.display = "none";
                 }
             }
 
+            subBar.style.display = (subBar.style.display === "block") ? "none" : "block";
             manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
