@@ -7,32 +7,25 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        html {
+        body {
             margin: 0;
             padding: 0;
             height: 100%;
             font-family: Arial, sans-serif;
-            background-color: #fff;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            box-sizing: border-box;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            background: #fff;
-            text-decoration: none;
+            align-items: center; /* Vertically center the content */
+            background-color: #fff;
         }
         .topbar {
             position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center it horizontally and vertically */
             display: flex;
-            color: black;
             flex-direction: column;
+            align-items: center; /* Center the text horizontally */
+            justify-content: center; /* Center content vertically */
             text-align: center;
             padding-top: 10px;
             padding-bottom: 10px;
