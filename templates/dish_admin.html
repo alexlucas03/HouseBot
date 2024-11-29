@@ -146,6 +146,7 @@
             background-color: white;
             transform: translate(0%, -300%);
             z-index: 1000;
+            text-align: center;
         }
     </style>
 </head>
@@ -357,6 +358,17 @@
                         } else {
                             // Hide the header with the lower month class (month2)
                             header2.style.display = 'none';
+                        }
+                    } else if (rect1.left == rect2.left) {
+                        const month1 = parseInt(header1.className.match(/month-(\d+)/)[1]);
+                        const month2 = parseInt(header2.className.match(/month-(\d+)/)[1]);
+
+                        if (month1 < month2) {
+                            // Hide the header with the lower month class (month1)
+                            header1.style.position = 'absolute';
+                        } else {
+                            // Hide the header with the lower month class (month2)
+                            header2.style.position = 'absolute';
                         }
                     }
                 }
