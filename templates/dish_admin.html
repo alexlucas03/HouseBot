@@ -143,10 +143,6 @@
             color: red;
             font-weight: bold;
         }
-        .monthheader {
-            position: fixed;
-            background-color: white;
-        }
     </style>
 </head>
 <body>
@@ -220,7 +216,7 @@
             <div id="dish-columns">
                 {% for month in months %}
                     <div class="month-column">
-                        <h2 class="monthheader month-{{ loop.index }}">{{ month }}</h2>
+                        <h2 class="monthheader">{{ month }}</h2>
                         {% set dishes = month_objects[month.lower()] %}
                         {% for dish in dishes %}
                             {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
@@ -330,41 +326,37 @@
 
         window.onload = function() {
             offsetBody();
+            scrollBlock();
         };
 
-        // Function to check if two monthheader elements overlap
-        function checkMonthHeadersOnScroll() {
-            const monthHeaders = document.querySelectorAll('.monthheader');
-            
-            // Iterate over the monthHeaders
-            for (let i = 0; i < monthHeaders.length; i++) {
-                for (let j = i + 1; j < monthHeaders.length; j++) {
-                    const header1 = monthHeaders[i];
-                    const header2 = monthHeaders[j];
-
-                    const rect1 = header1.getBoundingClientRect();
-                    const rect2 = header2.getBoundingClientRect();
-
-                    // Check if the two monthheader elements overlap
-                    if (rect1.top < rect2.bottom && rect1.bottom > rect2.top) {
-                        // Compare the month- classes to see which one has the lower number
-                        const month1 = parseInt(header1.className.match(/month-(\d+)/)[1]);
-                        const month2 = parseInt(header2.className.match(/month-(\d+)/)[1]);
-
-                        if (month1 < month2) {
-                            // Hide the header with the lower month class (month1)
-                            header1.style.display = 'none';
-                        } else {
-                            // Hide the header with the lower month class (month2)
-                            header2.style.display = 'none';
-                        }
-                    }
-                }
+        window.addEventListener("scroll", function() {
+            if (debounceTimeout && !isFixed) {
+                clearTimeout(debounceTimeout); // Clear any previous timeouts
             }
-        }
 
-        // Attach the check function to the scroll event
-        window.addEventListener('scroll', checkMonthHeadersOnScroll);
+            debounceTimeout = setTimeout(scrollBlock, 50); // Delay the scroll handling to prevent flickering
+        });
+
+        function scrollBlock() {
+            var monthHeaders = document.querySelectorAll(".monthheader"); // Select all month headers
+            var topBar = document.querySelector(".topbar");
+
+            monthHeaders.forEach(function(monthHeader) {
+                // Get the position of the month header relative to the viewport
+                var rect = monthHeader.getBoundingClientRect();
+
+                // Check if the header has scrolled past the top bar with a buffer
+                if (rect.top <= topBar.offsetHeight + 10 && !isFixed) {
+                    monthHeader.style.position = "fixed";
+                    monthHeader.style.top = topBar.offsetHeight + "px"; // Place it just below the top bar
+                    isFixed = true;  // Mark it as fixed
+                } else if (rect.top > topBar.offsetHeight && isFixed) {
+                    monthHeader.style.position = "absolute";
+                    monthHeader.style.top = "auto";  // Reset the original position
+                    isFixed = false;  // Mark it as not fixed
+                }
+            });
+        }
 
         function offsetBody() {
             var bigBody = document.querySelector(".bigbody");
