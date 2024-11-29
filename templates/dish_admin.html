@@ -143,10 +143,6 @@
             color: red;
             font-weight: bold;
         }
-        .month-header {
-            position: sticky;
-            z-index: 1000;
-        }
     </style>
 </head>
 <body>
@@ -220,7 +216,7 @@
             <div id="dish-columns">
                 {% for month in months %}
                     <div class="month-column">
-                        <h2 class="month-header">{{ month }}</h2>
+                        <h2 class="monthheader">{{ month }}</h2>
                         {% set dishes = month_objects[month.lower()] %}
                         {% for dish in dishes %}
                             {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
@@ -329,6 +325,17 @@
             offsetBody();
         };
 
+        window.addEventListener("scroll", scrollBlock);
+        function scrollBlock() {
+            var monthHeader = document.querySelector(".monthheader");
+            var topBar = document.querySelector(".topbar");
+            if (monthHeader.style.top == topBar.offsetHeight) {
+                monthHeader.style.position = "fixed"
+            } else {
+                monthHeader.style.position = "absolute"
+            }
+        }
+        
         function offsetBody() {
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
@@ -362,19 +369,6 @@
                     bigBodyChildren[i].style.display = "block"; // Show big body content
                 }
             }
-        }
-
-        window.onresize = adjustStickyHeaders;
-
-        function adjustStickyHeaders() {
-            var topBar = document.querySelector(".topbar");
-            var monthHeaders = document.querySelectorAll(".month-column h2");
-            var topBarHeight = topBar.offsetHeight;
-
-            // Set the top value dynamically for each month header
-            monthHeaders.forEach(function(header) {
-                header.style.top = topBarHeight + 'px';
-            });
         }
 
     </script>
