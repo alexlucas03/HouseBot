@@ -321,30 +321,28 @@
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
             
-            // Hide all sections initially, except action bar buttons
-            var actionBarChildren = actionBar.children;
-            for (var i = 0; i < actionBarChildren.length; i++) {
-                actionBarChildren[i].style.display = "block"; // Keep buttons visible
-            }
-            
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                bigBodyChildren[i].style.display = "none";
+            // Hide or show the action bar
+            if (actionBar.style.display === "block") {
+                actionBar.style.display = "none"; // Hide the action bar
+            } else {
+                actionBar.style.display = "block"; // Show the action bar
             }
 
-            // Toggle big body and positioning based on action bar visibility
+            // Hide big body content when action bar is shown
             if (actionBar.style.display === "block") {
-                // If the action bar is visible, hide it and reset positioning
-                actionBar.style.display = "none";
-                actionBar.style.position = "absolute"; // Avoid static positioning
-                topBar.style.position = "fixed"; // Keep topbar fixed
+                var bigBodyChildren = bigBody.children;
+                for (var i = 0; i < bigBodyChildren.length; i++) {
+                    bigBodyChildren[i].style.display = "none"; // Hide big body content
+                }
             } else {
-                // If the action bar is hidden, show it and adjust positioning
-                actionBar.style.display = "block";
-                actionBar.style.position = "relative"; // Allow actionbar to behave normally
-                topBar.style.position = "relative"; // Keep topbar fixed at the top
+                // Show big body content again when action bar is hidden
+                var bigBodyChildren = bigBody.children;
+                for (var i = 0; i < bigBodyChildren.length; i++) {
+                    bigBodyChildren[i].style.display = "block"; // Show big body content
+                }
             }
-            }
+        }
+
     </script>
     <script src="static/js/script.js"></script>
 </body>
