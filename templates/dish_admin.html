@@ -321,42 +321,9 @@
         </div>
     </div>
     <script>
-        let isFixed = false;  // Track if the header is already fixed
-        let debounceTimeout = null; // Debounce timeout ID
-
         window.onload = function() {
             offsetBody();
-            scrollBlock();
         };
-
-        window.addEventListener("scroll", function() {
-            if (debounceTimeout) {
-                clearTimeout(debounceTimeout); // Clear any previous timeouts
-            }
-
-            debounceTimeout = setTimeout(scrollBlock, 50); // Delay the scroll handling to prevent flickering
-        });
-
-        function scrollBlock() {
-            var monthHeaders = document.querySelectorAll(".monthheader"); // Select all month headers
-            var topBar = document.querySelector(".topbar");
-
-            monthHeaders.forEach(function(monthHeader) {
-                // Get the position of the month header relative to the viewport
-                var rect = monthHeader.getBoundingClientRect();
-
-                // Check if the header has scrolled past the top bar with a buffer
-                if (rect.top <= topBar.offsetHeight + 10 && !isFixed) {
-                    monthHeader.style.position = "fixed";
-                    monthHeader.style.top = topBar.offsetHeight + "px"; // Place it just below the top bar
-                    isFixed = true;  // Mark it as fixed
-                } else if (rect.top > topBar.offsetHeight && isFixed) {
-                    monthHeader.style.position = "absolute";
-                    monthHeader.style.top = "auto";  // Reset the original position
-                    isFixed = false;  // Mark it as not fixed
-                }
-            });
-        }
 
         function offsetBody() {
             var bigBody = document.querySelector(".bigbody");
