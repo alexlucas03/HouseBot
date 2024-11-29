@@ -209,6 +209,7 @@ function toggleActionBar() {
     var bigBody = document.querySelector(".bigbody");
     var topBar = document.querySelector(".topbar");
     
+    // Hide all sections initially
     var bigBodyChildren = bigBody.children;
     for (var i = 0; i < bigBodyChildren.length; i++) {
         bigBodyChildren[i].style.display = "none";
@@ -219,14 +220,18 @@ function toggleActionBar() {
         actionBarChildren[i].style.display = "none";
     }
 
-    bigBody.style.display = "none"
+    // Hide big body by default
+    bigBody.style.display = "none";
+    
     if (actionBar.style.display === "block") {
+        // If the action bar is visible, hide it and reset positioning
         actionBar.style.display = "none";
-        actionBar.style.position = "fixed";
-        topBar.style.position = "fixed";
+        actionBar.style.position = "absolute"; // Avoid static positioning
+        topBar.style.position = "fixed"; // Keep topbar fixed
     } else {
+        // If the action bar is hidden, show it and adjust positioning
         actionBar.style.display = "block";
-        actionBar.style.position = "static";
-        topBar.style.position = "static";
+        actionBar.style.position = "relative"; // Allow actionbar to behave normally
+        topBar.style.position = "relative"; // Keep topbar fixed at the top
     }
 }
