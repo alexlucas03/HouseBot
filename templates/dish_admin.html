@@ -335,7 +335,7 @@
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
-            
+            var allBody = document.querySelector(".allbody");
             actionBar.style.top = topBar.offsetHeight + "px";
 
             // Hide or show the action bar
@@ -345,18 +345,17 @@
                 actionBar.style.display = "block"; // Show the action bar
             }
 
-            // Hide big body content when action bar is shown
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                bigBodyChildren[i].style.display = "none"; // Hide big body content
+            }
+
             if (actionBar.style.display === "block") {
-                var bigBodyChildren = bigBody.children;
-                for (var i = 0; i < bigBodyChildren.length; i++) {
-                    bigBodyChildren[i].style.display = "none"; // Hide big body content
-                }
+                bigBody.style.display = "none"
             } else {
-                // Show big body content again when action bar is hidden
-                var bigBodyChildren = bigBody.children;
-                for (var i = 0; i < bigBodyChildren.length; i++) {
-                    bigBodyChildren[i].style.display = "block"; // Show big body content
-                }
+                bigBody.style.display = "block"
+                allBody.style.display = "block"
+
             }
         }
 
