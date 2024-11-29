@@ -34,7 +34,7 @@
             width: 30%;
         }
         .actionbar {
-            position: fixed;
+            position: absolute;
             width: 100%;
             background-color: #fff;
             color: black;
@@ -314,28 +314,30 @@
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
             
-            // Hide all sections initially
+            // Hide all sections initially, except action bar buttons
+            var actionBarChildren = actionBar.children;
+            for (var i = 0; i < actionBarChildren.length; i++) {
+                actionBarChildren[i].style.display = "block"; // Keep buttons visible
+            }
+            
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 bigBodyChildren[i].style.display = "none";
             }
 
-            var actionBarChildren = actionBar.children;
-            for (var i = 0; i < actionBarChildren.length; i++) {
-                actionBarChildren[i].style.display = "none";
-            }
-
-            // Hide big body by default
-            bigBody.style.display = "none";
-            
+            // Toggle big body and positioning based on action bar visibility
             if (actionBar.style.display === "block") {
-                actionBar.style.display = "none"; // Hide actionbar
-                topBar.style.position = "fixed"; // Keep topbar fixed at the top
+                // If the action bar is visible, hide it and reset positioning
+                actionBar.style.display = "none";
+                actionBar.style.position = "absolute"; // Avoid static positioning
+                topBar.style.position = "fixed"; // Keep topbar fixed
             } else {
-                actionBar.style.display = "block"; // Show actionbar
-                topBar.style.position = "relative"; // Adjust topbar position when actionbar is visible
+                // If the action bar is hidden, show it and adjust positioning
+                actionBar.style.display = "block";
+                actionBar.style.position = "relative"; // Allow actionbar to behave normally
+                topBar.style.position = "relative"; // Keep topbar fixed at the top
             }
-        }
+            }
     </script>
     <script src="static/js/script.js"></script>
 </body>
