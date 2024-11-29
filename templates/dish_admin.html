@@ -324,8 +324,12 @@
             // Hide or show the action bar
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none"; // Hide the action bar
+                actionBar.style.position = "fixed"; // Show the action bar
+                topBar.style.position = "fixed"; // Show the action bar
             } else {
                 actionBar.style.display = "block"; // Show the action bar
+                actionBar.style.position = "relative"; // Show the action bar
+                topBar.style.position = "relative"; // Show the action bar
             }
 
             // Hide big body content when action bar is shown
