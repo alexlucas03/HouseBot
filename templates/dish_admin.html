@@ -62,7 +62,6 @@
         .actionbar button {
             width: 100%;
             background-color: white;
-            color: black;
             border: none;
             font-size: 3vh;
             text-align: center;
@@ -352,6 +351,7 @@
                 manualBar.styel.display = "none";
                 initialBar.style.display = "none";
                 bigBody.style.display = "block";
+                allBody.style.display = "block";
             } else {
                 actionBar.style.display = "block";
                 bigBody.style.display = "none";
@@ -366,13 +366,9 @@
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
 
-            // Hide action bar
             actionBar.style.display = "none";
-
-            // Move rulesBody down by the height of the topBar
             rulesBody.style.top = topBar.offsetHeight + "px";
 
-            // Hide all bigBody children except for rulesBody
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 if (bigBodyChildren[i] !== rulesBody) {
@@ -407,6 +403,7 @@
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
+                actionBar.style.color = "rgba(0, 0, 0, 1)";
             } else {
                 initialBar.style.display = "block";
                 manualBar.style.display = "none";
