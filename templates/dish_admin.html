@@ -331,24 +331,22 @@
         let isFixed = false;  // Track if the header is already fixed
 
         function scrollBlock() {
-            var monthHeaders = document.querySelectorAll(".monthheader"); // Select all month headers
+            var monthHeader = document.querySelectorAll(".monthheader");
             var topBar = document.querySelector(".topbar");
 
-            monthHeaders.forEach(function(monthHeader) {
-                // Get the position of the month header relative to the viewport
-                var rect = monthHeader.getBoundingClientRect();
+            // Get the position of the month header relative to the viewport
+            var rect = monthHeader.getBoundingClientRect();
 
-                // Check if the header has scrolled past the top bar
-                if (rect.top <= topBar.offsetHeight && !isFixed) {
-                    monthHeader.style.position = "fixed";
-                    monthHeader.style.top = topBar.offsetHeight + "px"; // Place it just below the top bar
-                    isFixed = true;  // Mark it as fixed
-                } else if (rect.top > topBar.offsetHeight && isFixed) {
-                    monthHeader.style.position = "absolute";
-                    monthHeader.style.top = "auto";  // Reset the original position
-                    isFixed = false;  // Mark it as not fixed
-                }
-            });
+            // Check if the header has scrolled past the top bar
+            if (rect.top <= topBar.offsetHeight && !isFixed) {
+                monthHeader.style.position = "fixed";
+                monthHeader.style.top = topBar.offsetHeight + "px"; // Place it just below the top bar
+                isFixed = true;  // Mark it as fixed
+            } else if (rect.top > topBar.offsetHeight && isFixed) {
+                monthHeader.style.position = "absolute";
+                monthHeader.style.top = "auto";  // Reset the original position
+                isFixed = false;  // Mark it as not fixed
+            }
         }
 
         function offsetBody() {
