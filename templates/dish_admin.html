@@ -34,7 +34,7 @@
             width: 100%;
         }
         img {
-            width: 30%;
+            width: 30vw;
             max-width: 150px;
         }
         .actionbar {
@@ -48,7 +48,7 @@
             text-align: center;
             padding-top: 10px;
             padding-bottom: 10px;
-            width: 100%;  /* Added line */
+            width: 100%;
             background-color: #fff;
             color: black;
         }
@@ -173,7 +173,6 @@
         </div>
 
         <button id="rules"type="submit" onclick="checkRules()">Rules</button>
-        <button type="submit" onclick="checkAll()">All Dishes</button>
         <form action="/logout">
             <button type="submit">Logout</button>
         </form>
@@ -381,6 +380,11 @@
             // Toggle visibility of rulesBody
             rulesBody.style.display = "block"
             bigBody.style.display = rulesBody.style.display
+        }
+
+        function checkManual() {
+            var manualBar = document.querySelector(".manualbar");
+            manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
     </script>
