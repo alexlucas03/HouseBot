@@ -14,18 +14,18 @@
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center; /* Vertically center the content */
+            align-items: center;
             background-color: #fff;
         }
         .topbar {
             position: fixed;
             top: 0%;
             left: 50%;
-            transform: translate(-50%, 0%); /* Center it horizontally and vertically */
+            transform: translate(-50%, 0%);
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center the text horizontally */
-            justify-content: center; /* Center content vertically */
+            align-items: center;
+            justify-content: center;
             text-align: center;
             padding-top: 10px;
             padding-bottom: 10px;
@@ -308,7 +308,39 @@
             </div>
         </div>
     </div>
+    <script>
+        function toggleActionBar() {
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            
+            // Hide all sections initially
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                bigBodyChildren[i].style.display = "none";
+            }
 
+            var actionBarChildren = actionBar.children;
+            for (var i = 0; i < actionBarChildren.length; i++) {
+                actionBarChildren[i].style.display = "none";
+            }
+
+            // Hide big body by default
+            bigBody.style.display = "none";
+            
+            if (actionBar.style.display === "block") {
+                // If the action bar is visible, hide it and reset positioning
+                actionBar.style.display = "none";
+                actionBar.style.position = "absolute"; // Avoid static positioning
+                topBar.style.position = "fixed"; // Keep topbar fixed
+            } else {
+                // If the action bar is hidden, show it and adjust positioning
+                actionBar.style.display = "block";
+                actionBar.style.position = "relative"; // Allow actionbar to behave normally
+                topBar.style.position = "relative"; // Keep topbar fixed at the top
+            }
+        }
+    </script>
     <script src="static/js/script.js"></script>
 </body>
 </html>
