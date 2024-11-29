@@ -364,25 +364,33 @@
             var rulesBody = document.querySelector(".rulesbody");
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
 
+            // Hide action bar
             actionBar.style.display = "none";
+
+            // Move rulesBody down by the height of the topBar
             rulesBody.style.top = topBar.offsetHeight + "px";
 
+            // Hide all bigBody children except for rulesBody
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 if (bigBodyChildren[i] !== rulesBody) {
-                    bigBodyChildren[i].style.display = "none";
+                    bigBodyChildren[i].style.display = "none"; // Hide other elements
                 }
             }
 
+            // Hide all actionBar children
             var actionBarChildren = actionBar.children;
             for (var i = 0; i < actionBarChildren.length; i++) {
-                actionBarChildren[i].style.display = "none";
+                actionBarChildren[i].style.display = "none"; // Hide actionBar content
             }
 
-            rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
+            // Toggle visibility of rulesBody
+            rulesBody.style.display = "block"
             bigBody.style.display = rulesBody.style.display
         }
+
     </script>
     <script src="static/js/script.js"></script>
 </body>
