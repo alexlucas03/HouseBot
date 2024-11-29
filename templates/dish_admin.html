@@ -349,14 +349,14 @@
 
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none";
-                manualBar.styel.display = "none"
-                initialBar.style.display = "none"
-                bigBody.style.display = "block"
+                manualBar.styel.display = "none";
+                initialBar.style.display = "none";
+                bigBody.style.display = "block";
             } else {
                 actionBar.style.display = "block";
-                bigBody.style.display = "none"
-                allBody.style.display = "none"
-                actionBar.style.opacity = "1"
+                bigBody.style.display = "none";
+                allBody.style.display = "none";
+                actionBar.style.opacity = "1";
             }
         }
 
@@ -381,20 +381,20 @@
             }
 
             // Toggle visibility of rulesBody
-            rulesBody.style.display = "block"
-            bigBody.style.display = rulesBody.style.display
+            rulesBody.style.display = "block";
+            bigBody.style.display = rulesBody.style.display;
         }
 
         function checkManual() {
             var manualBar = document.querySelector(".manualbar");
             var actionBar = document.querySelector(".actionbar");
             if (manualBar.style.display === "block") {
-                manualBar.style.display = "none"
-                actionBar.style.opacity = "1"
+                manualBar.style.display = "none";
+                actionBar.style.opacity = "1";
             } else {
-                manualBar.style.display - "block"
-                actionBar.style.opacity = "0.6"
-                manualBar.style.opacity = "1"
+                manualBar.style.display = "block";
+                actionBar.style.opacity = "0.6";
+                manualBar.style.opacity = "1";
             }
         }
 
@@ -402,12 +402,12 @@
             var initialBar = document.querySelector(".initialbar");
             var actionBar = document.querySelector(".actionbar");
             if (initialBar.style.display === "block") {
-                initialBar.style.display = "none"
-                actionBar.style.opacity = "1"
+                initialBar.style.display = "none";
+                actionBar.style.opacity = "1";
             } else {
-                initialBar.style.display - "block"
-                actionBar.style.opacity = "0.6"
-                initialBar.style.opacity = "1"
+                initialBar.style.display = "block";
+                actionBar.style.opacity = "0.6";
+                initialBar.style.opacity = "1";
             }
         }
     </script>
