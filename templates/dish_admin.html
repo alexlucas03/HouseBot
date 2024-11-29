@@ -346,7 +346,7 @@
                     const rect2 = header2.getBoundingClientRect();
 
                     // Check if the two monthheader elements overlap
-                    if (rect1.top < rect2.bottom && rect1.bottom > rect2.top) {
+                    if (rect1.top < rect2.bottom && rect1.bottom > rect2.top && rect1.left == rect2.left) {
                         // Compare the month- classes to see which one has the lower number
                         const month1 = parseInt(header1.className.match(/month-(\d+)/)[1]);
                         const month2 = parseInt(header2.className.match(/month-(\d+)/)[1]);
