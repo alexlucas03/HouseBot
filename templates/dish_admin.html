@@ -339,24 +339,28 @@
             var topBar = document.querySelector(".topbar");
             var allBody = document.querySelector(".allbody");
             var manualBar = document.querySelector(".manualbar");
+            var initialBar = document.querySelector(".initialbar");
 
+            // Adjust the top position of the action bar
             actionBar.style.top = topBar.offsetHeight + "px";
 
+            // Hide all children of bigBody
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 bigBodyChildren[i].style.display = "none";
             }
 
+            // Toggle action bar visibility
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none";
                 manualBar.style.display = "none";
                 initialBar.style.display = "none";
-                bigBody.style.display = "block";
-                allBody.style.display = "block";
+                bigBody.style.display = "block"; // Show bigBody again
+                allBody.style.display = "block"; // Show allBody again
             } else {
                 actionBar.style.display = "block";
-                bigBody.style.display = "none";
-                allBody.style.display = "none";
+                bigBody.style.display = "none"; // Hide bigBody
+                allBody.style.display = "none"; // Hide allBody
             }
         }
 
@@ -372,7 +376,7 @@
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 if (bigBodyChildren[i] !== rulesBody) {
-                    bigBodyChildren[i].style.display = "none"; // Hide other elements
+                    bigBodyChildren[i].style.display = "none";
                 }
             }
 
