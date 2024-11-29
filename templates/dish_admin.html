@@ -32,6 +32,7 @@
             position: fixed;
             display: flex;
             color: black;
+            flex-direction: column;
             text-align: center;
             padding-top: 10px;
             padding-bottom: 10px;
@@ -140,10 +141,10 @@
     </style>
 </head>
 <body>
-    <button class="topbar" onclick="toggleActionBar()">
+    <a class="topbar" onclick="toggleActionBar()">
         <img src="static/images/txicon.svg" alt="">
         <h2>Dish Admin</h2>
-    </button>
+    </a>
 
     <div class="actionbar">
         <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
