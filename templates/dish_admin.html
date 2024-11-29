@@ -391,18 +391,16 @@
 
             if (manualBar.style.display === "block") {
                 manualBar.style.display = "none";
-                actionBar.style.opacity = "1";
             } else {
                 manualBar.style.display = "block";
                 initialBar.style.display = "none";
-                actionBar.style.opacity = "0.6";
-                manualBar.style.opacity = "1";
             }
         }
 
         function checkInitial() {
             var initialBar = document.querySelector(".initialbar");
             var actionBar = document.querySelector(".actionbar");
+            var manualBar = document.querySelector(".manualbar");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
