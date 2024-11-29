@@ -6,16 +6,19 @@
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
     <style>
-        * {
+        html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
+            height: 100%;
             font-family: Arial, sans-serif;
+            background-color: #fff;
             display: flex;
-            flex-direction: column;
-            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            box-sizing: border-box;
         }
         .top-bar {
             position: fixed;
@@ -23,12 +26,9 @@
             background-color: #fff;
             color: black;
             text-align: center;
-            font-size: 5vh;
             z-index: 1000;
             height: auto;
-            display: flex;
             flex-direction: column;
-            justify-content: flex-end;
             padding-top: 10px;
             padding-bottom: 10px;
         }
