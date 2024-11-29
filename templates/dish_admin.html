@@ -75,7 +75,6 @@
         .bigbody {
             justify-content: space-between;
             position: absolute;
-            z-index: 1000;
         }
         .transparent {
             color: rgba(0, 0, 0, 0.5);
@@ -322,13 +321,21 @@
         </div>
     </div>
     <script>
+        let isFixed = false;  // Track if the header is already fixed
+        let debounceTimeout = null; // Debounce timeout ID
+
         window.onload = function() {
             offsetBody();
             scrollBlock();
         };
 
-        window.addEventListener("scroll", scrollBlock);
-        let isFixed = false;  // Track if the header is already fixed
+        window.addEventListener("scroll", function() {
+            if (debounceTimeout) {
+                clearTimeout(debounceTimeout); // Clear any previous timeouts
+            }
+
+            debounceTimeout = setTimeout(scrollBlock, 50); // Delay the scroll handling to prevent flickering
+        });
 
         function scrollBlock() {
             var monthHeaders = document.querySelectorAll(".monthheader"); // Select all month headers
@@ -356,36 +363,6 @@
             var topBar = document.querySelector(".topbar");
             bigBody.style.top = topBar.offsetHeight + "px";
         }
-
-        function toggleActionBar() {
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            
-            actionBar.style.top = topBar.offsetHeight + "px";
-
-            // Hide or show the action bar
-            if (actionBar.style.display === "block") {
-                actionBar.style.display = "none"; // Hide the action bar
-            } else {
-                actionBar.style.display = "block"; // Show the action bar
-            }
-
-            // Hide big body content when action bar is shown
-            if (actionBar.style.display === "block") {
-                var bigBodyChildren = bigBody.children;
-                for (var i = 0; i < bigBodyChildren.length; i++) {
-                    bigBodyChildren[i].style.display = "none"; // Hide big body content
-                }
-            } else {
-                // Show big body content again when action bar is hidden
-                var bigBodyChildren = bigBody.children;
-                for (var i = 0; i < bigBodyChildren.length; i++) {
-                    bigBodyChildren[i].style.display = "block"; // Show big body content
-                }
-            }
-        }
-
     </script>
     <script src="static/js/script.js"></script>
 </body>
