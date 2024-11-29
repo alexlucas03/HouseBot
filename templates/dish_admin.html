@@ -34,7 +34,7 @@
             width: 30%;
         }
         .actionbar {
-            position: absolute;
+            position: fixed;
             width: 100%;
             background-color: #fff;
             color: black;
@@ -329,15 +329,11 @@
             bigBody.style.display = "none";
             
             if (actionBar.style.display === "block") {
-                // If the action bar is visible, hide it and reset positioning
-                actionBar.style.display = "none";
-                actionBar.style.position = "absolute"; // Avoid static positioning
-                topBar.style.position = "fixed"; // Keep topbar fixed
+                actionBar.style.display = "none"; // Hide actionbar
+                topBar.style.position = "fixed"; // Keep topbar fixed at the top
             } else {
-                // If the action bar is hidden, show it and adjust positioning
-                actionBar.style.display = "block";
-                actionBar.style.position = "relative"; // Allow actionbar to behave normally
-                topBar.style.position = "relative"; // Keep topbar fixed at the top
+                actionBar.style.display = "block"; // Show actionbar
+                topBar.style.position = "relative"; // Adjust topbar position when actionbar is visible
             }
         }
     </script>
