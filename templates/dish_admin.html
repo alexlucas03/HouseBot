@@ -28,7 +28,7 @@
             background: #fff;
         }
         .top-bar {
-            position: fixed;
+            position: block;
             color: black;
             text-align: center;
             padding-top: 10px;
@@ -38,12 +38,11 @@
             width: 40%;
         }
         .sidebar {
-            position: fixed;
+            position: none;
             top: 10%;
             left: 0;
-            width: 15%;
+            width: 100%;
             background-color: #fff;
-            height: 90%;
             display: flex;
             flex-direction: column;
             display: none;
@@ -68,9 +67,9 @@
         }
         .bigbody {
             justify-content: space-between;
-            margin-left: 15%;
+            position: absolute;
             padding: 5%;
-            flex-grow: 1;
+            display: none;
         }
         .transparent {
             color: rgba(0, 0, 0, 0.5);
@@ -152,26 +151,13 @@
     </style>
 </head>
 <body>
-    <div class="top-bar">
+    <a href="#" class="top-bar" onclick="">
         <img src="static/images/txicon.svg" alt="">
         <h2 class="dropdown-header">Dish Admin</h2>
-    </div>
+    </a>
 
     <div class="sidebar">
-        <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
-        <button id="rules"type="submit" onclick="checkRules()">Rules</button>
-        <button type="submit" onclick="checkAll()">All Dishes</button>
         <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
-        <form action="/logout">
-            <button type="submit">Logout</button>
-        </form>
-    </div>
-
-    <div class="subbar">
-        <div class="initialbar">
-            <button type="submit" onclick="checkInitialize()">Initialize</button>
-            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
-        </div>
         <div class="manualbar">
             <form action="/send-messages" method="POST">
                 <button type="submit">Send Today's Schedule</button>
@@ -184,6 +170,18 @@
             </form>
             <button type="submit" onclick="checkChange()">Change Password</button>
         </div>
+
+        <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
+        <div class="initialbar">
+            <button type="submit" onclick="checkInitialize()">Initialize</button>
+            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+        </div>
+
+        <button id="rules"type="submit" onclick="checkRules()">Rules</button>
+        <button type="submit" onclick="checkAll()">All Dishes</button>
+        <form action="/logout">
+            <button type="submit">Logout</button>
+        </form>
     </div>
 
     <div class="bigbody">
@@ -328,163 +326,6 @@
         </div>
     </div>
 
-    <script>
-        function checkInitial() {
-            var initialBar = document.querySelector(".initialbar");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-            var subBarChildren = subBar.children;
-            
-            for (var i = 0; i < subBarChildren.length; i++) {
-                if (subBarChildren[i] !== initialBar) {
-                    subBarChildren[i].style.display = "none";
-                }
-            }
-
-            initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
-            subBar.style.display = initialBar.style.display
-        }
-
-        function checkChange() {
-            var changeBody = document.querySelector(".changebody");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "none";
-            
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== changeBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            var subBarChildren = subBar.children;
-            for (var i = 0; i < subBarChildren.length; i++) {
-                subBarChildren[i].style.display = "none";
-            }
-
-            changeBody.style.display = (changeBody.style.display === "block") ? "none" : "block";
-        }
-
-        function checkManual() {
-            var manualBar = document.querySelector(".manualbar");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-            var subBarChildren = subBar.children;
-
-            for (var i = 0; i < subBarChildren.length; i++) {
-                if (subBarChildren[i] !== manualBar) {
-                    subBarChildren[i].style.display = "none";
-                }
-            }
-
-            manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
-            subBar.style.display = manualBar.style.display
-        }
-
-        function checkPicks() {
-            var picksBody = document.querySelector(".picksbody");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "none";
-            
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== picksBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            var subBarChildren = subBar.children;
-            for (var i = 0; i < subBarChildren.length; i++) {
-                subBarChildren[i].style.display = "none";
-            }
-
-            picksBody.style.display = (picksBody.style.display === "block") ? "none" : "block";
-        }
-
-        function checkInitialize() {
-            var initialBody = document.querySelector(".initialbody");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "none";
-            
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== initialBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            var subBarChildren = subBar.children;
-            for (var i = 0; i < subBarChildren.length; i++) {
-                subBarChildren[i].style.display = "none";
-            }
-
-            initialBody.style.display = (initialBody.style.display === "block") ? "none" : "block";
-        }
-
-        function checkRules() {
-            var rulesBody = document.querySelector(".rulesbody");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "none";
-            
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== rulesBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            var subBarChildren = subBar.children;
-            for (var i = 0; i < subBarChildren.length; i++) {
-                subBarChildren[i].style.display = "none";
-            }
-
-            rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
-        }
-
-        function checkAll() {
-            var allBody = document.querySelector(".allbody");
-            var subBar = document.querySelector(".subbar");
-            var bigBody = document.querySelector(".bigbody");
-
-            subBar.style.display = "none";
-            
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== allBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            var subBarChildren = subBar.children;
-            for (var i = 0; i < subBarChildren.length; i++) {
-                subBarChildren[i].style.display = "none";
-            }
-
-            allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
-        }
-
-        const addRowButton = document.querySelector('.add-row-button');
-        const peopleTableBody = document.getElementById('people-table-body');
-
-        addRowButton.addEventListener('click', () => {
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td><input type="text" name="name[]"></td>
-                <td><input type="text" name="userid[]"></td>
-            `;
-            peopleTableBody.appendChild(newRow);
-        });
-
-        const user = "{{ user }}";
-    </script>
     <script src="static/js/script.js"></script>
 </body>
 </html>
