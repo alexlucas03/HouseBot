@@ -14,7 +14,7 @@
             font-family: Arial, sans-serif;
             background-color: #fff;
             display: flex;
-            justify-content: center;
+            justify-content: start;
             align-items: center;
             background-size: cover;
             background-repeat: no-repeat;
@@ -26,6 +26,7 @@
             flex-direction: column;
             overflow: hidden;
             background: #fff;
+            text-decoration: none;
         }
         .top-bar {
             position: block;
@@ -37,7 +38,8 @@
         img {
             width: 40%;
         }
-        .sidebar {
+
+        .actionbar {
             position: none;
             top: 10%;
             left: 0;
@@ -47,12 +49,12 @@
             flex-direction: column;
             display: none;
         }
-        .sidebar form, .subbar form {
+        .actionbar form, .subbar form {
             width: 100%;
             flex-grow: 1;
             display: flex;
         }
-        .sidebar button, .subbar button {
+        .actionbar button, .subbar button {
             width: 100%;
             background-color: #004c99;
             color: #fff;
@@ -62,7 +64,7 @@
             transition: background 0.3s;
             flex-grow: 1;
         }
-        .sidebar button:hover, .subbar button:hover {
+        .actionbar button:hover, .subbar button:hover {
             background-color: #d2d2d2;
         }
         .bigbody {
@@ -156,7 +158,7 @@
         <h2 class="dropdown-header">Dish Admin</h2>
     </a>
 
-    <div class="sidebar">
+    <div class="actionbar">
         <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
         <div class="manualbar">
             <form action="/send-messages" method="POST">
