@@ -190,18 +190,6 @@ function checkAll() {
     allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
 }
 
-const addRowButton = document.querySelector('.add-row-button');
-const peopleTableBody = document.getElementById('people-table-body');
-
-addRowButton.addEventListener('click', () => {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td><input type="text" name="name[]"></td>
-        <td><input type="text" name="userid[]"></td>
-    `;
-    peopleTableBody.appendChild(newRow);
-});
-
 const user = "{{ user }}";
 
 function toggleActionBar() {
@@ -235,3 +223,17 @@ function toggleActionBar() {
         topBar.style.position = "relative"; // Keep topbar fixed at the top
     }
 }
+
+const addRowButton = document.querySelector('.add-row-button');
+const peopleTableBody = document.getElementById('people-table-body');
+
+addRowButton.addEventListener('click', () => {
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = `
+        <td><input type="text" name="name[]"></td>
+        <td><input type="text" name="userid[]"></td>
+    `;
+    peopleTableBody.appendChild(newRow);
+});
+
+
