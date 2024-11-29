@@ -324,18 +324,27 @@
     <script>
         window.onload = function() {
             offsetBody();
+            scrollBlock();
         };
 
         window.addEventListener("scroll", scrollBlock);
         function scrollBlock() {
             var monthHeader = document.querySelector(".monthheader");
             var topBar = document.querySelector(".topbar");
-            if (monthHeader.style.top == topBar.offsetHeight) {
-                monthHeader.style.position = "fixed"
+
+            // Get the bounding box of the month header element
+            var rect = monthHeader.getBoundingClientRect();
+
+            // Check if the month header is below the top bar
+            if (rect.top <= topBar.offsetHeight) {
+                monthHeader.style.position = "fixed";
+                monthHeader.style.top = topBar.offsetHeight + "px";  // Make it stick below the top bar
             } else {
-                monthHeader.style.position = "absolute"
+                monthHeader.style.position = "absolute";
+                monthHeader.style.top = "auto";  // Reset position to original
             }
         }
+
         
         function offsetBody() {
             var bigBody = document.querySelector(".bigbody");
