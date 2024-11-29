@@ -21,21 +21,20 @@
             background-position: center;
             box-sizing: border-box;
         }
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #fff;
+        }
         .top-bar {
             position: fixed;
-            width: 100%;
-            background-color: #fff;
             color: black;
             text-align: center;
-            z-index: 1000;
-            height: auto;
-            flex-direction: column;
             padding-top: 10px;
             padding-bottom: 10px;
         }
-        .top-bar img {
-            padding: 10px;
-            margin: 10px auto;
+        img {
             width: 40%;
         }
         .sidebar {
