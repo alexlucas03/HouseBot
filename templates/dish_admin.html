@@ -65,6 +65,8 @@
             text-align: center;
             transition: background 0.3s;
             flex-grow: 1;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
         .actionbar button:hover {
             color: #004c99;
@@ -337,26 +339,23 @@
             var manualBar = document.querySelector(".manualbar");
             var initialBar = document.querySelector(".initialbar");
 
-            // Adjust the top position of the action bar
             actionBar.style.top = topBar.offsetHeight + "px";
 
-            // Hide all children of bigBody
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 bigBodyChildren[i].style.display = "none";
             }
 
-            // Toggle action bar visibility
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none";
                 manualBar.style.display = "none";
                 initialBar.style.display = "none";
-                bigBody.style.display = "block"; // Show bigBody again
-                allBody.style.display = "block"; // Show allBody again
+                bigBody.style.display = "block";
+                allBody.style.display = "block";
             } else {
                 actionBar.style.display = "block";
-                bigBody.style.display = "none"; // Hide bigBody
-                allBody.style.display = "none"; // Hide allBody
+                bigBody.style.display = "none";
+                allBody.style.display = "none";
             }
         }
 
@@ -404,6 +403,66 @@
                 initialBar.style.display = "block";
                 manualBar.style.display = "none";
             }
+        }
+
+        function checkChangePW() {
+            var changeBody = document.querySelector(".changebody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+
+            actionBar.style.display = "none";
+            changeBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== changeBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            changeBody.style.display = "block";
+            bigBody.style.display = changeBody.style.display;
+        }
+
+        function checkInitialize() {
+            var initialBody = document.querySelector(".initialbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+
+            actionBar.style.display = "none";
+            initialBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== initialBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            initialBody.style.display = "block";
+            bigBody.style.display = initialBody.style.display;
+        }
+
+        function checkPicks() {
+            var picksBody = document.querySelector(".picksbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+
+            actionBar.style.display = "none";
+            picksBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== picksBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            picksBody.style.display = "block";
+            bigBody.style.display = picksBody.style.display;
         }
     </script>
     <script src="static/js/script.js"></script>
