@@ -338,8 +338,8 @@
                 // Get the position of the month header relative to the viewport
                 var rect = monthHeader.getBoundingClientRect();
 
-                // Check if the header has scrolled past the top bar with a buffer
-                if (rect.top <= topBar.offsetHeight + 10 && !isFixed) {
+                // Check if the header has scrolled past the top bar
+                if (rect.top <= topBar.offsetHeight && !isFixed) {
                     monthHeader.style.position = "fixed";
                     monthHeader.style.top = topBar.offsetHeight + "px"; // Place it just below the top bar
                     isFixed = true;  // Mark it as fixed
