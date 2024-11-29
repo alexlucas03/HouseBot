@@ -338,16 +338,15 @@
             var allBody = document.querySelector(".allbody");
             actionBar.style.top = topBar.offsetHeight + "px";
 
-            // Hide or show the action bar
             if (actionBar.style.display === "block") {
-                actionBar.style.display = "none"; // Hide the action bar
+                actionBar.style.display = "none";
             } else {
-                actionBar.style.display = "block"; // Show the action bar
+                actionBar.style.display = "block";
             }
 
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
-                bigBodyChildren[i].style.display = "none"; // Hide big body content
+                bigBodyChildren[i].style.display = "none";
             }
 
             if (actionBar.style.display === "block") {
