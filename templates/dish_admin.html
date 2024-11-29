@@ -339,6 +339,7 @@
             var topBar = document.querySelector(".topbar");
             var allBody = document.querySelector(".allbody");
             var manualBar = document.querySelector(".manualbar");
+
             actionBar.style.top = topBar.offsetHeight + "px";
 
             var bigBodyChildren = bigBody.children;
@@ -356,7 +357,6 @@
                 actionBar.style.display = "block";
                 bigBody.style.display = "none";
                 allBody.style.display = "none";
-                actionBar.style.opacity = "1";
             }
         }
 
@@ -376,7 +376,6 @@
                 }
             }
 
-            // Toggle visibility of rulesBody
             rulesBody.style.display = "block";
             bigBody.style.display = rulesBody.style.display;
         }
