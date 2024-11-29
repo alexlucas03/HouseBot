@@ -71,7 +71,6 @@
         .bigbody {
             justify-content: space-between;
             position: absolute;
-            padding-top: topoffset;
         }
         .transparent {
             color: rgba(0, 0, 0, 0.5);
@@ -326,7 +325,7 @@
         function offsetBody() {
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
-            actionBar.style.top = bigBody.offsetHeight + "px";
+            bigBody.style.top = topBar.offsetHeight + "px";
         }
 
         function toggleActionBar() {
