@@ -94,6 +94,15 @@
             border-right: 2px solid #ccc;
             padding-right: 10px;
         }
+
+        .month-column h2 {
+            text-align: center;
+            position: sticky;
+            top: 0; /* Make the header sticky */
+            background-color: #fff; /* Ensure it has a background */
+            z-index: 10; /* Ensure it stays above other content */
+            padding: 5px 0; /* Optional for better padding */
+        }
         .month-column:last-child {
             border-right: none;
         }
@@ -142,10 +151,6 @@
         .highlight-owner {
             color: red;
             font-weight: bold;
-        }
-        .month-header {
-            position: sticky;
-            z-index: 1000;
         }
     </style>
 </head>
@@ -362,19 +367,6 @@
                     bigBodyChildren[i].style.display = "block"; // Show big body content
                 }
             }
-        }
-
-        window.onresize = adjustStickyHeaders;
-
-        function adjustStickyHeaders() {
-            var topBar = document.querySelector(".topbar");
-            var monthHeaders = document.querySelectorAll(".month-column h2");
-            var topBarHeight = topBar.offsetHeight;
-
-            // Set the top value dynamically for each month header
-            monthHeaders.forEach(function(header) {
-                header.style.top = topBarHeight + 'px';
-            });
         }
 
     </script>
