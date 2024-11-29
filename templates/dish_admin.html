@@ -68,6 +68,8 @@
             text-align: center;
             transition: background 0.3s;
             flex-grow: 1;
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
         .actionbar button:hover {
             color: #004c99;
@@ -90,7 +92,9 @@
         .month-column {
             flex: 1;
             min-width: 200px;
-            margin: 10px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
             border-right: 2px solid #ccc;
             padding-right: 10px;
         }
@@ -335,6 +339,7 @@
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
             var allBody = document.querySelector(".allbody");
+            var manualBar = document.querySelector(".manualbar");
             actionBar.style.top = topBar.offsetHeight + "px";
 
             if (actionBar.style.display === "block") {
@@ -349,6 +354,8 @@
             }
 
             if (actionBar.style.display === "block") {
+                manualBar.styel.display = "none"
+                initialBar.styel.display = "none"
                 bigBody.style.display = "none"
             } else {
                 bigBody.style.display = "block"
@@ -387,6 +394,10 @@
             manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
         }
 
+        function checkInitial() {
+            var initialBar = document.querySelector(".initialbar");
+            initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
+        }
     </script>
     <script src="static/js/script.js"></script>
 </body>
