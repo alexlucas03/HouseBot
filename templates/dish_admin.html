@@ -19,19 +19,22 @@
         }
         .top-bar {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 15%;
-            background-color: #004c99;
-            color: white;
-            text-align: left;
+            width: 100%;
+            background-color: #fff;
+            color: black;
+            text-align: center;
             font-size: 5vh;
             z-index: 1000;
-            height: 10%;
+            height: auto;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .top-bar img {
+            padding: 10px;
+            margin: 10px auto;
         }
         .sidebar {
             position: fixed;
@@ -42,6 +45,7 @@
             height: 90%;
             display: flex;
             flex-direction: column;
+            display: none;
         }
         .sidebar form, .subbar form {
             width: 100%;
@@ -174,7 +178,10 @@
     </style>
 </head>
 <body>
-    <div class="top-bar">Dish Admin</div>
+    <div class="top-bar">
+        <img src="static/images/txicon.svg" alt="Logo">
+        <h1>Dish Admin</h1>
+    </div>
 
     <div class="sidebar">
         <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
