@@ -148,10 +148,12 @@ function checkInitialize() {
 
 function checkRules() {
     var rulesBody = document.querySelector(".rulesbody");
-    var subBar = document.querySelector(".subbar");
+    var actionBar = document.querySelector(".actionbar");
     var bigBody = document.querySelector(".bigbody");
+    var allBody = document.querySelector(".allBody");
 
-    subBar.style.display = "none";
+    allBody.style.display = "none";
+    actionBar.style.display = "none";
     
     var bigBodyChildren = bigBody.children;
     for (var i = 0; i < bigBodyChildren.length; i++) {
@@ -160,69 +162,15 @@ function checkRules() {
         }
     }
 
-    var subBarChildren = subBar.children;
-    for (var i = 0; i < subBarChildren.length; i++) {
-        subBarChildren[i].style.display = "none";
+    var actionBarChildren = actionBar.children;
+    for (var i = 0; i < actionBarrChildren.length; i++) {
+        actionBarChildren[i].style.display = "none";
     }
 
     rulesBody.style.display = (rulesBody.style.display === "block") ? "none" : "block";
 }
 
-function checkAll() {
-    var allBody = document.querySelector(".allbody");
-    var subBar = document.querySelector(".subbar");
-    var bigBody = document.querySelector(".bigbody");
-
-    subBar.style.display = "none";
-    
-    var bigBodyChildren = bigBody.children;
-    for (var i = 0; i < bigBodyChildren.length; i++) {
-        if (bigBodyChildren[i] !== allBody) {
-            bigBodyChildren[i].style.display = "none";
-        }
-    }
-
-    var subBarChildren = subBar.children;
-    for (var i = 0; i < subBarChildren.length; i++) {
-        subBarChildren[i].style.display = "none";
-    }
-
-    allBody.style.display = (allBody.style.display === "block") ? "none" : "block";
-}
-
 const user = "{{ user }}";
-
-function toggleActionBar() {
-    var actionBar = document.querySelector(".actionbar");
-    var bigBody = document.querySelector(".bigbody");
-    var topBar = document.querySelector(".topbar");
-    
-    // Hide all sections initially
-    var bigBodyChildren = bigBody.children;
-    for (var i = 0; i < bigBodyChildren.length; i++) {
-        bigBodyChildren[i].style.display = "none";
-    }
-
-    var actionBarChildren = actionBar.children;
-    for (var i = 0; i < actionBarChildren.length; i++) {
-        actionBarChildren[i].style.display = "none";
-    }
-
-    // Hide big body by default
-    bigBody.style.display = "none";
-    
-    if (actionBar.style.display === "block") {
-        // If the action bar is visible, hide it and reset positioning
-        actionBar.style.display = "none";
-        actionBar.style.position = "absolute"; // Avoid static positioning
-        topBar.style.position = "fixed"; // Keep topbar fixed
-    } else {
-        // If the action bar is hidden, show it and adjust positioning
-        actionBar.style.display = "block";
-        actionBar.style.position = "relative"; // Allow actionbar to behave normally
-        topBar.style.position = "relative"; // Keep topbar fixed at the top
-    }
-}
 
 const addRowButton = document.querySelector('.add-row-button');
 const peopleTableBody = document.getElementById('people-table-body');
