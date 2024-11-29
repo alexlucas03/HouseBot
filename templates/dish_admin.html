@@ -342,25 +342,21 @@
             var manualBar = document.querySelector(".manualbar");
             actionBar.style.top = topBar.offsetHeight + "px";
 
-            if (actionBar.style.display === "block") {
-                actionBar.style.display = "none";
-            } else {
-                actionBar.style.display = "block";
-            }
-
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 bigBodyChildren[i].style.display = "none";
             }
 
             if (actionBar.style.display === "block") {
+                actionBar.style.display = "none";
                 manualBar.styel.display = "none"
-                initialBar.styel.display = "none"
+                initialBar.style.display = "none"
                 bigBody.style.display = "none"
             } else {
+                actionBar.style.display = "block";
                 bigBody.style.display = "block"
                 allBody.style.display = "block"
-
+                actionBar.style.opacity = "1"
             }
         }
 
@@ -391,12 +387,28 @@
 
         function checkManual() {
             var manualBar = document.querySelector(".manualbar");
-            manualBar.style.display = (manualBar.style.display === "block") ? "none" : "block";
+            var actionBar = document.querySelector(".actionbar");
+            if (manualBar.style.display === "block") {
+                manualBar.style.display = "none"
+                actionBar.style.opacity = "1"
+            } else {
+                manualBar.style.display - "block"
+                actionBar.style.opacity = "0.6"
+                manualBar.style.opacity = "1"
+            }
         }
 
         function checkInitial() {
             var initialBar = document.querySelector(".initialbar");
-            initialBar.style.display = (initialBar.style.display === "block") ? "none" : "block";
+            var actionBar = document.querySelector(".actionbar");
+            if (initialBar.style.display === "block") {
+                initialBar.style.display = "none"
+                actionBar.style.opacity = "1"
+            } else {
+                initialBar.style.display - "block"
+                actionBar.style.opacity = "0.6"
+                initialBar.style.opacity = "1"
+            }
         }
     </script>
     <script src="static/js/script.js"></script>
