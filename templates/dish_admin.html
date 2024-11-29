@@ -321,6 +321,8 @@
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
             
+            actionBar.style.top = topBar.offsetHeight + "px";
+
             // Hide or show the action bar
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none"; // Hide the action bar
