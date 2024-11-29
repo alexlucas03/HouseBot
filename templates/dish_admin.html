@@ -391,10 +391,11 @@
 
             if (manualBar.style.display === "block") {
                 manualBar.style.display = "none";
-                actionBar.style.color = "rgba(0, 0, 0, 1)";
+                actionBar.style.opacity = "1";
             } else {
                 manualBar.style.display = "block";
-                actionBar.style.color = "rgba(0, 0, 0, 0.6)";
+                manualBar.style.opacity = "1";
+                actionBar.style.opacity = "0.6";
             }
         }
 
