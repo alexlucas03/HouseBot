@@ -222,9 +222,11 @@ function toggleActionBar() {
     bigBody.style.display = "none"
     if (actionBar.style.display === "block") {
         actionBar.style.display = "none";
+        actionBar.style.position = "fixed";
         topBar.style.position = "fixed";
     } else {
         actionBar.style.display = "block";
+        actionBar.style.position = "static";
         topBar.style.position = "static";
     }
 }
