@@ -28,7 +28,7 @@
             background: #fff;
             text-decoration: none;
         }
-        .top-bar {
+        .topbar {
             position: block;
             color: black;
             text-align: center;
@@ -36,12 +36,10 @@
             padding-bottom: 10px;
         }
         img {
-            width: 40%;
+            width: 30%;
         }
         .actionbar {
             position: none;
-            top: 10%;
-            left: 0;
             width: 100%;
             background-color: #fff;
             display: flex;
@@ -51,6 +49,7 @@
         .actionbar form, .subbar form {
             width: 100%;
             flex-grow: 1;
+            padding: 5%;
             display: flex;
         }
         .actionbar button, .subbar button {
@@ -142,7 +141,7 @@
     </style>
 </head>
 <body>
-    <a href="#" class="top-bar" onclick="">
+    <a href="#" class="topbar" onclick="toggleActionBar()">
         <img src="static/images/txicon.svg" alt="">
         <h2 class="dropdown-header">Dish Admin</h2>
     </a>

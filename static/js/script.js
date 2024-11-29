@@ -203,3 +203,25 @@ addRowButton.addEventListener('click', () => {
 });
 
 const user = "{{ user }}";
+
+function toggleActionBar() {
+    var actionBar = document.querySelector(".actionbar");
+    var bigBody = document.querySelector(".bigbody");
+    var topBar = document.querySelector(".top-bar");
+    
+    var bigBodyChildren = bigBody.children;
+    for (var i = 0; i < bigBodyChildren.length; i++) {
+        if (bigBodyChildren[i] !== allBody) {
+            bigBodyChildren[i].style.display = "none";
+        }
+    }
+
+    var subBarChildren = subBar.children;
+    for (var i = 0; i < subBarChildren.length; i++) {
+        subBarChildren[i].style.display = "none";
+    }
+
+    bigBody.style.display = "none"
+    actionBar.style.display = (actionBar.style.display === "block") ? "none" : "block";
+    topBar.style.display = (actionBar.style.display === "block") ? "block" : "fixed";
+}
