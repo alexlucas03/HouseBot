@@ -328,24 +328,27 @@
         };
 
         window.addEventListener("scroll", scrollBlock);
+        let isFixed = false;  // Track if the header is already fixed
+
         function scrollBlock() {
             var monthHeader = document.querySelector(".monthheader");
             var topBar = document.querySelector(".topbar");
 
-            // Get the bounding box of the month header element
+            // Get the position of the month header relative to the viewport
             var rect = monthHeader.getBoundingClientRect();
 
-            // Check if the month header is below the top bar
-            if (rect.top <= topBar.offsetHeight) {
+            // Check if the header has scrolled past the top bar
+            if (rect.top <= topBar.offsetHeight && !isFixed) {
                 monthHeader.style.position = "fixed";
-                monthHeader.style.top = topBar.offsetHeight + "px";  // Make it stick below the top bar
-            } else {
+                monthHeader.style.top = topBar.offsetHeight + "px"; // Place it just below the top bar
+                isFixed = true;  // Mark it as fixed
+            } else if (rect.top > topBar.offsetHeight && isFixed) {
                 monthHeader.style.position = "absolute";
-                monthHeader.style.top = "auto";  // Reset position to original
+                monthHeader.style.top = "auto";  // Reset the original position
+                isFixed = false;  // Mark it as not fixed
             }
         }
 
-        
         function offsetBody() {
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
