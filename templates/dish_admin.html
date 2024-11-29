@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dish Admin</title>
     <link rel="stylesheet" href="static/css/styles.css">
     <link rel="icon" href="static/images/icon-plate.webp">
@@ -75,13 +76,7 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-        .initial {
-            display: none;
-        }
-        .manual {
-            display: none;
-        }
-        .picksbody {
+        .initial, .manual, .picksbody, .rulesbody, .allbody, .initialbar, .manualbar, .initialbody, .changebody {
             display: none;
         }
         .subbar {
@@ -93,15 +88,6 @@
             height: 90%;
             display: none;
             flex-direction: column;
-        }
-        .picksbody {
-            display: none;
-        }
-        .rulesbody {
-            display: none;
-        }
-        .allbody {
-            display: none;
         }
         #dish-columns {
             display: flex;
@@ -164,24 +150,12 @@
             color: red;
             font-weight: bold;
         }
-        .initialbar {
-            display: none;
-        }
-        .manualbar {
-            display: none;
-        }
-        .initialbody {
-            display: none;
-        }
-        .changebody {
-            display: none;
-        }
     </style>
 </head>
 <body>
     <div class="top-bar">
-        <img src="static/images/txicon.svg" alt="Logo">
-        <h2 class="dropdown-header">Dish Admin \25BC</h2>
+        <img src="static/images/txicon.svg" alt="">
+        <h2 class="dropdown-header">Dish Admin</h2>
     </div>
 
     <div class="sidebar">
