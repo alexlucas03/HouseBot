@@ -330,7 +330,7 @@
         };
 
         window.addEventListener("scroll", function() {
-            if (debounceTimeout && !isFixed) {
+            if (debounceTimeout) {
                 clearTimeout(debounceTimeout); // Clear any previous timeouts
             }
 
