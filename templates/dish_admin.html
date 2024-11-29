@@ -65,8 +65,7 @@
             text-align: center;
             transition: background 0.3s;
             flex-grow: 1;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-bottom: 20px;
         }
         .actionbar button:hover {
             color: #004c99;
@@ -348,12 +347,12 @@
 
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none";
-                manualBar.style.display = "none";
-                initialBar.style.display = "none";
                 bigBody.style.display = "block";
                 allBody.style.display = "block";
             } else {
                 actionBar.style.display = "block";
+                manualBar.style.display = "none";
+                initialBar.style.display = "none";
                 bigBody.style.display = "none";
                 allBody.style.display = "none";
             }
@@ -405,7 +404,7 @@
             }
         }
 
-        function checkChangePW() {
+        function checkChange() {
             var changeBody = document.querySelector(".changebody");
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
