@@ -407,12 +407,7 @@
             } else {
                 initialBar.style.display = "block";
                 manualBar.style.display = "none";
-                var bigBodyChildren = actionBar.children;
-                for (var i = 0; i < bigBodyChildren.length; i++) {
-                    if (bigBodyChildren[i] !== rulesBody) {
-                        bigBodyChildren[i].style.color = "rgba(0, 0, 0, 0.6)"; // Hide other elements
-                    }
-                }
+                actionBar.style.color = "rgba(0, 0, 0, 0.6)";
             }
         }
     </script>
