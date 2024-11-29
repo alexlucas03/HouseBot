@@ -359,16 +359,15 @@
                 }
             }
         }
-        
+
         function checkRules() {
             var rulesBody = document.querySelector(".rulesbody");
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
-            var allBody = document.querySelector(".allBody");
 
-            allBody.style.display = "none";
             actionBar.style.display = "none";
-            
+            rulesBody.style.top = topBar.offsetHeight + "px";
+
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
                 if (bigBodyChildren[i] !== rulesBody) {
@@ -377,7 +376,7 @@
             }
 
             var actionBarChildren = actionBar.children;
-            for (var i = 0; i < actionBarrChildren.length; i++) {
+            for (var i = 0; i < actionBarChildren.length; i++) {
                 actionBarChildren[i].style.display = "none";
             }
 
