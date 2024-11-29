@@ -388,13 +388,13 @@
         function checkManual() {
             var manualBar = document.querySelector(".manualbar");
             var actionBar = document.querySelector(".actionbar");
+
             if (manualBar.style.display === "block") {
                 manualBar.style.display = "none";
-                actionBar.style.opacity = "1";
+                actionBar.style.color = "rbga(0,0,0,1)";
             } else {
                 manualBar.style.display = "block";
-                actionBar.style.opacity = "0.6";
-                manualBar.style.opacity = "1";
+                actionBar.style.color = "rbga(0,0,0,0.6)";
             }
         }
 
@@ -403,11 +403,10 @@
             var actionBar = document.querySelector(".actionbar");
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
-                actionBar.style.opacity = "1";
+                actionBar.style.color = "rbga(0,0,0,1)";
             } else {
                 initialBar.style.display = "block";
-                actionBar.style.opacity = "0.6";
-                initialBar.style.opacity = "1";
+                actionBar.style.color = "rbga(0,0,0,0.6)";
             }
         }
     </script>
