@@ -28,8 +28,9 @@
             justify-content: center;
             text-align: center;
             padding-top: 10px;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             background-color: #fff;
+            z-index: 1000;
             width: 100%;
         }
         img {
@@ -89,6 +90,7 @@
         .month-column {
             flex: 1;
             min-width: 200px;
+            margin: 10px;
             border-right: 2px solid #ccc;
             padding-right: 10px;
         }
@@ -129,6 +131,7 @@
         }
         .column1, .column2 {
             flex: 1;
+            margin: 0 10px;
         }
         .column2 {
             text-align: right;
@@ -143,7 +146,6 @@
         .monthheader {
             position: fixed;
             background-color: white;
-            transform: translate(0%, -100%);
         }
     </style>
 </head>
