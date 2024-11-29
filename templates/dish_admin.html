@@ -71,6 +71,7 @@
         .bigbody {
             justify-content: space-between;
             position: absolute;
+            padding-top: topoffset;
         }
         .transparent {
             color: rgba(0, 0, 0, 0.5);
@@ -79,51 +80,66 @@
             display: none;
         }
         #dish-columns {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));  /* Makes a flexible grid */
-            grid-gap: 20px;  /* Adds spacing between grid items */
-            padding: 20px;  /* Optional padding around the grid */
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
         }
-
         .month-column {
-            background-color: #f4f4f4;  /* Background color for each grid item */
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Optional shadow for a card-like appearance */
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            border-right: 2px solid #ccc;
+            padding-right: 10px;
         }
-
+        .month-column:last-child {
+            border-right: none;
+        }
         .month-column h2 {
             text-align: center;
-            font-size: 1.5em;
         }
-
-        .dish-type {
+        .day-section h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .month-column ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .month-column li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .month-column li .dish-type {
+            text-align: left;
+            flex: 1;
+        }
+        .month-column li .claim-button {
+            margin-left: 10px;
+        }
+        .day-section {
+            height: 150px;
+        }
+        .allbody .container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .column1, .column2 {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .column2 {
+            text-align: right;
+        }
+        .msg-button {
+            margin-top: 5px;
+        }
+        .highlight-owner {
+            color: red;
             font-weight: bold;
         }
-
-        .claim-button, .unclaim-button {
-            background-color: #007BFF;
-            color: white;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .claim-button:hover, .unclaim-button:hover {
-            background-color: #0056b3;
-        }
-
-        .dish-owner {
-            font-size: 0.9em;
-            color: #888;
-        }
-
-        .highlight-owner {
-            color: red;  /* Highlight owner with a red color */
-        }
-
     </style>
 </head>
 <body>
@@ -302,6 +318,17 @@
         </div>
     </div>
     <script>
+        window.onload = function() {
+            offsetBody();
+        };
+        
+
+        function offsetBody() {
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            actionBar.style.top = bigBody.offsetHeight + "px";
+        }
+
         function toggleActionBar() {
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
