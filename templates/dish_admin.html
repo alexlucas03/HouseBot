@@ -158,6 +158,11 @@
             width: 30vw;
             padding: 10px;
         }
+        .dish-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
     </style>
 </head>
@@ -258,28 +263,29 @@
                 {% set todaymonth = today.strftime("%B") %}
                 {% set todayday = today.strftime("%-d") %}
                 <h2>{{ todaymonth }} {{ todayday }}</h2>
-        
-                {% for month in months %}
-                    {% if month|lower == todaymonth|lower %}
-                        {% set dishes = month_objects[month.lower()] %}
-                        <div class="dishes-list">
-                            {% for dish in dishes %}
-                                {% if dish.day|string == todayday|string %}
-                                    <h3 class="dish-type">{{ dish.type }}</h3>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="dishes-owners"></div>
-                            {% for dish in dishes %}
-                                {% if dish.day|string == todayday|string %}
-                                    <div class="dish-item">
-                                        <h3 class="dish-owner">{{ dish.owner }}</h3>
-                                    </div>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    {% endif %}
-                {% endfor %}
+                <div class="dish-container">
+                    {% for month in months %}
+                        {% if month|lower == todaymonth|lower %}
+                            {% set dishes = month_objects[month.lower()] %}
+                            <div class="dishes-list">
+                                {% for dish in dishes %}
+                                    {% if dish.day|string == todayday|string %}
+                                        <h3 class="dish-type">{{ dish.type }}</h3>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="dishes-owners"></div>
+                                {% for dish in dishes %}
+                                    {% if dish.day|string == todayday|string %}
+                                        <div class="dish-item">
+                                            <h3 class="dish-owner">{{ dish.owner }}</h3>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </div>        
 
