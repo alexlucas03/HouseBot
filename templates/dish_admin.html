@@ -160,8 +160,6 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            border-left: 3px solid #888;  /* This is the vertical line */
-            padding-left: 15px;
             margin-top: 20px;
         }
 
@@ -172,18 +170,32 @@
             margin: 10px 0;
             font-size: 18px;
             color: #333;
+            width: 100%;
         }
 
-        /* Dish Type and Owner */
-        .dish-type, .dish-owner {
+        /* Dish Type (Left side) */
+        .dish-type {
+            flex: 1;
             font-weight: bold;
-            margin-right: 10px;
+            text-align: left;
+            padding-left: 10px;
+            color: #333;
         }
 
+        /* Separator Line */
         .separator {
-            margin: 0 10px;  /* Adds spacing around the vertical line */
-            color: #888;  /* Grey color for the separator */
-            font-size: 22px;  /* Optional: make the vertical line larger */
+            width: 2px;
+            background-color: #888;
+            height: 100%;
+            margin: 0 15px;
+        }
+
+        /* Dish Owner (Right side) */
+        .dish-owner {
+            font-weight: bold;
+            text-align: right;
+            padding-right: 10px;
+            color: #333;
         }
 
         /* Optional: Add hover effect for dish items */
@@ -191,6 +203,21 @@
             background-color: #f0f0f0;
             cursor: pointer;
         }
+
+        /* Responsiveness */
+        @media screen and (max-width: 768px) {
+            .dish-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .separator {
+                width: 100%;
+                height: 2px;
+                margin: 10px 0;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -298,9 +325,9 @@
                             {% for dish in dishes %}
                                 {% if dish.day|string == todayday|string %}
                                     <div class="dish-item">
-                                        <span class="dish-type">{{ dish.type }}</span>
-                                        <span class="separator">|</span>
-                                        <span class="dish-owner">{{ dish.owner }}</span>
+                                        <div class="dish-type">{{ dish.type }}</div>
+                                        <div class="separator"></div> <!-- The vertical line -->
+                                        <div class="dish-owner">{{ dish.owner }}</div>
                                     </div>
                                 {% endif %}
                             {% endfor %}
