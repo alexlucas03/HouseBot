@@ -79,7 +79,7 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-        .initial, .manual, .picksbody, .rulesbody, .initialbar, .manualbar, .initialbody, .changebody, .allbody {
+        .initial, .manual, .picksbody, .rulesbody, .initialbar, .manualbar, .initialbody, .changebody {
             display: none;
         }
         #dish-columns {
@@ -145,23 +145,6 @@
             color: red;
             font-weight: bold;
         }
-        #dish-columns {
-            margin-top: 20px;
-        }
-
-        .todays-dishes {
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-
-        .dish-type {
-            font-weight: bold;
-        }
-
-        .dish-owner {
-            font-style: italic;
-        }
     </style>
 </head>
 <body>
@@ -221,13 +204,6 @@
             <p>Must be done by 5am</p>
             <p>Sunday dinner is worth 3 points</p>
             <p>Fridge clean must be done in addition to dishes, must be done by 5am Monday</p>
-        </div>
-
-        <div class="todays-dishes">
-            <h3>Today's Dish Schedule</h3>
-            <label for="date-picker">Select a Date: </label>
-            <input type="date" id="date-picker" onchange="changeDate()">
-            <div id="dish-columns"></div>
         </div>
 
         <div class="allbody">
@@ -346,7 +322,15 @@
         </div>
     </div>
     <script>
+        window.onload = function() {
+            offsetBody();
+        };
 
+        function offsetBody() {
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            bigBody.style.top = topBar.offsetHeight + "px";
+        }
 
         function toggleActionBar() {
             var actionBar = document.querySelector(".actionbar");
@@ -480,66 +464,6 @@
 
             picksBody.style.display = "block";
             bigBody.style.display = picksBody.style.display;
-        }
-
-        window.onload = function() {
-            offsetBody();
-            displayTodaysSchedule();
-        };
-
-        function offsetBody() {
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            bigBody.style.top = topBar.offsetHeight + "px";
-        }
-
-        function displayTodaysSchedule() {
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0];  // format: YYYY-MM-DD
-            const datePicker = document.getElementById("date-picker");
-            datePicker.value = formattedDate;  // Set date picker to today's date
-
-            // Show dishes for today
-            showDishesForDate(formattedDate);
-        }
-
-        function showDishesForDate(date) {
-            const dishColumns = document.getElementById("dish-columns");
-            const dishData = getDishDataForDate(date);  // Fetch dish data for the selected date
-
-            // Clear existing dishes
-            dishColumns.innerHTML = "";
-
-            // Add the dishes for the selected date
-            dishData.forEach(dish => {
-                const dishItem = document.createElement("div");
-                dishItem.innerHTML = `
-                    <h4>${dish.weekday}, ${dish.day}</h4>
-                    <ul>
-                        <li>
-                            <span class="dish-type">${dish.type}</span>
-                            <span class="dish-owner">${dish.owner || 'No owner'}</span>
-                        </li>
-                    </ul>
-                `;
-                dishColumns.appendChild(dishItem);
-            });
-        }
-
-        function getDishDataForDate(date) {
-            // Simulating data for the selected date.
-            // In a real scenario, you would fetch the data from a server or filter it based on the selected date.
-            const dishes = [
-                { weekday: 'Monday', day: '2024-12-02', type: 'lunch', owner: '' },
-                { weekday: 'Monday', day: '2024-12-02', type: 'dinner', owner: 'John' },
-            ];
-
-            return dishes.filter(dish => dish.day === date);  // Filter dishes by the selected date
-        }
-
-        function changeDate() {
-            const selectedDate = document.getElementById("date-picker").value;
-            showDishesForDate(selectedDate);
         }
     </script>
     <script src="static/js/script.js"></script>
