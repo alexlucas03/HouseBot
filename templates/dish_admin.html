@@ -539,6 +539,7 @@
             const selectedDate = new Date(date);
             const selectedDay = selectedDate.toISOString().split('T')[0]; // Format the date as 'YYYY-MM-DD'
 
+            const month_objects = {{ month_objects|tojson }};
             // Initialize an empty array to store the filtered dishes
             let filteredDishes = [];
 
