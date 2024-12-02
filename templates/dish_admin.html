@@ -249,10 +249,7 @@
                         <h3>found month</h3>
                         {% set dishes = month_objects[month.lower()] %}
                         {% for dish in dishes %}
-                            <h3>{{ dish.day }}</h3>
-                            <h3>{{ todayday }}</h3>
                             {% if dish.day|string == todayday|string %}
-                                <h3>found day</h3>
                                 <h3>{{ dish.type }}: {{ dish.owner }}</h3>
                             {% endif %}
                         {% endfor %}
