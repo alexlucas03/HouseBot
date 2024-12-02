@@ -188,7 +188,8 @@ def dish_admin():
         return redirect('/')
     init(False)
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
-    return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects)
+    today = datetime.now()
+    return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today)
 
 @app.route('/rules')
 def rules():
