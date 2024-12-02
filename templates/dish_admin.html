@@ -527,15 +527,27 @@
         }
 
         function getDishDataForDate(date) {
-            // Simulating data for the selected date.
-            // In a real scenario, you would fetch the data from a server or filter it based on the selected date.
-            const dishes = [
-                { weekday: 'Monday', day: '2024-12-02', type: 'lunch', owner: '' },
-                { weekday: 'Monday', day: '2024-12-02', type: 'dinner', owner: 'John' },
-            ];
+        // Convert the date string into a Date object for comparison
+        const selectedDate = new Date(date);
+        const selectedDay = selectedDate.toISOString().split('T')[0]; // Format the date as 'YYYY-MM-DD'
 
-            return dishes.filter(dish => dish.day === date);  // Filter dishes by the selected date
+        // Initialize an empty array to store the filtered dishes
+        let filteredDishes = [];
+
+        // Loop through each month in the months object
+        for (let month in month_objects) {
+            // Iterate through the dishes for the given month
+            month_objects[month].forEach(dish => {
+                // Check if the dish's date matches the selected date
+                if (dish.day === selectedDay) {
+                    // Add the dish to the filteredDishes array
+                    filteredDishes.push(dish);
+                }
+            });
         }
+
+        return filteredDishes;
+    }
 
         function changeDate() {
             const selectedDate = document.getElementById("date-picker").value;
