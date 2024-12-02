@@ -493,8 +493,6 @@
             bigBody.style.top = topBar.offsetHeight + "px";
         }
 
-        document.getElementById("date-picker").addEventListener("change", changeDate);
-
         function displayTodaysSchedule() {
             const today = new Date();
             const formattedDate = today.toISOString().split('T')[0];  // format: YYYY-MM-DD
@@ -505,18 +503,12 @@
             showDishesForDate(formattedDate);
         }
 
-        // Function to display the dishes for the selected date
         function showDishesForDate(date) {
             const dishColumns = document.getElementById("dish-columns");
             const dishData = getDishDataForDate(date);  // Fetch dish data for the selected date
 
             // Clear existing dishes
             dishColumns.innerHTML = "";
-
-            if (dishData.length === 0) {
-                dishColumns.innerHTML = "<p>No dishes scheduled for this date.</p>";
-                return;
-            }
 
             // Add the dishes for the selected date
             dishData.forEach(dish => {
@@ -534,35 +526,33 @@
             });
         }
 
-        // Function to get dishes for a specific date
         function getDishDataForDate(date) {
-            const selectedDate = new Date(date);
-            const selectedDay = selectedDate.toISOString().split('T')[0]; // Format the date as 'YYYY-MM-DD'
+        // Convert the date string into a Date object for comparison
+        const selectedDate = new Date(date);
+        const selectedDay = selectedDate.toISOString().split('T')[0]; // Format the date as 'YYYY-MM-DD'
 
-            // Initialize an empty array to store the filtered dishes
-            let filteredDishes = [];
+        // Initialize an empty array to store the filtered dishes
+        let filteredDishes = [];
 
-            // Loop through each month in the months object
-            for (let month in month_objects) {
-                // Iterate through the dishes for the given month
-                month_objects[month].forEach(dish => {
-                    // Check if the dish's date matches the selected date
-                    if (dish.day === selectedDay) {
-                        // Add the dish to the filteredDishes array
-                        filteredDishes.push(dish);
-                    }
-                });
-            }
-
-            return filteredDishes;
+        // Loop through each month in the months object
+        for (let month in month_objects) {
+            // Iterate through the dishes for the given month
+            month_objects[month].forEach(dish => {
+                // Check if the dish's date matches the selected date
+                if (dish.day === selectedDay) {
+                    // Add the dish to the filteredDishes array
+                    filteredDishes.push(dish);
+                }
+            });
         }
 
-        // Function to handle date picker change
+        return filteredDishes;
+    }
+
         function changeDate() {
             const selectedDate = document.getElementById("date-picker").value;
             showDishesForDate(selectedDate);
         }
-
     </script>
     <script src="static/js/script.js"></script>
 </body>
