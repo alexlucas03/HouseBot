@@ -75,6 +75,7 @@
         .bigbody {
             justify-content: space-between;
             position: absolute;
+            padding: 5px;
         }
         .transparent {
             color: rgba(0, 0, 0, 0.5);
@@ -272,7 +273,6 @@
         <div class="homebody">
             {% set todaymonth = today.strftime("%B") %}
             {% set todayday = today.strftime("%-d") %}
-            <h2>{{ todaymonth }} {{ todayday }}</h2>
             <div class="dish-container">
                 {% for month in months %}
                     {% if month|lower == todaymonth|lower %}
@@ -294,6 +294,7 @@
                     {% endif %}
                 {% endfor %}
             </div>
+            <h2>{{ todaymonth }} {{ todayday }}</h2>
         </div>        
 
         <div class="initialbody">
