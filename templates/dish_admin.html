@@ -346,172 +346,51 @@
         </div>
     </div>
     <script>
+    window.onload = function() {
+        offsetBody();
+        displayTodaysSchedule();
+    };
 
+    // Offset the body below the top bar
+    function offsetBody() {
+        var bigBody = document.querySelector(".bigbody");
+        var topBar = document.querySelector(".topbar");
+        bigBody.style.top = topBar.offsetHeight + "px";
+    }
 
-        function toggleActionBar() {
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            var allBody = document.querySelector(".allbody");
-            var manualBar = document.querySelector(".manualbar");
-            var initialBar = document.querySelector(".initialbar");
+    // Show today's schedule by default
+    function displayTodaysSchedule() {
+        const today = new Date();
+        const formattedDate = today.toISOString().split('T')[0];  // format: YYYY-MM-DD
+        const datePicker = document.getElementById("date-picker");
+        datePicker.value = formattedDate;  // Set date picker to today's date
 
-            actionBar.style.top = topBar.offsetHeight + "px";
+        // Show dishes for today
+        showDishesForDate(formattedDate);
+    }
 
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                bigBodyChildren[i].style.display = "none";
-            }
+    // Show dishes for a selected date
+    function showDishesForDate(date) {
+        const dishColumns = document.getElementById("dish-columns");
+        const monthObjects = {{ month_objects | tojson }};  // Get the data passed from backend
 
-            if (actionBar.style.display === "block") {
-                actionBar.style.display = "none";
-                bigBody.style.display = "block";
-                allBody.style.display = "block";
-            } else {
-                actionBar.style.display = "block";
-                manualBar.style.display = "none";
-                initialBar.style.display = "none";
-                bigBody.style.display = "none";
-                allBody.style.display = "none";
-            }
-        }
+        // Parse the date
+        const selectedDate = new Date(date);
+        const monthName = selectedDate.toLocaleString('default', { month: 'long' }).toLowerCase();
+        const day = selectedDate.getDate();
 
-        function checkRules() {
-            var rulesBody = document.querySelector(".rulesbody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
+        // Clear existing dishes
+        dishColumns.innerHTML = "";
 
-            actionBar.style.display = "none";
-            rulesBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== rulesBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            rulesBody.style.display = "block";
-            bigBody.style.display = rulesBody.style.display;
-        }
-
-        function checkManual() {
-            var initialBar = document.querySelector(".initialbar");
-            var manualBar = document.querySelector(".manualbar");
-            var actionBar = document.querySelector(".actionbar");
-
-            if (manualBar.style.display === "block") {
-                manualBar.style.display = "none";
-            } else {
-                manualBar.style.display = "block";
-                initialBar.style.display = "none";
-            }
-        }
-
-        function checkInitial() {
-            var initialBar = document.querySelector(".initialbar");
-            var actionBar = document.querySelector(".actionbar");
-            var manualBar = document.querySelector(".manualbar");
-
-            if (initialBar.style.display === "block") {
-                initialBar.style.display = "none";
-            } else {
-                initialBar.style.display = "block";
-                manualBar.style.display = "none";
-            }
-        }
-
-        function checkChange() {
-            var changeBody = document.querySelector(".changebody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-
-            actionBar.style.display = "none";
-            changeBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== changeBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            changeBody.style.display = "block";
-            bigBody.style.display = changeBody.style.display;
-        }
-
-        function checkInitialize() {
-            var initialBody = document.querySelector(".initialbody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-
-            actionBar.style.display = "none";
-            initialBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== initialBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            initialBody.style.display = "block";
-            bigBody.style.display = initialBody.style.display;
-        }
-
-        function checkPicks() {
-            var picksBody = document.querySelector(".picksbody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-
-            actionBar.style.display = "none";
-            picksBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== picksBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-
-            picksBody.style.display = "block";
-            bigBody.style.display = picksBody.style.display;
-        }
-
-        window.onload = function() {
-            offsetBody();
-            displayTodaysSchedule();
-        };
-
-        function offsetBody() {
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            bigBody.style.top = topBar.offsetHeight + "px";
-        }
-
-        function displayTodaysSchedule() {
-            const today = new Date();
-            const formattedDate = today.toISOString().split('T')[0];  // format: YYYY-MM-DD
-            const datePicker = document.getElementById("date-picker");
-            datePicker.value = formattedDate;  // Set date picker to today's date
-
-            // Show dishes for today
-            showDishesForDate(formattedDate);
-        }
-
-        function showDishesForDate(date) {
-            const dishColumns = document.getElementById("dish-columns");
-            const dishData = getDishDataForDate(date);  // Fetch dish data for the selected date
-
-            // Clear existing dishes
-            dishColumns.innerHTML = "";
+        // Check if month exists in month_objects and fetch the corresponding dishes
+        if (monthObjects[monthName]) {
+            const dishesForDate = monthObjects[monthName].filter(dish => {
+                const dishDate = new Date(dish.date_obj);
+                return dishDate.getDate() === day && dishDate.getMonth() === selectedDate.getMonth();
+            });
 
             // Add the dishes for the selected date
-            dishData.forEach(dish => {
+            dishesForDate.forEach(dish => {
                 const dishItem = document.createElement("div");
                 dishItem.innerHTML = `
                     <h4>${dish.weekday}, ${dish.day}</h4>
@@ -524,24 +403,139 @@
                 `;
                 dishColumns.appendChild(dishItem);
             });
+        } else {
+            dishColumns.innerHTML = "<p>No dishes for this month.</p>";
+        }
+    }
+
+    // Change the displayed dishes based on selected date
+    function changeDate() {
+        const selectedDate = document.getElementById("date-picker").value;
+        showDishesForDate(selectedDate);
+    }
+
+    // Toggle the action bar display
+    function toggleActionBar() {
+        var actionBar = document.querySelector(".actionbar");
+        var bigBody = document.querySelector(".bigbody");
+        var topBar = document.querySelector(".topbar");
+        var allBody = document.querySelector(".allbody");
+        var manualBar = document.querySelector(".manualbar");
+        var initialBar = document.querySelector(".initialbar");
+
+        actionBar.style.top = topBar.offsetHeight + "px";
+
+        var bigBodyChildren = bigBody.children;
+        for (var i = 0; i < bigBodyChildren.length; i++) {
+            bigBodyChildren[i].style.display = "none";
         }
 
-        function getDishDataForDate(date) {
-            // Simulating data for the selected date.
-            // In a real scenario, you would fetch the data from a server or filter it based on the selected date.
-            const dishes = [
-                { weekday: 'Monday', day: '2024-12-02', type: 'lunch', owner: '' },
-                { weekday: 'Monday', day: '2024-12-02', type: 'dinner', owner: 'John' },
-            ];
+        if (actionBar.style.display === "block") {
+            actionBar.style.display = "none";
+            bigBody.style.display = "block";
+            allBody.style.display = "block";
+        } else {
+            actionBar.style.display = "block";
+            manualBar.style.display = "none";
+            initialBar.style.display = "none";
+            bigBody.style.display = "none";
+            allBody.style.display = "none";
+        }
+    }
 
-            return dishes.filter(dish => dish.day === date);  // Filter dishes by the selected date
+    // Show the rules section
+    function checkRules() {
+        var rulesBody = document.querySelector(".rulesbody");
+        var actionBar = document.querySelector(".actionbar");
+        var bigBody = document.querySelector(".bigbody");
+        var topBar = document.querySelector(".topbar");
+
+        actionBar.style.display = "none";
+        rulesBody.style.top = topBar.offsetHeight + "px";
+
+        var bigBodyChildren = bigBody.children;
+        for (var i = 0; i < bigBodyChildren.length; i++) {
+            if (bigBodyChildren[i] !== rulesBody) {
+                bigBodyChildren[i].style.display = "none";
+            }
         }
 
-        function changeDate() {
-            const selectedDate = document.getElementById("date-picker").value;
-            showDishesForDate(selectedDate);
+        rulesBody.style.display = "block";
+        bigBody.style.display = rulesBody.style.display;
+    }
+
+    // Show the manual section
+    function checkManual() {
+        var initialBar = document.querySelector(".initialbar");
+        var manualBar = document.querySelector(".manualbar");
+        var actionBar = document.querySelector(".actionbar");
+
+        if (manualBar.style.display === "block") {
+            manualBar.style.display = "none";
+        } else {
+            manualBar.style.display = "block";
+            initialBar.style.display = "none";
         }
-    </script>
+    }
+
+    // Show the initial section
+    function checkInitial() {
+        var initialBar = document.querySelector(".initialbar");
+        var actionBar = document.querySelector(".actionbar");
+        var manualBar = document.querySelector(".manualbar");
+
+        if (initialBar.style.display === "block") {
+            initialBar.style.display = "none";
+        } else {
+            initialBar.style.display = "block";
+            manualBar.style.display = "none";
+        }
+    }
+
+    // Show the change section
+    function checkChange() {
+        var changeBody = document.querySelector(".changebody");
+        var actionBar = document.querySelector(".actionbar");
+        var bigBody = document.querySelector(".bigbody");
+        var topBar = document.querySelector(".topbar");
+
+        actionBar.style.display = "none";
+        changeBody.style.top = topBar.offsetHeight + "px";
+
+        var bigBodyChildren = bigBody.children;
+        for (var i = 0; i < bigBodyChildren.length; i++) {
+            if (bigBodyChildren[i] !== changeBody) {
+                bigBodyChildren[i].style.display = "none";
+            }
+        }
+
+        changeBody.style.display = "block";
+        bigBody.style.display = changeBody.style.display;
+    }
+
+    // Show the picks section
+    function checkPicks() {
+        var picksBody = document.querySelector(".picksbody");
+        var actionBar = document.querySelector(".actionbar");
+        var bigBody = document.querySelector(".bigbody");
+        var topBar = document.querySelector(".topbar");
+
+        actionBar.style.display = "none";
+        picksBody.style.top = topBar.offsetHeight + "px";
+
+        var bigBodyChildren = bigBody.children;
+        for (var i = 0; i < bigBodyChildren.length; i++) {
+            if (bigBodyChildren[i] !== picksBody) {
+                bigBodyChildren[i].style.display = "none";
+            }
+        }
+
+        picksBody.style.display = "block";
+        bigBody.style.display = picksBody.style.display;
+    }
+</script>
+
+    
     <script src="static/js/script.js"></script>
 </body>
 </html>
