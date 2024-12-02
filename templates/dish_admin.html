@@ -270,7 +270,7 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
-                        <div class="dishes-owners"></div>
+                        <div class="dishes-owners">
                             {% for dish in dishes %}
                                 {% if dish.day|string == todayday|string %}
                                     <h3 class="dish-owner">{{ dish.owner }}</h3>
