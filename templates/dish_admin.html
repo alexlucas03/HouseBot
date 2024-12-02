@@ -273,9 +273,7 @@
                         <div class="dishes-owners"></div>
                             {% for dish in dishes %}
                                 {% if dish.day|string == todayday|string %}
-                                    <div class="dish-item">
-                                        <h3 class="dish-owner">{{ dish.owner }}</h3>
-                                    </div>
+                                    <h3 class="dish-owner">{{ dish.owner }}</h3>
                                 {% endif %}
                             {% endfor %}
                         </div>
