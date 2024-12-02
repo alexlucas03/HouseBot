@@ -214,30 +214,46 @@
                     {% endif %}
                 </div>
             </div>
+            
+            <!-- Date Selector -->
+            <div class="date-selector">
+                <label for="date-select">Select Date: </label>
+                <input type="date" id="date-select" name="date" value="{{ today }}" onchange="updateDishes()">
+            </div>
+        
             <div id="dish-columns">
+                {% set today = now|date("Y-m-d") %}  <!-- Set today's date -->
+                
                 {% for month in months %}
                     <div class="month-column">
                         <h2>{{ month }}</h2>
                         {% set dishes = month_objects[month.lower()] %}
+                        
                         {% for dish in dishes %}
-                            {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
-                                <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
-                            {% endif %}
-                            <li>
-                                <span class="dish-type">{{ dish.type }}</span>
-                                {% if not dish.owner and user != 'admin' %}
-                                    <button class="claim-button" onclick="changeOwner('{{ month|lower }}', '{{ dish.id }}')">Claim</button>
-                                {% elif dish.owner == user %}
-                                    <button class="claim-button" onclick="unclaim('{{ month|lower }}', '{{ dish.id }}')">Unclaim</button>
-                                {% else %}
-                                    <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
+                            {% set dish_date = dish.day|date("Y-m-d") %}
+                            
+                            {% if dish_date == today %}
+                                {% if dish.type == 'lunch' or (dish.weekday|lower == 'sunday' and dish.type == 'dinner') %}
+                                    <h3>{{ dish.weekday }}, {{ dish.day }}</h3>
                                 {% endif %}
-                            </li>
+                                
+                                <li>
+                                    <span class="dish-type">{{ dish.type }}</span>
+                                    
+                                    {% if not dish.owner and user != 'admin' %}
+                                        <button class="claim-button" onclick="changeOwner('{{ month|lower }}', '{{ dish.id }}')">Claim</button>
+                                    {% elif dish.owner == user %}
+                                        <button class="claim-button" onclick="unclaim('{{ month|lower }}', '{{ dish.id }}')">Unclaim</button>
+                                    {% else %}
+                                        <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
+                                    {% endif %}
+                                </li>
+                            {% endif %}
                         {% endfor %}
                     </div>
                 {% endfor %}
             </div>
-        </div>
+        </div>        
 
         <div class="initialbody">
             <div class="form-container">
@@ -322,6 +338,10 @@
         </div>
     </div>
     <script>
+        function updateDishes() {
+            const selectedDate = document.getElementById('date-select').value;
+            window.location.href = '/dishes?date=' + selectedDate;  // Assuming you're handling this route on the server-side
+        }
         window.onload = function() {
             offsetBody();
         };
