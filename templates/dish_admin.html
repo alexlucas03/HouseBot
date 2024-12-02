@@ -242,8 +242,8 @@
         <div class="homebody">
             <div id="today-dishes">
                 {% set today = now %}
-                {% set todaymonth = today|date("m") %}
-                {% set todayday = today|date("d") %}
+                {% set todaymonth = today.strftime("%m") %}
+                {% set todayday = today.strftime("%d") %}
                 <h2>{{ todaymonth }} {{ todayday }}</h2>
                 {% for month in months %}
                     {% if month == todaymonth %}
