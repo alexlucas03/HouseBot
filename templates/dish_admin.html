@@ -163,7 +163,20 @@
         .homebody {
             text-align: center;
         }
+        .date-dropdown {
+            display: none;
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
 
+        .date-dropdown input[type="date"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -262,6 +275,13 @@
             {% set todaymonth = today.strftime("%B") %}
             {% set todayday = today.strftime("%-d") %}
             <h2>{{ todaymonth }} {{ todayday }}</h2>
+
+            <div id="date-dropdown" class="date-dropdown" style="display: none;">
+                <label for="select-day">Choose a Day:</label>
+                <input type="date" id="select-day" name="selectedDate" />
+                <button onclick="loadSelectedDate()">Show</button>
+            </div>
+
             <div class="dish-container">
                 {% for month in months %}
                     {% if month|lower == todaymonth|lower %}
@@ -510,6 +530,29 @@
 
             picksBody.style.display = "block";
             bigBody.style.display = picksBody.style.display;
+        }
+
+        function toggleDateDropdown() {
+            var dropdown = document.getElementById("date-dropdown");
+            dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
+        }
+
+        function loadSelectedDate() {
+            var selectedDate = document.getElementById("select-day").value;
+            if (selectedDate) {
+                // Parse the selected date and format it for the view
+                var date = new Date(selectedDate);
+                var selectedMonth = date.toLocaleString('default', { month: 'long' });
+                var selectedDay = date.getDate();
+
+                // Update the page to display the selected month and day
+                document.getElementById("today-date").innerText = selectedMonth + " " + selectedDay;
+                
+                // Close the dropdown
+                document.getElementById("date-dropdown").style.display = "none";
+
+                // You can add an AJAX request or re-render logic here if you want to fetch new data for the selected date.
+            }
         }
     </script>
     <script src="static/js/script.js"></script>
