@@ -163,7 +163,6 @@
         .homebody {
             text-align: center;
         }
-
     </style>
 </head>
 <body>
@@ -511,6 +510,13 @@
             picksBody.style.display = "block";
             bigBody.style.display = picksBody.style.display;
         }
+
+        const ownerElement = document.querySelector('.dish-owner');
+        const ownerText = ownerElement.textContent;
+        ownerElement.textContent = ownerText.charAt(0).toUpperCase() + ownerText.slice(1);
+        const typeElement = document.querySelector('.dish-type');
+        const typeText = typeElement.textContent;
+        typeElement.textContent = typeText.charAt(0).toUpperCase() + typeText.slice(1);
     </script>
     <script src="static/js/script.js"></script>
 </body>
