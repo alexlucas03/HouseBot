@@ -245,7 +245,8 @@
                 {% set todayday = today.strftime("%-d") %}
                 <h2>{{ todaymonth }} {{ todayday }}</h2>
                 {% for month in months %}
-                    {% if month == todaymonth %}
+                    {% if month|lower == todaymonth|lower %}
+                        <h3>found month</h3>
                         {% set dishes = month_objects[month.lower()] %}
                         {% for dish in dishes %}
                             {% if dish.day == todayday %}
