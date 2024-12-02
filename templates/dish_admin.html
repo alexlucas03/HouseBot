@@ -79,7 +79,7 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-        .initial, .manual, .picksbody, .rulesbody, .initialbar, .manualbar, .initialbody, .changebody {
+        .initial, .manual, .picksbody, .rulesbody, .initialbar, .manualbar, .initialbody, .changebody, .allbody {
             display: none;
         }
         #dish-columns {
@@ -235,6 +235,25 @@
                             </li>
                         {% endfor %}
                     </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="homebody">
+            <div id="today-dishes">
+                {% set today = now %}
+                {% set todaymonth = today|date("m") %}
+                {% set todayday = today|date("d") %}
+                <h2>{{ todaymonth }} {{ todayday }}</h2>
+                {% for month in months %}
+                    {% if month == todaymonth %}
+                        {% set dishes = month_objects[month.lower()] %}
+                        {% for dish in dishes %}
+                            {% if dish.day == todayday %}
+                                <h3>{{ dish.type }}: {{ dish.owner }}</h3>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
