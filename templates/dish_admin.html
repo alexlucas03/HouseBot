@@ -46,7 +46,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding-top: 10px;
+            padding-top: 20px;
             padding-bottom: 10px;
             width: 100%;
             background-color: #fff;
@@ -62,7 +62,7 @@
             width: 100%;
             background-color: white;
             border: none;
-            font-size: 3vh;
+            font-size: 2vh;
             text-align: center;
             transition: background 0.3s;
             flex-grow: 1;
@@ -146,7 +146,6 @@
             color: red;
             font-weight: bold;
         }
-
         .dishes-list {
             border-right: 2px solid #888;
             text-align: right;
@@ -182,31 +181,31 @@
 <body>
     <a class="topbar" onclick="toggleActionBar()">
         <img src="static/images/txicon.svg" alt="">
-        <h2>Dish Admin</h2>
+        <h1>Dish Admin</h1>
     </a>
 
     <div class="actionbar">
-        <button id="message" type="submit" onclick="checkMessage()">Send Messages</button>
+        <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
         <div class="messagebar">
             <form action="/send-messages" method="POST">
-                <button type="submit">Send Today's Schedule</button>
+                <button type="submit">Send today's schedule</button>
             </form>
             <form action="/lateplate_lunch">
-                <button type="submit">Send Lunch LPs</button>
+                <button type="submit">Send lunch LPs</button>
             </form>
             <form action="/lateplate_dinner">
-                <button type="submit">Send Dinner LPs</button>
+                <button type="submit">Send dinner LPs</button>
             </form>
         </div>
 
-        <button id="initial" type="submit" onclick="checkInitial()">Start the Quarter</button>
+        <button id="initial" type="submit" onclick="checkInitial()">Start the quarter</button>
         <div class="initialbar">
             <button type="submit" onclick="checkInitialize()">Initialize</button>
             <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
         </div>
-        <button type="submit" onclick="checkAll()">Quarter Schedule</button>
+        <button type="submit" onclick="checkAll()">Quarter schedule</button>
         <button id="rules"type="submit" onclick="checkRules()">Rules</button>
-        <button type="submit" onclick="checkChange()">Change Password</button>
+        <button type="submit" onclick="checkChange()">Change password</button>
         <form action="/logout">
             <button type="submit">Logout</button>
         </form>
