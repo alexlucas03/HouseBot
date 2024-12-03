@@ -176,6 +176,10 @@
         }
         .logout {
             color: red;
+            padding-top: 40px;
+        }
+        .avgmenu button {
+            color: black;
         }
     </style>
 </head>
@@ -186,27 +190,29 @@
     </a>
 
     <div class="actionbar">
-        <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
-        <div class="messagebar">
-            <form action="/send-messages" method="POST">
-                <button type="submit">Send today's schedule</button>
-            </form>
-            <form action="/lateplate_lunch">
-                <button type="submit">Send lunch LPs</button>
-            </form>
-            <form action="/lateplate_dinner">
-                <button type="submit">Send dinner LPs</button>
-            </form>
-        </div>
+        <div class="avgmenu">
+            <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
+            <div class="messagebar">
+                <form action="/send-messages" method="POST">
+                    <button type="submit">Send today's schedule</button>
+                </form>
+                <form action="/lateplate_lunch">
+                    <button type="submit">Send lunch LPs</button>
+                </form>
+                <form action="/lateplate_dinner">
+                    <button type="submit">Send dinner LPs</button>
+                </form>
+            </div>
 
-        <button id="initial" type="submit" onclick="checkInitial()">Start the quarter</button>
-        <div class="initialbar">
-            <button type="submit" onclick="checkInitialize()">Initialize</button>
-            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+            <button id="initial" type="submit" onclick="checkInitial()">Start the quarter</button>
+            <div class="initialbar">
+                <button type="submit" onclick="checkInitialize()">Initialize</button>
+                <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+            </div>
+            <button type="submit" onclick="checkAll()">Quarter schedule</button>
+            <button id="rules"type="submit" onclick="checkRules()">Rules</button>
+            <button type="submit" onclick="checkChange()">Change password</button>
         </div>
-        <button type="submit" onclick="checkAll()">Quarter schedule</button>
-        <button id="rules"type="submit" onclick="checkRules()">Rules</button>
-        <button type="submit" onclick="checkChange()">Change password</button>
         <form action="/logout">
             <button class="logout" type="submit">Logout</button>
         </form>
@@ -463,12 +469,20 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
+            var avgmenu = document.querySelector(".avgmenu");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
+                avgmenu.styel.opacity = 1
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
+                var children = avgmenu.children;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].tagName.toLowerCase() === "button") {
+                        children[i].style.opacity = 0.6;
+                    }
+                }
             }
         }
 
