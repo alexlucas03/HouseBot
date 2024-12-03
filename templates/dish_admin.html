@@ -469,17 +469,16 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var avgmenu = document.querySelector(".avgmenu");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
-                avgmenu.styel.opacity = 1
+                actionBar.style.opacity = 1
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
-                var children = avgmenu.children;
+                var children = actionBar.children;
                 for (var i = 0; i < children.length; i++) {
-                    if (children[i].tagName.toLowerCase() === "button") {
+                    if (children[i].tagName.toLowerCase() === "button" || children[i].tagName.toLowerCase() === "form") {
                         children[i].style.opacity = 0.6;
                     }
                 }
@@ -493,9 +492,16 @@
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
+                actionBar.style.opacity = 1
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
+                var children = actionBar.children;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].tagName.toLowerCase() === "button" || children[i].tagName.toLowerCase() === "form") {
+                        children[i].style.opacity = 0.6;
+                    }
+                }
             }
         }
 
