@@ -472,15 +472,19 @@
             var actionBar = document.querySelector(".actionbar");
             var avgmenu = document.querySelector(".avgmenu");
             var logout = document.querySelector(".logout");
+            var children = avgmenu.children;
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
-                avgmenu.style.opacity = 1
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].tagName.toLowerCase() === "button") {
+                        children[i].style.opacity = 1;
+                    }
+                }
                 logout.style.opacity = 1
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
-                var children = avgmenu.children;
                 for (var i = 0; i < children.length; i++) {
                     if (children[i].tagName.toLowerCase() === "button") {
                         children[i].style.opacity = 0.6;
@@ -492,19 +496,23 @@
 
         function checkInitial() {
             var initialBar = document.querySelector(".initialbar");
-            var actionBar = document.querySelector(".actionbar");
             var messageBar = document.querySelector(".messagebar");
+            var actionBar = document.querySelector(".actionbar");
             var avgmenu = document.querySelector(".avgmenu");
             var logout = document.querySelector(".logout");
+            var children = avgmenu.children;
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
-                avgmenu.style.opacity = 1
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].tagName.toLowerCase() === "button") {
+                        children[i].style.opacity = 1;
+                    }
+                }
                 logout.style.opacity = 1
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
-                var children = avgmenu.children;
                 for (var i = 0; i < children.length; i++) {
                     if (children[i].tagName.toLowerCase() === "button") {
                         children[i].style.opacity = 0.6;
