@@ -175,7 +175,9 @@
         h1 {
             margin: 10px;
         }
-
+        .logout {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -207,7 +209,7 @@
         <button id="rules"type="submit" onclick="checkRules()">Rules</button>
         <button type="submit" onclick="checkChange()">Change password</button>
         <form action="/logout">
-            <button type="submit">Logout</button>
+            <button class="logout" type="submit">Logout</button>
         </form>
     </div>
 
