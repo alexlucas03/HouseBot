@@ -422,6 +422,7 @@
                 initialBar.style.display = "none";
                 bigBody.style.display = "none";
                 homeBody.style.display = "none";
+                actionBar.style.opacity = 1
             }
         }
 
@@ -469,19 +470,23 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
+            var avgmenu = document.querySelector(".avgmenu");
+            var logout = document.querySelector(".logout");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
-                actionBar.style.opacity = 1
+                avgmenu.style.opacity = 1
+                logout.style.opacity = 1
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
-                var children = actionBar.children;
+                var children = avgmenu.children;
                 for (var i = 0; i < children.length; i++) {
-                    if (children[i].tagName.toLowerCase() === "button" || children[i].tagName.toLowerCase() === "form") {
+                    if (children[i].tagName.toLowerCase() === "button") {
                         children[i].style.opacity = 0.6;
                     }
                 }
+                logout.style.opacity = 0.6
             }
         }
 
