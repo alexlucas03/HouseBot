@@ -80,7 +80,7 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-        .initial, .manual, .picksbody, .rulesbody, .initialbar, .manualbar, .initialbody, .changebody, .allbody {
+        .initial, .message, .picksbody, .rulesbody, .initialbar, .messagebar, .initialbody, .changebody, .allbody {
             display: none;
         }
         #dish-columns {
@@ -186,8 +186,8 @@
     </a>
 
     <div class="actionbar">
-        <button id="manual" type="submit" onclick="checkManual()">Manual Controls</button>
-        <div class="manualbar">
+        <button id="message" type="submit" onclick="checkMessage()">Send Messages</button>
+        <div class="messagebar">
             <form action="/send-messages" method="POST">
                 <button type="submit">Send Today's Schedule</button>
             </form>
@@ -197,16 +197,16 @@
             <form action="/lateplate_dinner">
                 <button type="submit">Send Dinner LPs</button>
             </form>
-            <button type="submit" onclick="checkChange()">Change Password</button>
         </div>
 
-        <button id="initial" type="submit" onclick="checkInitial()">Initial</button>
+        <button id="initial" type="submit" onclick="checkInitial()">Start the Quarter</button>
         <div class="initialbar">
             <button type="submit" onclick="checkInitialize()">Initialize</button>
             <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
         </div>
-
+        <button type="submit" onclick="checkAll()">Quarter Schedule</button>
         <button id="rules"type="submit" onclick="checkRules()">Rules</button>
+        <button type="submit" onclick="checkChange()">Change Password</button>
         <form action="/logout">
             <button type="submit">Logout</button>
         </form>
@@ -396,7 +396,7 @@
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
             var allBody = document.querySelector(".allbody");
-            var manualBar = document.querySelector(".manualbar");
+            var messageBar = document.querySelector(".messagebar");
             var initialBar = document.querySelector(".initialbar");
 
             actionBar.style.top = topBar.offsetHeight + "px";
@@ -409,13 +409,13 @@
             if (actionBar.style.display === "block") {
                 actionBar.style.display = "none";
                 bigBody.style.display = "block";
-                allBody.style.display = "block";
+                homeBody.style.display = "block";
             } else {
                 actionBar.style.display = "block";
-                manualBar.style.display = "none";
+                messageBar.style.display = "none";
                 initialBar.style.display = "none";
                 bigBody.style.display = "none";
-                allBody.style.display = "none";
+                homeBody.style.display = "none";
             }
         }
 
@@ -439,15 +439,35 @@
             bigBody.style.display = rulesBody.style.display;
         }
 
-        function checkManual() {
+        function checkAll() {
+            var allBody = document.querySelector(".allbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+
+            actionBar.style.display = "none";
+            allBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== allBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+
+            allBody.style.display = "block";
+            bigBody.style.display = allBody.style.display;
+        }
+
+        function checkMessage() {
             var initialBar = document.querySelector(".initialbar");
-            var manualBar = document.querySelector(".manualbar");
+            var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
 
-            if (manualBar.style.display === "block") {
-                manualBar.style.display = "none";
+            if (messageBar.style.display === "block") {
+                messageBar.style.display = "none";
             } else {
-                manualBar.style.display = "block";
+                messageBar.style.display = "block";
                 initialBar.style.display = "none";
             }
         }
@@ -455,13 +475,13 @@
         function checkInitial() {
             var initialBar = document.querySelector(".initialbar");
             var actionBar = document.querySelector(".actionbar");
-            var manualBar = document.querySelector(".manualbar");
+            var messageBar = document.querySelector(".messagebar");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
             } else {
                 initialBar.style.display = "block";
-                manualBar.style.display = "none";
+                messageBar.style.display = "none";
             }
         }
 
