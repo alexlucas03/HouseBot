@@ -494,19 +494,22 @@
             var initialBar = document.querySelector(".initialbar");
             var actionBar = document.querySelector(".actionbar");
             var messageBar = document.querySelector(".messagebar");
+            var logout = document.querySelector(".logout");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
                 actionBar.style.opacity = 1
+                logout.style.opacity = 1
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
-                var children = actionBar.children;
+                var children = avgmenu.children;
                 for (var i = 0; i < children.length; i++) {
-                    if (children[i].tagName.toLowerCase() === "button" || children[i].tagName.toLowerCase() === "form") {
+                    if (children[i].tagName.toLowerCase() === "button") {
                         children[i].style.opacity = 0.6;
                     }
                 }
+                logout.style.opacity = 0.6
             }
         }
 
