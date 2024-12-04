@@ -204,6 +204,9 @@
             height: 3vh;
             max-height: 20px;
         }
+        .messagearrow, .initialarrow {
+            transform: translate(0%, -50%);
+        }
         .menu-container {
             display: flex;
             align-items: center;
@@ -498,7 +501,7 @@
             var initialBar = document.querySelector(".initialbar");
             var downArrow = document.querySelector(".downarrow");
             var logout = document.querySelector(".logout");
-            var menuContainer = document.querySelector(".menu-container");
+            var menuContainer = document.querySelectorAll(".menu-container");
 
             actionBar.style.top = topBar.offsetHeight + "px";
 
@@ -568,7 +571,7 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var menuContainer = document.querySelector(".menu-container");
+            var menuContainer = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
             var messageArrow = document.querySelector(".messagearrow");
 
@@ -590,7 +593,7 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var menuContainer = document.querySelector(".menu-container");
+            var menuContainer = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
             var initialArrow = document.querySelector(".initialarrow");
 
