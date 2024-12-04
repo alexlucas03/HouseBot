@@ -56,7 +56,7 @@
             display: flex;
             color: black;
         }
-        .menu-container, .logout {
+        .actionbar a, .logout, .actionbar form {
             background-color: white;
             border: none;
             font-size: 3vh;
@@ -244,22 +244,22 @@
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="initialbar">
-            <div class="formesque">
-                <button type="submit" onclick="checkInitialize()">Initialize database</button>
-            </div>
-            <div class="formesque">
-                <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
-            </div>
+            <a class="formesque" onclick="checkInitialize()">
+                <div>Initialize database</div>
+            </a>
+            <a class="formesque" onclick="checkPicks()">
+                <div>Picks</div>
+            </a>
         </div>
-        <div class="menu-container">
-            <button type="submit" onclick="checkAll()">Quarter schedule</button>
-        </div>
-        <div class="menu-container">
-            <button id="rules"type="submit" onclick="checkRules()">Rules</button>
-        </div>
-        <div class="menu-container">
-            <button type="submit" onclick="checkChange()">Change password</button>
-        </div>
+        <a class="menu-container" onclick="checkAll()">
+            <div>Quarter schedule</div>
+        </a>
+        <a class="menu-container" onclick="checkRules()">
+            <div>Rules</div>
+        </a>
+        <a class="menu-container" onclick="checkChange()">
+            <div>Change password</div>
+        </a>
         <form action="/logout">
             <button class="logout" type="submit">Logout</button>
         </form>
