@@ -524,6 +524,8 @@
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
+                initialArrow.style.transform = "rotate(0deg) translate(0%, -40%)"
+                messageArrow.style.transform = "rotate(0deg) translate(0%, -40%)"
                 logout.style.opacity = 1;
             }
         }
@@ -533,6 +535,7 @@
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
 
             actionBar.style.display = "none";
             rulesBody.style.top = topBar.offsetHeight + "px";
@@ -543,7 +546,7 @@
                     bigBodyChildren[i].style.display = "none";
                 }
             }
-
+            downArrow.style.transform = "rotate(0deg)";
             rulesBody.style.display = "block";
             bigBody.style.display = rulesBody.style.display;
         }
@@ -553,6 +556,7 @@
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
 
             actionBar.style.display = "none";
             allBody.style.top = topBar.offsetHeight + "px";
@@ -563,7 +567,7 @@
                     bigBodyChildren[i].style.display = "none";
                 }
             }
-
+            downArrow.style.transform = "rotate(0deg)";
             allBody.style.display = "block";
             bigBody.style.display = allBody.style.display;
         }
@@ -625,6 +629,7 @@
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
 
             actionBar.style.display = "none";
             changeBody.style.top = topBar.offsetHeight + "px";
@@ -635,7 +640,7 @@
                     bigBodyChildren[i].style.display = "none";
                 }
             }
-
+            downArrow.style.transform = "rotate(0deg)";
             changeBody.style.display = "block";
             bigBody.style.display = changeBody.style.display;
         }
@@ -645,6 +650,7 @@
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
 
             actionBar.style.display = "none";
             initialBody.style.top = topBar.offsetHeight + "px";
@@ -655,7 +661,7 @@
                     bigBodyChildren[i].style.display = "none";
                 }
             }
-
+            downArrow.style.transform = "rotate(0deg)";
             initialBody.style.display = "block";
             bigBody.style.display = initialBody.style.display;
         }
@@ -665,6 +671,7 @@
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
 
             actionBar.style.display = "none";
             picksBody.style.top = topBar.offsetHeight + "px";
@@ -675,7 +682,7 @@
                     bigBodyChildren[i].style.display = "none";
                 }
             }
-
+            downArrow.style.transform = "rotate(0deg)";
             picksBody.style.display = "grid";
             bigBody.style.display = picksBody.style.display;
         }
