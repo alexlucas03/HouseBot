@@ -204,9 +204,9 @@
                 </form>
             </div>
 
-            <button id="initial" type="submit" onclick="checkInitial()">Start the quarter</button>
+            <button id="initial" type="submit" onclick="checkInitial()">Begin quarter</button>
             <div class="initialbar">
-                <button type="submit" onclick="checkInitialize()">Initialize</button>
+                <button type="submit" onclick="checkInitialize()">Initialize database</button>
                 <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
             </div>
             <button type="submit" onclick="checkAll()">Quarter schedule</button>
@@ -424,7 +424,15 @@
                 initialBar.style.display = "none";
                 bigBody.style.display = "none";
                 homeBody.style.display = "none";
-                actionBar.style.opacity = 1
+                var avgmenu = document.querySelector(".avgmenu");
+                var logout = document.querySelector(".logout");
+                var children = avgmenu.children;
+                for (var i = 0; i < children.length; i++) {
+                    if (children[i].tagName.toLowerCase() === "button") {
+                        children[i].style.opacity = 1;
+                    }
+                }
+                logout.style.opacity = 1;
             }
         }
 
