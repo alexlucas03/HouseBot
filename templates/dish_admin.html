@@ -205,12 +205,13 @@
             max-height: 20px;
         }
         .messagearrow, .initialarrow {
-            transform: translate(0%, -50%);
+            transform: translate(0%, -40%);
         }
         .menu-container {
             display: flex;
             align-items: center;
             color: black;
+            width: 100%;
         }
     </style>
 </head>
@@ -510,7 +511,7 @@
                 bigBodyChildren[i].style.display = "none";
             }
 
-            if (actionBar.style.display === "block") {
+            if (actionBar.style.display === "flex") {
                 actionBar.style.display = "none";
                 bigBody.style.display = "block";
                 homeBody.style.display = "block";
