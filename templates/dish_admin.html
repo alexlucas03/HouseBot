@@ -199,6 +199,7 @@
         .rulesbody {
             width: 100vw;
             max-width: 600px;
+            padding: 10px;
         }
         .downarrow, .messagearrow, .initialarrow {
             height: 3vh;
@@ -242,8 +243,12 @@
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </div>
         <div class="initialbar">
-            <button type="submit" onclick="checkInitialize()">Initialize database</button>
-            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+            <form>
+                <button type="submit" onclick="checkInitialize()">Initialize database</button>
+            </form>
+            <form>
+                <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+            </form>
         </div>
         <div class="menu-container">
             <button type="submit" onclick="checkAll()">Quarter schedule</button>
