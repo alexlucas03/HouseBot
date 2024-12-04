@@ -50,7 +50,7 @@
             background-color: #fff;
             color: black;
         }
-        .actionbar a, .logout {
+        .actionbar a, .logout, .menu-item {
             background-color: white;
             border: none;
             font-size: 3vh;
@@ -59,6 +59,7 @@
             flex-grow: 1;
             padding-bottom: 20px;
             text-decoration: none;
+            color: black;
         }
         .actionbar a:hover {
             color: #004c99;
@@ -224,13 +225,13 @@
             <img class="messagearrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="messagebar">
-            <a href="/send-messages">
+            <a class="menu-item" href="/send-messages">
                 <div>Send today's schedule</div>
             </a>
-            <a href="/lateplate_lunch">
+            <a class="menu-item" href="/lateplate_lunch">
                 <div>Send lunch LPs</div>
             </a>
-            <a href="/lateplate_dinner">
+            <a class="menu-item" href="/lateplate_dinner">
                 <div>Send dinner LPs</div>
             </a>
         </div>
@@ -239,10 +240,10 @@
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="initialbar">
-            <a class="formesque" onclick="checkInitialize()">
+            <a class="menu-item" onclick="checkInitialize()">
                 <div>Initialize database</div>
             </a>
-            <a class="formesque" onclick="checkPicks()">
+            <a class="menu-item" onclick="checkPicks()">
                 <div>Picks</div>
             </a>
         </div>
