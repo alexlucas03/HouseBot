@@ -500,7 +500,7 @@
             var initialBar = document.querySelector(".initialbar");
             var downArrow = document.querySelector(".downarrow");
             var logout = document.querySelector(".logout");
-            var menuContainer = document.querySelectorAll(".menu-container");
+            var menuContainers = document.querySelectorAll(".menu-container");
 
             actionBar.style.top = topBar.offsetHeight + "px";
 
@@ -521,7 +521,9 @@
                 bigBody.style.display = "none";
                 homeBody.style.display = "none";
                 downArrow.style.transform = "rotate(180deg)";
-                menuContainer.style.opacity = 1;
+                menuContainers.forEach(function(menuContainer) {
+                    menuContainer.style.opacity = 1;
+                });
                 logout.style.opacity = 1;
             }
         }
@@ -576,8 +578,7 @@
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
-                messageArrow.style.transform = "rotate(0deg)";
-                messageArrow.style.transform = "translate(0%, -40%)";
+                messageArrow.style.transform = "rotate(180deg) translate(0%, -40%)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
@@ -604,8 +605,7 @@
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
-                initialArrow.style.transform = "rotate(0deg)";
-                initialArrow.style.transform = "translate(0%, -40%)";
+                initialArrow.style.transform = "rotate(180deg) translate(0%, -40%)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
