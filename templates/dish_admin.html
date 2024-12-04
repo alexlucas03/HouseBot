@@ -176,9 +176,6 @@
             color: red;
             padding-top: 40px;
         }
-        .avgmenu button {
-            color: black;
-        }
         .picksbody {
             grid-template-columns: auto auto;
         }
@@ -210,6 +207,7 @@
         .menu-container {
             display: flex;
             align-items: center;
+            color: black;
         }
     </style>
 </head>
@@ -221,32 +219,36 @@
     </a>
 
     <div class="actionbar">
-        <div class="avgmenu">
-            <div class="menu-container">
-                <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
-                <img class="messagearrow" src="static/images/downarrow.svg" alt="">
-            </div>
-            <div class="messagebar">
-                <form action="/send-messages" method="POST">
-                    <button type="submit">Send today's schedule</button>
-                </form>
-                <form action="/lateplate_lunch">
-                    <button type="submit">Send lunch LPs</button>
-                </form>
-                <form action="/lateplate_dinner">
-                    <button type="submit">Send dinner LPs</button>
-                </form>
-            </div>
-            <div class="menu-container">
-                <button id="initial" type="submit" onclick="checkInitial()">Begin quarter</button>
-                <img class="initialarrow" src="static/images/downarrow.svg" alt="">
-            </div>
-            <div class="initialbar">
-                <button type="submit" onclick="checkInitialize()">Initialize database</button>
-                <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
-            </div>
+        <div class="menu-container">
+            <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
+            <img class="messagearrow" src="static/images/downarrow.svg" alt="">
+        </div>
+        <div class="messagebar">
+            <form action="/send-messages" method="POST">
+                <button type="submit">Send today's schedule</button>
+            </form>
+            <form action="/lateplate_lunch">
+                <button type="submit">Send lunch LPs</button>
+            </form>
+            <form action="/lateplate_dinner">
+                <button type="submit">Send dinner LPs</button>
+            </form>
+        </div>
+        <div class="menu-container">
+            <button id="initial" type="submit" onclick="checkInitial()">Begin quarter</button>
+            <img class="initialarrow" src="static/images/downarrow.svg" alt="">
+        </div>
+        <div class="initialbar">
+            <button type="submit" onclick="checkInitialize()">Initialize database</button>
+            <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
+        </div>
+        <div class="menu-container">
             <button type="submit" onclick="checkAll()">Quarter schedule</button>
+        </div>
+        <div class="menu-container">
             <button id="rules"type="submit" onclick="checkRules()">Rules</button>
+        </div>
+        <div class="menu-container">
             <button type="submit" onclick="checkChange()">Change password</button>
         </div>
         <form action="/logout">
@@ -495,6 +497,8 @@
             var messageBar = document.querySelector(".messagebar");
             var initialBar = document.querySelector(".initialbar");
             var downArrow = document.querySelector(".downarrow");
+            var logout = document.querySelector(".logout");
+            var menuContainer = document.querySelector(".menu-container");
 
             actionBar.style.top = topBar.offsetHeight + "px";
 
@@ -515,14 +519,7 @@
                 bigBody.style.display = "none";
                 homeBody.style.display = "none";
                 downArrow.style.transform = "rotate(180deg)";
-                var avgmenu = document.querySelector(".avgmenu");
-                var logout = document.querySelector(".logout");
-                var children = avgmenu.children;
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].tagName.toLowerCase() === "button") {
-                        children[i].style.opacity = 1;
-                    }
-                }
+                menuContainer.style.opacity = 1;
                 logout.style.opacity = 1;
             }
         }
@@ -571,29 +568,20 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var avgmenu = document.querySelector(".avgmenu");
+            var menuContainer = document.querySelector(".menu-container");
             var logout = document.querySelector(".logout");
-            var children = avgmenu.children;
             var messageArrow = document.querySelector(".messagearrow");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
                 messageArrow.style.transform = "rotate(0deg)";
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].tagName.toLowerCase() === "button") {
-                        children[i].style.opacity = 1;
-                    }
-                }
+                menuContainer.style.opacity = 1;
                 logout.style.opacity = 1;
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
                 messageArrow.style.transform = "rotate(180deg)";
-                for (var i = 0; i < children.length; i++) {
-                    if (children[i].tagName.toLowerCase() === "button") {
-                        children[i].style.opacity = 0.5;
-                    }
-                }
+                menuContainer.style.opacity = 0.5;
                 logout.style.opacity = 0.5;
             }
         }
@@ -602,28 +590,20 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var avgmenu = document.querySelector(".avgmenu");
+            var menuContainer = document.querySelector(".menu-container");
             var logout = document.querySelector(".logout");
             var initialArrow = document.querySelector(".initialarrow");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
                 initialArrow.style.transform = "rotate(0deg)";
-                for (var i = 0; i < avgmenu.children.length; i++) {
-                    if (avgmenu.children[i].tagName.toLowerCase() === "button") {
-                        avgmenu.children[i].style.opacity = 1;
-                    }
-                }
+                menuContainer.style.opacity = 1;
                 logout.style.opacity = 1;
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
                 initialArrow.style.transform = "rotate(0deg)";
-                for (var i = 0; i < avgmenu.children.length; i++) {
-                    if (avgmenu.children[i].tagName.toLowerCase() === "button") {
-                        avgmenu.children[i].style.opacity = 0.5;
-                    }
-                }
+                menuContainer.style.opacity = 0.5;
                 logout.style.opacity = 0.5;
             }
         }
