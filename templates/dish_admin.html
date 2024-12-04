@@ -577,6 +577,7 @@
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
                 messageArrow.style.transform = "rotate(0deg)";
+                messageArrow.style.transform = "translate(0%, -40%)";
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
@@ -585,6 +586,7 @@
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
                 messageArrow.style.transform = "rotate(180deg)";
+                messageArrow.style.transform = "translate(0%, -40%)";
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 0.5;
                 });
@@ -596,7 +598,7 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var menuContainers = document.querySelectorAll(".menu-container"); // NodeList
+            var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
             var initialArrow = document.querySelector(".initialarrow");
 
@@ -611,7 +613,7 @@
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
-                initialArrow.style.transform = "rotate(0deg)";
+                initialArrow.style.transform = "rotate(180deg)";
                 initialArrow.style.transform = "translate(0%, -40%)";
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 0.5;
