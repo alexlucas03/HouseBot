@@ -370,7 +370,7 @@
                 <div><strong>To Pick</strong></div>
                 <ul>
                     {% for person in people_objects %}
-                        {% if person.pointsNeeded|int > 0 %}
+                        {% if person.pointsNeeded|int > 0 && person.pickOrder|int != 999 %}
                             <li>
                                 {{ person.name }}: {{ person.pointsNeeded }}
                             </li>
@@ -382,7 +382,7 @@
                 <div><strong>Picked</strong></div>
                 <ul>
                     {% for person in people_objects %}
-                        {% if person.pointsNeeded|int == 0 %}
+                        {% if person.pointsNeeded|int == 0 && person.pickOrder|int != 999 %}
                             <li class="transparent">
                                 {{ person.name }}: {{ person.pointsNeeded }}
                             </li>
