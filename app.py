@@ -65,7 +65,7 @@ def init(logged_in):
                 person = people
                 break
 
-    today = datetime.date.today()
+    today = datetime.date.today() - datetime.timedelta(hours=7)
 
     if today.strftime("%A") == 'Saturday':
         today += timedelta(days=1)
@@ -240,7 +240,7 @@ def send_groupme_messages():
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
         return response
 
-    if datetime.date.today().strftime("%A") != "Saturday" and datetime.date.today().strftime("%A") != "Sunday":
+    if (datetime.date.today() - datetime.timedelta(hours=7)).strftime("%A") != "Saturday" and (datetime.date.today() - datetime.timedelta(hours=7)).strftime("%A") != "Sunday":
         lunch_message = f"Lunch: @{lunch_owner}"
         send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
 
