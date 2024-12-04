@@ -56,7 +56,7 @@
             display: flex;
             color: black;
         }
-        .menu-container, .logout, .actionbar button {
+        .menu-container, .logout {
             background-color: white;
             border: none;
             font-size: 3vh;
@@ -65,7 +65,7 @@
             flex-grow: 1;
             padding-bottom: 20px;
         }
-        .actionbar button:hover {
+        .actionbar button:hover, .actionbar a:hover {
             color: #004c99;
         }
         .bigbody {
@@ -211,6 +211,9 @@
             align-items: center;
             color: black;
         }
+        .menu-header {
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -222,7 +225,7 @@
 
     <div class="actionbar">
         <a class="menu-container" onclick="checkMessage()">
-            <div>Send messages</div>
+            <div class="menu-header">Send messages</div>
             <img class="messagearrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="messagebar">
@@ -237,7 +240,7 @@
             </form>
         </div>
         <a class="menu-container" onclick="checkInitial()">
-            <div>Begin quarter</div>
+            <div class="menu-header">Begin quarter</div>
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="initialbar">
