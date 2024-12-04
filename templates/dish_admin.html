@@ -209,6 +209,10 @@
             height: 3vh;
             max-height: 20px;
         }
+        .menu-container {
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
@@ -220,7 +224,10 @@
 
     <div class="actionbar">
         <div class="avgmenu">
-            <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
+            <div class="menu-container">
+                <button id="message" type="submit" onclick="checkMessage()">Send messages</button>
+                <img class="messagearrow" src="static/images/downarrow.svg" alt="">
+            </div>
             <div class="messagebar">
                 <form action="/send-messages" method="POST">
                     <button type="submit">Send today's schedule</button>
@@ -232,8 +239,10 @@
                     <button type="submit">Send dinner LPs</button>
                 </form>
             </div>
-
-            <button id="initial" type="submit" onclick="checkInitial()">Begin quarter</button>
+            <div class="menu-container">
+                <button id="initial" type="submit" onclick="checkInitial()">Begin quarter</button>
+                <img class="initialarrow" src="static/images/downarrow.svg" alt="">
+            </div>
             <div class="initialbar">
                 <button type="submit" onclick="checkInitialize()">Initialize database</button>
                 <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
@@ -490,7 +499,7 @@
             var messageBar = document.querySelector(".messagebar");
             var initialBar = document.querySelector(".initialbar");
             var downArrow = document.querySelector(".downarrow");
-            
+
             actionBar.style.top = topBar.offsetHeight + "px";
 
             var bigBodyChildren = bigBody.children;
@@ -569,9 +578,11 @@
             var avgmenu = document.querySelector(".avgmenu");
             var logout = document.querySelector(".logout");
             var children = avgmenu.children;
+            var messageArrow = document.querySelector(".messagearrow");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
+                messageArrow.style.transform = "rotate(0deg)";
                 for (var i = 0; i < children.length; i++) {
                     if (children[i].tagName.toLowerCase() === "button") {
                         children[i].style.opacity = 1;
@@ -581,6 +592,7 @@
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
+                messageArrow.style.transform = "rotate(180deg)";
                 for (var i = 0; i < children.length; i++) {
                     if (children[i].tagName.toLowerCase() === "button") {
                         children[i].style.opacity = 0.5;
@@ -596,9 +608,11 @@
             var actionBar = document.querySelector(".actionbar");
             var avgmenu = document.querySelector(".avgmenu");
             var logout = document.querySelector(".logout");
+            var initialArrow = document.querySelector(".initialarrow");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
+                initialArrow.style.transform = "rotate(0deg)";
                 for (var i = 0; i < avgmenu.children.length; i++) {
                     if (avgmenu.children[i].tagName.toLowerCase() === "button") {
                         avgmenu.children[i].style.opacity = 1;
@@ -608,6 +622,7 @@
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
+                initialArrow.style.transform = "rotate(0deg)";
                 for (var i = 0; i < avgmenu.children.length; i++) {
                     if (avgmenu.children[i].tagName.toLowerCase() === "button") {
                         avgmenu.children[i].style.opacity = 0.5;
