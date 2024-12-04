@@ -50,7 +50,7 @@
             background-color: #fff;
             color: black;
         }
-        .actionbar form {
+        .actionbar form, .formesque {
             width: 100%;
             flex-grow: 1;
             display: flex;
@@ -243,12 +243,12 @@
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </div>
         <div class="initialbar">
-            <form>
+            <div class="formesque">
                 <button type="submit" onclick="checkInitialize()">Initialize database</button>
-            </form>
-            <form>
+            </div>
+            <div class="formesque">
                 <button id="picks" type="submit" onclick="checkPicks()">Picks</button>
-            </form>
+            </div>
         </div>
         <div class="menu-container">
             <button type="submit" onclick="checkAll()">Quarter schedule</button>
