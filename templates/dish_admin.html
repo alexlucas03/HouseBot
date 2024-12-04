@@ -238,16 +238,69 @@
         </div>
 
         <div class="rulesbody">
-            <p>Click "claim" to pick dishes to exactly meet your points needed</p>
-            <p>Click "unclaim" to undo a pick</p>
-            <p>Lunch is worth 2 points each</p>
-            <p>Food must be put away by 3:30pm, dishes must be done by 5pm</p>
-            <p>Dinner is worth 2 points each</p>
-            <p>Food must be put away by 8pm, dishes must be done by 5am</p>
-            <p>x1 is worth 1 point</p>
-            <p>Must be done by 5am</p>
-            <p>Sunday dinner is worth 3 points</p>
-            <p>Fridge clean must be done in addition to dishes, must be done by 5am Monday</p>
+            <strong>Picks:</strong>
+    
+            <ul>
+                <li>Click "claim" to pick dishes to exactly meet your points needed</li>
+                <li>Click "unclaim" to undo a pick</li>
+                <li>Make picks until your 'points needed' is 0</li>
+                <li>Points are allocated as follows:</li>
+            </ul>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Sunday</th>
+                    </tr>
+                    <tr>
+                        <th>Lunch</th>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th>Dinner</th>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <th>X1</th>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+            <strong>X1</strong>
+            <ul>
+                <li>Due by 5am next day</li>
+            </ul>
+            <strong>X2</strong>
+            <ul>
+                <li>Food away due 8:30pm</li>
+                <li>Due by 5am next day</li>
+            </ul>
+            <strong>X3</strong>
+            <ul>
+                <li>X2 + fridge clean</li>
+                <li>Due by 5am Monday</li>
+            </ul>
         </div>
 
         <div class="allbody">
@@ -384,7 +437,7 @@
                     {% for person in people_objects %}
                         {% if person.pointsNeeded|int == 0 and person.pickOrder|int != 999 %}
                             <li class="transparent">
-                                {{ person.name }}: {{ person.pointsNeeded }}
+                                {{ person.name }}
                             </li>
                         {% endif %}
                     {% endfor %}
