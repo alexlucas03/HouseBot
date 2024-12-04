@@ -50,7 +50,7 @@
             background-color: #fff;
             color: black;
         }
-        .actionbar a, .logout, .menu-item {
+        .actionbar a, .logout, .menu-item div {
             background-color: white;
             border: none;
             font-size: 3vh;
@@ -584,6 +584,7 @@
             var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
             var messageArrow = document.querySelector(".messagearrow");
+            var initialArrow = document.querySelector(".initialarrow");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
@@ -596,6 +597,7 @@
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
                 messageArrow.style.transform = "rotate(180deg)"
+                initialArrow.style.transform = "rotate(0deg)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 0.5;
                 });
@@ -610,6 +612,7 @@
             var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
             var initialArrow = document.querySelector(".initialarrow");
+            var messageArrow = document.querySelector(".messagearrow");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
@@ -622,6 +625,7 @@
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
                 initialArrow.style.transform = "rotate(180deg)"
+                messageArrow.style.transform = "rotate(0deg)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 0.5;
                 });
