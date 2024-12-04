@@ -61,7 +61,7 @@
             text-decoration: none;
             color: black;
         }
-        .actionbar a:hover {
+        .actionbar a:hover, .menu-item:hover {
             color: #004c99;
         }
         .bigbody {
@@ -220,40 +220,40 @@
     </a>
 
     <div class="actionbar">
-        <a class="menu-container" onclick="checkMessage()">
+        <a href="#" class="menu-container" onclick="checkMessage()">
             <div class="menu-header">Send messages</div>
             <img class="messagearrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="messagebar">
-            <a class="menu-item" href="/send-messages">
+            <a href="#" class="menu-item" href="/send-messages">
                 <div>Send today's schedule</div>
             </a>
-            <a class="menu-item" href="/lateplate_lunch">
+            <a href="#" class="menu-item" href="/lateplate_lunch">
                 <div>Send lunch LPs</div>
             </a>
-            <a class="menu-item" href="/lateplate_dinner">
+            <a href="#" class="menu-item" href="/lateplate_dinner">
                 <div>Send dinner LPs</div>
             </a>
         </div>
-        <a class="menu-container" onclick="checkInitial()">
+        <a href="#" class="menu-container" onclick="checkInitial()">
             <div class="menu-header">Begin quarter</div>
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="initialbar">
-            <a class="menu-item" onclick="checkInitialize()">
+            <a href="#" class="menu-item" onclick="checkInitialize()">
                 <div>Initialize database</div>
             </a>
-            <a class="menu-item" onclick="checkPicks()">
+            <a href="#" class="menu-item" onclick="checkPicks()">
                 <div>Picks</div>
             </a>
         </div>
-        <a class="menu-container" onclick="checkAll()">
+        <a href="#" class="menu-container" onclick="checkAll()">
             <div>Quarter schedule</div>
         </a>
-        <a class="menu-container" onclick="checkRules()">
+        <a href="#" class="menu-container" onclick="checkRules()">
             <div>Rules</div>
         </a>
-        <a class="menu-container" onclick="checkChange()">
+        <a href="#" class="menu-container" onclick="checkChange()">
             <div>Change password</div>
         </a>
         <form action="/logout">
