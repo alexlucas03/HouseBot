@@ -211,7 +211,6 @@
             display: flex;
             align-items: center;
             color: black;
-            width: 100%;
         }
     </style>
 </head>
@@ -572,20 +571,24 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var menuContainer = document.querySelectorAll(".menu-container");
+            var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
             var messageArrow = document.querySelector(".messagearrow");
 
             if (messageBar.style.display === "block") {
                 messageBar.style.display = "none";
                 messageArrow.style.transform = "rotate(0deg)";
-                menuContainer.style.opacity = 1;
+                menuContainers.forEach(function(menuContainer) {
+                    menuContainer.style.opacity = 1;
+                });
                 logout.style.opacity = 1;
             } else {
                 messageBar.style.display = "block";
                 initialBar.style.display = "none";
                 messageArrow.style.transform = "rotate(180deg)";
-                menuContainer.style.opacity = 0.5;
+                menuContainers.forEach(function(menuContainer) {
+                    menuContainer.style.opacity = 0.5;
+                });
                 logout.style.opacity = 0.5;
             }
         }
@@ -594,20 +597,26 @@
             var initialBar = document.querySelector(".initialbar");
             var messageBar = document.querySelector(".messagebar");
             var actionBar = document.querySelector(".actionbar");
-            var menuContainer = document.querySelectorAll(".menu-container");
+            var menuContainers = document.querySelectorAll(".menu-container"); // NodeList
             var logout = document.querySelector(".logout");
             var initialArrow = document.querySelector(".initialarrow");
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
                 initialArrow.style.transform = "rotate(0deg)";
-                menuContainer.style.opacity = 1;
+                initialArrow.style.transform = "translate(0%, -40%)";
+                menuContainers.forEach(function(menuContainer) {
+                    menuContainer.style.opacity = 1;
+                });
                 logout.style.opacity = 1;
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
                 initialArrow.style.transform = "rotate(0deg)";
-                menuContainer.style.opacity = 0.5;
+                initialArrow.style.transform = "translate(0%, -40%)";
+                menuContainers.forEach(function(menuContainer) {
+                    menuContainer.style.opacity = 0.5;
+                });
                 logout.style.opacity = 0.5;
             }
         }
