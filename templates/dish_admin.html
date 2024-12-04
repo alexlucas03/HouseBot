@@ -187,6 +187,18 @@
         .topick, .picked {
             text-align: center;
         }
+        .rulestable {
+            padding-bottom: 10px;
+            border-collapse: collapse;
+        }
+        .rulestable, .rulestable th, .rulestable td {
+            border: 1px solid black;
+        }
+
+        .rulestable th, .rulestable td {
+            padding: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -247,7 +259,7 @@
                 <li>Points are allocated as follows:</li>
             </ul>
 
-            <table>
+            <table class="rulestable">
                 <tbody>
                     <tr>
                         <th></th>
