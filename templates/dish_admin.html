@@ -39,12 +39,10 @@
         }
         .actionbar {
             position: fixed;
-            top: 0%;
-            left: 0%;
             display: none;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
             padding-top: 20px;
             padding-bottom: 10px;
@@ -59,6 +57,7 @@
             color: black;
         }
         .actionbar button {
+            width: 100%;
             background-color: white;
             border: none;
             font-size: 3vh;
@@ -510,7 +509,7 @@
                 homeBody.style.display = "block";
                 downArrow.style.transform = "rotate(0deg)";
             } else {
-                actionBar.style.display = "block";
+                actionBar.style.display = "flex";
                 messageBar.style.display = "none";
                 initialBar.style.display = "none";
                 bigBody.style.display = "none";
