@@ -181,6 +181,12 @@
         .avgmenu button {
             color: black;
         }
+        .picksbody {
+            grid-template-columns: auto auto;
+            display: grid;
+            padding-bottom: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -360,7 +366,7 @@
         </div>
 
         <div class="picksbody">
-            <div>
+            <div class="topick">
                 <div><strong>To Pick</strong></div>
                 <ul>
                     {% for person in people_objects %}
@@ -372,7 +378,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div>
+            <div class="picked">
                 <div><strong>Picked</strong></div>
                 <ul>
                     {% for person in people_objects %}
