@@ -33,7 +33,7 @@
             z-index: 1000;
             width: 100%;
         }
-        img {
+        .icon {
             width: 30vw;
             max-width: 150px;
         }
@@ -205,12 +205,17 @@
             width: 100vw;
             max-width: 600px;
         }
+        .downarrow {
+            height: 3vh;
+            max-height: 10px;
+        }
     </style>
 </head>
 <body>
     <a class="topbar" onclick="toggleActionBar()">
-        <img src="static/images/txicon.svg" alt="">
+        <img class="icon" src="static/images/txicon.svg" alt="">
         <h1>Dish Admin</h1>
+        <img class="downarrow" src="static/images/downarrow.svg" alt="">
     </a>
 
     <div class="actionbar">
@@ -284,12 +289,12 @@
                 <tbody>
                     <tr>
                         <th></th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Sunday</th>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thurs</th>
+                        <th>Fri</th>
+                        <th>Sun</th>
                     </tr>
                     <tr>
                         <th>Lunch</th>
