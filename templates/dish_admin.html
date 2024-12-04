@@ -510,24 +510,23 @@
             var actionBar = document.querySelector(".actionbar");
             var avgmenu = document.querySelector(".avgmenu");
             var logout = document.querySelector(".logout");
-            //var children = avgmenu.children;
 
             if (initialBar.style.display === "block") {
                 initialBar.style.display = "none";
-            //    for (var i = 0; i < children.length; i++) {
-            //        if (children[i].tagName.toLowerCase() === "button") {
-            //            children[i].style.opacity = 1;
-            //        }
-            //    }
+                for (var i = 0; i < avgmenu.children.length; i++) {
+                    if (avgmenu.children[i].tagName.toLowerCase() === "button") {
+                        avgmenu.children[i].style.opacity = 1;
+                    }
+                }
                 logout.style.opacity = 1;
             } else {
                 initialBar.style.display = "block";
                 messageBar.style.display = "none";
-            //    for (var i = 0; i < children.length; i++) {
-            //        if (children[i].tagName.toLowerCase() === "button") {
-            //            children[i].style.opacity = 0.5;
-            //        }
-            //    }
+                for (var i = 0; i < avgmenu.children.length; i++) {
+                    if (avgmenu.children[i].tagName.toLowerCase() === "button") {
+                        avgmenu.children[i].style.opacity = 0.5;
+                    }
+                }
                 logout.style.opacity = 0.5;
             }
         }
