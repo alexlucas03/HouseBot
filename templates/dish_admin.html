@@ -188,16 +188,18 @@
             text-align: center;
         }
         .rulestable {
-            padding-bottom: 10px;
             border-collapse: collapse;
         }
         .rulestable, .rulestable th, .rulestable td {
             border: 1px solid black;
         }
-
         .rulestable th, .rulestable td {
             padding: 8px;
             text-align: center;
+        }
+        .rulestable th:first-child {
+            border-left: none;
+            border-top: none;
         }
     </style>
 </head>
@@ -250,6 +252,21 @@
         </div>
 
         <div class="rulesbody">
+            <strong>X1</strong>
+            <ul>
+                <li>Due by 5am next day</li>
+            </ul>
+            <strong>X2</strong>
+            <ul>
+                <li>Food away due 8:30pm</li>
+                <li>Due by 5am next day</li>
+            </ul>
+            <strong>X3</strong>
+            <ul>
+                <li>X2 + fridge clean</li>
+                <li>Due by 5am Monday</li>
+            </ul>
+
             <strong>Picks:</strong>
     
             <ul>
@@ -299,20 +316,6 @@
                     </tr>
                 </tbody>
             </table>
-            <strong>X1</strong>
-            <ul>
-                <li>Due by 5am next day</li>
-            </ul>
-            <strong>X2</strong>
-            <ul>
-                <li>Food away due 8:30pm</li>
-                <li>Due by 5am next day</li>
-            </ul>
-            <strong>X3</strong>
-            <ul>
-                <li>X2 + fridge clean</li>
-                <li>Due by 5am Monday</li>
-            </ul>
         </div>
 
         <div class="allbody">
