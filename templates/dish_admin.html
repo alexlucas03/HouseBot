@@ -55,6 +55,7 @@
             flex-grow: 1;
             display: flex;
             color: black;
+            text-align: center;
         }
         .actionbar a, .logout, .actionbar form {
             background-color: white;
@@ -229,15 +230,15 @@
             <img class="messagearrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="messagebar">
-            <form action="/send-messages" method="POST">
-                <button type="submit">Send today's schedule</button>
-            </form>
-            <form action="/lateplate_lunch">
-                <button type="submit">Send lunch LPs</button>
-            </form>
-            <form action="/lateplate_dinner">
-                <button type="submit">Send dinner LPs</button>
-            </form>
+            <a href="/send-messages">
+                <div>Send dinner LPs</div>
+            </a>
+            <a href="/lateplate_lunch">
+                <div>Send today's schedule</div>
+            </a>
+            <a href="/lateplate_dinner">
+                <div>Send dinner LPs</div>
+            </a>
         </div>
         <a class="menu-container" onclick="checkInitial()">
             <div class="menu-header">Begin quarter</div>
