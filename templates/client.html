@@ -343,20 +343,17 @@
         </div>
 
         <div class="homebody">
-
             <div class="dish-container">
-                {% for month in months %}
-                    <div class="dishes-list">
-                        {% for dish in my_dishes %}
-                            <h3 class="dish-type">{{ dish.month }} {{ dish.day }}</h3>
-                        {% endfor %}
-                    </div>
-                    <div class="dishes-owners">
-                        {% for dish in my_dishes %}
-                            <h3 class="dish-owner">{{ dish.type }}</h3>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                <div class="dishes-list">
+                    {% for dish in my_dishes %}
+                        <h3 class="dish-type">{{ dish.date.strftime("%B") }} {{ dish.day }}</h3>
+                    {% endfor %}
+                </div>
+                <div class="dishes-owners">
+                    {% for dish in my_dishes %}
+                        <h3 class="dish-owner">{{ dish.type }}</h3>
+                    {% endfor %}
+                </div>
             </div>
         </div>        
 
