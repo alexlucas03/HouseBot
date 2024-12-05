@@ -2,45 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Client</title>
-    <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="icon" href="static/images/icon-plate.webp">
-    <style>
-    </style>
-</head>
-<body>
-    <div class="content">
-        <h1>{{ person.name }}</h1>
-        <h2>My Dishes:</h2>
-        <ul class="dish-list">
-            {% for dish in my_dishes %}
-                <li>{{ dish.date_str }}, {{ dish.type }}</li>
-            {% endfor %}
-        </ul>
-
-        <form action="/all">
-            <button type="submit">All Dishes</button>
-        </form>
-        <form action="/rules">
-            <button type="submit">Rules</button>
-        </form>
-        <form action="/lunchlp">
-            <button type="submit">Lunch Late Plate</button>
-        </form>
-        <form action="/dinnerlp">
-            <button type="submit">Dinner Late Plate</button>
-        </form>
-        <form action="/logout">
-            <button type="submit">Logout</button>
-        </form> 
-    </div>
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dish Admin</title>
     <link rel="stylesheet" href="static/css/styles.css">
