@@ -216,6 +216,7 @@
         }
         .initialbody {
             grid-template-columns: auto auto;
+            align-items: center;
         }
         .initialbody .form-group {
             margin-left: 20px;
@@ -239,6 +240,13 @@
         }
         .people-table {
             width: 100%;
+        }
+        .table-buttons {
+            display: grid;
+            grid-template-columns: auto auto;
+        }
+        .people-table td {
+            width: 50%;
         }
     </style>
 </head>
@@ -481,8 +489,10 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button class="table-button" type="button" class="add-row-button">Add Row</button>
-                    <button class="table-button" type="submit">Initialize People</button>
+                    <div class="table-buttons">
+                        <button class="table-button" type="button" class="add-row-button">Add Row</button>
+                        <button class="table-button" type="submit">Initialize People</button>
+                    </div>
                 </form>
             </div>
         </div>
