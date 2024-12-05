@@ -346,16 +346,20 @@
             <div class="dish-container">
                 <div class="dishes-list">
                     {% for dish in my_dishes %}
-                        <h3 class="dish-type">{{ dish.date_obj.strftime("%B") }} {{ dish.day }}</h3>
+                        {% if !(today.year > dish.year or (today.year == dish.year and today.month > dish.month) or (today.year == dish.year and today.month == dish.month and today.day > dish.day)) %}
+                            <h3 class="dish-type">{{ dish.date_obj.strftime("%B") }} {{ dish.day }}</h3>
+                        {% endif %}
                     {% endfor %}
                 </div>
                 <div class="dishes-owners">
                     {% for dish in my_dishes %}
-                        <h3 class="dish-owner">{{ dish.type }}</h3>
+                        {% if !(today.year > dish.year or (today.year == dish.year and today.month > dish.month) or (today.year == dish.year and today.month == dish.month and today.day > dish.day)) %}
+                            <h3 class="dish-owner">{{ dish.type }}</h3>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
-        </div>        
+        </div>
 
     <script>
         window.onload = function() {

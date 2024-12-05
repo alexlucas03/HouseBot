@@ -10,6 +10,7 @@ class Dish:
         self.owner = owner
         self.id = id
         self.day = day
+        self.year = year
 
     def to_dict(self):
         return {
@@ -19,5 +20,6 @@ class Dish:
             'type': self.type,
             'weekday': self.weekday,
             'owner': self.owner,
-            'id': self.id
+            'id': self.id,
+            'year': self.year
         }
