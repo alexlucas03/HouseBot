@@ -141,22 +141,24 @@
             color: red;
             font-weight: bold;
         }
+        .dishes-container {
+            display: flex;
+            width: 100%; /* Ensure it takes the full available width */
+            justify-content: space-between; /* Space between the two columns */
+        }
+
+        .dishes-list, .dishes-owners {
+            flex: 1; /* Makes each column take 50% of the available space */
+            padding: 10px; /* Adjust the padding as necessary */
+            box-sizing: border-box; /* Ensures padding is included in the width calculation */
+        }
+
         .dishes-list {
-            border-right: 2px solid #888;
-            text-align: right;
-            padding: 10px;
-            width: 50%;
+            border-right: 2px solid #888; /* Keeps the border */
         }
+
         .dishes-owners {
-            border-left: 2px solid #888;
-            text-align: left;
-            padding: 10px;
-            width: 50%;
-        }
-        .dish-container {
-            grid-template-columns: auto auto;
-            display: grid;
-            padding-bottom: 5px;
+            border-left: 2px solid #888; /* Keeps the border */
         }
         .homebody {
             text-align: center;
