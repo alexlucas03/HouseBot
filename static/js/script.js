@@ -62,19 +62,3 @@ addRowButton.addEventListener('click', () => {
     peopleTableBody.appendChild(newRow);
 });
 
-const deleteRowButton = document.querySelector('.delete-row-button');
-
-deleteRowButton.addEventListener('click', () => {
-    console.log("trying to delete row");
-    const rows = peopleTableBody.querySelectorAll('tr');
-    console.log(rows);
-    console.log(rows.length);  // Fix the typo here
-    if (rows.length > 1) { // Don't delete the last row if it's the only one (header row included)
-        const lastRow = rows[rows.length - 1];
-        console.log(lastRow);
-        lastRow.remove();
-    }
-});
-
-
-

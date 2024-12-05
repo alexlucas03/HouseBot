@@ -754,6 +754,21 @@
             picksBody.style.display = "grid";
             bigBody.style.display = picksBody.style.display;
         }
+        
+        const peopleTableBody = document.getElementById('people-table-body');
+        const deleteRowButton = document.querySelector('.delete-row-button');
+
+        deleteRowButton.addEventListener('click', () => {
+            console.log("trying to delete row");
+            const rows = peopleTableBody.querySelectorAll('tr');
+            console.log(rows);
+            console.log(rows.length);
+            if (rows.length > 1) {
+                const lastRow = rows[rows.length - 1];
+                console.log(lastRow);
+                lastRow.remove();
+            }
+        });
     </script>
     <script src="static/js/script.js"></script>
 </body>
