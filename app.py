@@ -182,7 +182,17 @@ def client():
 
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
     today = datetime.datetime.now() - datetime.timedelta(hours=8)
-    return render_template('client.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today, my_dishes=my_dishes)
+    lunch_rows = db.session.execute(text("SELECT * FROM lunch"))
+    if any(row[0] == person.name for row in lunch_rows):
+        lunch = 1
+    else:
+        lunch = 0
+    dinner_rows = db.session.execute(text("SELECT * FROM dinner"))
+    if any(row[0] == person.name for row in dinner_rows):
+        dinner = 1
+    else:
+        dinner = 0
+    return render_template('client.html', lunch=lunch, dinner=dinner, months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today, my_dishes=my_dishes)
 
 @app.route('/dish_admin')
 def dish_admin():
@@ -510,17 +520,6 @@ def lunchlp():
         db.session.commit()
     return Response(status=200)
 
-@app.route('/rmlunchlp', methods=['GET'])
-def rmlunchlp():
-    init(False)
-    lunch_rows = db.session.execute(text("SELECT * FROM lunch"))
-    if any(row[0] == person.name for row in lunch_rows):
-        db.session.execute(
-            text(f"DELETE FROM lunch WHERE name = '{person.name}'")
-        )
-        db.session.commit()
-    return Response(status=200)
-
 @app.route('/dinnerlp', methods=['GET'])
 def dinnerlp():
     init(False)
@@ -528,6 +527,17 @@ def dinnerlp():
     if not any(row[0] == person.name for row in dinner_rows):
         db.session.execute(
             text(f"INSERT INTO dinner VALUES ('{person.name}')")
+        )
+        db.session.commit()
+    return Response(status=200)
+
+@app.route('/rmlunchlp', methods=['GET'])
+def rmlunchlp():
+    init(False)
+    lunch_rows = db.session.execute(text("SELECT * FROM lunch"))
+    if any(row[0] == person.name for row in lunch_rows):
+        db.session.execute(
+            text(f"DELETE FROM lunch WHERE name = '{person.name}'")
         )
         db.session.commit()
     return Response(status=200)
