@@ -188,7 +188,7 @@ def dish_admin():
         return redirect('/')
     init(False)
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
-    today = datetime.datetime.now() - datetime.timedelta(hours=7)
+    today = datetime.datetime.now() - datetime.timedelta(hours=8)
     return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today)
 
 @app.route('/rules')
@@ -240,7 +240,7 @@ def send_groupme_messages():
         response = requests.post(url, headers={"Content-Type": "application/json"}, data=json.dumps(data))
         return response
 
-    if (datetime.date.today() - datetime.timedelta(hours=7)).strftime("%A") != "Saturday" and (datetime.date.today() - datetime.timedelta(hours=7)).strftime("%A") != "Sunday":
+    if (datetime.datetime.now() - datetime.timedelta(hours=8)).strftime("%A") != "Saturday" and (datetime.datetime.now() - datetime.timedelta(hours=8)).strftime("%A") != "Sunday":
         lunch_message = f"Lunch: @{lunch_owner}"
         send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
 
