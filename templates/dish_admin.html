@@ -334,13 +334,21 @@
     <div class="bigbody">
         <div class="changebody">
             <form action="/change_password">
-                <strong>Current password:</strong>
-                <input type="text" id="current" name="current" required>
-                <strong>New password:</strong>
-                <input type="text" id="new" name="new" min="1" required>
-                <strong>Confirm new password:</strong>
-                <input type="text" id="confirm" name="confirm" required>
-                <button type="submit">Change password</button>
+                <div>
+                    <strong>Current password:</strong>
+                    <input type="text" id="current" name="current" required>
+                </div>
+                <div>
+                    <strong>New password:</strong>
+                    <input type="text" id="new" name="new" min="1" required>
+                </div>
+                <div>
+                    <strong>Confirm new password:</strong>
+                    <input type="text" id="confirm" name="confirm" required>
+                </div>
+                <div>
+                    <button type="submit">Change password</button>
+                </div>
             </form>
         </div>
 
