@@ -210,10 +210,13 @@
         .menu-header {
             margin-right: 10px;
         }
+        .initialbody {
+            grid-template-columns: auto auto;
+        }
     </style>
 </head>
 <body>
-    <a class="topbar" onclick="toggleActionBar()">
+    <a href="#" class="topbar" onclick="toggleActionBar()">
         <img class="icon" src="static/images/txicon.svg" alt="">
         <h1>Dish Admin</h1>
         <img class="downarrow" src="static/images/downarrow.svg" alt="">
@@ -403,10 +406,10 @@
 
         <div class="initialbody">
             <div class="form-container">
-                <h1>Initialize Dishes</h1>
+                <h2>Initialize Dishes</h2>
                 <form action="/initdish" method="POST">
                     <div class="form-group">
-                        <label for="startYear">Start Year:</label>
+                        <strong>Start year:</strong>
                         <input type="number" id="startYear" name="start_year" required>
                     </div>
                     <div class="form-group">
@@ -434,7 +437,8 @@
             </div>
             
             <div class="form-container">
-                <h1>Initialize People - leave User ID empty for liveouts</h1>
+                <h2>Initialize People</h2>
+                <h4>Leave 'User ID' empty for liveouts</h4>
                 <form action="/initpeople" method="POST">
                     <table class="people-table">
                         <thead>
@@ -671,7 +675,7 @@
                 }
             }
             downArrow.style.transform = "rotate(0deg)";
-            initialBody.style.display = "block";
+            initialBody.style.display = "grid";
             bigBody.style.display = initialBody.style.display;
         }
 
