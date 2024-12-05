@@ -464,25 +464,25 @@
             var addLunch = document.querySelector(".add-lunch");
             var removeLunch = document.querySelector(".remove-lunch");
 
-            if (addDinner.style.display == "none") {
+            if (addLunch.style.display === "none") {
                 addLunch.style.display = "block";
-                removeLunch.style.display = "none"
+                removeLunch.style.display = "none";
             } else {
                 addLunch.style.display = "none";
-                removeLunch.style.display = "block"
+                removeLunch.style.display = "block";
             }
         }
 
         function toggleDinner() {
             var addDinner = document.querySelector(".add-dinner");
             var removeDinner = document.querySelector(".remove-dinner");
-            
-            if (addDinner.style.display == "none") {
+
+            if (addDinner.style.display === "none") {
                 addDinner.style.display = "block";
-                removeDinner.style.display = "none"
+                removeDinner.style.display = "none";
             } else {
                 addDinner.style.display = "none";
-                removeDinner.style.display = "block"
+                removeDinner.style.display = "block";
             }
         }
     </script>
