@@ -510,13 +510,35 @@ def lunchlp():
         db.session.commit()
     return Response(status=200)
 
+@app.route('/rmlunchlp', methods=['GET'])
+def rmlunchlp():
+    init(False)
+    lunch_rows = db.session.execute(text("SELECT * FROM lunch"))
+    if any(row[0] == person.name for row in lunch_rows):
+        db.session.execute(
+            text(f"DELETE FROM lunch WHERE name = '{person.name}'")
+        )
+        db.session.commit()
+    return Response(status=200)
+
 @app.route('/dinnerlp', methods=['GET'])
 def dinnerlp():
     init(False)
     dinner_rows = db.session.execute(text("SELECT * FROM dinner"))
-    if  not any(row[0] == person.name for row in dinner_rows):
+    if not any(row[0] == person.name for row in dinner_rows):
         db.session.execute(
             text(f"INSERT INTO dinner VALUES ('{person.name}')")
+        )
+        db.session.commit()
+    return Response(status=200)
+
+@app.route('/rmdinnerlp', methods=['GET'])
+def rmdinnerlp():
+    init(False)
+    dinner_rows = db.session.execute(text("SELECT * FROM dinner"))
+    if any(row[0] == person.name for row in dinner_rows):
+        db.session.execute(
+            text(f"DELETE FROM dinner WHERE name = '{person.name}'")
         )
         db.session.commit()
     return Response(status=200)

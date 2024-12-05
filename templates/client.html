@@ -493,6 +493,69 @@
                 console.error("Error:", error);
             });
         }
+
+        function addDinner() {
+            var addDinner = document.querySelector(".add-dinner");
+            var removedinner = document.querySelector(".remove-dinner");
+            
+            fetch('/dinnerlp', {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    addDinner.style.display = "none";
+                    removeDinner.style.display = "block";
+                } else {
+                    addDinner.style.display = "block";
+                    removeDinner.style.display = "none";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+        function rmLunch() {
+            var addLunch = document.querySelector(".add-lunch");
+            var removeLunch = document.querySelector(".remove-lunch");
+            
+            fetch('/rmdinnerlp', {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    addLunch.style.display = "block";
+                    removeLunch.style.display = "none";
+                } else {
+                    addLunch.style.display = "none";
+                    removeLunch.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+        function rmDinner() {
+            var addDinner = document.querySelector(".add-dinner");
+            var removeDinner = document.querySelector(".remove-dinner");
+            
+            fetch('/rmdinnerlp', {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    addDinner.style.display = "block";
+                    removeDinner.style.display = "none";
+                } else {
+                    addDinner.style.display = "none";
+                    removeDinner.style.display = "block";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
     </script>
 </body>
 </html>
