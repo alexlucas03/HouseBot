@@ -214,6 +214,9 @@
         .topbar h1 {
             text-transform: capitalize;
         }
+        .remove-lunch, .remove-dinner {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -224,11 +227,17 @@
     </a>
 
     <div class="actionbar">
-        <a href="/lunchlp" class="menu-container">
+        <a href="/lunchlp" class="menu-container add-lunch">
             <div>Add lunch LP</div>
         </a>
-        <a href="/dinnerlp" class="menu-container">
+        <a href="/rmlunchlp" class="menu-container remove-lunch ">
+            <div>Remove lunch LP</div>
+        </a>
+        <a href="/dinnerlp" class="menu-container add-dinner">
             <div>Add dinner LP</div>
+        </a>
+        <a href="/rmdinnerlp" class="menu-container remove-dinner">
+            <div>Remove dinner LP</div>
         </a>
         <a href="#" class="menu-container" onclick="checkAll()">
             <div>Quarter schedule</div>
@@ -449,6 +458,32 @@
             downArrow.style.transform = "rotate(0deg)";
             allBody.style.display = "block";
             bigBody.style.display = allBody.style.display;
+        }
+
+        function toggleLunch() {
+            var addLunch = document.querySelector(".add-lunch");
+            var removeLunch = document.querySelector(".remove-lunch");
+
+            if (addDinner.style.display == "none") {
+                addLunch.style.display = "block";
+                removeLunch.style.display = "none"
+            } else {
+                addLunch.style.display = "none";
+                removeLunch.style.display = "block"
+            }
+        }
+
+        function toggleDinner() {
+            var addDinner = document.querySelector(".add-dinner");
+            var removeDinner = document.querySelector(".remove-dinner");
+            
+            if (addDinner.style.display == "none") {
+                addDinner.style.display = "block";
+                removeDinner.style.display = "none"
+            } else {
+                addDinner.style.display = "none";
+                removeDinner.style.display = "block"
+            }
         }
     </script>
 </body>
