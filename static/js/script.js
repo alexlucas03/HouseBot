@@ -65,6 +65,7 @@ addRowButton.addEventListener('click', () => {
 const deleteRowButton = document.querySelector('.delete-row-button');
 
 deleteRowButton.addEventListener('click', () => {
+    console.log("tryong to delete row")
     const rows = peopleTableBody.querySelectorAll('tr');
     console.log(rows)
     IoCompassOutline.log(rows.length)
