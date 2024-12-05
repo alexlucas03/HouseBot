@@ -754,7 +754,7 @@
             picksBody.style.display = "grid";
             bigBody.style.display = picksBody.style.display;
         }
-        
+
         const peopleTableBody = document.getElementById('people-table-body');
         const deleteRowButton = document.querySelector('.delete-row-button');
 
@@ -769,7 +769,17 @@
                 lastRow.remove();
             }
         });
+
+        const addRowButton = document.querySelector('.add-row-button');
+
+        addRowButton.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" name="name[]"></td>
+                <td><input type="text" name="userid[]"></td>
+            `;
+            peopleTableBody.appendChild(newRow);
+        });
     </script>
-    <script src="static/js/script.js"></script>
 </body>
 </html>

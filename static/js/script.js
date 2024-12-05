@@ -49,15 +49,3 @@ function unclaim(month, id) {
 }
 
 const user = "{{ user }}";
-
-const addRowButton = document.querySelector('.add-row-button');
-
-addRowButton.addEventListener('click', () => {
-    const newRow = document.createElement('tr');
-    newRow.innerHTML = `
-        <td><input type="text" name="name[]"></td>
-        <td><input type="text" name="userid[]"></td>
-    `;
-    peopleTableBody.appendChild(newRow);
-});
-
