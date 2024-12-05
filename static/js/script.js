@@ -66,9 +66,12 @@ const deleteRowButton = document.querySelector('.delete-row-button');
 
 deleteRowButton.addEventListener('click', () => {
     const rows = peopleTableBody.querySelectorAll('tr');
+    console.log(rows)
+    IoCompassOutline.log(rows.length)
     
     if (rows.length > 0) {
         const lastRow = rows[rows.length - 1];
+        console.log(lastRow)
         lastRow.remove();
     }
 });
