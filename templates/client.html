@@ -346,7 +346,7 @@
             <div class="dish-container">
                 <div class="dishes-list">
                     {% for dish in my_dishes %}
-                        <h3 class="dish-type">{{ dish.date.strftime("%B") }} {{ dish.day }}</h3>
+                        <h3 class="dish-type">{{ dish.date_obj.strftime("%B") }} {{ dish.day }}</h3>
                     {% endfor %}
                 </div>
                 <div class="dishes-owners">

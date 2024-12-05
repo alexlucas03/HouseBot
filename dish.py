@@ -13,7 +13,8 @@ class Dish:
 
     def to_dict(self):
         return {
-            'date': self.date,
+            'date_obj': self.date_obj,
+            'date_str': self.date_str,
             'month': self.month,
             'type': self.type,
             'weekday': self.weekday,
