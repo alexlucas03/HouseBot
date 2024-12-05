@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, url_for, session
+from flask import Flask, render_template, request, jsonify, redirect, url_for, session, Response
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import text
 import datetime
@@ -508,7 +508,7 @@ def lunchlp():
             text(f"INSERT INTO lunch VALUES ('{person.name}')")
         )
         db.session.commit()
-    return 200
+    return Response(status=200)
 
 @app.route('/dinnerlp', methods=['GET'])
 def dinnerlp():
@@ -519,7 +519,7 @@ def dinnerlp():
             text(f"INSERT INTO dinner VALUES ('{person.name}')")
         )
         db.session.commit()
-    return 200
+    return Response(status=200)
 
 def calculate_total_points():
     total_points = 0
