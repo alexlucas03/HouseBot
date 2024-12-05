@@ -508,7 +508,7 @@ def lunchlp():
             text(f"INSERT INTO lunch VALUES ('{person.name}')")
         )
         db.session.commit()
-    return redirect(url_for('client'))
+    return 200
 
 @app.route('/dinnerlp', methods=['GET'])
 def dinnerlp():
@@ -519,7 +519,7 @@ def dinnerlp():
             text(f"INSERT INTO dinner VALUES ('{person.name}')")
         )
         db.session.commit()
-    return redirect(url_for('client'))
+    return 200
 
 def calculate_total_points():
     total_points = 0
