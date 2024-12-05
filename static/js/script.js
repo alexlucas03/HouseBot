@@ -51,7 +51,6 @@ function unclaim(month, id) {
 const user = "{{ user }}";
 
 const addRowButton = document.querySelector('.add-row-button');
-const peopleTableBody = document.getElementById('people-table-body');
 
 addRowButton.addEventListener('click', () => {
     const newRow = document.createElement('tr');
