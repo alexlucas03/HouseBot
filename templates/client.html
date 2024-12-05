@@ -376,7 +376,7 @@
             
             var addLunch = document.querySelector(".add-lunch");
             var removeLunch = document.querySelector(".remove-lunch");
-            if ("{{ lunch }}"|int == 1) {
+            if ("{{ lunch }}" == "1") {
                 addLunch.style.display = "none";
                 removeLunch.style.display = "block";
             } else {
@@ -386,7 +386,7 @@
 
             var addDinner = document.querySelector(".add-dinner");
             var removeDinner = document.querySelector(".remove-dinner");
-            if ("{{ dinner }}"|int == 1) {
+            if ("{{ dinner }}" == "1") {
                 addDinner.style.display = "none";
                 removeDinner.style.display = "block";
             } else {
