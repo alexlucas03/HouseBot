@@ -264,6 +264,17 @@
         .add-row-button, .delete-row-button {
             width: 100%;
         }
+        .changebody {
+            grid-template-columns: auto;
+            width: 100%;
+            max-width: 400px;
+            justify-content: center;
+            text-align: left;
+        }
+        .changebody input, .changebody button {
+            width: 100%;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -318,13 +329,13 @@
     <div class="bigbody">
         <div class="changebody">
             <form action="/change_password">
-                <label for="current">Current Password:</label>
+                <strong>Current password:</strong>
                 <input type="text" id="current" name="current" required>
-                <label for="new">New Password:</label>
+                <strong>New password:</strong>
                 <input type="text" id="new" name="new" min="1" required>
-                <label for="confirm">Confirm New Password:</label>
+                <strong>Confirm new password:</strong>
                 <input type="text" id="confirm" name="confirm" required>
-                <button type="submit">Change Password</button>
+                <button type="submit">Change password</button>
             </form>
         </div>
 
@@ -710,7 +721,7 @@
                 }
             }
             downArrow.style.transform = "rotate(0deg)";
-            changeBody.style.display = "block";
+            changeBody.style.display = "grid";
             bigBody.style.display = changeBody.style.display;
         }
 
