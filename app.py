@@ -180,7 +180,9 @@ def client():
         if dish.owner == person.name:
             my_dishes.append(dish)
 
-    return render_template('client.html', my_dishes=my_dishes, person=person)
+    month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
+    today = datetime.datetime.now() - datetime.timedelta(hours=8)
+    return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today, my_dishes=my_dishes)
 
 @app.route('/dish_admin')
 def dish_admin():
