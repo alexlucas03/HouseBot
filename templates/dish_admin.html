@@ -218,13 +218,13 @@
             grid-template-columns: auto auto;
         }
         .initialbody .form-group {
-            margin-left: 20px;
-            margin-right: 20px;
             display: flex;
             flex-direction: column;
             gap: 10px;
         }
         .form-container {
+            margin-left: 20px;
+            margin-right: 20px;
             width: 100vw;
             max-width: 400px;
         }
@@ -481,31 +481,29 @@
             </div>
             
             <div class="form-container">
-                <div class="form-group">
-                    <h2>Initialize People</h2>
-                    <h4>Leave 'User ID' empty for liveouts</h4>
-                    <form action="/initpeople" method="POST">
-                        <table class="people-table">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>User ID</th>
-                                </tr>
-                            </thead>
-                            <tbody id="people-table-body">
-                                <tr>
-                                    <td><input type="text" name="name[]"></td>
-                                    <td><input type="text" name="userid[]"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="table-buttons">
-                            <button type="submit" class="table-button add-row-button" type="button">Add Row</button>
-                            <button class="table-button delete-row-button" type="button">Delete Row</button>
-                        </div>
-                            <button class="table-button">Initialize People</button>
-                    </form>
-                </div>
+                <h2>Initialize People</h2>
+                <h4>Leave 'User ID' empty for liveouts</h4>
+                <form action="/initpeople" method="POST">
+                    <table class="people-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>User ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="people-table-body">
+                            <tr>
+                                <td><input type="text" name="name[]"></td>
+                                <td><input type="text" name="userid[]"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table-buttons">
+                        <button type="submit" class="table-button add-row-button" type="button">Add Row</button>
+                        <button class="table-button delete-row-button" type="button">Delete Row</button>
+                    </div>
+                        <button class="table-button">Initialize People</button>
+                </form>
             </div>
         </div>
 
