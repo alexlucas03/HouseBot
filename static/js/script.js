@@ -62,4 +62,15 @@ addRowButton.addEventListener('click', () => {
     peopleTableBody.appendChild(newRow);
 });
 
+const deleteRowButton = document.querySelector('.delete-row-button');
+
+deleteRowButton.addEventListener('click', () => {
+    const rows = peopleTableBody.querySelectorAll('tr');
+    
+    if (rows.length > 0) {
+        const lastRow = rows[rows.length - 1];
+        lastRow.remove();
+    }
+});
+
 

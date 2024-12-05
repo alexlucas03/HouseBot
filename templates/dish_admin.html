@@ -242,7 +242,7 @@
         }
         .table-buttons {
             display: grid;
-            grid-template-columns: auto;
+            grid-template-columns: auto auto;
             justify-content: center;
             width: 100%;
         }
@@ -499,9 +499,10 @@
                         </tbody>
                     </table>
                     <div class="table-buttons">
-                        <button class="table-button add-row-button" type="button">Add Row</button>
-                        <button class="table-button" type="submit">Initialize People</button>
+                        <button type="submit" class="table-button add-row-button" type="button">Add Row</button>
+                        <button class="table-button delete-row-button" type="button">Delete Row</button>
                     </div>
+                        <button class="table-button">Initialize People</button>
                 </form>
             </div>
         </div>
