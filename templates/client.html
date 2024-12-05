@@ -460,19 +460,6 @@
             bigBody.style.display = allBody.style.display;
         }
 
-        function toggleLunch() {
-            var addLunch = document.querySelector(".add-lunch");
-            var removeLunch = document.querySelector(".remove-lunch");
-
-            if (addLunch.style.display === "none") {
-                addLunch.style.display = "block";
-                removeLunch.style.display = "none";
-            } else {
-                addLunch.style.display = "none";
-                removeLunch.style.display = "block";
-            }
-        }
-
         function toggleDinner() {
             var addDinner = document.querySelector(".add-dinner");
             var removeDinner = document.querySelector(".remove-dinner");
@@ -484,6 +471,27 @@
                 addDinner.style.display = "none";
                 removeDinner.style.display = "block";
             }
+        }
+
+        function addLunch() {
+            var addLunch = document.querySelector(".add-lunch");
+            var removeLunch = document.querySelector(".remove-lunch");
+            
+            fetch('/lunchlp', {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    addLunch.style.display = "none";
+                    removeLunch.style.display = "block";
+                } else {
+                    addLunch.style.display = "block";
+                    removeLunch.style.display = "none";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
         }
     </script>
 </body>
