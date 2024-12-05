@@ -32,6 +32,8 @@
             background-color: #fff;
             z-index: 1000;
             width: 100%;
+            color: black;
+            text-decoration: none;
         }
         .icon {
             width: 30vw;
@@ -219,6 +221,13 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+        }
+        .form-container {
+            width: 100vw;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -416,27 +425,27 @@
                 <h2>Initialize Dishes</h2>
                 <form action="/initdish" method="POST">
                     <div class="form-group">
-                        <strong>Start year:</strong>
+                        <strong>Start Year:</strong>
                         <input type="number" id="startYear" name="start_year" required>
                     </div>
                     <div class="form-group">
-                        <label for="startMonth">Start Month:</label>
+                        <strong>Start Month:</strong>
                         <input type="number" id="startMonth" name="start_month" min="1" max="12" required>
                     </div>
                     <div class="form-group">
-                        <label for="startDay">Start Day:</label>
+                        <strong>Start Day:</strong>
                         <input type="number" id="startDay" name="start_day" min="1" max="31" required>
                     </div>
                     <div class="form-group">
-                        <label for="endYear">End Year:</label>
+                        <strong>End Year:</strong>
                         <input type="number" id="endYear" name="end_year" required>
                     </div>
                     <div class="form-group">
-                        <label for="endMonth">End Month:</label>
+                        <strong>End Month:</strong>
                         <input type="number" id="endMonth" name="end_month" min="1" max="12" required>
                     </div>
                     <div class="form-group">
-                        <label for="endDay">End Day:</label>
+                        <strong>End Day:</strong>
                         <input type="number" id="endDay" name="end_day" min="1" max="31" required>
                     </div>
                     <button type="submit">Initialize Dishes</button>
