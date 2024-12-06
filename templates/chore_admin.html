@@ -417,7 +417,22 @@
         </div>
 
         <div class="homebody">
-            
+            <div class="chore-container">
+                <div class="chores-list">
+                    {% for chore in chores %}
+                        {% if chore.done == '0' %}
+                            <h3 class="chore-name">{{ chore.name }}</h3>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="chores-owners">
+                    {% for chore in chores %}
+                        {% if chore.done == '0' %}
+                            <h3 class="chore-person">{{ chore.person }}</h3>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>        
 
         <div class="initialbody">
