@@ -583,7 +583,7 @@ def chore_admin():
     today = datetime.datetime.now() - datetime.timedelta(hours=8)
     return render_template('chore_admin.html', user=user, person=person, people_objects=people_objects, today=today)
 
-def initchores(logged_in):
+def initchores():
     global chores, chorepeople
 
     chores.clear()
@@ -591,42 +591,6 @@ def initchores(logged_in):
     for month in months:
         dishes += globals()[f"{month.lower()}_objects"]
     create_chorepeople()
-    person = None
-    if not logged_in:
-        user = session['user']
-        for people in chorepeople:
-            if people.name == user:
-                person = people
-                break
-
-    today = datetime.date.today() - datetime.timedelta(hours=7)
-
-    if today.strftime("%A") == 'Saturday':
-        today += timedelta(days=1)
-
-    if start_date.date() <= today <= end_date.date():
-        today_lunch = None
-        today_dinner = None
-        today_x1 = None
-
-        for dish in dishes:
-            if dish.date_obj == today:
-                if dish.weekday != 'Sunday' and dish.type == "lunch":
-                    today_lunch = dish
-                elif dish.type == "dinner":
-                    today_dinner = dish
-                elif dish.type == "x1":
-                    today_x1 = dish
-
-        lunch_owner = today_lunch.owner if today_lunch and today_lunch.owner else 'Not Assigned'
-        dinner_owner = today_dinner.owner if today_dinner and today_dinner.owner else 'Not Assigned'
-        x1_owner = today_x1.owner if today_x1 and today_x1.owner else 'Not Assigned'
-
-    if not logged_in and user != 'admin':
-        person = calculate_points(person)
-    elif not logged_in:
-        for i, person in enumerate(people_objects):
-            people_objects[i] = calculate_points(person)
 
 def create_chores():
     global chores
