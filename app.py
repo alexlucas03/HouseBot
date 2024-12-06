@@ -207,14 +207,6 @@ def dish_admin():
     today = datetime.datetime.now() - datetime.timedelta(hours=8)
     return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today)
 
-@app.route('/chore_admin')
-def chore_admin():
-    if 'user' not in session or session['user'] != 'admin':
-        return redirect('/')
-    init(False)
-    today = datetime.datetime.now() - datetime.timedelta(hours=8)
-    return render_template('chore_admin.html', user=user, person=person, people_objects=people_objects, today=today)
-
 @app.route('/rules')
 def rules():
     return render_template('rules.html')
@@ -583,6 +575,14 @@ def calculate_total_points():
 
     return total_points
 
+@app.route('/chore_admin')
+def chore_admin():
+    if 'user' not in session or session['user'] != 'admin':
+        return redirect('/')
+    initchores(False)
+    today = datetime.datetime.now() - datetime.timedelta(hours=8)
+    return render_template('chore_admin.html', user=user, person=person, people_objects=people_objects, today=today)
+
 def initchores(logged_in):
     global chores, chorepeople
 
@@ -590,11 +590,11 @@ def initchores(logged_in):
     create_chores()
     for month in months:
         dishes += globals()[f"{month.lower()}_objects"]
-    create_people_objects()
+    create_chorepeople()
     person = None
     if not logged_in:
         user = session['user']
-        for people in people_objects:
+        for people in chorepeople:
             if people.name == user:
                 person = people
                 break
@@ -643,10 +643,10 @@ def create_chores():
         )
         chores.append(chore_obj)
 
-def create_chorepeople_objects():
+def create_chorepeople():
     global chorepeople
     chorepeople_rows = db.session.execute(text("SELECT * FROM chorepeople"))
-    chorepeople_objects = []
+    chorepeople = []
     for row in chorepeople_rows:
         choreperson_obj = Choreperson(name=row.name, userID=row.userid, day=row.day, lates=row.lates, fines=row.fines)
         chorepeople.append(choreperson_obj)
