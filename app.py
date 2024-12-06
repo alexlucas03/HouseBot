@@ -579,7 +579,7 @@ def calculate_total_points():
 def chore_admin():
     if 'user' not in session or session['user'] != 'admin':
         return redirect('/')
-    initchores(False)
+    initchores()
     today = datetime.datetime.now() - datetime.timedelta(hours=8)
     return render_template('chore_admin.html', user=user, person=person, people_objects=people_objects, today=today)
 
