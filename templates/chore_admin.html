@@ -421,7 +421,71 @@
         </div>        
 
         <div class="initialbody">
-
+            <div class="form-container">
+                <h2>Initialize Chores</h2>
+                <form action="/initchores" method="POST">
+                    <table class="chore-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Importance</th>
+                                <th>Frequency</th>
+                            </tr>
+                        </thead>
+                        <tbody id="chore-table-body">
+                            <tr>
+                                <td><input type="text" name="name[]"></td>
+                                <td><input type="text" name="description[]"></td>
+                                <td>
+                                    <select name="importance[]">
+                                        <option value="1">1 - priority</option>
+                                        <option value="2">2 - ehh</option>
+                                        <option value="3">3 - low</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="frequency[]">
+                                        <option value="daily">Daily</option>
+                                        <option value="weekly">Weekly</option>
+                                        <option value="one_time">One time</option>
+                                    </select>
+                                </td>
+                            </tr>                            
+                        </tbody>
+                    </table>
+                    <div class="table-buttons">
+                        <button class="table-button add-row-button" type="button">Add Row</button>
+                        <button class="table-button delete-row-button" type="button">Delete Row</button>
+                    </div>
+                        <button type="submit" class="table-button">Initialize Chores</button>
+                </form>
+            </div>
+            
+            <div class="form-container">
+                <h2>Initialize People</h2>
+                <form action="/initchorepeople" method="POST">
+                    <table class="people-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>User ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="people-table-body">
+                            <tr>
+                                <td><input type="text" name="name[]"></td>
+                                <td><input type="text" name="userid[]"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="table-buttons">
+                        <button class="table-button add-row-button" type="button">Add Row</button>
+                        <button class="table-button delete-row-button" type="button">Delete Row</button>
+                    </div>
+                        <button type="submit" class="table-button">Initialize People</button>
+                </form>
+            </div>
         </div>
 
         <div class="rankingsbody">
