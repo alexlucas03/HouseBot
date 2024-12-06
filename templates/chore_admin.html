@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chore Admin</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="icon" href="static/images/icon-plate.webp">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+        }
+        .topbar {
+            position: fixed;
+            top: 0%;
+            left: 50%;
+            transform: translate(-50%, 0%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: #fff;
+            z-index: 1000;
+            width: 100%;
+            color: black;
+            text-decoration: none;
+        }
+        .icon {
+            width: 30vw;
+            max-width: 150px;
+        }
+        .actionbar {
+            position: fixed;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            width: 100%;
+            background-color: #fff;
+            color: black;
+        }
+        .actionbar a, .logout, .menu-item div {
+            background-color: white;
+            border: none;
+            font-size: 3vh;
+            text-align: center;
+            transition: background 0.3s;
+            flex-grow: 1;
+            padding-bottom: 20px;
+            text-decoration: none;
+            color: black;
+        }
+        .actionbar a:hover, .menu-item div:hover {
+            color: #004c99;
+        }
+        .bigbody {
+            position: absolute;
+            padding: 5px;
+            width: 100vw;
+            justify-content: center;
+        }
+        .transparent {
+            color: rgba(0, 0, 0, 0.5);
+        }
+        .initial, .message, .picksbody, .rulesbody, .initialbar, .messagebar, .initialbody, .changebody, .allbody {
+            display: none;
+        }
+        #dish-columns {
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        .month-column {
+            flex: 1;
+            min-width: 200px;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            border-right: 2px solid #ccc;
+            padding-right: 10px;
+        }
+        .month-column:last-child {
+            border-right: none;
+        }
+        .month-column h2 {
+            text-align: center;
+        }
+        .day-section h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .month-column ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .month-column li {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .month-column li .dish-type {
+            text-align: left;
+            flex: 1;
+        }
+        .month-column li .claim-button {
+            margin-left: 10px;
+        }
+        .day-section {
+            height: 150px;
+        }
+        .allbody .container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .column1, .column2 {
+            flex: 1;
+            margin: 0 10px;
+        }
+        .column2 {
+            text-align: right;
+        }
+        .msg-button {
+            margin-top: 5px;
+        }
+        .highlight-owner {
+            color: red;
+            font-weight: bold;
+        }
+        .dishes-list {
+            border-right: 2px solid #888;
+            text-align: right;
+            padding: 10px;
+            width: 50vw;
+            max-width: 300px;
+        }
+        .dishes-owners {
+            border-left: 2px solid #888;
+            text-align: left;
+            padding: 10px;
+            width: 50vw;
+            max-width: 300px;
+        }
+        .dish-container {
+            grid-template-columns: auto auto;
+            display: grid;
+            padding-bottom: 5px;
+            width: 100%;
+            justify-content: center;
+        }
+        .homebody {
+            text-align: center;
+        }
+        .dish-type {
+            text-transform: capitalize;
+            padding: 10px;
+        }
+        .dish-owner {
+            text-transform: capitalize;
+            padding: 10px;
+        }
+        h1 {
+            margin: 10px;
+        }
+        .logout {
+            color: red;
+            padding-top: 40px;
+        }
+        .picksbody {
+            grid-template-columns: auto auto;
+        }
+        .topick, .picked {
+            text-align: center;
+            width: 100px;
+        }
+        .rulestable {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .rulestable, .rulestable th, .rulestable td {
+            border: 1px solid black;
+        }
+        .rulestable th, .rulestable td {
+            padding: 8px;
+            text-align: center;
+        }
+        .rulestable :first-child {
+            border-left: none;
+            border-top: none;
+        }
+        .rulesbody {
+            width: 100vw;
+            max-width: 600px;
+            padding: 10px;
+            justify-content: center;
+            margin: auto;
+        }
+        .downarrow, .messagearrow, .initialarrow {
+            height: 3vh;
+            max-height: 20px;
+        }
+        .menu-container {
+            display: flex;
+            align-items: center;
+            color: black;
+        }
+        .menu-header {
+            margin-right: 10px;
+        }
+        .initialbody {
+            grid-template-columns: auto auto;
+        }
+        .initialbody .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .form-container {
+            margin-left: 20px;
+            margin-right: 20px;
+            width: 100vw;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-container h2, .form-container h4 {
+            text-align: center;
+        }
+        .table-button {
+            width: 100%;
+        }
+        .people-table {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border-collapse: collapse;
+        }
+        .table-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+        }
+        .people-table td {
+            width: 50%;
+            padding: 0px !important;
+        }
+        .people-table input {
+            width: calc(100% - 4px);
+            padding: 0px;
+        }
+        .initialbody button {
+            width: 100%;
+        }
+        .add-row-button, .delete-row-button {
+            width: 100%;
+        }
+        .changebody {
+            grid-template-columns: auto;
+            width: 100vw;
+            max-width: 400px;
+            justify-content: center;
+            text-align: left;
+        }
+        .changebody button {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .changebody input {
+            width: calc(100% - 4px);
+            padding: 0 !important;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#" class="topbar" onclick="toggleActionBar()">
+        <img class="icon" src="static/images/txicon.svg" alt="">
+        <h1>Chore Admin</h1>
+        <img class="downarrow" src="static/images/downarrow.svg" alt="">
+    </a>
+
+    <div class="actionbar">
+        <a href="#" class="menu-container" onclick="checkAdd()">
+            <div class="menu-header">Add chore</div>
+        </a>
+        <a href="#" class="menu-container" onclick="checkView()">
+            <div class="menu-header">View chore rotation</div>
+        </a>
+        <a href="#" class="menu-container" onclick="checkRankings()">
+            <div>View rankings</div>
+        </a>
+        <a href="#" class="menu-container" onclick="checkInitial()">
+            <div>Initialize database</div>
+        </a>
+        <a href="#" class="menu-container" onclick="checkRules()">
+            <div>Rules</div>
+        </a>
+        <a href="#" class="menu-container" onclick="checkChange()">
+            <div>Change password</div>
+        </a>
+        <form action="/logout">
+            <button class="logout" type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="bigbody">
+        <div class="changebody">
+            <form action="/change_password">
+                <div>
+                    <strong>Current password:</strong>
+                </div>
+                <div>
+                    <input type="text" id="current" name="current" required>
+                </div>
+                <div>
+                    <strong>New password:</strong>
+                </div>
+                <div>
+                    <input type="text" id="new" name="new" min="1" required>
+                </div>
+                <div>
+                    <strong>Confirm new password:</strong>
+                </div>
+                <div>
+                    <input type="text" id="confirm" name="confirm" required>
+                </div>
+                <div>
+                    <button type="submit">Change password</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="rulesbody">
+            <strong>X1</strong>
+            <ul>
+                <li>Due by 5am next day</li>
+            </ul>
+            <strong>X2</strong>
+            <ul>
+                <li>Food away due 8:30pm</li>
+                <li>Due by 5am next day</li>
+            </ul>
+            <strong>X3</strong>
+            <ul>
+                <li>X2 + fridge clean</li>
+                <li>Due by 5am Monday</li>
+            </ul>
+
+            <strong>Picks:</strong>
+    
+            <ul>
+                <li>Click "claim" to pick dishes to exactly meet your points needed</li>
+                <li>Click "unclaim" to undo a pick</li>
+                <li>Make picks until your 'points needed' is 0</li>
+                <li>Points are allocated as follows:</li>
+            </ul>
+
+            <table class="rulestable">
+                <tbody>
+                    <tr>
+                        <th></th>
+                        <th>Mon</th>
+                        <th>Tues</th>
+                        <th>Wed</th>
+                        <th>Thurs</th>
+                        <th>Fri</th>
+                        <th>Sun</th>
+                    </tr>
+                    <tr>
+                        <th>Lunch</th>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <th>Dinner</th>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <th>X1</th>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="addbody">
+            
+        </div>
+
+        <div class="homebody">
+            
+        </div>        
+
+        <div class="initialbody">
+
+        </div>
+
+        <div class="rankingsbody">
+            
+        </div>
+
+        <div class="viewbody">
+            
+        </div>
+    </div>
+    <script>
+        window.onload = function() {
+            offsetBody();
+        };
+
+        function offsetBody() {
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            bigBody.style.top = topBar.offsetHeight + "px";
+        }
+
+        function toggleActionBar() {
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var homeBody = document.querySelector(".homebody");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                bigBodyChildren[i].style.display = "none";
+            }
+
+            if (actionBar.style.display === "flex") {
+                actionBar.style.display = "none";
+                bigBody.style.display = "block";
+                homeBody.style.display = "block";
+                downArrow.style.transform = "rotate(0deg)";
+            } else {
+                actionBar.style.display = "flex";
+                bigBody.style.display = "none";
+                homeBody.style.display = "none";
+                downArrow.style.transform = "rotate(180deg)";
+            }
+        }
+
+        function checkRules() {
+            var rulesBody = document.querySelector(".rulesbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.display = "none";
+            rulesBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== rulesBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+            downArrow.style.transform = "rotate(0deg)";
+            rulesBody.style.display = "block";
+            bigBody.style.display = rulesBody.style.display;
+        }
+
+        function checkAdd() {
+            var addBody = document.querySelector(".addbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.display = "none";
+            addody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== addBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+            downArrow.style.transform = "rotate(0deg)";
+            addBody.style.display = "block";
+            bigBody.style.display = addBody.style.display;
+        }
+
+        function checkChange() {
+            var changeBody = document.querySelector(".changebody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.display = "none";
+            changeBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== changeBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+            downArrow.style.transform = "rotate(0deg)";
+            changeBody.style.display = "grid";
+            bigBody.style.display = changeBody.style.display;
+        }
+
+        function checkInitial() {
+            var initialBody = document.querySelector(".initialbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.display = "none";
+            initialBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== initialBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+            downArrow.style.transform = "rotate(0deg)";
+            initialBody.style.display = "grid";
+            bigBody.style.display = initialBody.style.display;
+        }
+
+        function checkView() {
+            var viewBody = document.querySelector(".viewbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.display = "none";
+            viewBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== viewBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+            downArrow.style.transform = "rotate(0deg)";
+            viewBody.style.display = "grid";
+            bigBody.style.display = viewBody.style.display;
+        }
+
+        function checkRankings() {
+            var rankingsBody = document.querySelector(".rankingsbody");
+            var actionBar = document.querySelector(".actionbar");
+            var bigBody = document.querySelector(".bigbody");
+            var topBar = document.querySelector(".topbar");
+            var downArrow = document.querySelector(".downarrow");
+
+            actionBar.style.display = "none";
+            rankingsBody.style.top = topBar.offsetHeight + "px";
+
+            var bigBodyChildren = bigBody.children;
+            for (var i = 0; i < bigBodyChildren.length; i++) {
+                if (bigBodyChildren[i] !== rankingsBody) {
+                    bigBodyChildren[i].style.display = "none";
+                }
+            }
+            downArrow.style.transform = "rotate(0deg)";
+            rankingsBody.style.display = "grid";
+            bigBody.style.display = rankingsBody.style.display;
+        }
+
+        const peopleTableBody = document.getElementById('people-table-body');
+        const deleteRowButton = document.querySelector('.delete-row-button');
+
+        deleteRowButton.addEventListener('click', () => {
+            console.log("trying to delete row");
+            const rows = peopleTableBody.querySelectorAll('tr');
+            console.log(rows);
+            console.log(rows.length);
+            if (rows.length > 1) {
+                const lastRow = rows[rows.length - 1];
+                console.log(lastRow);
+                lastRow.remove();
+            }
+        });
+
+        const addRowButton = document.querySelector('.add-row-button');
+
+        addRowButton.addEventListener('click', () => {
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" name="name[]"></td>
+                <td><input type="text" name="userid[]"></td>
+            `;
+            peopleTableBody.appendChild(newRow);
+        });
+    </script>
+</body>
+</html>
