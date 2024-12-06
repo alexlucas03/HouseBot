@@ -581,7 +581,7 @@ def chore_admin():
         return redirect('/')
     initchores()
     today = datetime.datetime.now() - datetime.timedelta(hours=8)
-    return render_template('chore_admin.html', user=user, person=person, people_objects=people_objects, today=today)
+    return render_template('chore_admin.html', chores=chores, chorepeople=chorepeople, today=today)
 
 def initchores():
     global chores, chorepeople
