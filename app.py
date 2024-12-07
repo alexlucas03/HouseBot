@@ -621,16 +621,13 @@ def addchore():
         return redirect('/')
     
     if request.method == 'POST':
-        # Get form data
         name = request.form.get('name')
         description = request.form.get('description')
         importance = request.form.get('importance')
         frequency = request.form.get('frequency')
         done = "no"
-        person = request.form.get('person')
         day = request.form.get('day')
 
-        # Insert into database safely using parameterized queries
         db.session.execute(
             text("INSERT INTO chores (name, description, importance, frequency, done, person, day) VALUES (:name, :description, :importance, :frequency, :done, :person, :day)"),
             {'name': name, 'description': description, 'importance': importance, 'frequency': frequency, 'done': done, 'person': person, 'day': day}

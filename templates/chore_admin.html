@@ -425,11 +425,15 @@
                 
                 <div>
                     <strong>Description:</strong>
+                </div>
+                <div>
                     <input type="text" name="description" required>
                 </div>
                 
                 <div>
                     <strong>Importance:</strong>
+                </div>
+                <div>
                     <select name="importance" required>
                         <option value=""></option>
                         <option value="1">1 - priority</option>
@@ -440,21 +444,22 @@
                 
                 <div>
                     <strong>Frequency:</strong>
+                </div>
+                <div>
                     <select name="frequency" required>
                         <option value=""></option>
-                        <option value="daily">Daily</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="one_time">One time</option>
+                        <option value="0">One time</option>
+                        <option value="1">Once weekly</option>
+                        <option value="2">Twice weekly</option>
+                        <option value="3">Thrice weekly</option>
+                        <option value="4">Daily</option>
                     </select>
                 </div>
                 
                 <div>
-                    <strong>Assigned Person:</strong>
-                    <input type="text" name="person" required>
-                </div>
-                
-                <div>
                     <strong>Day:</strong>
+                </div>
+                <div>
                     <select name="day" required>
                         <option value=""></option>
                         <option value="mon">Monday</option>
