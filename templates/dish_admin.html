@@ -132,6 +132,9 @@
             font-weight: bold;
         }
         .homebody {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             text-align: center;
         }
         .initialbody, .changebody, .rulesbody, .picksbody, .allbody {
@@ -386,7 +389,7 @@
                 {% endfor %}
             </div>
             <h2>{{ todaymonth }} {{ todayday }}</h2>
-        </div>        
+        </div>
 
         <div class="initialbody">
             <div class="form-container">
