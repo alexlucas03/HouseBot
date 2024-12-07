@@ -1,12 +1,14 @@
 class Chore:
-    def __init__(self, name, description, importance, frequency, done, person, day):
+    def __init__(self, name, description, importance, frequency, done, person, day1, day2, day3):
         self.name = name
         self.description = description
         self.importance = importance
         self.frequency = frequency
         self.done = done
         self.person = person
-        self.day = day
+        self.day1 = day1
+        self.day2 = day2
+        self.day3 = day3
 
     def to_dict(self):
         return {
@@ -16,5 +18,7 @@ class Chore:
             'frequency': self.frequency,
             'done': self.done,
             'person': self.person,
-            'day': self.day
+            'day1': self.day1,
+            'day2': self.day2,
+            'day3': self.day3
         }
