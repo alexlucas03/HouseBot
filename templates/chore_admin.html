@@ -75,7 +75,7 @@
         .transparent {
             color: rgba(0, 0, 0, 0.5);
         }
-        .initial, .message, .picksbody, .rulesbody, .initialbar, .messagebar, .initialbody, .changebody, .allbody {
+        .rulesbody, .initialbody, .changebody, .addbody {
             display: none;
         }
         #dish-columns {
@@ -285,6 +285,10 @@
             padding: 0 !important;
             margin-bottom: 20px;
         }
+        .addbody {
+            justify-content: center;
+            grid-template-columns: auto;
+        }
     </style>
 </head>
 <body>
@@ -413,63 +417,82 @@
         </div>
 
         <div class="addbody">
-            <div class="addbody">
-                <form class="choreadder">
-                    <div>
-                        <strong>Chore Name:</strong>
-                        <form>
-                            <input type="text" id="name" name="name" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <strong>Description:</strong>
-                        <form>
-                            <input type="text" id="description" name="description" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <strong>Importance:</strong>
-                        <form>
-                            <input type="text" id="importance" name="importance" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <strong>Frequency:</strong>
-                        <form>
-                            <input type="text" id="frequency" name="frequency" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <strong>Done (Yes/No):</strong>
-                        <form>
-                            <input type="text" id="done" name="done" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <strong>Assigned Person:</strong>
-                        <form>
-                            <input type="text" id="person" name="person" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <strong>Day:</strong>
-                        <form>
-                            <input type="text" id="day" name="day" required>
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <button type="submit">Add Chore</button>
-                    </div>
-                </form>
-            </div>
-            
+            <form class="choreadder">
+                <div>
+                    <strong>Chore Name:</strong>
+                </div>
+                <div>
+                    <form id="name" name="name">
+                        <input type="text"required>
+                    </form>
+                </div>
+                
+                <div>
+                    <strong>Description:</strong>
+                </div>
+                <div>
+                    <form id="description" name="description">
+                        <input type="text"required>
+                    </form>
+                </div>
+                
+                <div>
+                    <strong>Importance:</strong>
+                </div>
+                <div>
+                    <form id="importance" name="importance">
+                        <select>
+                            <option value="1">1 - priority</option>
+                            <option value="2">2 - ehh</option>
+                            <option value="3">3 - low</option>
+                        </select>
+                    </form>
+                </div>
+                
+                <div>
+                    <strong>Frequency:</strong>
+                </div>
+                <div>
+                    <form>
+                        <select id="frequency" name="frequency">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="one_time">One time</option>
+                        </select>
+                    </form>
+                </div>
+                
+                <div>
+                    <strong>Done (Yes/No):</strong>
+                </div>
+                <div>
+                    <form id="done" name="done">
+                        <input type="text"required>
+                    </form>
+                </div>
+                
+                <div>
+                    <strong>Assigned Person:</strong>
+                </div>
+                <div>
+                    <form id="person" name="person">
+                        <input type="text"required>
+                    </form>
+                </div>
+                
+                <div>
+                    <strong>Day:</strong>
+                </div>
+                <div>
+                    <form id="day" name="day">
+                        <input type="text" required>
+                    </form>
+                </div>
+                
+                <div>
+                    <button type="submit">Add Chore</button>
+                </div>
+            </form>
         </div>
 
         <div class="homebody">
@@ -643,7 +666,7 @@
                 }
             }
             downArrow.style.transform = "rotate(0deg)";
-            addBody.style.display = "block";
+            addBody.style.display = "grid";
             bigBody.style.display = addBody.style.display;
         }
 

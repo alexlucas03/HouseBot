@@ -621,7 +621,7 @@ def addchore():
         return redirect('/')
     if request.method == 'POST':
         name = request.form.get('name')
-        description = request.form.get('new')
+        description = request.form.get('description')
         importance = request.form.get('importance')
         frequency = request.form.get('frequency')
         done = request.form.get('done')
