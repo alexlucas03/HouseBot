@@ -614,3 +614,21 @@ def create_chorepeople():
     for row in chorepeople_rows:
         choreperson_obj = Choreperson(name=row.name, userID=row.userid, day=row.day, lates=row.lates, fines=row.fines)
         chorepeople.append(choreperson_obj)
+
+@app.route('/addchore')
+def addchore():
+    if 'user' not in session or session['user'] != 'admin':
+        return redirect('/')
+    if request.method == 'POST':
+        name = request.form.get('name')
+        description = request.form.get('new')
+        importance = request.form.get('importance')
+        frequency = request.form.get('frequency')
+        done = request.form.get('done')
+        person = request.form.get('person')
+        day = request.form.get('day')
+    db.session.execute(
+            text(f"INSERT INTO chores VALUES ('{name}', '{description}', '{importance}', '{frequency}', '{done}', '{person}', '{day}')")
+        )
+    db.session.commit()
+    return Response(status=200)

@@ -413,6 +413,62 @@
         </div>
 
         <div class="addbody">
+            <div class="addbody">
+                <form class="choreadder">
+                    <div>
+                        <strong>Chore Name:</strong>
+                        <form>
+                            <input type="text" id="name" name="name" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <strong>Description:</strong>
+                        <form>
+                            <input type="text" id="description" name="description" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <strong>Importance:</strong>
+                        <form>
+                            <input type="text" id="importance" name="importance" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <strong>Frequency:</strong>
+                        <form>
+                            <input type="text" id="frequency" name="frequency" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <strong>Done (Yes/No):</strong>
+                        <form>
+                            <input type="text" id="done" name="done" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <strong>Assigned Person:</strong>
+                        <form>
+                            <input type="text" id="person" name="person" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <strong>Day:</strong>
+                        <form>
+                            <input type="text" id="day" name="day" required>
+                        </form>
+                    </div>
+                    
+                    <div>
+                        <button type="submit">Add Chore</button>
+                    </div>
+                </form>
+            </div>
             
         </div>
 
@@ -674,6 +730,28 @@
             rankingsBody.style.display = "grid";
             bigBody.style.display = rankingsBody.style.display;
         }
+
+        function addChore() {
+            var choreAdder = document.querySelector(".choreAdder");
+
+            fetch('/addchore', {
+                method: 'POST',
+                body: new FormData(choreAdder),
+            })
+            .then(response => {
+                if (response.ok) {
+                    choreAdder.reset();
+                    alert("Chore added successfully!");
+                } else {
+                    alert("Failed to add chore. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
+            });
+        }
+
 
         const peopleTableBody = document.getElementById('people-table-body');
         const deleteRowButton = document.querySelector('.delete-row-button');
