@@ -76,6 +76,10 @@
     </form>
 
     <script>
+        window.onload = function() {
+            checkAdmin();
+        }
+        
         function checkAdmin() {
             var username = document.getElementById("name").value;
             var passwordField = document.getElementById("password");
