@@ -417,83 +417,55 @@
         </div>
 
         <div class="addbody">
-            <form class="choreadder">
+            <form class="choreAdder" id="choreForm" method="POST">
                 <div>
                     <strong>Chore Name:</strong>
-                </div>
-                <div>
-                    <form id="name" name="name">
-                        <input type="text"required>
-                    </form>
+                    <input type="text" name="name" required>
                 </div>
                 
                 <div>
                     <strong>Description:</strong>
-                </div>
-                <div>
-                    <form id="description" name="description">
-                        <input type="text"required>
-                    </form>
+                    <input type="text" name="description" required>
                 </div>
                 
                 <div>
                     <strong>Importance:</strong>
-                </div>
-                <div>
-                    <form id="importance" name="importance">
-                        <select>
-                            <option value="1">1 - priority</option>
-                            <option value="2">2 - ehh</option>
-                            <option value="3">3 - low</option>
-                        </select>
-                    </form>
+                    <select name="importance" required>
+                        <option value="1">1 - priority</option>
+                        <option value="2">2 - ehh</option>
+                        <option value="3">3 - low</option>
+                    </select>
                 </div>
                 
                 <div>
                     <strong>Frequency:</strong>
-                </div>
-                <div>
-                    <form>
-                        <select id="frequency" name="frequency">
-                            <option value="daily">Daily</option>
-                            <option value="weekly">Weekly</option>
-                            <option value="one_time">One time</option>
-                        </select>
-                    </form>
+                    <select name="frequency" required>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="one_time">One time</option>
+                    </select>
                 </div>
                 
                 <div>
                     <strong>Done (Yes/No):</strong>
-                </div>
-                <div>
-                    <form id="done" name="done">
-                        <input type="text"required>
-                    </form>
+                    <input type="text" name="done" required>
                 </div>
                 
                 <div>
                     <strong>Assigned Person:</strong>
-                </div>
-                <div>
-                    <form id="person" name="person">
-                        <input type="text"required>
-                    </form>
+                    <input type="text" name="person" required>
                 </div>
                 
                 <div>
                     <strong>Day:</strong>
-                </div>
-                <div>
-                    <form id="day" name="day">
-                        <input type="text" required>
-                    </form>
+                    <input type="text" name="day" required>
                 </div>
                 
                 <div>
                     <button type="submit">Add Chore</button>
                 </div>
             </form>
-        </div>
+        </div>        
 
         <div class="homebody">
             <div class="chore-container">
@@ -775,6 +747,10 @@
             });
         }
 
+        document.getElementById('choreForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            addChore();
+        });
 
         const peopleTableBody = document.getElementById('people-table-body');
         const deleteRowButton = document.querySelector('.delete-row-button');

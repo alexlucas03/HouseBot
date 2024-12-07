@@ -615,11 +615,13 @@ def create_chorepeople():
         choreperson_obj = Choreperson(name=row.name, userID=row.userid, day=row.day, lates=row.lates, fines=row.fines)
         chorepeople.append(choreperson_obj)
 
-@app.route('/addchore')
+@app.route('/addchore', methods=['POST'])
 def addchore():
     if 'user' not in session or session['user'] != 'admin':
         return redirect('/')
+    
     if request.method == 'POST':
+        # Get form data
         name = request.form.get('name')
         description = request.form.get('description')
         importance = request.form.get('importance')
@@ -627,8 +629,12 @@ def addchore():
         done = request.form.get('done')
         person = request.form.get('person')
         day = request.form.get('day')
-    db.session.execute(
-            text(f"INSERT INTO chores VALUES ('{name}', '{description}', '{importance}', '{frequency}', '{done}', '{person}', '{day}')")
+
+        # Insert into database safely using parameterized queries
+        db.session.execute(
+            text("INSERT INTO chores (name, description, importance, frequency, done, person, day) VALUES (:name, :description, :importance, :frequency, :done, :person, :day)"),
+            {'name': name, 'description': description, 'importance': importance, 'frequency': frequency, 'done': done, 'person': person, 'day': day}
         )
-    db.session.commit()
-    return Response(status=200)
+        db.session.commit()
+
+        return Response(status=200)
