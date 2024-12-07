@@ -648,7 +648,8 @@
             }
 
             downArrow.style.transform = "rotate(0deg)";
-            if (body.style.grid-template-columns) {
+            var computedStyle = window.getComputedStyle(body);
+            if (computedStyle.gridTemplateColumns) {
                 body.style.display = "grid";
             } else {
                 body.style.display = "block";
