@@ -626,11 +626,14 @@ def addchore():
         importance = request.form.get('importance')
         frequency = request.form.get('frequency')
         done = "no"
-        day = request.form.get('day')
+        day1 = request.form.get('day1')
+        day2 = request.form.get('day2')
+        day3 = request.form.get('day3')
+
 
         db.session.execute(
-            text("INSERT INTO chores (name, description, importance, frequency, done, person, day) VALUES (:name, :description, :importance, :frequency, :done, :person, :day)"),
-            {'name': name, 'description': description, 'importance': importance, 'frequency': frequency, 'done': done, 'person': person, 'day': day}
+            text("INSERT INTO chores (name, description, importance, frequency, done, person, day1, day2, day3) VALUES (:name, :description, :importance, :frequency, :done, :person, :day1, :day2, :day3)"),
+            {'name': name, 'description': description, 'importance': importance, 'frequency': frequency, 'done': done, 'person': person, 'day1': day1, 'day2': day2, 'day3': day3}
         )
         db.session.commit()
 
