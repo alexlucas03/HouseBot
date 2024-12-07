@@ -629,6 +629,7 @@ def addchore():
         day1 = request.form.get('day1')
         day2 = request.form.get('day2')
         day3 = request.form.get('day3')
+        person = None
 
 
         db.session.execute(
