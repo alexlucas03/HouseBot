@@ -204,7 +204,7 @@ def dish_admin():
         return redirect('/')
     init(False)
     month_objects = {month.lower(): globals()[f"{month.lower()}_objects"] for month in months}
-    today = datetime.datetime.now() - datetime.timedelta(hours=8)
+    today = datetime.datetime.now() - datetime.timedelta(hours=8) + (datetime.timedelta(days=1) if datetime.datetime.now().weekday() == 5 else None)
     return render_template('dish_admin.html', months=months, month_objects=month_objects, user=user, person=person, people_objects=people_objects, today=today)
 
 @app.route('/rules')
