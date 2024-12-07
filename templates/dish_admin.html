@@ -315,20 +315,20 @@
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="initialbar">
-            <a href="#" class="menu-item" onclick="checkInitialize()">
+            <a href="#" class="menu-item" onclick="checkBody('initialbody')">
                 <div>Initialize database</div>
             </a>
-            <a href="#" class="menu-item" onclick="checkPicks()">
+            <a href="#" class="menu-item" onclick="checkBody('picksbody')">
                 <div>Pick Tracker</div>
             </a>
         </div>
-        <a href="#" class="menu-container" onclick="checkAll()">
+        <a href="#" class="menu-container" onclick="checkBody('allbody')">
             <div>Quarter schedule</div>
         </a>
-        <a href="#" class="menu-container" onclick="checkRules()">
+        <a href="#" class="menu-container" onclick="checkBody('rulesbody')">
             <div>Rules</div>
         </a>
-        <a href="#" class="menu-container" onclick="checkChange()">
+        <a href="#" class="menu-container" onclick="checkBody('changebody')">
             <div>Change password</div>
         </a>
         <form action="/logout">
@@ -630,46 +630,30 @@
             }
         }
 
-        function checkRules() {
-            var rulesBody = document.querySelector(".rulesbody");
+        function checkBody(bodyType) {
+            var body = document.querySelector("." + bodyType);
             var actionBar = document.querySelector(".actionbar");
             var bigBody = document.querySelector(".bigbody");
             var topBar = document.querySelector(".topbar");
             var downArrow = document.querySelector(".downarrow");
 
             actionBar.style.display = "none";
-            rulesBody.style.top = topBar.offsetHeight + "px";
+            body.style.top = topBar.offsetHeight + "px";
 
             var bigBodyChildren = bigBody.children;
             for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== rulesBody) {
+                if (bigBodyChildren[i] !== body) {
                     bigBodyChildren[i].style.display = "none";
                 }
             }
+
             downArrow.style.transform = "rotate(0deg)";
-            rulesBody.style.display = "block";
-            bigBody.style.display = rulesBody.style.display;
-        }
-
-        function checkAll() {
-            var allBody = document.querySelector(".allbody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            var downArrow = document.querySelector(".downarrow");
-
-            actionBar.style.display = "none";
-            allBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== allBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
+            if (body.style.grid-template-columns) {
+                body.style.display = "grid";
+            } else {
+                body.style.display = "block";
             }
-            downArrow.style.transform = "rotate(0deg)";
-            allBody.style.display = "block";
-            bigBody.style.display = allBody.style.display;
+            bigBody.style.display = body.style.display;
         }
 
         function checkMessage() {
@@ -726,69 +710,6 @@
                 });
                 logout.style.opacity = 0.5;
             }
-        }
-
-        function checkChange() {
-            var changeBody = document.querySelector(".changebody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            var downArrow = document.querySelector(".downarrow");
-
-            actionBar.style.display = "none";
-            changeBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== changeBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-            downArrow.style.transform = "rotate(0deg)";
-            changeBody.style.display = "grid";
-            bigBody.style.display = changeBody.style.display;
-        }
-
-        function checkInitialize() {
-            var initialBody = document.querySelector(".initialbody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            var downArrow = document.querySelector(".downarrow");
-
-            actionBar.style.display = "none";
-            initialBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== initialBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-            downArrow.style.transform = "rotate(0deg)";
-            initialBody.style.display = "grid";
-            bigBody.style.display = initialBody.style.display;
-        }
-
-        function checkPicks() {
-            var picksBody = document.querySelector(".picksbody");
-            var actionBar = document.querySelector(".actionbar");
-            var bigBody = document.querySelector(".bigbody");
-            var topBar = document.querySelector(".topbar");
-            var downArrow = document.querySelector(".downarrow");
-
-            actionBar.style.display = "none";
-            picksBody.style.top = topBar.offsetHeight + "px";
-
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                if (bigBodyChildren[i] !== picksBody) {
-                    bigBodyChildren[i].style.display = "none";
-                }
-            }
-            downArrow.style.transform = "rotate(0deg)";
-            picksBody.style.display = "grid";
-            bigBody.style.display = picksBody.style.display;
         }
 
         const peopleTableBody = document.getElementById('people-table-body');
