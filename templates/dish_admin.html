@@ -16,6 +16,7 @@
             justify-content: center;
             align-items: center;
             background-color: #fff;
+            text-decoration: none;
         }
         .topbar {
             position: fixed;
@@ -62,7 +63,7 @@
             color: #004c99;
         }
         .logout {
-            color: red;
+            color: red !important;
             padding-top: 40px;
         }
         .bigbody {
@@ -269,9 +270,9 @@
         <a href="#" class="menu-container" onclick="checkBody('changebody')">
             <div>Change password</div>
         </a>
-        <form action="/logout">
-            <button class="logout" type="submit">Logout</button>
-        </form>
+        <a href="/logout" class="menu-container logout">
+            <div>Logout</div>
+        </a>
     </div>
 
     <div class="bigbody">
