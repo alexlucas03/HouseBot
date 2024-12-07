@@ -603,7 +603,10 @@ def create_chores():
             frequency=row.frequency,
             done=row.done,
             person=row.person,
-            day=row.day
+            day1=row.day1,
+            day2=row.day2,
+            day3=row.day3,
+
         )
         chores.append(chore_obj)
 
@@ -612,7 +615,7 @@ def create_chorepeople():
     chorepeople_rows = db.session.execute(text("SELECT * FROM chorepeople"))
     chorepeople = []
     for row in chorepeople_rows:
-        choreperson_obj = Choreperson(name=row.name, userID=row.userid, day=row.day, lates=row.lates, fines=row.fines)
+        choreperson_obj = Choreperson(name=row.name, userID=row.userid, day1=row.day1, day2=row.day2, day3=row.day3, lates=row.lates, fines=row.fines)
         chorepeople.append(choreperson_obj)
 
 @app.route('/addchore', methods=['POST'])
@@ -626,9 +629,9 @@ def addchore():
         importance = request.form.get('importance')
         frequency = request.form.get('frequency')
         done = "no"
-        day1 = request.form.get('day1')
-        day2 = request.form.get('day2')
-        day3 = request.form.get('day3')
+        day1 = request.form.get('day1') if request.form.get('day1') else None
+        day2 = request.form.get('day2') if request.form.get('day2') else None
+        day3 = request.form.get('day3') if request.form.get('day3') else None
         person = None
 
 
