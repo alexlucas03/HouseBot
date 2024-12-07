@@ -626,7 +626,7 @@ def addchore():
         description = request.form.get('description')
         importance = request.form.get('importance')
         frequency = request.form.get('frequency')
-        done = request.form.get('done')
+        done = "no"
         person = request.form.get('person')
         day = request.form.get('day')
 
