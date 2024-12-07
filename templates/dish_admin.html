@@ -109,7 +109,6 @@
         }
         .dish-type, .dish-owner {
             text-transform: capitalize;
-            padding: 10px;
         }
         .dishes-list, .dishes-owners {
             padding: 10px;
@@ -199,7 +198,7 @@
         }
         .topick, .picked {
             text-align: center;
-            width: 100px;
+            width: 300px;
         }
         .downarrow, .messagearrow, .initialarrow {
             height: 3vh;
@@ -499,29 +498,21 @@
 
             actionBar.style.top = topBar.offsetHeight + "px";
 
-            var bigBodyChildren = bigBody.children;
-            for (var i = 0; i < bigBodyChildren.length; i++) {
-                bigBodyChildren[i].style.display = "none";
-            }
+            Array.from(bigBody.children).forEach(child => child.style.display = "none");
 
-            if (actionBar.style.display === "flex") {
-                actionBar.style.display = "none";
-                bigBody.style.display = "block";
-                homeBody.style.display = "block";
-                downArrow.style.transform = "rotate(0deg)";
-            } else {
-                actionBar.style.display = "flex";
+            var isActionBarVisible = actionBar.style.display === "flex";
+            actionBar.style.display = isActionBarVisible ? "none" : "flex";
+            bigBody.style.display = isActionBarVisible ? "block" : "none";
+            homeBody.style.display = isActionBarVisible ? "block" : "none";
+            downArrow.style.transform = isActionBarVisible ? "rotate(0deg)" : "rotate(180deg)";
+
+            if (!isActionBarVisible) {
                 messageBar.style.display = "none";
                 initialBar.style.display = "none";
-                bigBody.style.display = "none";
-                homeBody.style.display = "none";
-                downArrow.style.transform = "rotate(180deg)";
-                menuContainers.forEach(function(menuContainer) {
-                    menuContainer.style.opacity = 1;
-                });
-                initialArrow.style.transform = "rotate(0deg)"
-                messageArrow.style.transform = "rotate(0deg)"
+                menuContainers.forEach(menuContainer => menuContainer.style.opacity = 1);
                 logout.style.opacity = 1;
+                messageArrow.style.transform = "rotate(0deg)";
+                initialArrow.style.transform = "rotate(0deg)";
             }
         }
 
