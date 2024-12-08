@@ -560,34 +560,32 @@
             var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
 
-            // Use getComputedStyle to check if the bar is visible
-            var barDisplay = window.getComputedStyle(bar).display;
-
-            if (barDisplay === "block") {
+            if (bar.style.display === "block") {
                 bar.style.display = "none";
-                arrow.style.transform = "rotate(0deg)";
+                arrow.style.transform = "rotate(0deg)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
                 logout.style.opacity = 1;
             } else {
-                // Hide all other bars
+                console.log("appearing")
                 bars.forEach(function(b) {
-                    b.style.display = "none";
+                    if (b == bar) {
+                        console.log("bar matchie")
+                        b.style.display = "block";
+                    } else {
+                        console.log("bar non matchie")
+                        b.style.display = "none";
+                    }
                 });
-                // Show the selected bar
                 bar.style.display = "block";
-                
-                // Rotate the arrow for the selected bar and reset others
                 arrows.forEach(function(a) {
-                    if (a === arrow) {
-                        a.style.transform = "rotate(180deg)";
+                    if (a == arrow) {
+                        a.style.transform = "rotate(180deg)"
                     } else {
                         a.style.transform = "rotate(0deg)";
                     }
                 });
-                
-                // Dim the menu containers and logout button
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 0.5;
                 });
