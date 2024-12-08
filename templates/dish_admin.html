@@ -557,6 +557,7 @@
             var arrow = document.querySelector("." + barType + "arrow");
             var arrows = document.querySelectorAll("[class$='arrow']");
             var actionBar = document.querySelector(".actionbar");
+            var topBar = document.querySelector(".topbar");
             var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
 
@@ -570,11 +571,9 @@
             } else {
                 console.log("appearing");
                 bars.forEach(function(b) {
-                    if (b == bar) {
-                        console.log("bar matchie");
+                    if (b == bar && b != topBar && b != actionBar) {
                         b.style.display = "block";
-                    } else {
-                        console.log("bar non matchie");
+                    } else if (b != topBar && b != actionBar) {
                         b.style.display = "none";
                     }
                 });
