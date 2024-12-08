@@ -241,7 +241,7 @@
     </a>
 
     <div class="actionbar">
-        <a href="#" class="menu-container" onclick="checkMessage()">
+        <a href="#" class="menu-container" onclick="checkBar(message)">
             <div class="menu-header">Send messages</div>
             <img class="messagearrow" src="static/images/downarrow.svg" alt="">
         </a>
@@ -256,7 +256,7 @@
                 <div>Send dinner LPs</div>
             </a>
         </div>
-        <a href="#" class="menu-container" onclick="checkInitial()">
+        <a href="#" class="menu-container" onclick="checkBar(initial)">
             <div class="menu-header">Begin quarter</div>
             <img class="initialarrow" src="static/images/downarrow.svg" alt="">
         </a>
@@ -551,55 +551,38 @@
             bigBody.style.display = body.style.display;
         }
 
-        function checkMessage() {
-            var initialBar = document.querySelector(".initialbar");
-            var messageBar = document.querySelector(".messagebar");
+        function checkBar(barType) {
+            var bar = document.querySelector("." + barType + "bar");
+            var bars = document.querySelectorAll("[class$='bar']");
+            var arrow = document.querySelector("." + barType + "arrow");
+            var arrows = document.querySelectorAll("[class$='arrow']");
             var actionBar = document.querySelector(".actionbar");
             var menuContainers = document.querySelectorAll(".menu-container");
             var logout = document.querySelector(".logout");
-            var messageArrow = document.querySelector(".messagearrow");
-            var initialArrow = document.querySelector(".initialarrow");
 
-            if (messageBar.style.display === "block") {
-                messageBar.style.display = "none";
-                messageArrow.style.transform = "rotate(0deg)"
+            if (bar.style.display === "block") {
+                bar.style.display = "none";
+                arrow.style.transform = "rotate(0deg)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
                 logout.style.opacity = 1;
             } else {
-                messageBar.style.display = "block";
-                initialBar.style.display = "none";
-                messageArrow.style.transform = "rotate(180deg)"
-                initialArrow.style.transform = "rotate(0deg)"
-                menuContainers.forEach(function(menuContainer) {
-                    menuContainer.style.opacity = 0.5;
+                bars.forEach(function(b) {
+                    if (b == bar) {
+                        b.style.display = "block";
+                    } else {
+                        b.style.display = "none";
+                    }
                 });
-                logout.style.opacity = 0.5;
-            }
-        }
-
-        function checkInitial() {
-            var initialBar = document.querySelector(".initialbar");
-            var messageBar = document.querySelector(".messagebar");
-            var actionBar = document.querySelector(".actionbar");
-            var menuContainers = document.querySelectorAll(".menu-container");
-            var logout = document.querySelector(".logout");
-            var initialArrow = document.querySelector(".initialarrow");
-            var messageArrow = document.querySelector(".messagearrow");
-
-            if (initialBar.style.display === "block") {
-                initialBar.style.display = "none";
-                initialArrow.style.transform = "rotate(0deg)"
-                menuContainers.forEach(function(menuContainer) {
-                    menuContainer.style.opacity = 1;
+                bar.style.display = "block";
+                arrows.forEach(function(arr) {
+                    if (a == arrow) {
+                        a.style.transform = "rotate(180deg)"
+                    } else {
+                        a.style.transform = "rotate(0deg)";
+                    }
                 });
-                logout.style.opacity = 1;
-            } else {
-                initialBar.style.display = "block";
-                messageBar.style.display = "none";
-                initialArrow.style.transform = "rotate(180deg)"
-                messageArrow.style.transform = "rotate(0deg)"
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 0.5;
                 });
