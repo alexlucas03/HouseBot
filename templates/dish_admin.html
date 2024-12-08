@@ -562,26 +562,26 @@
 
             if (bar.style.display === "block") {
                 bar.style.display = "none";
-                arrow.style.transform = "rotate(0deg)"
+                arrow.style.transform = "rotate(0deg)";
                 menuContainers.forEach(function(menuContainer) {
                     menuContainer.style.opacity = 1;
                 });
                 logout.style.opacity = 1;
             } else {
-                console.log("appearing")
+                console.log("appearing");
                 bars.forEach(function(b) {
                     if (b == bar) {
-                        console.log("bar matchie")
+                        console.log("bar matchie");
                         b.style.display = "block";
                     } else {
-                        console.log("bar non matchie")
+                        console.log("bar non matchie");
                         b.style.display = "none";
                     }
                 });
                 bar.style.display = "block";
                 arrows.forEach(function(a) {
                     if (a == arrow) {
-                        a.style.transform = "rotate(180deg)"
+                        a.style.transform = "rotate(180deg)";
                     } else {
                         a.style.transform = "rotate(0deg)";
                     }
