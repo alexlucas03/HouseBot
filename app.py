@@ -268,7 +268,7 @@ def send_groupme_messages():
     x1_message = f"x1: @{x1_owner}"
     send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
-    return redirect(url_for('dish_admin'))
+    return Response(status=200)
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():

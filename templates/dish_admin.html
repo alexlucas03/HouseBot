@@ -246,13 +246,13 @@
             <img class="messagearrow" src="static/images/downarrow.svg" alt="">
         </a>
         <div class="messagebar">
-            <a href="#" class="menu-item" href="/send-messages">
+            <a href="#" class="menu-item" onclick="sendMessages()">
                 <div>Send today's schedule</div>
             </a>
-            <a href="#" class="menu-item" href="/lateplate_lunch">
+            <a class="menu-item" href="/lateplate_lunch">
                 <div>Send lunch LPs</div>
             </a>
-            <a href="#" class="menu-item" href="/lateplate_dinner">
+            <a class="menu-item" href="/lateplate_dinner">
                 <div>Send dinner LPs</div>
             </a>
         </div>
@@ -589,6 +589,23 @@
                 });
                 logout.style.opacity = 0.5;
             }
+        }
+
+        function sendMessages() {
+            fetch('/send-messages', {
+                method: 'GET',
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Messages sent!");
+                } else {
+                    alert("Error sending messages.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An unexpected error occurred. Please contact support.");
+            });
         }
 
         const peopleTableBody = document.getElementById('people-table-body');
