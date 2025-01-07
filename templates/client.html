@@ -577,7 +577,35 @@
             });
         }
 
+        function updatePointsDisplay(pointsDelta) {
+            const pointsDisplay = document.querySelector('.column1 h2');
+            if (pointsDisplay) {
+                const currentPoints = parseInt(pointsDisplay.textContent.match(/\d+/)[0]);
+                const newPoints = currentPoints + pointsDelta;
+                
+                if (newPoints <= 0) {
+                    pointsDisplay.remove();
+                } else {
+                    pointsDisplay.textContent = `Points Needed: ${newPoints}`;
+                }
+            }
+        }
+
+        function getPointValue(type, weekday) {
+            if (type === 'x1') return 1;
+            if (weekday.toLowerCase() === 'sunday' && type === 'dinner') return 3;
+            if (type === 'lunch' || type === 'dinner') return 2;
+            return 0;
+        }
+
         function changeOwner(month, id) {
+            const button = event.target;
+            const listItem = button.parentElement;
+            const dishType = listItem.querySelector('.dish-type').textContent;
+            const weekday = listItem.previousElementSibling ? 
+                listItem.previousElementSibling.textContent.split(',')[0] : 
+                listItem.parentElement.querySelector('h3').textContent.split(',')[0];
+            
             fetch('/change-owner', {
                 method: 'POST',
                 headers: {
@@ -591,7 +619,13 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.reload();
+                    // Update button to "Unclaim"
+                    button.textContent = 'Unclaim';
+                    button.onclick = () => unclaim(month, id);
+                    
+                    // Update points
+                    const pointValue = getPointValue(dishType.trim(), weekday.trim());
+                    updatePointsDisplay(-pointValue);
                 } else {
                     console.error('Failed to update dish owner');
                 }
@@ -602,6 +636,13 @@
         }
 
         function unclaim(month, id) {
+            const button = event.target;
+            const listItem = button.parentElement;
+            const dishType = listItem.querySelector('.dish-type').textContent;
+            const weekday = listItem.previousElementSibling ? 
+                listItem.previousElementSibling.textContent.split(',')[0] : 
+                listItem.parentElement.querySelector('h3').textContent.split(',')[0];
+
             fetch('/change-owner', {
                 method: 'POST',
                 headers: {
@@ -615,7 +656,13 @@
             })
             .then(response => {
                 if (response.ok) {
-                    window.location.reload();
+                    // Update button to "Claim"
+                    button.textContent = 'Claim';
+                    button.onclick = () => changeOwner(month, id);
+                    
+                    // Update points
+                    const pointValue = getPointValue(dishType.trim(), weekday.trim());
+                    updatePointsDisplay(pointValue);
                 } else {
                     console.error('Failed to unclaim dish');
                 }
