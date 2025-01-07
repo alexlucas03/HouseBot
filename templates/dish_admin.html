@@ -357,7 +357,7 @@
                             {% endif %}
                             <li>
                                 <span class="dish-type">{{ dish.type }}</span>
-                                <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">Owner: {{ dish.owner if dish.owner else 'None' }}</span>
+                                <span class="dish-owner {% if not dish.owner %}highlight-owner{% endif %}">{{ dish.owner if dish.owner else 'None' }}</span>
                             </li>
                         {% endfor %}
                     </div>
