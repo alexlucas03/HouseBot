@@ -262,11 +262,11 @@ def send_groupme_messages():
         lunch_message = f"Lunch: @{lunch_owner}"
         send_message(lunch_message, lunch_owner, lunch_userid, 7, 7 + len(lunch_owner))
 
-    dinner_message = f"Dinner: @{dinner_owner}"
-    send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
+        dinner_message = f"Dinner: @{dinner_owner}"
+        send_message(dinner_message, dinner_owner, dinner_userid, 8, 8 + len(dinner_owner))
 
-    x1_message = f"x1: @{x1_owner}"
-    send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
+        x1_message = f"x1: @{x1_owner}"
+        send_message(x1_message, x1_owner, x1_userid, 4, 4 + len(x1_owner))
 
     return Response(status=200)
 
